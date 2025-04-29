@@ -1,7 +1,7 @@
-import { getAddress } from '@ethersproject/address'
 import type { Hex } from '@xylabs/hex'
 import { toHex } from '@xylabs/hex'
 import type { AccountInstance } from '@xyo-network/account-model'
+import { getAddress } from 'ethers'
 import { parseUnits } from 'ethers/utils'
 
 export interface GasConfig {
