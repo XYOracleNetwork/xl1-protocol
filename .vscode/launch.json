@@ -1,0 +1,80 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Producer",
+      "program": "${workspaceFolder}/dist/node/cli/index.mjs",
+      "args": ["producer"],
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "runtimeArgs": [
+        "--max-old-space-size=8192"
+      ],
+      "envFile": "${workspaceFolder}/.env",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "!**/node_modules/**"
+      ],
+      "pauseForSourceMap": true,
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "API",
+      "program": "${workspaceFolder}/dist/node/index.mjs",
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js"
+      ],
+      "runtimeArgs": [
+        "--max-old-space-size=8192"
+      ],
+      "envFile": "${workspaceFolder}/.env",
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "!**/node_modules/**"
+      ],
+      "pauseForSourceMap": true,
+    },
+    {
+      "name": "Tests",
+      "request": "launch",
+      "type": "node",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": [
+        "--run",
+        "--inspect-brk",
+        "--no-file-parallelism",
+        "--test-timeout=0",
+        "packages/rpc/src/provider/provider/spec/HttpJsonRpcXyoViewer.spec.ts"
+      ],
+      "sourceMaps": true,
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "**/node_modules/**"
+      ],
+      "pauseForSourceMap": true,
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.*",
+        "${workspaceFolder}/node_modules/**/*.*"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceRoot}",
+      "env": {
+        "NODE_ENV": "test"
+      },
+      "envFile": "${workspaceRoot}/.env",
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Wallet",
+      "url": "http://localhost:3001/foreverize",
+      "runtimeArgs": ["--load-extension=${workspaceFolder}/packages/wallet-chrome/build"],
+      "webRoot": "${workspaceFolder}/packages/wallet-chrome/src"
+    },
+  ]
+}

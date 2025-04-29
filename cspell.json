@@ -1,0 +1,31 @@
+{
+    "dictionaries": [],
+    "dictionaryDefinitions": [],
+    "ignorePaths": [],
+    "ignoreWords": [],
+    "import": [],
+    "version": "0.2",
+    "words": [
+        "antifragile",
+        "Autorenew",
+        "Blockies",
+        "cooldown",
+        "depcheck",
+        "ellipsize",
+        "eslintcache",
+        "Initializable",
+        "Kalman",
+        "leveldb",
+        "lmdb",
+        "Merkle",
+        "rollbar",
+        "rollup",
+        "statefulset",
+        "Tokenomics",
+        "UTXO",
+        "Xorshift",
+        "xylabs",
+        "Xyos",
+        "Zipkin"
+    ]
+}
