@@ -1,6 +1,4 @@
-import type {
-  Address, Hash, Hex,
-} from '@xylabs/hex'
+import type { Hash, Hex } from '@xylabs/hex'
 import { isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness } from '@xyo-network/boundwitness-model'
@@ -13,8 +11,6 @@ export interface BlockBoundWitnessMeta {
 }
 
 export interface BlockBoundWitnessFields {
-  /** Updated balance of address whose balance were changed by this block */
-  balances: Record<Address, Hex>
   /** Block number */
   block: number
   /** Chain id - this should be "0" for the genesis block */
