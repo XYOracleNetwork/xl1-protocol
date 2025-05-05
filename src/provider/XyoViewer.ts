@@ -4,7 +4,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { SignedHydratedBlock, SignedHydratedTransaction } from '../protocol/index.ts'
 
 export interface XyoViewer {
-  accountBalance(address: Address, blockNumber: number, full: boolean): Promisable<bigint>
+  accountBalance(address: Address): Promisable<bigint>
   blockByHash(hash: Hash): Promisable<SignedHydratedBlock | null>
   blockByNumber(blockNumber: number): Promisable<SignedHydratedBlock | null>
   blocksByHash(hash: Hash, limit?: number): Promisable<SignedHydratedBlock[]>
