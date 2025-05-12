@@ -64,11 +64,11 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.3"
   },
+  "packageManager": "yarn@4.9.1",
   "engines": {
     "node": ">=22.3 <23"
   },
   "engineStrict": true,
-  "packageManager": "yarn@4.9.1",
   "publishConfig": {
     "access": "public"
   }
