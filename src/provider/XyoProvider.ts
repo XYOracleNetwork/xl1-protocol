@@ -10,8 +10,10 @@ import type { XyoSigner } from './XyoSigner.ts'
 import type { XyoStorage } from './XyoStorage.ts'
 import type { XyoViewer } from './XyoViewer.ts'
 import type { XyoWallet } from './XyoWallet.ts'
+import { XyoNetwork } from './XyoNetwork.ts'
 
 export interface XyoProvider {
+  network?: XyoNetwork
   runner?: XyoRunner
   send?: (
     elevatedPayloads: AllowedBlockPayload[],
