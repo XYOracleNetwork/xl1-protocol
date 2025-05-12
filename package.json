@@ -68,6 +68,7 @@
     "node": ">=22.3 <23"
   },
   "engineStrict": true,
+  "packageManager": "yarn@4.9.1",
   "publishConfig": {
     "access": "public"
   }
