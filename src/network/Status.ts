@@ -4,7 +4,7 @@ import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
 export const NetworkStatusSchema = 'network.xyo.chain.status' as const
 export type NetworkStatusSchema = typeof NetworkStatusSchema
 
-export type NetworkStatusState = 'online' | 'offline' | 'degraded'
+export type NetworkStatusState = 'online' | 'offline' | 'degraded' | 'unknown'
 
 export type NetworkStatusUpdate = {
   end: number
