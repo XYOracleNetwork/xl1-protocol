@@ -15,13 +15,13 @@ export interface ChainIterator<TKey, THead> extends ReadRepository<TKey, BlockBo
   updateHead(head: THead): Promise<void>
 }
 
-export interface EventingChainIterator<TKey, THead> extends ChainIterator<TKey, THead>, BaseEmitter<BaseParams, ChainIteratorEventData> {}
+export interface EventingChainIterator<TKey, THead> extends ChainIterator<TKey, THead>, BaseEmitter<BaseParams, ChainIteratorEventData> { }
 
-export interface ChainBlockNumberIterator extends ChainIterator<number, BlockBoundWitness> {}
-export interface EventingChainBlockNumberIterator extends EventingChainIterator<number, BlockBoundWitness> {}
+export interface ChainBlockNumberIterator extends ChainIterator<number, BlockBoundWitness> { }
+export interface EventingChainBlockNumberIterator extends EventingChainIterator<number, BlockBoundWitness> { }
 
-export interface ChainHashIterator extends ChainIterator<Hash, Hash> {}
-export interface EventingChainHashIterator extends EventingChainIterator<Hash, Hash> {}
+export interface ChainHashIterator extends ChainIterator<Hash, Hash> { }
+export interface EventingChainHashIterator extends EventingChainIterator<Hash, Hash> { }
 
 export interface XyoChainIteratorParams extends BaseServiceParams {
   chainArchivist: ArchivistInstance
