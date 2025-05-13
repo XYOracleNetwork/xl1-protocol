@@ -1,3 +1,4 @@
+export * from './XyoNetwork.ts'
 export * from './XyoProvider.ts'
 export * from './XyoRunner.ts'
 export * from './XyoSigner.ts'
