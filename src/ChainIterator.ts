@@ -1,7 +1,7 @@
 import type { BaseParams } from '@xylabs/base'
 import type { Hash } from '@xylabs/hex'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import type { BaseEmitter } from '@xyo-network/module-event-emitter'
+import type { ModuleBaseEmitter } from '@xyo-network/module-event-emitter'
 
 import type { ChainIteratorEventData } from './ChainIteratorEventData.ts'
 import type { BlockBoundWitness } from './protocol/index.ts'
@@ -15,7 +15,7 @@ export interface ChainIterator<TKey, THead> extends ReadRepository<TKey, BlockBo
   updateHead(head: THead): Promise<void>
 }
 
-export interface EventingChainIterator<TKey, THead> extends ChainIterator<TKey, THead>, BaseEmitter<BaseParams, ChainIteratorEventData> { }
+export interface EventingChainIterator<TKey, THead> extends ChainIterator<TKey, THead>, ModuleBaseEmitter<BaseParams, ChainIteratorEventData> { }
 
 export interface ChainBlockNumberIterator extends ChainIterator<number, BlockBoundWitness> { }
 export interface EventingChainBlockNumberIterator extends EventingChainIterator<number, BlockBoundWitness> { }
