@@ -1840,6 +1840,7 @@ __metadata:
     "@types/node": "npm:^22.15.17"
     "@xylabs/base": "npm:^4.9.17"
     "@xylabs/eslint-config-flat": "npm:^6.5.5"
+    "@xylabs/events": "npm:^4.9.17"
     "@xylabs/hex": "npm:^4.9.17"
     "@xylabs/logger": "npm:^4.9.17"
     "@xylabs/object": "npm:^4.9.17"

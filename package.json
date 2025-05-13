@@ -32,6 +32,7 @@
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@xylabs/base": "^4.9.17",
+    "@xylabs/events": "^4.9.17",
     "@xylabs/hex": "^4.9.17",
     "@xylabs/logger": "^4.9.17",
     "@xylabs/object": "^4.9.17",

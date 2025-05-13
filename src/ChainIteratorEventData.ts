@@ -1,4 +1,4 @@
-import type { EventData } from '@xyo-network/module-events'
+import type { EventData } from '@xylabs/events'
 
 import type { BlockBoundWitness } from './protocol/index.ts'
 
@@ -8,4 +8,4 @@ export interface HeadEventData extends EventData {
   headUpdated: HeadEventArgs
 }
 
-export interface ChainIteratorEventData extends HeadEventData {}
+export interface ChainIteratorEventData extends HeadEventData { }
