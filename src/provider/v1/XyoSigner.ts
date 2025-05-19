@@ -5,7 +5,7 @@ import type { Payload } from '@xyo-network/payload-model'
 
 import type {
   AllowedBlockPayload, TransactionBoundWitness, TransactionFeesBigInt,
-} from '../protocol/index.ts'
+} from '../../protocol/index.ts'
 
 export interface XyoSigner {
   address(): Promisable<Address>

@@ -4,7 +4,7 @@ import type { Payload } from '@xyo-network/payload-model'
 
 import type {
   AllowedBlockPayload, TransactionBoundWitness, TransactionFeesBigInt,
-} from '../protocol/index.ts'
+} from '../../protocol/index.ts'
 import type { XyoDataLakeProvider } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
