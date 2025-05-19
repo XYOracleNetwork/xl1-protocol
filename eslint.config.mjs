@@ -13,12 +13,16 @@ export default [
   workspacesConfig,
   rulesConfig,
   typescriptConfig,
-  importConfig,
   sonarConfig,
   {
+    ...importConfig,
     rules: {
+      ...importConfig.rules,
+      'import-x/no-internal-modules': ['warn', { allow: ['vitest/config', 'ethers/utils', '*/index.ts'] }],
       'import-x/no-unresolved': ['off'],
-      'import-x/no-internal-modules': ['off'],
+      'import-x/no-relative-packages': ['error'],
+      'import-x/no-self-import': ['error'],
+      'import-x/no-useless-path-segments': ['warn'],
       'sonarjs/prefer-single-boolean-return': ['off'],
     },
   },

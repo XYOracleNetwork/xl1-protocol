@@ -1,8 +1,9 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { HydratedTransaction, HydratedTransactionWithHashStorageMeta } from '../../protocol/HydratedTransaction.ts'
-import type { TransactionBoundWitness } from '../../protocol/TransactionBoundWitness.ts'
+import type {
+  HydratedTransaction, HydratedTransactionWithHashStorageMeta, TransactionBoundWitness,
+} from '#transaction'
 
 /**
  * A function that validates a hydrated transaction.

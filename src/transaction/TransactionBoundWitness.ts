@@ -8,8 +8,9 @@ import { isStorageMeta } from '@xyo-network/payload-model'
 import type {
   FromFields,
   OptionalExecutable,
-} from '../payload/index.ts'
-import type { BlockDuration } from './BlockDuration.ts'
+} from '#payload'
+
+import type { BlockDuration } from '../BlockDuration.ts'
 import type { TransactionFeesFields } from './TransactionFeesFields.ts'
 
 export interface TransactionBoundWitnessFields extends BlockDuration, TransactionFeesFields {

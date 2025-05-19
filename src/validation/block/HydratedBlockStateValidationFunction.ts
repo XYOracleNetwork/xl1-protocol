@@ -2,7 +2,7 @@ import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 
-import type { HydratedBlock } from '../../protocol/index.ts'
+import type { HydratedBlock } from '#block'
 
 /**
  * A function that validates a hydrated block against chain state.

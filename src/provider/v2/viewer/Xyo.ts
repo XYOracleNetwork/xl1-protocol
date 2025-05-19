@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { XyoWallet } from '../../v1/XyoWallet.ts'
+import type { XyoWallet } from '../../v1/index.ts'
 import type { ChainViewer } from './Chain.ts'
 import type { DataLakeViewer } from './DataLake.ts'
 

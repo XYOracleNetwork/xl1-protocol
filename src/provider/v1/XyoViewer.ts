@@ -1,10 +1,9 @@
 import type { Address, Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { Transfer } from '../../payload/index.ts'
-import type {
-  SignedHydratedBlock, SignedHydratedTransaction, TransactionBoundWitness,
-} from '../../protocol/index.ts'
+import type { SignedHydratedBlock } from '#block'
+import type { Transfer } from '#payload'
+import type { SignedHydratedTransaction, TransactionBoundWitness } from '#transaction'
 
 export interface XyoViewer {
   accountBalance: (address: Address) => Promisable<bigint>

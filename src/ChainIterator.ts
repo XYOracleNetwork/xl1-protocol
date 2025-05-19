@@ -3,10 +3,11 @@ import type { BaseEmitter } from '@xylabs/events'
 import type { Hash } from '@xylabs/hex'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 
+import type { BlockBoundWitness } from '#block'
+import type { IterableRepository, ReadRepository } from '#repository'
+import type { BaseServiceParams, ChainIdentification } from '#services'
+
 import type { ChainIteratorEventData } from './ChainIteratorEventData.ts'
-import type { BlockBoundWitness } from './protocol/index.ts'
-import type { IterableRepository, ReadRepository } from './repository/index.ts'
-import type { BaseServiceParams, ChainIdentification } from './services/index.ts'
 
 export interface ChainIterator<TKey, THead> extends ReadRepository<TKey, BlockBoundWitness>, IterableRepository<TKey, BlockBoundWitness> {
   chainIdentification: ChainIdentification

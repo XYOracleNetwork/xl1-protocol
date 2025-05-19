@@ -1,7 +1,8 @@
 import type { Address, Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { NetworkStatus } from '../../../network/Status.ts'
+import type { NetworkStatus } from '#network'
+
 import type { AccountViewer } from './Account.ts'
 import type { BlockViewer } from './Block.ts'
 
