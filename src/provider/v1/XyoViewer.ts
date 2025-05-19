@@ -6,7 +6,7 @@ import type { SignedHydratedBlock, SignedHydratedTransaction } from '../../proto
 
 export interface XyoViewer {
   accountBalance: (address: Address) => Promisable<bigint>
-  accountHistory?: (address: Address) => Promisable<Transfer>
+  accountHistory: (address: Address) => Promisable<Transfer>
 
   blockByHash(hash: Hash): Promisable<SignedHydratedBlock | null>
   blockByNumber(blockNumber: number): Promisable<SignedHydratedBlock | null>
