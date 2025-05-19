@@ -7,7 +7,7 @@ const config: KnipConfig = {
   project: ['src/**/*.ts*'],
   typescript: {
     config: [
-      'packages/rpc/tsconfig.json',
+      'tsconfig.json',
     ],
   },
 }
