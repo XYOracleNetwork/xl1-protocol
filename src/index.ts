@@ -1,6 +1,7 @@
 export * from './Addressable.ts'
 export * from './block/index.ts'
 export * from './BlockDuration.ts'
+export * from './chain/index.ts'
 export * from './ChainIterator.ts'
 export * from './ChainIteratorEventData.ts'
 export * from './ethereum.ts'
