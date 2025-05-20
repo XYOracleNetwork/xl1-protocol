@@ -1,6 +1,6 @@
 import type { EventData } from '@xylabs/events'
 
-import type { BlockBoundWitness } from '#block'
+import type { BlockBoundWitness } from './block/index.ts'
 
 export type HeadEventArgs = { blocks: [BlockBoundWitness] }
 

@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/hex'
 
-import type { Intent } from '#payload'
+import type { Intent } from '../../payload/index.ts'
 
 export interface StakeIntentService {
 
