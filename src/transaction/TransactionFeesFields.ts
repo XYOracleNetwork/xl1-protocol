@@ -1,11 +1,21 @@
 import type { Hex } from '@xylabs/hex'
 
+import { MicroXL1 } from '../Xl1.ts'
+
 export interface TransactionFeesBigInt {
-  base: bigint // In mXL1
-  gasLimit: bigint // In mXL1
-  gasPrice: bigint // In mXL1
-  priority: bigint // In mXL1
+  base: MicroXL1
+  gasLimit: MicroXL1
+  gasPrice: MicroXL1
+  priority: MicroXL1
 }
+
+export const TransactionGasCosts = {
+  byte: MicroXL1(10n),
+  payloadValidation: MicroXL1(1000n),
+  signatureValidation: MicroXL1(1000n),
+  hashValidation: MicroXL1(100n),
+  balanceValidation: MicroXL1(100n),
+} as const
 
 export type TransactionFeesHex = {
   [K in keyof TransactionFeesBigInt]: Hex;
@@ -14,6 +24,14 @@ export type TransactionFeesHex = {
 export interface TransactionFeesFields {
   fees: TransactionFeesHex
 }
+
+export const minTransactionFees: TransactionFeesBigInt = {
+  base: MicroXL1(1000n), gasPrice: MicroXL1(1n), gasLimit: MicroXL1(1000n), priority: MicroXL1(0n),
+} as const
+
+export const defaultTransactionFees: TransactionFeesBigInt = {
+  base: minTransactionFees.base, gasPrice: MicroXL1(10n), gasLimit: MicroXL1(1_000_000n), priority: MicroXL1(0n),
+} as const
 
 /** Gas Calculation
  *
@@ -33,6 +51,6 @@ export interface TransactionFeesFields {
  *
  * minGasPrice is initially set to 100 mXL1
  * minBase is initially set to 1000 mXL1
- * minPriority is alway 0 mXL1, but can be set to increase the priority of the transaction
+ * minPriority is always 0 mXL1, but can be set to increase the priority of the transaction
  *
  */
