@@ -1,7 +1,7 @@
 import type { ArchivistInstance, WriteArchivist } from '@xyo-network/archivist-model'
 import type { WalletInstance } from '@xyo-network/wallet-model'
 
-import type { EventingChainBlockNumberIterator } from '../ChainIterator.ts'
+import type { EventingChainBlockNumberIterator } from '../iterator/index.ts'
 import type { AccountBalanceService } from './AccountBalanceService.ts'
 import type { BlockProducer } from './BlockProducer.ts'
 import type { BlockRewardService } from './BlockReward.ts'

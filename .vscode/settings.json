@@ -27,6 +27,7 @@
     "**/storybook-static": true,
     "**/docs": true,
   },
+  "typescript.preferences.importModuleSpecifier": "shortest",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "[typescriptreact]": {

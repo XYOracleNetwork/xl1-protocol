@@ -2,7 +2,7 @@ import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
 
-import type { BlockDuration } from '../../BlockDuration.ts'
+import type { BlockDuration } from '../../fields/index.ts'
 import type { FromFields } from './Executable.ts'
 
 export const ChainStakeIntentSchema = 'network.xyo.chain.stake.intent' as const
