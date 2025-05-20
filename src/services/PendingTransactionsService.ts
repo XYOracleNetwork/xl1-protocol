@@ -1,6 +1,7 @@
 import type { Hash } from '@xylabs/hex'
 
-import type { HydratedTransaction } from '../transaction/index.ts'
+import type { HydratedTransaction } from '#transaction'
+
 import type { Service } from './Service.ts'
 
 export interface PendingTransactionsService extends Service {

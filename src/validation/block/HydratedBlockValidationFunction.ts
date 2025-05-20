@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { HydratedBlock } from '../../block/index.ts'
+import type { HydratedBlock } from '#block'
 
 /**
  * A function that validates a hydrated block.

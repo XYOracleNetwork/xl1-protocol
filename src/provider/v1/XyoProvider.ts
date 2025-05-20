@@ -2,8 +2,9 @@ import type { Address } from '@xylabs/hex'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
-import type { AllowedBlockPayload } from '../../block/index.ts'
-import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
+import type { AllowedBlockPayload } from '#block'
+import type { TransactionBoundWitness, TransactionFeesBigInt } from '#transaction'
+
 import type { XyoDataLakeProvider } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'

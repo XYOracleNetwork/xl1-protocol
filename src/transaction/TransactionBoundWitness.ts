@@ -5,8 +5,9 @@ import { isBoundWitness } from '@xyo-network/boundwitness-model'
 import type { WithStorageMeta } from '@xyo-network/payload-model'
 import { isStorageMeta } from '@xyo-network/payload-model'
 
-import type { BlockDuration } from '../fields/index.ts'
-import type { FromFields, OptionalExecutable } from '../payload/index.ts'
+import type { BlockDuration } from '#fields'
+import type { FromFields, OptionalExecutable } from '#payload'
+
 import type { TransactionFeesFields } from './TransactionFeesFields.ts'
 
 export interface TransactionBoundWitnessFields extends BlockDuration, TransactionFeesFields {
