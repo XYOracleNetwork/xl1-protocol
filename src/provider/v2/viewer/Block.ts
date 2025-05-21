@@ -1,6 +1,7 @@
 import type { Address, Hash } from '@xylabs/hex'
 
-import type { SignedHydratedBlock } from '../../../block/index.ts'
+import type { SignedHydratedBlock } from '#block'
+
 import type { TransactionViewer } from './Transaction.ts'
 
 export interface BlockViewer {

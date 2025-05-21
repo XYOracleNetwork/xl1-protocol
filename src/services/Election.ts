@@ -1,6 +1,7 @@
 import type { Address } from '@xylabs/hex'
 
-import type { BlockBoundWitness } from '../block/index.ts'
+import type { BlockBoundWitness } from '#block'
+
 import type { Service } from './Service.ts'
 
 export interface ElectionService extends Service {

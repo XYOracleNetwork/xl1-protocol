@@ -1,4 +1,25 @@
 {
+  "compilerOptions": {
+    "paths": {
+      "#block": ["./src/block/index.ts"],
+      "#chain": ["./src/chain/index.ts"],
+      "#constants": ["./src/constants/index.ts"],
+      "#fields": ["./src/fields/index.ts"],
+      "#iterator": ["./src/iterator/index.ts"],
+      "#network": ["./src/network/index.ts"],
+      "#payload": ["./src/payload/index.ts"],
+      "#provider": ["./src/provider/index.ts"],
+      "#repository": ["./src/repository/index.ts"],
+      "#services": ["./src/services/index.ts"],
+      "#transaction": ["./src/transaction/index.ts"],
+      "#validation": ["./src/validation/index.ts"]
+    },
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist"
+  },
   "exclude": ["dist", "docs", "node_modules"],
   "extends": "@xylabs/tsconfig"
 }
