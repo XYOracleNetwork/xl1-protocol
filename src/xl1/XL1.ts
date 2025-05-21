@@ -25,64 +25,64 @@ export const XL1ConvertDict: Record<string, number> = {
 
 export type TypingFunc<T extends bigint> = (value: bigint) => T
 
-export function toXL1<T extends bigint>(value: T, factor: number): XL1 {
-  return XL1(value / (10n ** BigInt(factor)))
+export function toAttoXL1<T extends bigint>(value: T, factor: number): AttoXL1 {
+  return AttoXL1(value * (10n ** BigInt(factor)))
 }
 
-export function fromXL1<T extends bigint>(value: XL1, factor: number, typingFunc: TypingFunc<T>): T {
-  return typingFunc(value * (10n ** BigInt(factor)))
+export function fromAttoXL1<T extends bigint>(value: XL1, factor: number, typingFunc: TypingFunc<T>): T {
+  return typingFunc(value / (10n ** BigInt(factor)))
 }
 
 // milli
-export const milliXL1ToXL1 = (value: MilliXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.milli)
+export const milliXL1ToAttoXL1 = (value: MilliXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.milli)
 }
 
 export const milliXL1FromXL1 = (value: XL1): MilliXL1 => {
-  return fromXL1(value, XL1ConvertDict.micro, MilliXL1)
+  return fromAttoXL1(value, XL1ConvertDict.micro, MilliXL1)
 }
 
 // micro
-export const microXL1ToXL1 = (value: MicroXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.micro)
+export const microXL1ToXL1 = (value: MicroXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.micro)
 }
 
 export const microXL1FromXL1 = (value: XL1): MicroXL1 => {
-  return fromXL1(value, XL1ConvertDict.micro, MicroXL1)
+  return fromAttoXL1(value, XL1ConvertDict.micro, MicroXL1)
 }
 
 // nano
-export const nanoXL1ToXL1 = (value: NanoXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.nano)
+export const nanoXL1ToXL1 = (value: NanoXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.nano)
 }
 
 export const nanoXL1FromXL1 = (value: XL1): NanoXL1 => {
-  return fromXL1(value, XL1ConvertDict.nano, NanoXL1)
+  return fromAttoXL1(value, XL1ConvertDict.nano, NanoXL1)
 }
 
 // pico
-export const picoXL1ToXL1 = (value: PicoXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.pico)
+export const picoXL1ToXL1 = (value: PicoXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.pico)
 }
 
 export const picoXL1FromXL1 = (value: XL1): PicoXL1 => {
-  return fromXL1(value, XL1ConvertDict.pico, PicoXL1)
+  return fromAttoXL1(value, XL1ConvertDict.pico, PicoXL1)
 }
 
 // femto
-export const femtoXL1ToXL1 = (value: FemtoXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.femto)
+export const femtoXL1ToXL1 = (value: FemtoXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.femto)
 }
 
 export const femtoXL1FromXL1 = (value: XL1): FemtoXL1 => {
-  return fromXL1(value, XL1ConvertDict.femto, FemtoXL1)
+  return fromAttoXL1(value, XL1ConvertDict.femto, FemtoXL1)
 }
 
 // atto
-export const attoXL1ToXL1 = (value: AttoXL1): XL1 => {
-  return toXL1(value, XL1ConvertDict.atto)
+export const attoXL1ToXL1 = (value: AttoXL1): AttoXL1 => {
+  return toAttoXL1(value, XL1ConvertDict.atto)
 }
 
 export const attoXL1FromXL1 = (value: XL1): AttoXL1 => {
-  return fromXL1(value, XL1ConvertDict.atto, AttoXL1)
+  return fromAttoXL1(value, XL1ConvertDict.atto, AttoXL1)
 }
