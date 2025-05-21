@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 
 import type {
   HydratedTransaction, HydratedTransactionWithHashStorageMeta, TransactionBoundWitness,
-} from '#transaction'
+} from '../../transaction/index.ts'
 
 /**
  * A function that validates a hydrated transaction.

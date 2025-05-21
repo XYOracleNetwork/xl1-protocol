@@ -1,6 +1,6 @@
-import type { BlockBoundWitness, HydratedBlock } from '#block'
-import type { Addressable } from '#fields'
-import type { IterableRepository } from '#repository'
+import type { BlockBoundWitness, HydratedBlock } from '../block/index.ts'
+import type { Addressable } from '../fields/index.ts'
+import type { IterableRepository } from '../repository/index.ts'
 
 export type NextBlockProducer = IterableRepository<BlockBoundWitness, HydratedBlock>
 

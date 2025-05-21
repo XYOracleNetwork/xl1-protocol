@@ -2,7 +2,7 @@ import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { HydratedBoundWitnessWithStorageMeta, ReadArchivist } from '@xyo-network/archivist-model'
 
-import type { TransactionBoundWitness } from '#transaction'
+import type { TransactionBoundWitness } from '../../transaction/index.ts'
 
 /**
  * A function that validates a hydrated transaction against chain state.
