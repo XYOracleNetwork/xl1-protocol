@@ -1,6 +1,6 @@
 import type { Hex } from '@xylabs/hex'
 
-import { MicroXL1 } from '../XL1.ts'
+import { MicroXL1 } from '../xl1/XL1.ts'
 
 export interface TransactionFeesBigInt {
   base: MicroXL1

@@ -1,4 +1,4 @@
-import { MicroXL1 } from '../XL1.ts'
+import { MicroXL1 } from '../xl1/XL1.ts'
 
 export const TransactionGasCosts = {
   /**

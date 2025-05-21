@@ -1,6 +1,6 @@
 export * from './Initializable.ts'
 export * from './OpenTelemetryProviders.ts'
-export * from './XL1.ts'
+export * from './xl1/index.ts'
 export * from '#block'
 export * from '#chain'
 export * from '#constants'
