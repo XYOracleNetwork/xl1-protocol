@@ -4,7 +4,7 @@
 .example.env
 .tsconfig*
 jest.config.js
-rollup.config.ts
+rollup.dts.config.mjs
 typedoc.json
 yarn.lock
 **/*.spec.ts

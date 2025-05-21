@@ -23,11 +23,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
     "./package.json": "./package.json"
   },
   "module": "./dist/neutral/index.mjs",
+  "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
   "scripts": {
     "package-compile": "package-compile-only && rollup --config rollup.dts.config.mjs"
