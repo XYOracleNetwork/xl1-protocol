@@ -22,34 +22,31 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/neutral/index.mjs"
     },
     "./package.json": "./package.json"
   },
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "package-compile": "tsup"
-  },
+  "module": "./dist/neutral/index.mjs",
+  "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@xylabs/base": "^4.9.18",
-    "@xylabs/events": "^4.9.18",
-    "@xylabs/hex": "^4.9.18",
-    "@xylabs/logger": "^4.9.18",
-    "@xylabs/object": "^4.9.18",
-    "@xylabs/promise": "^4.9.18",
-    "@xyo-network/account-model": "^3.16.1",
-    "@xyo-network/archivist-model": "^3.16.1",
-    "@xyo-network/boundwitness-model": "^3.16.1",
-    "@xyo-network/payload-model": "^3.16.1",
-    "@xyo-network/schema-payload-plugin": "^3.16.1",
-    "@xyo-network/wallet-model": "^3.16.1"
+    "@xylabs/base": "^4.10.0",
+    "@xylabs/events": "^4.10.0",
+    "@xylabs/hex": "^4.10.0",
+    "@xylabs/logger": "^4.10.0",
+    "@xylabs/object": "^4.10.0",
+    "@xylabs/promise": "^4.10.0",
+    "@xyo-network/account-model": "^3.17.0",
+    "@xyo-network/archivist-model": "^3.17.0",
+    "@xyo-network/boundwitness-model": "^3.17.0",
+    "@xyo-network/payload-model": "^3.17.0",
+    "@xyo-network/schema-payload-plugin": "^3.17.0",
+    "@xyo-network/wallet-model": "^3.17.0"
   },
   "devDependencies": {
     "@esbuild-plugins/tsconfig-paths": "^0.1.2",
-    "@types/node": "^22.15.20",
+    "@types/node": "^22.15.21",
     "@xylabs/eslint-config-flat": "^6.5.7",
     "@xylabs/ts-scripts-yarn3": "^6.5.7",
     "@xylabs/tsconfig": "^6.5.7",
@@ -58,7 +55,6 @@
     "eslint": "^9.27.0",
     "eslint-import-resolver-typescript": "^4.3.5",
     "knip": "^5.57.0",
-    "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4",

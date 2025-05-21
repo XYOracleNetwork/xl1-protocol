@@ -2,16 +2,20 @@
 .env
 .eslintcache
 .example.env
-tsconfig*
 .tsconfig*
 jest.config.js
 rollup.config.ts
+typedoc.json
 yarn.lock
 **/*.spec.ts
 **/*.snap
 
 *.eslintcache
 *.tsbuildinfo
+
+eslint.config.*
+knip.config.*
+vitest.*.*
 
 .github
 docs
