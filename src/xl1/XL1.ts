@@ -16,7 +16,10 @@ export const PicoXL1: TypingFunc<PicoXL1> = (value: bigint): PicoXL1 => value as
 export const FemtoXL1: TypingFunc<FemtoXL1> = (value: bigint): FemtoXL1 => value as FemtoXL1
 export const AttoXL1: TypingFunc<AttoXL1> = (value: bigint): AttoXL1 => value as AttoXL1
 
-export const XL1ConvertDict: Record<string, number> = {
+type XL1Units = 'xl1' | 'milli' | 'micro' | 'nano' | 'pico' | 'femto' | 'atto'
+
+/** @deprecated use XL1Places and xl1ConvertFactor(unit) instead */
+export const XL1ConvertDict: Record<XL1Units, number> = {
   xl1: 18,
   milli: 15,
   micro: 12,
@@ -24,4 +27,18 @@ export const XL1ConvertDict: Record<string, number> = {
   pico: 6,
   femto: 3,
   atto: 0,
+} as const
+
+export const XL1Places: Record<XL1Units, bigint> = {
+  xl1: 18n,
+  milli: 15n,
+  micro: 12n,
+  nano: 9n,
+  pico: 6n,
+  femto: 3n,
+  atto: 0n,
+} as const
+
+export function xl1ConvertFactor(unit: XL1Units) {
+  return 10n ** XL1Places[unit]
 }
