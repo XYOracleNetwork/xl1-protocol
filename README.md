@@ -1,6 +1,6 @@
 [![logo][]](https://xyo-network)
 
-# @xyo-network/chain
+# @xyo-network/xl1-protocol
 
 [![main-build][]][main-build-link]
 [![npm-badge][]][npm-link]
@@ -20,20 +20,20 @@
 
 ## Description
 
-XY Labs implementation of the XYO Chain Protocol
+Official Definition of the XL1 Protocol - Types and Constants
 
 ## Install
 
 Using npm:
 
 ```sh
-npm i --save @xyo-network/chain
+npm i --save @xyo-network/xl1-protocol
 ```
 
 Using yarn:
 
 ```sh
-yarn add @xyo-network/chain
+yarn add @xyo-network/xl1-protocol
 ```
 
 ## Build Scripts
@@ -66,16 +66,16 @@ See the [LICENSE](LICENSE) file for license details
 [Made with 🔥 and ❄️ by XY Labs](https://xylabs.com)
 
 [logo]: https://cdn.xy.company/img/brand/XYO_full_colored.png
-[main-build]: https://github.com/xyo-network/chain/actions/workflows/build.yml/badge.svg
-[main-build-link]: https://github.com/xyo-network/chain/actions/workflows/build.yml
-[npm-badge]: https://img.shields.io/npm/v/@xyo-network/chain.svg
-[npm-link]: https://www.npmjs.com/package/@xyo-network/chain
+[main-build]: https://github.com/xyo-network/xl1-protocol/actions/workflows/build.yml/[badge.svg](https://github.com/XYOracleNetwork/xl1-protocol/actions/workflows/build.yml)
+[main-build-link]: https://github.com/xyo-network/xl1-protocol/actions/workflows/build.yml
+[npm-badge]: https://img.shields.io/npm/v/@xyo-network/xl1-protocol.svg
+[npm-link]: https://www.npmjs.com/package/@xyo-network/xl1-protocol
 
-[npm-downloads-badge]: https://img.shields.io/npm/dw/@xyo-network/chain
-[npm-license-badge]: https://img.shields.io/npm/l/@xyo-network/chain
+[npm-downloads-badge]: https://img.shields.io/npm/dw/@xyo-network/xl1-protocol
+[npm-license-badge]: https://img.shields.io/npm/l/@xyo-network/xl1-protocol
 
-[jsdelivr-badge]: https://data.jsdelivr.com/v1/package/npm/@xyo-network/chain/badge
-[jsdelivr-link]: https://www.jsdelivr.com/package/npm/@xyo-network/chain
+[jsdelivr-badge]: https://data.jsdelivr.com/v1/package/npm/@xyo-network/xl1-protocol/badge
+[jsdelivr-link]: https://www.jsdelivr.com/package/npm/@xyo-network/xl1-protocol
 
-[socket-badge]: https://socket.dev/api/badge/npm/package/@xyo-network/chain
-[socket-link]: https://socket.dev/npm/package/@xyo-network/chain
+[socket-badge]: https://socket.dev/api/badge/npm/package/@xyo-network/xl1-protocol
+[socket-link]: https://socket.dev/npm/package/@xyo-network/xl1-protocol
