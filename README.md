@@ -66,8 +66,8 @@ See the [LICENSE](LICENSE) file for license details
 [Made with 🔥 and ❄️ by XY Labs](https://xylabs.com)
 
 [logo]: https://cdn.xy.company/img/brand/XYO_full_colored.png
-[main-build]: https://github.com/xyo-network/xl1-protocol/actions/workflows/build.yml/[badge.svg](https://github.com/XYOracleNetwork/xl1-protocol/actions/workflows/build.yml)
-[main-build-link]: https://github.com/xyo-network/xl1-protocol/actions/workflows/build.yml
+[main-build]: https://github.com/XYOracleNetwork/xl1-protocol/actions/workflows/build.yml/badge.svg
+[main-build-link]: https://github.com/XYOracleNetwork/xl1-protocol/actions/workflows/build.yml
 [npm-badge]: https://img.shields.io/npm/v/@xyo-network/xl1-protocol.svg
 [npm-link]: https://www.npmjs.com/package/@xyo-network/xl1-protocol
 
