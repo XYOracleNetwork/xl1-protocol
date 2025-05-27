@@ -6,17 +6,103 @@ export type PicoXL1 = bigint & { readonly _tag: 'PicoXL1' } // 1e-6 [XL1 * 1e12 
 export type FemtoXL1 = bigint & { readonly _tag: 'FemtoXL1' } // 1e-3 [XL1 * 1e15 = femtoXL1] [femtoXL1 / 1e15 = XL1]
 export type AttoXL1 = bigint & { readonly _tag: 'AttoXL1' } // 1e-0 [XL1 * 1e18 = attoXL1] [attoXL1 / 1e18 = XL1]
 
-export type TypingFunc<T extends bigint> = (value: bigint) => T
-
-export const XL1: TypingFunc<XL1> = (value: bigint): XL1 => value as XL1
-export const MilliXL1: TypingFunc<MilliXL1> = (value: bigint): MilliXL1 => value as MilliXL1
-export const MicroXL1: TypingFunc<MicroXL1> = (value: bigint): MicroXL1 => value as MicroXL1
-export const NanoXL1: TypingFunc<NanoXL1> = (value: bigint): NanoXL1 => value as NanoXL1
-export const PicoXL1: TypingFunc<PicoXL1> = (value: bigint): PicoXL1 => value as PicoXL1
-export const FemtoXL1: TypingFunc<FemtoXL1> = (value: bigint): FemtoXL1 => value as FemtoXL1
-export const AttoXL1: TypingFunc<AttoXL1> = (value: bigint): AttoXL1 => value as AttoXL1
-
 type XL1Units = 'xl1' | 'milli' | 'micro' | 'nano' | 'pico' | 'femto' | 'atto'
+
+export type TypingFunc<T extends bigint> = {
+  (value: bigint): T
+  toAtto: () => AttoXL1
+}
+
+export function XL1(value: bigint): XL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as XL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.xl1)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as XL1 & { toAtto(): AttoXL1 }
+}
+
+export function MilliXL1(value: bigint): MilliXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as MilliXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.milli)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as MilliXL1 & { toAtto(): AttoXL1 }
+}
+
+export function MicroXL1(value: bigint): MicroXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as MicroXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.micro)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as MicroXL1 & { toAtto(): AttoXL1 }
+}
+
+export function NanoXL1(value: bigint): NanoXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as NanoXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.nano)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as NanoXL1 & { toAtto(): AttoXL1 }
+}
+
+export function PicoXL1(value: bigint): PicoXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as PicoXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.pico)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as PicoXL1 & { toAtto(): AttoXL1 }
+}
+
+export function FemtoXL1(value: bigint): FemtoXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as FemtoXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.femto)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as FemtoXL1 & { toAtto(): AttoXL1 }
+}
+
+export function AttoXL1(value: bigint): AttoXL1 & { toAtto(): AttoXL1 } {
+  const xl1Value = value as AttoXL1
+
+  return new Proxy(xl1Value, {
+    get(target, prop) {
+      if (prop === 'toAtto') {
+        return () => AttoXL1(target * AttoXL1ConvertFactor.atto)
+      }
+      return Reflect.get(target, prop)
+    },
+  }) as AttoXL1 & { toAtto(): AttoXL1 }
+}
 
 /** @deprecated use XL1Places and xl1ConvertFactor(unit) instead */
 export const XL1ConvertDict: Record<XL1Units, number> = {
