@@ -1,9 +1,7 @@
 import type { Hex } from '@xylabs/hex'
 
-import {
-  AttoXL1,
-  xl1ConvertFactor,
-} from '../xl1/index.ts'
+import type { AttoXL1 } from '../xl1/index.ts'
+import { MicroXL1 } from '../xl1/index.ts'
 
 export interface TransactionFeesBigInt {
   base: AttoXL1
@@ -21,15 +19,15 @@ export interface TransactionFeesFields {
 }
 
 export const minTransactionFees: TransactionFeesBigInt = {
-  base: AttoXL1(1000n * xl1ConvertFactor('micro')),
-  gasPrice: AttoXL1(1n * xl1ConvertFactor('micro')),
-  gasLimit: AttoXL1(1000n * xl1ConvertFactor('micro')),
-  priority: AttoXL1(0n * xl1ConvertFactor('micro')),
+  base: MicroXL1(1000n).toAtto(),
+  gasPrice: MicroXL1(1n).toAtto(),
+  gasLimit: MicroXL1(1000n).toAtto(),
+  priority: MicroXL1(0n).toAtto(),
 } as const
 
 export const defaultTransactionFees: TransactionFeesBigInt = {
   base: minTransactionFees.base,
-  gasPrice: AttoXL1(10n * xl1ConvertFactor('micro')),
-  gasLimit: AttoXL1(1_000_000n * xl1ConvertFactor('micro')),
-  priority: AttoXL1(0n * xl1ConvertFactor('micro')),
+  gasPrice: MicroXL1(10n).toAtto(),
+  gasLimit: MicroXL1(1_000_000n).toAtto(),
+  priority: minTransactionFees.priority,
 } as const
