@@ -22,7 +22,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/types/index.d.ts",
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
@@ -30,10 +30,7 @@
   },
   "module": "./dist/neutral/index.mjs",
   "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "package-compile": "package-compile-only && rollup --config rollup.dts.config.mjs"
-  },
+  "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@xylabs/base": "^4.10.1",
@@ -50,8 +47,6 @@
     "@xyo-network/wallet-model": "^3.17.0"
   },
   "devDependencies": {
-    "@esbuild-plugins/tsconfig-paths": "^0.1.2",
-    "@rollup/plugin-alias": "^5.1.1",
     "@types/node": "^22.15.22",
     "@xylabs/eslint-config-flat": "^6.5.7",
     "@xylabs/ts-scripts-yarn3": "^6.5.7",
@@ -61,8 +56,6 @@
     "eslint": "^9.27.0",
     "eslint-import-resolver-typescript": "^4.4.1",
     "knip": "^5.58.1",
-    "rollup": "^4.41.1",
-    "rollup-plugin-dts": "^6.2.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4",

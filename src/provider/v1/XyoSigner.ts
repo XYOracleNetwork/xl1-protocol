@@ -3,8 +3,8 @@ import type { Promisable } from '@xylabs/promise'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
-import type { AllowedBlockPayload } from '#block'
-import type { TransactionBoundWitness, TransactionFeesBigInt } from '#transaction'
+import type { AllowedBlockPayload } from '../../block/index.ts'
+import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
 
 export interface XyoSigner {
   address(): Promisable<Address>
