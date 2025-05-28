@@ -1,6 +1,5 @@
 export * from './Account.ts'
 export * from './Block.ts'
 export * from './Chain.ts'
-export * from './DataLake.ts'
 export * from './Transaction.ts'
 export * from './Xyo.ts'

@@ -2,9 +2,9 @@ import type { Address, Hash } from '@xylabs/hex'
 
 import type { SignedHydratedBlock } from '../../../block/index.ts'
 import type { TransactionViewer } from './Transaction.ts'
+import type { Viewer } from './Viewer.ts'
 
-export interface BlockViewer {
+export interface BlockViewer extends Viewer<SignedHydratedBlock> {
   chainId: Address
-  value: SignedHydratedBlock
   transaction(id: number | Hash): TransactionViewer
 }

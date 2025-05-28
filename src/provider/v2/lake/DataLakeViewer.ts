@@ -2,9 +2,7 @@ import type { Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
-export interface PayloadLakeViewer {
-  getPayloads(hashes: Hash[]): Promisable<Payload[]>
-}
+import type { PayloadLakeViewer } from './PayloadLakeViewer.ts'
 
 export interface DataLakeViewer extends PayloadLakeViewer {
   // if resolves to hash payload, keep going until hitting a non-payload or maxDepth, or unable to find
