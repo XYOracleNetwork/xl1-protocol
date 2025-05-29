@@ -124,7 +124,7 @@ In addition to Validators and Block Producers, \textbf{System Stakers}\footnote{
 \end{center}
 
 \section{XYO Layer One Blockchain Features}
-TXYO Layer One introduces several novel and existing features to address the challenges of blockchain bloat, scalability and performance. These features enable a better blockchain solution suitable for data-intensive industries like AI, RWA, and DePIN. 
+XYO Layer One introduces several novel and existing features to address the challenges of blockchain bloat, scalability and performance. These features enable a better blockchain solution suitable for data-intensive industries like AI, RWA, and DePIN. 
 
 \begin{itemize}
     \item \textbf{Lookback Window:} Reduces the amount of historical data that needs to be maintained and analyzed for each block. 
@@ -384,7 +384,7 @@ Producer payloads represent essential protocol-level operations and must be form
 Transaction Fees are any funds provided by the client when submitting a transaction to be included in a block.
 
 \subsubsection{Base Fee}
-The Base Fee is defined as the amount of XL1 that needs to be provided for a transaction to enter the pending transaction pool. These XL1 are always forfeited, unless the transaction fails the initial signature check. In the case that the transaction passes the initial signature check but fails protocol validation, the actor who is being asked to accept the transaction may claim the base fee by wrapping the invalid transaction in a claim transaction. \textbf{100\% of this fee is burned}.
+The Base Fee is defined as the amount of XL1 that needs to be provided for a transaction to enter the pending transaction pool. These XL1 are always forfeited, unless the transaction fails the initial signature check. If the transaction passes the initial signature check, the \textbf{Base Fee is burned} as part of the blockchain's standard operation. In the case that the transaction fails protocol validation, the actor who is being asked to accept the transaction may claim the Base Fee by wrapping the invalid transaction in a Claim Transaction. 
 
 \subsubsection{Gas Fee}
 The Gas Fee is defined as the amount of XL1 that is provided to cover the cost of processing and including the transaction by the block producer. This is variable based on the size of the transaction (including elevated payloads) and the scripts are processed during block building. If the gas is insufficient to cover the calculated cost, then it is forfeited and the transaction is not included in the blockchain. \textbf{100\% of this fee may be transferred to the producer's address of choice}, which in most cases is their own address. 
@@ -434,7 +434,7 @@ The first option is \textbf{Node Staking}, which is designed for node operators 
 
 The second option is \textbf{System Staking}, a secure XYO-led pool for users who want to stake without running a node. By locking up XYO through this pool, participants receive XL1 token rewards without any slashing risk, as rewards are distributed from a randomized portion of block earnings.
 
-In return, stakers face both rewards for good behavior and penalties for misconduct. If a node performs a Byzantine action\footnote{A Byzantine action in blockchain refers to malicious or dishonest behavior that disrupts consensus and the integrity of the system.}, then the stake which was provided is slashed. Slashing is a counter-incentive designed to punish bad actors in the system who may provide dishonest data or seek to harm and/or hack the network.
+Node Stakers face both rewards for good behavior and penalties for misconduct. If a node performs a Byzantine action\footnote{A Byzantine action in blockchain refers to malicious or dishonest behavior that disrupts consensus and the integrity of the system.}, then the stake which was provided is slashed. Slashing is a counter-incentive designed to punish bad actors in the system who may provide dishonest data or seek to harm and/or hack the network.
 
 \subsection{Staking Process: Actions \& Rules}
 Staking actions involve adding, removing, and withdrawing stake. These actions are designed to encourage honest participation in XYO Layer One through the staking of XYO. 
