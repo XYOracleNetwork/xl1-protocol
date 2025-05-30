@@ -3,5 +3,5 @@ import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
 export interface PayloadLakeViewer {
-  getPayloads(hashes: Hash[]): Promisable<Payload[]>
+  get(hashes: Hash[]): Promisable<Payload[]>
 }
