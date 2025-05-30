@@ -1,23 +1,21 @@
-import { AttoXL1, AttoXL1ConvertFactor } from '../xl1/index.ts'
-
 export const TransactionGasCosts = {
   /**
    * The cost of storing each character that is added to the chain
    * This includes the transaction JSON and all the elevated payloads' JSON
   */
-  characterStorage: AttoXL1(10n * AttoXL1ConvertFactor.micro),
+  characterStorage: 10n,
 
   /** The cost of static validating every payload that will be included in the chain */
-  payloadValidation: AttoXL1(1000n * AttoXL1ConvertFactor.micro),
+  payloadValidation: 1000n,
 
   /** The cost of validating each signature that will be included in the chain */
-  signatureValidation: AttoXL1(1000n * AttoXL1ConvertFactor.micro),
+  signatureValidation: 1000n,
 
   /** The cost of validating each hash that will be included in the chain */
-  hashValidation: AttoXL1(100n * AttoXL1ConvertFactor.micro),
+  hashValidation: 100n,
 
   /** The cost of validating a balance state, triggered by a Transfer payload or gas collection */
-  balanceValidation: AttoXL1(100n * AttoXL1ConvertFactor.micro),
+  balanceValidation: 100n,
 } as const
 
 /** Gas Calculation
