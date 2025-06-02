@@ -21,14 +21,14 @@ export interface TransactionFeesFields {
 }
 
 export const minTransactionFees: TransactionFeesBigInt = {
-  base: AttoXL1(1n),
-  gasPrice: AttoXL1(1n),
-  gasLimit: AttoXL1(1n),
+  base: AttoXL1(1000n),
+  gasPrice: AttoXL1(10n),
+  gasLimit: AttoXL1(1_000_000n),
   priority: AttoXL1(0n),
 } as const
 
 export const defaultTransactionFees: TransactionFeesBigInt = {
-  base: AttoXL1(1000n * AttoXL1ConvertFactor.micro),
+  base: minTransactionFees.base,
   gasPrice: AttoXL1(10n * AttoXL1ConvertFactor.micro),
   gasLimit: AttoXL1(1_000_000n * AttoXL1ConvertFactor.micro),
   priority: minTransactionFees.priority,
