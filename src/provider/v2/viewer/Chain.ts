@@ -8,6 +8,7 @@ import type { ChainAccountViewer } from './ChainAccount.ts'
 import type { Viewer } from './Viewer.ts'
 
 export interface ChainViewer extends Viewer<Address> {
+  id: Address
   account(address: Address): ChainAccountViewer
   block(hash: Hash): ChainBlockViewer
   currentBlock(): Promisable<SignedHydratedBlock>
