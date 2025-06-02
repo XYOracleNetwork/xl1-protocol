@@ -16,9 +16,9 @@
 }
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{draftwatermark}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{.8}
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{.8}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -139,7 +139,7 @@ XYO Layer One introduces several novel and existing features to address the chal
 Together, these concepts reinforce one of the biggest paradigms of XYO Layer One: off-chain data, on-chain proof.
 
 \subsection{Lookback Window}
-In XYO Layer One, block building, validating and indexing become more efficient through the concept of a “Lookback Window”. A Lookback Window refers to the amount of previous blocks across which block builders and validators need to maintain to operate within the network. 
+In XYO Layer One, block building, validating and indexing become more efficient through the concept of a “Lookback Window”. A Lookback Window refers to the amount of previous blocks across which Block Producer Nodes and Validator Nodes need to maintain to operate within the network. 
 
 \subsubsection{Current Blockchains}
 Most blockchains have a Lookback Window equal to the length of the entire chain — in order to analyze the chain for data, a node must scan the full length of the chain. Although this allows for consistent access of all historical data, it comes at the expense of larger compute and storage requirements.
@@ -148,7 +148,7 @@ Most blockchains have a Lookback Window equal to the length of the entire chain 
     \includegraphics[width=15cm]{trad-blockchain-lookback-window.png}
 \end{center}
 
-With the precondition that each node maintains and analyzes a complete record of the entire blockchain, the requirements for network participation grow in an ever increasing fashion. This has led to an erosion of the decentralization for blockchains that have been operational long enough to realize this effect, as network participation by enthusiasts has been superseded by the few participants who can afford high-end hardware, and network indexing has been outsourced to centralized Web2 services.
+With the precondition that each node maintains and analyzes a complete record of the entire blockchain, the requirements for network participation grow in an ever increasing fashion. This has led to an erosion of the decentralization for blockchains that have been operational long enough to realize this effect. Network participation by enthusiasts has been superseded by the few participants who can afford high-end hardware and network indexing has been outsourced to centralized Web2 services.
 
 \subsubsection{The Lookback Window Solution}
 XYO Layer One contains an advanced Lookback Window algorithm that allows for variable Lookback Windows. This feature optimizes blockchain operations by focusing on the most recent N transactions—such as the last 10,000 or 1 million—actively used to maintain the system. Each node is only required to store these recent transactions, significantly reducing storage requirements and boosting transaction speeds. Older transactions are stored in a backup system, ensuring minimal disruption to performance while still allowing easy access when needed. 
@@ -248,7 +248,7 @@ This comparative approach enables the network to consistently select the most tr
 \end{center}
 
 \section{XL1 Token}
-The XL1 Token is the native currency of the XYO Layer One Blockchain, primarily used for transaction fees, gas fees, and incentivizing network participants. XL1 plays a crucial role alongside the XYO Token in ensuring the scalability and efficiency of the XYO ecosystem by enabling transactions, rewarding participants, and securing the network through staking. 
+The XL1 Token is the native currency of the XYO Layer One Blockchain, primarily used for transaction fees, gas fees, and incentivizing network participants. XL1 plays a crucial role alongside the XYO Token in ensuring the scalability and efficiency of the XYO ecosystem by enabling transactions, rewarding participants, and securing the blockchain through staking. 
 
 \subsection{Purpose}
 The XL1 Token serves multiple functions within the XYO Layer One Blockchain: 
@@ -256,7 +256,7 @@ The XL1 Token serves multiple functions within the XYO Layer One Blockchain:
 \begin{itemize}
     \item \textbf{Transaction Fees}: XL1 is used to pay for transaction processing, covering the computational costs of transactions and services.\footnote{See Section 9.2 for breakdown on Transaction Fees and details on Gas.}
     \item \textbf{Gas Fees}: XL1 powers blockchain operations, particularly by covering the gas required for the execution of smart contracts and validation of transactions.
-    \item \textbf{Incentives}: XL1 is used to reward block producers, validators, and other network participants for their contribution to the network.
+    \item \textbf{Incentives}: XL1 is used to reward Block Producer Nodes, Validator Nodes, and other network participants for their contributions and participation.
 \end{itemize}
 
 \subsection{Usage}
@@ -317,28 +317,25 @@ By structuring the network's incentive mechanisms effectively, XYO Layer One ens
 \end{center}
 
 \section{Node Structure}
-The XYO Layer One Blockchain is run by a set of XYO Nodes that comply with the XYO Protocol to achieve the desired functionality. Block Producer Nodes construct blocks and data payloads from a transaction queue, Block Validator Nodes confirm the created blocks are valid, and Efficiency Nodes improve Producer and Validator efficiency with a maintained list of balances as a reference. 
+The XYO Layer One Blockchain is run by a set of XYO Nodes that comply with the XYO Protocol to achieve the desired functionality. For example, Block Producer Nodes construct blocks and data payloads from a transaction queue and Validator Nodes confirm the created blocks are valid. 
 
 \subsection{Block Producer Nodes}
 Block Producer Nodes produce blocks from transactions that are in the shared transaction queues. It is the producer's responsibility to validate the transactions that are being included in the block (protocol validation). The produced block's payload hashes include the hash of each included transaction and the hash of every elevated payload directly in the transaction. 
 
-\subsection{Block Validator Nodes}
-Block Validators are responsible for confirming that the blocks created are valid before the slashing window for those blocks expires. When blocks are valid, Block Validators may also submit a participation transaction, to show proof of their participation\footnote{See Section 8 for details on Proof of Participation.} in the network and to have a record of a Block Validator validating a block. In the case that an invalid block is discovered, the validator proposes a course of action including a repair and slash. In all the cases of accepted actions, both the action and original state remain in the blockchain for future transparency. 
+\subsection{Validator Nodes}
+Validator Nodes are responsible for a variety of validations in the XYO Layer One Blockchain. For example, Validator Nodes can confirm that blocks produced by Block Producer Nodes are valid before the slashing window for those blocks expires. When blocks are valid, Validator Nodes may also submit a participation transaction, to show proof of their participation\footnote{See Section 8 for details on Proof of Participation.} in the network and to have a record of a Validator Node validating a block. In the case that an invalid block is discovered, the Validator Node proposes a course of action including a repair and slash. In all the cases of accepted actions, both the action and original state remain in the blockchain for future transparency. 
 
 \begin{itemize}
     \item \textbf{Rollback Repair:} A rollback repair is the simplest, but also the most disruptive repair. This involves resetting the head of the chain back to the block before the invalid block was produced.
     \item \textbf{Replacement Repair:} A replacement repair is a new block that supersedes the previous block. This causes state aggregators to use the new block in place of the original block. The resulting state, to be valid, must result in the aggregate state that would have existed if the byzantine block was properly processed.
 \end{itemize}
 
-\subsection{Efficiency Nodes}
-Efficiency Nodes improve the efficiency of Block Producers and Block Validators by maintaining a streamlined reference for Block Producers and Block Validators. For example, an Efficiency Node for balances might keep a reference related to XL1 transfers and gas payments. By maintaining an optimized reference for account balances, these nodes improve transaction efficiency and prevent invalid transfers from being included in blocks.
-
 \begin{center}
     \line(1,0){50}
 \end{center}
 
 \section{Proof of Participation}
-In some cases, actors perform essential tasks in the ecosystem that leave no visible trace on the blockchain itself. A common example is block validation—when a block is valid, the validator confirms it, but no additional transaction or record is created to show that work was done. Similarly, a gatekeeper managing the pending transaction pool only becomes visible to the network when they reject an invalid transaction and submit a claim. Most of the time, they quietly accept valid transactions, leaving no on-chain evidence of their role. If rewards are only given for catching errors, critical system participants may become disincentivized over time—despite their ongoing important contributions to network security and integrity.
+In some cases, actors perform essential tasks in the ecosystem that leave no visible trace on the blockchain itself. A common example is block validation—when a block is valid, a Validator Node confirms it. No additional transaction or record is required to show that work was done. Similarly, a gatekeeper managing the pending transaction pool only becomes visible to the network when they reject an invalid transaction and submit a claim. Most of the time, these participants quietly accept valid transactions, leaving no on-chain evidence of their role. If rewards are only given for catching errors, critical system participants may become disincentivized over time—despite their ongoing important contributions to network security and integrity.
 
 To ensure these participants are rightfully rewarded for their network participation, and correctly eligible for rewards from the Step Reward Pool, we use a two-pronged approach. 
 
@@ -400,11 +397,11 @@ The Priority Fee is defined as the amount of XL1 that is granted to the block pr
 \section{Block Validation \& Finalization}
 Block Finalization becomes possible when both the Block has been determined to be valid and the stake of the Block's Producers is no longer slashable. The latter is determined by the staking smart contract, which currently uses ETH block numbers as a method of tracking passing time on-chain. This is subject to change should ETH blocks be a less-preferred option in the future.
 
-While finalization and slashing windows are closely related, they are distinct concepts within the XYO Layer One Blockchain. Finalization refers to the process by which a block is confirmed as immutable and included permanently in the chain, whereas slashing refers to the penalty mechanism applied to malicious or erroneous behavior by block producers or validators.
+While finalization and slashing windows are closely related, they are distinct concepts within the XYO Layer One Blockchain. Finalization refers to the process by which a block is confirmed as immutable and included permanently in the chain, whereas slashing refers to the penalty mechanism applied to malicious or erroneous behavior by Block Producers or Validators.
 
 In practice, the time window for finalization does not need to be directly tied to the slashing window. For example, finalization may be governed by a fixed number of XL1 blocks, providing an internally consistent metric for determining when a block can be finalized. However, it is critical that this fixed finalization interval is shorter than the slashing window, which is enforced by a staking smart contract—currently using Ethereum block numbers as a proxy for time. Finalizing a block after its slashing window has expired would eliminate the possibility of holding bad actors accountable, which undermines the security model of the network. Therefore, the chosen XL1 block interval for finalization should be configured to reliably occur before slashing eligibility expires, ensuring both block finality and economic accountability are preserved.
 
-A portion of the block reward is reserved for finalization. Finalization is done by a validator node and must be done faster than the time it takes for removed stake to become available for withdrawal. This allows a validator to recommend slashing before it becomes impossible due to lack of funds resulting from an immediate withdrawal. 
+A portion of the block reward is reserved for finalization. Finalization is done by a Validator Node and must be done faster than the time it takes for removed stake to become available for withdrawal. This allows a Validator to recommend slashing before it becomes impossible due to lack of funds resulting from an immediate withdrawal. 
 
 Blocks are considered finalized and protected from slashing after a predetermined time as defined by the chain staking smart contract. This is generally determined by a fixed number of blocks passing in a 3rd party chain, such as Ethereum.
 
@@ -566,10 +563,10 @@ transactions), making it hard to reward participants. To address this:
 
 \subsubsection{Key Aspects of Step Rewards}
 \begin{itemize}
-    \item \textbf{Earned by:} Block Producers, Chain Validators, and Pending Transaction Validators.
+    \item \textbf{Earned by:} Block Producer Nodes, Validator Nodes, System Stakers.
     \item \textbf{When:} At predefined milestone block numbers (e.g., 10, 105, 1,103, 11,576, etc.).
-    \item \textbf{Purpose:} Encourages ongoing participation and incentivizes validators.
-    \item \textbf{Distribution:} Rewards are pulled from the \textbf{Step Reward Pool} and allocated between Block Producers and Validators.
+    \item \textbf{Purpose:} Encourages ongoing participation and incentivizes Validator Nodes.
+    \item \textbf{Distribution:} Rewards are a percentage of the \textbf{Step Reward Pool} and are allocated between eligible earners.
 \end{itemize}
 
 \subsection{Comparison of Block Rewards and Step Rewards}
@@ -585,7 +582,7 @@ differences:
     \begin{tabularx}{\textwidth}{ X | X | X }
         \textbf{}                    & \textbf{Block Reward}                         & \textbf{Step Reward}                             \\
         \hline
-        \textbf{Earned By}       & Block Producers                               & Producers, Validators, Pending Transaction Validators     \\
+        \textbf{Earned By}       & Block Producer Nodes                               & Block Producer Nodes, Validator Nodes, System Stakers     \\
         \textbf{When}  & Every block produced                          & At milestone block numbers                       \\
         \textbf{Purpose}             & Incentivize block \newline production         & \RaggedRight{Encourages long-term participation} \\
         \textbf{Distribution Method} & Directly assigned to \newline Block Producers & Distributed from the Step \newline Reward Pool   \\
@@ -599,7 +596,7 @@ differences:
 Both reward systems work together to maintain a healthy, decentralized network:
 \begin{itemize}
     \item \textbf{Block Rewards} ensure that blocks continue to be produced consistently by compensating Block Producers directly.
-    \item \textbf{Step Rewards} provide incentives for validators and other participants who contribute to network security and efficiency.
+    \item \textbf{Step Rewards} provide incentives for Validator Nodes and other participants who contribute to network security and efficiency.
     \item The inclusion of Step Rewards helps prevent excessive centralization by
           distributing additional incentives beyond just block producers.
 \end{itemize}
@@ -617,7 +614,7 @@ immediate contributions and long-term network stability.
 XYO Layer One enables many applications for blockchain that were previously infeasible due to cost, speed, and scalability constraints. Its architecture is designed for high-throughput data environments, enabling both traditional and emerging Web3 industries to take advantage of XYO Layer One.
 
 \subsection{Traditional Data-Heavy Sectors}
-Applications revolving around traditionally non-blockchain industries with large-scale data requirements. This includes Artificial Intelligence systems, Logistics, and Consumer Retail, which can benefit from efficient and transparent data validation.
+Applications revolving around traditionally non-blockchain industries with large-scale data requirements. This includes Artificial Intelligence systems, Logistics, and Consumer Retail, which can benefit from efficient and transparent data validation, as well as the IP management, Finance, and Banking industries, where traceability and transparency is integral to the success of businesses.
 
 \subsection{Web3-Native Ecosystems}
 Blockchain and cryptographic industries with high data-throughput requirements, such as DePINs, tokenized Real-World Assets (RWA), oracles and Web3 Gaming.
@@ -656,7 +653,7 @@ A type of XYO node that confirms the validity of new blocks before finalization.
 A node that builds blocks by selecting transactions from the pending pool and producing the corresponding cryptographic payloads.
 
 \subsection*{Bound Witness}
-A core concept in XYO’s Proof of Origin protocol, representing cryptographic validation of a data event or interaction between multiple parties.
+A core concept in XYO's Proof of Origin protocol, representing cryptographic validation of a data event or interaction between multiple parties.
 
 \subsection*{Bound Witness Tree (BWT)}
 A rollup structure made up of multiple Bound Witnesses organized in a tree format. Enables fast validation by referencing a single root hash.
@@ -666,9 +663,6 @@ Malicious or faulty behavior in a distributed system that violates consensus rul
 
 \subsection*{Chain of Chains}
 The architecture that allows independent XYO Proof of Origin chains to unify into a shared state on the XYO Layer One Blockchain.
-
-\subsection*{Efficiency Node}
-A supporting node that maintains reference data (e.g., balances) to speed up block validation and reduce redundant computations.
 
 \subsection*{Finalization}
 The process by which a block is confirmed as immutable and beyond the slashing window. Ensures the chain's state is considered reliable.
@@ -687,6 +681,9 @@ A mechanism that limits the amount of historical data nodes must actively mainta
 
 \subsection*{Participation Transaction}
 A transaction submitted by a node to prove it was actively contributing to the network, even if its actions left no visible record.
+
+\subsection*{Proof of Location}
+The original XYO protocol verifying and recording the geographic origin of data by establishing consensus among independent nodes in a decentralized network.
 
 \subsection*{Proof of Origin}
 The original XYO protocol validating that a specific piece of data originated from a trusted source or device.
@@ -716,7 +713,7 @@ Locking tokens into the blockchain protocol to secure the network, participate i
 A structure that groups blocks into progressively larger clusters, enabling faster lookup and validation through logarithmic navigation.
 
 \subsection*{Step Reward}
-A large-scale reward distributed at key block milestones from a shared pool, incentivizing validators and long-term contributors.
+A large-scale reward distributed at key block milestones from a shared pool, incentivizing Validator Nodes and long-term contributors.
 
 \subsection*{Transaction Pool}
 A list of unconfirmed transactions awaiting inclusion in the next block by block producers.
