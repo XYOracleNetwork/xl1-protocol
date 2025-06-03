@@ -167,5 +167,6 @@
     "XYOL"
   ],
   "npm.packageManager": "yarn",
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "vitest.disableWorkspaceWarning": true
 }
