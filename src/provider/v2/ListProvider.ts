@@ -4,7 +4,7 @@ export interface ListViewer<T> {
 }
 
 export interface ListProvider<T> extends ListViewer<T> {
-  add(provider: T): void
+  add(item: T): void
   remove(index: number): void
   setDefault(index: number): void
 }
