@@ -26,6 +26,11 @@
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
+    "./v2": {
+      "types": "./dist/types/provider/v2/index.d.ts",
+      "source": "./src/provider/v2/index.ts",
+      "default": "./dist/neutral/provider/v2/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "module": "./dist/neutral/index.mjs",
