@@ -1,2 +1,7 @@
+export * from './ChainsProvider.ts'
 export * from './lake/index.ts'
+export * from './ListProvider.ts'
+export * from './QueueProvider.ts'
 export * from './viewer/index.ts'
+export * from './WalletProvider.ts'
+export * from './Xyo.ts'
