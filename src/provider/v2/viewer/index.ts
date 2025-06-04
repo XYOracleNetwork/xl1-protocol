@@ -1,4 +1,5 @@
-export * from '../Xyo.ts'
 export * from './Block.ts'
 export * from './Chain.ts'
 export * from './ChainAccount.ts'
+export * from './PendingTransactions.ts'
+export * from './Viewer.ts'
