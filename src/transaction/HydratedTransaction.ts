@@ -17,3 +17,6 @@ export type SignedHydratedTransaction<T extends HydratedTransaction = HydratedTr
 
 export type SignedHydratedTransactionWithStorageMeta<T extends HydratedTransaction = HydratedTransaction>
  = [WithStorageMeta<Signed<T[0]>>, WithStorageMeta<T[1][number]>[]] & SignedHydratedTransaction<T> & HydratedTransaction
+
+export type SignedHydratedTransactionWithHashStorageMeta<T extends HydratedTransaction = HydratedTransaction>
+ = [WithHashStorageMeta<Signed<T[0]>>, WithHashStorageMeta<T[1][number]>[]] & SignedHydratedTransaction<T> & HydratedTransaction
