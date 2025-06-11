@@ -1824,7 +1824,6 @@ __metadata:
     "@xylabs/eslint-config-flat": "npm:^6.5.8"
     "@xylabs/events": "npm:^4.11.19"
     "@xylabs/hex": "npm:^4.11.19"
-    "@xylabs/logger": "npm:^4.11.19"
     "@xylabs/object": "npm:^4.11.19"
     "@xylabs/promise": "npm:^4.11.19"
     "@xylabs/ts-scripts-yarn3": "npm:^6.5.8"
