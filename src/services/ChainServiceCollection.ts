@@ -3,13 +3,13 @@ import type { WalletInstance } from '@xyo-network/wallet-model'
 
 import type { EventingChainBlockNumberIterator } from '../iterator/index.ts'
 import type { AccountBalanceService } from './AccountBalanceService.ts'
-import type { BlockProducer } from './BlockProducer.ts'
-import type { BlockRewardService } from './BlockReward.ts'
+import type { BlockProducerService } from './BlockProducerService.ts'
+import type { BlockRewardService } from './BlockRewardService.ts'
 import type {
   ChainContractViewer, ChainInformation, ChainStaker, ChainStakeViewer,
 } from './Chain/index.ts'
 import type { ElectionService } from './Election.ts'
-import type { StakeIntentService } from './stakeIntent/index.ts'
+import type { StakeIntentService } from './StakeIntentService/index.ts'
 
 export interface ChainServiceCollection {
 
@@ -35,7 +35,7 @@ export interface ChainServiceCollection {
   chainStaker: ChainStaker
   chainSubmissionsArchivistWrite: WriteArchivist
   electionService: ElectionService
-  producer: BlockProducer
+  producer: BlockProducerService
   rewardService: BlockRewardService
   /**
    * Services for working with staked intents

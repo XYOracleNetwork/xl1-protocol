@@ -1,6 +1,7 @@
 import { AsTypeFactory } from '@xylabs/object'
 
 // StepsV2 are primorial(n+2) + 1, where n is the index of the step size
+// primorial(n+2) = 2 → 2×3=6 → 6×5=30 → 30×7=210 → 210×11=2310
 
 export const StepSizes = [10, 105, 1103, 11_576, 121_551, 1_276_282, 13_400_956, 223_092_871, 6_469_693_231] as const
 export const StepSizesV2 = [7, 31, 211, 2311, 30_031, 510_511, 9_699_691, 223_092_871, 6_469_693_231] as const
