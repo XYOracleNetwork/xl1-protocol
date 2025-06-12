@@ -952,12 +952,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.31":
-  version: 22.15.31
-  resolution: "@types/node@npm:22.15.31"
+"@types/node@npm:^24.0.1":
+  version: 24.0.1
+  resolution: "@types/node@npm:24.0.1"
   dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10/999da153fae4687c416421850ebd3c94be75e0dae27ccad192d9a073c7e74baade987d68fc9f082a825c4672bd8a26867636663baad0b9e851baf7b36fb9fdd9
+    undici-types: "npm:~7.8.0"
+  checksum: 10/6b77554f8308148e00e9c7c264ccad3e9a3d360f10b75a727d44b9bba2377022179a76905fbe1bb426ea4c6ee9f45186797ec335a5dcab803435336576db18c6
   languageName: node
   linkType: hard
 
@@ -1326,10 +1326,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/assert@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/assert@npm:4.11.19"
-  checksum: 10/efda66979165d8171e2865af400cc8c2471a0ed580cbf2b08f41566624f778d48826759ffda6a4a5e4325de498dc7b9b0d46b5d4b3b12733a8b6bbb8a3f3bc03
+"@xylabs/assert@npm:^4.11.19, @xylabs/assert@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/assert@npm:4.11.20"
+  checksum: 10/e5424c018666a648fbd4bf7b5a7f647367272f92dfbfdf4adf41245cdecfc59beba75e76c729ad56c06f1f8253002ab5f2d47262822670af933e8273784081f5
   languageName: node
   linkType: hard
 
@@ -1344,38 +1344,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/base@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/base@npm:4.11.19"
+"@xylabs/base@npm:^4.11.19, @xylabs/base@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/base@npm:4.11.20"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@xylabs/assert": "npm:^4.11.19"
-    "@xylabs/logger": "npm:^4.11.19"
-    "@xylabs/object": "npm:^4.11.19"
-  checksum: 10/6ba0061f1d3207bef0dc52f5435b2caf94c374926904f5379052ccc00f16f8c085bc0bd0600263704c5da2448ee1b3e70d6780996d137eb5bacb35cbaef9d44b
+    "@xylabs/assert": "npm:^4.11.20"
+    "@xylabs/logger": "npm:^4.11.20"
+    "@xylabs/object": "npm:^4.11.20"
+  checksum: 10/e6d8c5e2b0c06fdcff374416a9d40ae4c5db6245d4174c5ed67494f00d07160eb92adb4f412db4b89925eaa7477284910329fdcdcb550b625cc80a86ce5e6eea
   languageName: node
   linkType: hard
 
-"@xylabs/delay@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/delay@npm:4.11.19"
+"@xylabs/delay@npm:^4.11.19, @xylabs/delay@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/delay@npm:4.11.20"
   dependencies:
-    "@xylabs/timer": "npm:^4.11.19"
-  checksum: 10/728e8646e50116715f24c05e9b9d22693cdaca3acf44c9ad4471799378d408c8afb450ab13c0c755bd97d02ccef5fd8c28a39d46756e17974ccbeafe87ddf990
+    "@xylabs/timer": "npm:^4.11.20"
+  checksum: 10/e19eac85356f474022e3146569082f0566dc703b674d802d46b65cf04cf489506fab764b60b4640992264440f00c54689eae4eb8aee1ba0659a319d8edb3885a
   languageName: node
   linkType: hard
 
-"@xylabs/enum@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/enum@npm:4.11.19"
-  checksum: 10/4ff296c306ee28398f9fe665eda37dc05e0ae9e46bc592716030f0e6302a9d6eb9a70b87a6711a69b3fbd7a1fe967c66dae778aabbb36370bc9235548eec0477
+"@xylabs/enum@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/enum@npm:4.11.20"
+  checksum: 10/e5f9b4bc89e6af15ed88fdf25b1085cb43f807bc3a845da691cc4748b1a4f86f98504e272fa6ee73eac7f779a2b04bfa4b85b2e3728d527f69b46b0d633f4d24
   languageName: node
   linkType: hard
 
-"@xylabs/error@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/error@npm:4.11.19"
-  checksum: 10/c4f45fa429b60e9f28b6d2a96878adcecac5f132745adea25785c2fb9fdf335f5c3731aba2b9ed8a7469f629091ed2ff3bcfe2d31f7bc682e55d766a4eff89e3
+"@xylabs/error@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/error@npm:4.11.20"
+  checksum: 10/99a209f3ce87f8ca6aa365dccde066eacec6ac094eff645a1622da57cc9fe3edbe8eb566cb986bbd03957c47122b476ac43551db741e558539cc4c57b05fe1a3
   languageName: node
   linkType: hard
 
@@ -1401,17 +1401,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/events@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/events@npm:4.11.19"
+"@xylabs/events@npm:^4.11.19, @xylabs/events@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/events@npm:4.11.20"
   dependencies:
-    "@xylabs/assert": "npm:^4.11.19"
-    "@xylabs/base": "npm:^4.11.19"
-    "@xylabs/error": "npm:^4.11.19"
-    "@xylabs/forget": "npm:^4.11.19"
-    "@xylabs/promise": "npm:^4.11.19"
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/7831d236d5aa430d770e6dbf485c605466b3ca1077c059e3622c8810c8744f73e626140ea2c1c91b6f5326181d5b6c1d41a4f9b82ef652d183b19480a4375325
+    "@xylabs/assert": "npm:^4.11.20"
+    "@xylabs/base": "npm:^4.11.20"
+    "@xylabs/error": "npm:^4.11.20"
+    "@xylabs/forget": "npm:^4.11.20"
+    "@xylabs/promise": "npm:^4.11.20"
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/65600628cd61e7e046eaa263e46bd52dc697a9a518986dd2bbb3b2605e8274cd32aa5395cce74fb5f99b859ebdee8f057ad3e037dbfe39f430e9c5acca2cc045
   languageName: node
   linkType: hard
 
@@ -1422,47 +1422,47 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/forget@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/forget@npm:4.11.19"
+"@xylabs/forget@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/forget@npm:4.11.20"
   dependencies:
-    "@xylabs/delay": "npm:^4.11.19"
-    "@xylabs/logger": "npm:^4.11.19"
-    "@xylabs/promise": "npm:^4.11.19"
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/b4f1eecbe855001f2ad0b3572beed286576ac2f65b4fa7be30b3f691f43fa729ec83940d5741c82b114397b0172a0a11e6a88df9e1a49a971a9eb43c60106973
+    "@xylabs/delay": "npm:^4.11.20"
+    "@xylabs/logger": "npm:^4.11.20"
+    "@xylabs/promise": "npm:^4.11.20"
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/58b686856ff8ca27a534d5f15e6387b9f257cd588816b1b3d34f51d69468b50bb7774c5173af1f57d591a464e1f0ed97e6edcff3ee7e465e1504f664fd89a7d1
   languageName: node
   linkType: hard
 
-"@xylabs/hex@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/hex@npm:4.11.19"
+"@xylabs/hex@npm:^4.11.19, @xylabs/hex@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/hex@npm:4.11.20"
   dependencies:
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/53e5ed9f8a358026782a282c9e48c4a5992863a32322260d75e6a2876b5f16a3a4b9a991d4254f7cc880128a2c6317fd05a271aa6c68863002a0d6f3b98edaee
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/4979bc8f961d32005feef1819e9aec71efd656c7c84f253a4c30db8e6f0a952f50dd21cd88ebd88193bcdd269d45c33328aa7d2040feab6599e47878618a92e9
   languageName: node
   linkType: hard
 
-"@xylabs/logger@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/logger@npm:4.11.19"
+"@xylabs/logger@npm:^4.11.19, @xylabs/logger@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/logger@npm:4.11.20"
   dependencies:
-    "@xylabs/enum": "npm:^4.11.19"
-    "@xylabs/error": "npm:^4.11.19"
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/0e255ca9354319c1a7ae22729206cf47020ac91ddcf89af81f48b53b11ceecd632c454dc254362517e4978cef8ef5b83705026f674ebda51d3f2a1b262c4cdd8
+    "@xylabs/enum": "npm:^4.11.20"
+    "@xylabs/error": "npm:^4.11.20"
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/91777c3eb9a4e82bd76b91229f9b2e508b63c7d7564addc19ab64c36fc66a097219c9687e7c7c14e31e716dc077e687fdd9638eba23b4af723641060fdfa311e
   languageName: node
   linkType: hard
 
-"@xylabs/object@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/object@npm:4.11.19"
+"@xylabs/object@npm:^4.11.19, @xylabs/object@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/object@npm:4.11.20"
   dependencies:
-    "@xylabs/assert": "npm:^4.11.19"
-    "@xylabs/logger": "npm:^4.11.19"
-    "@xylabs/promise": "npm:^4.11.19"
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/57c579a070d710aa95c34dd6ad77f8b6f5ba0bd9413516ab8ab450f3104a5537214f83bc7befa7f8ee0a33caaa9e821465c481bb3f52c3be5c89b479e1778fd7
+    "@xylabs/assert": "npm:^4.11.20"
+    "@xylabs/logger": "npm:^4.11.20"
+    "@xylabs/promise": "npm:^4.11.20"
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/d8d8a76dab5b693f6e35d6cd33bef5924731ee8631a8962a61950e8951a1021ab31f7cbd5f8bd5192c61603ae1e13d5518fd3a21621d42b8439113de39f5bad5
   languageName: node
   linkType: hard
 
@@ -1473,12 +1473,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/promise@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/promise@npm:4.11.19"
+"@xylabs/promise@npm:^4.11.19, @xylabs/promise@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/promise@npm:4.11.20"
   dependencies:
-    "@xylabs/typeof": "npm:^4.11.19"
-  checksum: 10/3b5196d7fbf15b6664dd3d8a15691d0b5bc5acef7780dd37bd70912c8318f7d01f085e0fd9ea9237f7800b8c65ddd04277d8a492209f7fc67a775082d1c14cb9
+    "@xylabs/typeof": "npm:^4.11.20"
+  checksum: 10/331551db32a4fbedd62cece573c410182446b990f09e7a8550e11749f0ce17278145bcc50ee5d2c921728828c1156b3392a463313cfb3a96a553b4aa41754762
   languageName: node
   linkType: hard
 
@@ -1504,12 +1504,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/timer@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/timer@npm:4.11.19"
+"@xylabs/timer@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/timer@npm:4.11.20"
   dependencies:
-    "@xylabs/assert": "npm:^4.11.19"
-  checksum: 10/dfd6d8e1704818094959e90c62a09a0e781454235cfb1f41a1afa249caf55ab16e266690e4e89cb7515994a56f1ec2b0c31597b223aa38c37f20e512ffa07280
+    "@xylabs/assert": "npm:^4.11.20"
+  checksum: 10/8cde8f91f5fd9b0b752f9e2685a8cca4ff29de25cef03d7abb8ec6736a4415d88571c232bd73fd8e0bb89c9f3ca44d39bc705c3e9acde0840bbec32751caeaaa
   languageName: node
   linkType: hard
 
@@ -1567,10 +1567,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/typeof@npm:^4.11.19":
-  version: 4.11.19
-  resolution: "@xylabs/typeof@npm:4.11.19"
-  checksum: 10/9439a3e5ca571673cf40c542b8f45d1f9d7fa1f9550f0112f2d45ec5a7d543dc2b0a7cdb6ff9287873688ebafb44c630a3e383717b9ad5ec1eaa138db88472ee
+"@xylabs/typeof@npm:^4.11.19, @xylabs/typeof@npm:^4.11.20":
+  version: 4.11.20
+  resolution: "@xylabs/typeof@npm:4.11.20"
+  checksum: 10/612998a99878640b6b36653e6ca2139c21ff1803836b63090384312587cff1522614aaa61b6b0b69172323d81eff969e326a914f09ed18e25351c6c060c243d7
   languageName: node
   linkType: hard
 
@@ -1819,13 +1819,13 @@ __metadata:
   resolution: "@xyo-network/xl1-protocol@workspace:."
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@types/node": "npm:^22.15.31"
-    "@xylabs/base": "npm:^4.11.19"
+    "@types/node": "npm:^24.0.1"
+    "@xylabs/base": "npm:^4.11.20"
     "@xylabs/eslint-config-flat": "npm:^6.5.8"
-    "@xylabs/events": "npm:^4.11.19"
-    "@xylabs/hex": "npm:^4.11.19"
-    "@xylabs/object": "npm:^4.11.19"
-    "@xylabs/promise": "npm:^4.11.19"
+    "@xylabs/events": "npm:^4.11.20"
+    "@xylabs/hex": "npm:^4.11.20"
+    "@xylabs/object": "npm:^4.11.20"
+    "@xylabs/promise": "npm:^4.11.20"
     "@xylabs/ts-scripts-yarn3": "npm:^6.5.8"
     "@xylabs/tsconfig": "npm:^6.5.8"
     "@xyo-network/account-model": "npm:^3.18.8"
@@ -1838,7 +1838,7 @@ __metadata:
     dotenv: "npm:^16.5.0"
     eslint: "npm:^9.28.0"
     eslint-import-resolver-typescript: "npm:^4.4.3"
-    knip: "npm:^5.60.2"
+    knip: "npm:^5.61.0"
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.5"
     vite-tsconfig-paths: "npm:^5.1.4"
@@ -4540,9 +4540,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:^5.60.2":
-  version: 5.60.2
-  resolution: "knip@npm:5.60.2"
+"knip@npm:^5.61.0":
+  version: 5.61.0
+  resolution: "knip@npm:5.61.0"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -4563,7 +4563,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/b46b323f20369902c04be82bb59ee3f6e66b828409b82f96fff6118abd3e6767a117ff3266535cb988103919f8408b1c4aca029cd3640833b0ea4caa43c71006
+  checksum: 10/812a56d8a94f8e8961b8c9cbaaa4f7d6768c1975eeee2553e073804780c3703dc63a339f0af83a6810c2d3a8dd98603bc0733349ceea1699db178aac94cf33a9
   languageName: node
   linkType: hard
 
@@ -6872,10 +6872,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10/ec8f41aa4359d50f9b59fa61fe3efce3477cc681908c8f84354d8567bb3701fafdddf36ef6bff307024d3feb42c837cf6f670314ba37fc8145e219560e473d14
+"undici-types@npm:~7.8.0":
+  version: 7.8.0
+  resolution: "undici-types@npm:7.8.0"
+  checksum: 10/fcff3fbab234f067fbd69e374ee2c198ba74c364ceaf6d93db7ca267e784457b5518cd01d0d2329b075f412574205ea3172a9a675facb49b4c9efb7141cd80b7
   languageName: node
   linkType: hard
 
