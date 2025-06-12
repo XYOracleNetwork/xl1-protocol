@@ -4,7 +4,7 @@ import { minTransactionFees } from './minTransactionFees.ts'
 
 export const defaultTransactionFees: TransactionFeesBigInt = {
   base: minTransactionFees.base,
-  gasPrice: AttoXL1(10n * AttoXL1ConvertFactor.micro),
-  gasLimit: AttoXL1(1_000_000n * AttoXL1ConvertFactor.micro),
+  gasPrice: AttoXL1(10n * AttoXL1ConvertFactor.nano),
+  gasLimit: AttoXL1(1_000_000n * AttoXL1ConvertFactor.nano),
   priority: minTransactionFees.priority,
 } as const
