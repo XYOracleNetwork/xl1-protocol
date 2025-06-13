@@ -2,6 +2,7 @@ import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
+import type { HydratedBlockValidationError } from './error.ts'
 
 /**
  * A function that validates a hydrated block.
@@ -12,4 +13,4 @@ import type { HydratedBlock } from '../../block/index.ts'
 export type HydratedBlockValidatorFunction = (
   hydratedBlock: HydratedBlock,
   chainId?: Address,
-) => Promisable<Error[]>
+) => Promisable<HydratedBlockValidationError[]>

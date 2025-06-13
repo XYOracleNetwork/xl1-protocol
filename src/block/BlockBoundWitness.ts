@@ -3,8 +3,8 @@ import { isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness } from '@xyo-network/boundwitness-model'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
-import { isStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
+import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
 
 export interface BlockBoundWitnessMeta {
   $epoch: number
@@ -36,8 +36,10 @@ export const isBlockBoundWitnessWithStorageMeta = (value: unknown): value is Wit
   return isBlockBoundWitness(value) && isStorageMeta(value)
 }
 
+export const isBlockBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<BlockBoundWitness> => {
+  return isBlockBoundWitness(value) && isHashStorageMeta(value)
+}
+
 export const asBlockBoundWitness = AsObjectFactory.create(isBlockBoundWitness)
-export const asOptionalBlockBoundWitness = AsObjectFactory.createOptional(isBlockBoundWitness)
 
 export const asBlockBoundWitnessWithStorageMeta = AsObjectFactory.create(isBlockBoundWitnessWithStorageMeta)
-export const asOptionalBlockBoundWitnessWithStorageMeta = AsObjectFactory.createOptional(isBlockBoundWitnessWithStorageMeta)

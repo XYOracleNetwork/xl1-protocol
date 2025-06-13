@@ -3,6 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { HydratedBoundWitnessWithStorageMeta, ReadArchivist } from '@xyo-network/archivist-model'
 
 import type { TransactionBoundWitness } from '../../transaction/index.ts'
+import type { HydratedTransactionValidationError } from './error.ts'
 
 /**
  * A function that validates a hydrated transaction against chain state.
@@ -15,4 +16,4 @@ export type HydratedTransactionStateValidationFunction<T extends TransactionBoun
   hydratedTransaction: HydratedBoundWitnessWithStorageMeta<T>,
   chainId: Address,
   archivist: ReadArchivist,
-) => Promisable<Error[]>
+) => Promisable<HydratedTransactionValidationError[]>

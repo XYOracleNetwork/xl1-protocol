@@ -4,6 +4,7 @@ import type { Promisable } from '@xylabs/promise'
 import type {
   HydratedTransaction, HydratedTransactionWithHashStorageMeta, TransactionBoundWitness,
 } from '../../transaction/index.ts'
+import type { HydratedTransactionValidationError } from './error.ts'
 
 /**
  * A function that validates a hydrated transaction.
@@ -14,4 +15,4 @@ import type {
 export type HydratedTransactionValidatorFunction<T extends TransactionBoundWitness = TransactionBoundWitness> = (
   hydratedTransaction: HydratedTransactionWithHashStorageMeta<HydratedTransaction<T>>,
   chainId?: Address,
-) => Promisable<Error[]>
+) => Promisable<HydratedTransactionValidationError[]>

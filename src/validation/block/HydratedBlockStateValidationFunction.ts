@@ -3,6 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
 import type { AccountBalanceService } from '../../services/index.ts'
+import type { HydratedBlockStateValidationError } from './error.ts'
 
 /**
  * A function that validates a hydrated block against chain state.
@@ -15,4 +16,4 @@ export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlock,
   chainId: Address,
   services: { accountBalance: AccountBalanceService },
-) => Promisable<Error[]>
+) => Promisable<HydratedBlockStateValidationError[]>

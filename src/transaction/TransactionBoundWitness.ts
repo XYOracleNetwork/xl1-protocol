@@ -2,8 +2,8 @@ import type { Address } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
-import { isStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
+import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
 
 import type { BlockDuration } from '../fields/index.ts'
 import type { FromFields, OptionalExecutable } from '../payload/index.ts'
@@ -37,12 +37,20 @@ export const isTransactionBoundWitnessWithStorageMeta = (value: unknown): value 
   isTransactionBoundWitness(value)
   && isStorageMeta(value)
 
+export const isTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<TransactionBoundWitness> =>
+  isTransactionBoundWitness(value)
+  && isHashStorageMeta(value)
+
 export const isSignedTransactionBoundWitnessWithStorageMeta = (value: unknown): value is WithStorageMeta<Signed<TransactionBoundWitness>> =>
   isSignedTransactionBoundWitness(value)
   && isStorageMeta(value)
 
+export const isSignedTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<Signed<TransactionBoundWitness>> =>
+  isSignedTransactionBoundWitness(value)
+  && isHashStorageMeta(value)
+
 export const asTransactionBoundWitness = AsObjectFactory.create(isTransactionBoundWitness)
-export const asOptionalTransactionBoundWitness = AsObjectFactory.createOptional(isTransactionBoundWitness)
 
 export const asTransactionBoundWitnessWithStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithStorageMeta)
-export const asOptionalTransactionBoundWitnessWithStorageMeta = AsObjectFactory.createOptional(isTransactionBoundWitnessWithStorageMeta)
+
+export const asTransactionBoundWitnessWithHashStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithHashStorageMeta)
