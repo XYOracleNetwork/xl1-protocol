@@ -12,9 +12,14 @@ export class ValidationError<TValue = Payload> extends Error {
     return {
       name: this.name,
       message: this.message,
-      cause: JSON.stringify(this.cause),
+
+      cause: this.cause,
       stack: this.stack,
     }
+  }
+
+  override toString() {
+    return JSON.stringify(this.toJson())
   }
 }
 
