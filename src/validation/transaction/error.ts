@@ -1,7 +1,7 @@
 import { type HydratedTransaction, isHydratedTransaction } from '../../transaction/index.ts'
-import { isValidationError, type ValidationError } from '../error.ts'
+import { isValidationError, ValidationError } from '../error.ts'
 
-export interface HydratedTransactionValidationError extends ValidationError<HydratedTransaction> {}
+export class HydratedTransactionValidationError extends ValidationError<HydratedTransaction> {}
 
 export const isHydratedTransactionValidationError = (
   error: unknown,

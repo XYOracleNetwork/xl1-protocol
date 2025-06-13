@@ -1,18 +1,29 @@
 import { isAnyPayload, type Payload } from '@xyo-network/payload-model'
 
 import { type HydratedBlock, isHydratedBlock } from '../../block/index.ts'
-import { isValidationError, type ValidationError } from '../error.ts'
+import { isValidationError, ValidationError } from '../error.ts'
 
-export interface InBlockPayloadValidationError extends ValidationError<Payload> {
+export class InBlockPayloadValidationError extends ValidationError<Payload> {
   block: HydratedBlock
+  constructor(block: HydratedBlock, cause: Payload, message?: string) {
+    super(cause, message)
+    this.block = block
+  }
+
+  override toJson() {
+    return {
+      ...super.toJson(),
+      block: JSON.stringify(this.block),
+    }
+  }
 }
 
 export const isInBlockPayloadValidationError = (
   error: unknown,
 ): error is InBlockPayloadValidationError => {
   if (!isValidationError(error)) return false
-  const { block, value } = error as InBlockPayloadValidationError
+  const { block, cause } = error as InBlockPayloadValidationError
   return (
-    isAnyPayload(value) && isHydratedBlock(block)
+    isAnyPayload(cause) && isHydratedBlock(block)
   )
 }
