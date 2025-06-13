@@ -12,7 +12,6 @@ export class ValidationError<TValue = Payload> extends Error {
     return {
       name: this.name,
       message: this.message,
-
       cause: this.cause,
       stack: this.stack,
     }
