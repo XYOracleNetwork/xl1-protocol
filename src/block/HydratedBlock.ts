@@ -1,4 +1,5 @@
 import { AsObjectFactory } from '@xylabs/object'
+import type { Signed } from '@xyo-network/boundwitness-model'
 import { type Payload, type WithStorageMeta } from '@xyo-network/payload-model'
 
 import { isHydratedBoundWitness } from '../isHydratedBoundWitness.ts'
@@ -7,8 +8,8 @@ import {
   isBlockBoundWitnessWithStorageMeta,
 } from './BlockBoundWitness.ts'
 
-export type HydratedBlock<T extends WithStorageMeta<BlockBoundWitness> = WithStorageMeta<BlockBoundWitness>,
-  P extends WithStorageMeta<Payload> = WithStorageMeta<Payload>> = [T, P[]]
+export type HydratedBlock<T extends BlockBoundWitness = BlockBoundWitness,
+  P extends Payload = Payload> = [WithStorageMeta<Signed<T>>, WithStorageMeta<P>[]]
 
 export const isHydratedBlock = (
   value: unknown,
