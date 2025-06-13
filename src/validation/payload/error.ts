@@ -9,13 +9,6 @@ export class InBlockPayloadValidationError extends ValidationError<Payload> {
     super(cause, message)
     this.block = block
   }
-
-  override toJson() {
-    return {
-      ...super.toJson(),
-      block: JSON.stringify(this.block),
-    }
-  }
 }
 
 export const isInBlockPayloadValidationError = (

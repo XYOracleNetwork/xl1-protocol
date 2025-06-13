@@ -37,13 +37,6 @@ export class HydratedBlockStateValidationError extends ValidationError<HydratedB
     super(cause, message)
     this.chainId = chainId
   }
-
-  override toJson() {
-    return {
-      ...super.toJson(),
-      chainId: this.chainId,
-    }
-  }
 }
 
 export const isHydratedBlockStateValidationError = (
