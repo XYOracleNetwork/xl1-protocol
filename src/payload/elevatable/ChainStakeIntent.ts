@@ -25,7 +25,6 @@ export const isChainStakeIntent = (x?: unknown | null): x is ChainStakeIntent =>
     && asNonNegativeInteger(x.exp) !== undefined
 }
 export const asChainStakeIntent = AsObjectFactory.create(isChainStakeIntent)
-export const asOptionalChainStakeIntent = AsObjectFactory.createOptional(isChainStakeIntent)
 
 const asNonNegativeInteger = (num: number) => {
   return (Number.isInteger(num) && num >= 0) ? num : undefined

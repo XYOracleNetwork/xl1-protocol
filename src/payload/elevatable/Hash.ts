@@ -16,4 +16,3 @@ export const isHashPayload = isPayloadOfSchemaType<HashPayload>(HashSchema)
 
 export const asHashPayload = AsObjectFactory.create(isHashPayload)
 export const asHashPayloadWithStorageMeta = AsObjectFactory.create(isHashPayload)
-export const asOptionalHashPayload = AsObjectFactory.createOptional(isHashPayload)

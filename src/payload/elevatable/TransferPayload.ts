@@ -23,4 +23,3 @@ export type Transfer = Payload<TransferFields, TransferSchema>
 export const isTransfer = isPayloadOfSchemaType<Transfer>(TransferSchema)
 
 export const asTransfer = AsObjectFactory.create(isTransfer)
-export const asOptionalTransfer = AsObjectFactory.createOptional(isTransfer)

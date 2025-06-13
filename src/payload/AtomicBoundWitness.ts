@@ -15,4 +15,3 @@ export type AtomicBoundWitness = Payload<AtomicBoundWitnessFields, AtomicBoundWi
 export const isAtomicBoundWitness = isPayloadOfSchemaType<AtomicBoundWitness>(AtomicBoundWitnessSchema)
 
 export const asAtomicBoundWitness = AsObjectFactory.create(isAtomicBoundWitness)
-export const asOptionalAtomicBoundWitness = AsObjectFactory.createOptional(isAtomicBoundWitness)

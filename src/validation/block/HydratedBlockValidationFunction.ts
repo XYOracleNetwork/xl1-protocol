@@ -10,7 +10,7 @@ import type { HydratedBlockValidationError } from './error.ts'
  * @param chainId The chain ID to use for validation.
  * @returns An array of errors if the block is invalid, or an empty array if it is valid.
  */
-export type HydratedBlockValidatorFunction = (
+export type HydratedBlockValidationFunction = (
   hydratedBlock: HydratedBlock,
   chainId?: Address,
 ) => Promisable<(HydratedBlockValidationError | Error)[]>
