@@ -13,4 +13,4 @@ import type { HydratedBlockValidationError } from './error.ts'
 export type HydratedBlockValidatorFunction = (
   hydratedBlock: HydratedBlock,
   chainId?: Address,
-) => Promisable<HydratedBlockValidationError[]>
+) => Promisable<(HydratedBlockValidationError | Error)[]>

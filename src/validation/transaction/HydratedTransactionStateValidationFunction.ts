@@ -16,4 +16,4 @@ export type HydratedTransactionStateValidationFunction<T extends TransactionBoun
   hydratedTransaction: HydratedBoundWitnessWithStorageMeta<T>,
   chainId: Address,
   archivist: ReadArchivist,
-) => Promisable<HydratedTransactionValidationError[]>
+) => Promisable<(HydratedTransactionValidationError | Error)[]>

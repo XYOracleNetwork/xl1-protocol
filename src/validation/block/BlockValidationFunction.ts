@@ -7,4 +7,4 @@ import type { BlockValidationError } from './error.ts'
 export type BlockValidatorFunction = (
   block: BlockBoundWitness,
   chainId?: Address,
-) => Promisable<BlockValidationError[]>
+) => Promisable<(BlockValidationError | Error)[]>

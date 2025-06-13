@@ -13,4 +13,4 @@ import type { HydratedTransactionValidationError } from './error.ts'
 export type HydratedTransactionValidatorFunction<T extends TransactionBoundWitness = TransactionBoundWitness> = (
   hydratedTransaction: HydratedTransaction<T>,
   chainId?: Address,
-) => Promisable<HydratedTransactionValidationError[]>
+) => Promisable<(HydratedTransactionValidationError | Error)[]>

@@ -16,4 +16,4 @@ export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlock,
   chainId: Address,
   services: { accountBalance: AccountBalanceService },
-) => Promisable<HydratedBlockStateValidationError[]>
+) => Promisable<(HydratedBlockStateValidationError | Error)[]>
