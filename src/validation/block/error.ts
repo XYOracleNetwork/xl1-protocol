@@ -1,4 +1,5 @@
-import { type Address, isAddress } from '@xylabs/hex'
+import type { Address, Hash } from '@xylabs/hex'
+import { isAddress } from '@xylabs/hex'
 import { isUndefined } from '@xylabs/typeof'
 
 import {
@@ -33,8 +34,8 @@ export const isHydratedBlockValidationError = (
 
 export class HydratedBlockStateValidationError extends ValidationError<HydratedBlock> {
   chainId: Address
-  constructor(chainId: Address, cause: HydratedBlock, message?: string) {
-    super(cause, message)
+  constructor(hash: Hash, chainId: Address, value: HydratedBlock, message?: string, errors?: Error[]) {
+    super(hash, value, message, errors)
     this.chainId = chainId
   }
 }
@@ -45,6 +46,6 @@ export const isHydratedBlockStateValidationError = (
   if (!isValidationError<HydratedBlock>(error)) return false
   const { cause, chainId } = error as HydratedBlockStateValidationError
   return (
-    isHydratedBoundWitness(cause) && isBlockBoundWitness(cause[0]) && (isUndefined(chainId) || isAddress(chainId))
+    isValidationError(error) && isHydratedBoundWitness(cause) && isBlockBoundWitness(cause[0]) && (isUndefined(chainId) || isAddress(chainId))
   )
 }
