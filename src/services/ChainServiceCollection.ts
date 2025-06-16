@@ -6,7 +6,7 @@ import type { AccountBalanceService } from './AccountBalanceService.ts'
 import type { BlockProducerService } from './BlockProducerService.ts'
 import type { BlockRewardService } from './BlockRewardService.ts'
 import type {
-  ChainContractViewer, ChainInformation, ChainStaker, ChainStakeViewer,
+  ChainContractViewer, ChainStaker, ChainStakeViewer,
 } from './Chain/index.ts'
 import type { ElectionService } from './Election.ts'
 import type { StakeIntentService } from './StakeIntentService/index.ts'

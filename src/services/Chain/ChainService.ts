@@ -1,6 +1,6 @@
 import type { BaseChainService } from './BaseChainService.ts'
 import type {
-  ChainContractViewer, ChainInformation, ChainStaker, ChainStakeViewer,
+  ChainContractViewer, ChainStaker, ChainStakeViewer,
 } from './interfaces/index.ts'
 
-export interface ChainService extends ChainInformation, ChainContractViewer, ChainStakeViewer, ChainStaker, BaseChainService {}
+export interface ChainService extends ChainContractViewer, ChainStakeViewer, ChainStaker, BaseChainService {}

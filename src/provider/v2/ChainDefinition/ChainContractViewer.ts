@@ -1,8 +1,7 @@
 import type { Address } from '@xylabs/hex'
 
-import type { ChainIdentification } from './ChainIdentification.ts'
-
-export interface ChainContractViewer extends ChainIdentification {
+export interface ChainContractViewer {
+  chainId: Address
   active(): Promise<bigint>
   forkedAtBlockNumber(): Promise<bigint>
   forkedAtHash(): Promise<bigint>
