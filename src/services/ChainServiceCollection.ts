@@ -24,10 +24,6 @@ export interface ChainServiceCollection {
   chainArchivist: ArchivistInstance
   chainContractViewer: ChainContractViewer
   /**
-   * Hydrated information about the chain
-   */
-  chainInformation: ChainInformation
-  /**
    * The chain iterator
    */
   chainIterator?: EventingChainBlockNumberIterator
