@@ -70,11 +70,11 @@
   "engines": {
     "node": ">=22.3 <23"
   },
+  "engineStrict": true,
   "volta": {
     "node": "22.3.0",
     "yarn": "4.9.2"
   },
-  "engineStrict": true,
   "publishConfig": {
     "access": "public"
   }
