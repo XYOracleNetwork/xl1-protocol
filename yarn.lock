@@ -1326,10 +1326,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/assert@npm:^4.11.21, @xylabs/assert@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/assert@npm:4.12.1"
-  checksum: 10/e116207bb4aece243e19ce0319790f18dc5643d0b62e85c0a867aaa094375cad850363316bb58c4ddd6324b92ff7c5afc792d32b9cd77eee2717dd7b7e62e808
+"@xylabs/assert@npm:^4.11.21, @xylabs/assert@npm:^4.12.1, @xylabs/assert@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/assert@npm:4.12.10"
+  checksum: 10/3fded18234243e0f7ef015a82067a119de6ada058de57850e7b43d8fb53db90ec3253e7300729c64288f3751e1a72fec7b28193187f818ccf4a9430e16b77bb1
   languageName: node
   linkType: hard
 
@@ -1344,38 +1344,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/base@npm:^4.11.21, @xylabs/base@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/base@npm:4.12.1"
+"@xylabs/base@npm:^4.11.21, @xylabs/base@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/base@npm:4.12.10"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@xylabs/assert": "npm:^4.12.1"
-    "@xylabs/logger": "npm:^4.12.1"
-    "@xylabs/object": "npm:^4.12.1"
-  checksum: 10/78efe8735f3515e7b4a32610caa73f427e74b0d316c4ca6735be75b00bbc8aa6854cebeec799e93fb5953b21eee6900174d6adc59f5e1d6947c8fd32ac69bafe
+    "@xylabs/assert": "npm:^4.12.10"
+    "@xylabs/logger": "npm:^4.12.10"
+    "@xylabs/object": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/109625965abdab8fe18235aaab29faacd5bfdbe5517715b7c3ecdce102f39a11c223aee128ddd62849a1b451c29ef00d13daf6c56cd578d670639e8d451f6066
   languageName: node
   linkType: hard
 
-"@xylabs/delay@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/delay@npm:4.12.1"
+"@xylabs/creatable@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/creatable@npm:4.12.10"
   dependencies:
-    "@xylabs/timer": "npm:^4.12.1"
-  checksum: 10/628c7488f229eb2e736523c54373939b19fddf6b2bb6e44a21caf0c6eddfb81eb0db8ecbd88e1c496026cc789c88396dbbb868266889fff615ceb99c0cd7a235
+    "@opentelemetry/api": "npm:^1.9.0"
+    "@xylabs/assert": "npm:^4.12.10"
+    "@xylabs/base": "npm:^4.12.10"
+    "@xylabs/events": "npm:^4.12.10"
+    "@xylabs/logger": "npm:^4.12.10"
+    "@xylabs/object": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/5c96750ccc1cb1b981a87194839a2afbf9f7fa3ef5ba9acbb538061943a9bc4c60dc77820f82311b3ede64ff6f4deba96f73ff78b17638c41f0c9e00a38736f4
   languageName: node
   linkType: hard
 
-"@xylabs/enum@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/enum@npm:4.12.1"
-  checksum: 10/381d20f73e3db4ff12b6eef31018342ee3fc9afabef832d9e1111eff1a750d547275fa9fa2c576e48071ee61f49955d1d6e5e43840cdaf062bfa23e28decad2d
+"@xylabs/delay@npm:^4.12.1, @xylabs/delay@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/delay@npm:4.12.10"
+  dependencies:
+    "@xylabs/timer": "npm:^4.12.10"
+  checksum: 10/87ee835443ed53fb1027c9951bca089917f3ab7bc1b1aca86409a15124a6b32da9e9992d3e440e9b5ff669b1ca2833d2b7a99fd82adc9fe19fcf5c6b965762fe
   languageName: node
   linkType: hard
 
-"@xylabs/error@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/error@npm:4.12.1"
-  checksum: 10/9cc38a1891866c5e0a504362718e9ffde802c755f6eb7e438f56b2254a3ced569609441122780b566516f365a933b99f6998843da6b41a19f922fb1ba23ffbde
+"@xylabs/enum@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/enum@npm:4.12.10"
+  checksum: 10/5d28c6528ab4809734a776a3b52304e9a4740d9ffde7eabefe2ca639b0039b3e88411299b4590708211dd36b8cf91219f37b5e061335d880ee66c8606fff559b
+  languageName: node
+  linkType: hard
+
+"@xylabs/error@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/error@npm:4.12.10"
+  checksum: 10/c95fcd65692129663a9707640720278a1b5c83addd5a7548e4ba769423309b1aa3088b59da0c734e18842887cc9c92b36d7c7e0b1d8d7c9595b582b1a01e9f72
   languageName: node
   linkType: hard
 
@@ -1401,17 +1417,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/events@npm:^4.11.21, @xylabs/events@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/events@npm:4.12.1"
+"@xylabs/events@npm:^4.11.21, @xylabs/events@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/events@npm:4.12.10"
   dependencies:
-    "@xylabs/assert": "npm:^4.12.1"
-    "@xylabs/base": "npm:^4.12.1"
-    "@xylabs/error": "npm:^4.12.1"
-    "@xylabs/forget": "npm:^4.12.1"
-    "@xylabs/promise": "npm:^4.12.1"
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/cf3e364a106612e8485bdcdcf1a354cba2c220144f8eee8cd43271e55152ca42210d971d223bcbd28639b9a5f75b976d8d30020418133fafdc3d74540e928800
+    "@xylabs/assert": "npm:^4.12.10"
+    "@xylabs/base": "npm:^4.12.10"
+    "@xylabs/error": "npm:^4.12.10"
+    "@xylabs/forget": "npm:^4.12.10"
+    "@xylabs/promise": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/f0e0f97a944c9e18a03d5c024f4a09e91bd6299046f50c9ad661ef5d77dde45041101b198ca0c37ed2b3f789816d3e7b64f1192b882fb0ba9ab8b12858b19043
   languageName: node
   linkType: hard
 
@@ -1422,47 +1438,47 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/forget@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/forget@npm:4.12.1"
+"@xylabs/forget@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/forget@npm:4.12.10"
   dependencies:
-    "@xylabs/delay": "npm:^4.12.1"
-    "@xylabs/logger": "npm:^4.12.1"
-    "@xylabs/promise": "npm:^4.12.1"
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/0b40ffb1841cd771a4d5bbfccfb51c2548f3912c863e9e310f417d46da74ef1de130b227fbffe49260791d3cca4f6a40ccebf709de84488856cb7eb3b5cdd821
+    "@xylabs/delay": "npm:^4.12.10"
+    "@xylabs/logger": "npm:^4.12.10"
+    "@xylabs/promise": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/7e5b2e18967df41b5d3fc2c55e19f0131fbe5321f47a9b28a48364877174ee53181a11638155c8bbf70157f5341a00fa528f224d3b5e5674d6aa2aef46cb763f
   languageName: node
   linkType: hard
 
-"@xylabs/hex@npm:^4.11.21, @xylabs/hex@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/hex@npm:4.12.1"
+"@xylabs/hex@npm:^4.11.21, @xylabs/hex@npm:^4.12.1, @xylabs/hex@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/hex@npm:4.12.10"
   dependencies:
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/61103737d6689e2a348037416e9797eaad023490042180d1ec3cdd0d6df835e4cd452b05faa0480393e2cc50bb3486bbbd74ae87365a41cea170723f965d5983
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/bed375d842578c04f2cf45ef6fbc4923f9900ad276e20858e66ab3ee8e9fbd4fc27c3c5b183634f10412e8f76220d607546a4113e7b0cee9c291eda838e197fb
   languageName: node
   linkType: hard
 
-"@xylabs/logger@npm:^4.11.21, @xylabs/logger@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/logger@npm:4.12.1"
+"@xylabs/logger@npm:^4.11.21, @xylabs/logger@npm:^4.12.1, @xylabs/logger@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/logger@npm:4.12.10"
   dependencies:
-    "@xylabs/enum": "npm:^4.12.1"
-    "@xylabs/error": "npm:^4.12.1"
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/07a6461311032c4e09c19210d070934522eb866a923fc065aaeaf6a71b930b0efbb3841147e05cc90c7646290b6985f1a3a99b5244be5a0a3b112252fdeb7bc3
+    "@xylabs/enum": "npm:^4.12.10"
+    "@xylabs/error": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/14731986d54d4d3686a34173a2ef7496fe10b45646fa5a6d17b62aa19e10187eb662b885dff3a68aedfe737ca0ddf4f32c545bdd159d96beb617c59cfa65b4c9
   languageName: node
   linkType: hard
 
-"@xylabs/object@npm:^4.11.21, @xylabs/object@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/object@npm:4.12.1"
+"@xylabs/object@npm:^4.11.21, @xylabs/object@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/object@npm:4.12.10"
   dependencies:
-    "@xylabs/assert": "npm:^4.12.1"
-    "@xylabs/logger": "npm:^4.12.1"
-    "@xylabs/promise": "npm:^4.12.1"
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/ce5e537a8126d4e0484abc20555be7bff018d0396d98e8ad5f61f62a8c90b275160226e52022fa9ae5d3789c4161c4f897417bf4dc47412e19e0ce52834ec65d
+    "@xylabs/assert": "npm:^4.12.10"
+    "@xylabs/logger": "npm:^4.12.10"
+    "@xylabs/promise": "npm:^4.12.10"
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/bf3abe2cd6fdf40bdb4d996b4cbdbf5fd6bbf9eebebcd30ef24943ced6322d9d0284940651fc4a9b94cac89f6dca42b8bfa8c6dc16a9bd0c3454941ccfb5d3e9
   languageName: node
   linkType: hard
 
@@ -1473,12 +1489,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/promise@npm:^4.11.21, @xylabs/promise@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/promise@npm:4.12.1"
+"@xylabs/promise@npm:^4.11.21, @xylabs/promise@npm:^4.12.1, @xylabs/promise@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/promise@npm:4.12.10"
   dependencies:
-    "@xylabs/typeof": "npm:^4.12.1"
-  checksum: 10/614e449296115ee64e0a11c365929cb1dd764fc116ebc3a3c421e7012c4a6ea771045f859e41d291c734435e485f37e706b073ac38add3afd104ec5a333c4f21
+    "@xylabs/typeof": "npm:^4.12.10"
+  checksum: 10/c7acb0b1426c5bd2df89ace20ad35d83554439e90307517b990d3096c9cbfeeebd1906f521ccef73e92d93231594d41f517d17645b6b3bbab34e5a738c664356
   languageName: node
   linkType: hard
 
@@ -1504,12 +1520,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/timer@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/timer@npm:4.12.1"
+"@xylabs/timer@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/timer@npm:4.12.10"
   dependencies:
-    "@xylabs/assert": "npm:^4.12.1"
-  checksum: 10/5d034e175a7d06e79c5a6533de2b69537166cba531c4ceac50215480ecceb17b93e0f1d0e5b4f02d1eabbba8de2d593502282c0a3532a47bf7be8f228be6ef5b
+    "@xylabs/assert": "npm:^4.12.10"
+  checksum: 10/eb3df558471c3d97bd5626973f4d94b34388bffbbb635697a5afc483ce846acf67a1d3a40de667b19e17624c62e967f78fbd15331c3f936bd814ad8c61a5832b
   languageName: node
   linkType: hard
 
@@ -1567,10 +1583,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/typeof@npm:^4.11.21, @xylabs/typeof@npm:^4.12.1":
-  version: 4.12.1
-  resolution: "@xylabs/typeof@npm:4.12.1"
-  checksum: 10/520c205ce6dc57f2f439a3c920fed1baafc882eb674eb0baaadd86f069142950cf8ea493b481f8b008c5fdc53a23d501eafce2f4a55a5afb8ffa6dce85db199d
+"@xylabs/typeof@npm:^4.11.21, @xylabs/typeof@npm:^4.12.1, @xylabs/typeof@npm:^4.12.10":
+  version: 4.12.10
+  resolution: "@xylabs/typeof@npm:4.12.10"
+  checksum: 10/edad962460af75ea7c359ccc84fa886cd9a77cab507d043cf537e7685a8e4a3deee3b37c993e882ac77e6c77cfc55763d4f5e01452959cbe837f7193801eaaa4
   languageName: node
   linkType: hard
 
@@ -1820,15 +1836,16 @@ __metadata:
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
     "@types/node": "npm:^24.0.3"
-    "@xylabs/base": "npm:^4.12.1"
+    "@xylabs/base": "npm:^4.12.10"
+    "@xylabs/creatable": "npm:^4.12.10"
     "@xylabs/eslint-config-flat": "npm:^6.5.8"
-    "@xylabs/events": "npm:^4.12.1"
-    "@xylabs/hex": "npm:^4.12.1"
-    "@xylabs/object": "npm:^4.12.1"
-    "@xylabs/promise": "npm:^4.12.1"
+    "@xylabs/events": "npm:^4.12.10"
+    "@xylabs/hex": "npm:^4.12.10"
+    "@xylabs/object": "npm:^4.12.10"
+    "@xylabs/promise": "npm:^4.12.10"
     "@xylabs/ts-scripts-yarn3": "npm:^6.5.8"
     "@xylabs/tsconfig": "npm:^6.5.8"
-    "@xylabs/typeof": "npm:^4.12.1"
+    "@xylabs/typeof": "npm:^4.12.10"
     "@xyo-network/account-model": "npm:^3.18.10"
     "@xyo-network/archivist-model": "npm:^3.18.10"
     "@xyo-network/boundwitness-model": "npm:^3.18.10"

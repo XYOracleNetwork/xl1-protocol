@@ -1,12 +1,7 @@
-export type ServiceName = Exclude<string, 'reserved-service-name-value'>
+import type { CreatableInstance, CreatableName } from '@xylabs/creatable'
 
-export type ServiceStatus = 'starting' | 'started' | 'stopping' | 'stopped'
+export type ServiceName = Exclude<string, 'reserved-service-name-value'> & CreatableName
 
-export interface ServiceStatusReporter {
-  reportStatus: (name: ServiceName, status: ServiceStatus, progress?: number) => void
-}
-
-export interface Service {
+export type Service = CreatableInstance<{
   name: ServiceName
-  statusReporter?: ServiceStatusReporter
-}
+}>
