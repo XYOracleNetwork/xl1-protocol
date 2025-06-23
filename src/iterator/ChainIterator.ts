@@ -6,7 +6,8 @@ import type { BlockBoundWitness } from '../block/index.ts'
 import type { IterableRepository, ReadRepository } from '../repository/index.ts'
 import type { ChainIteratorEventData } from './ChainIteratorEventData.ts'
 
-export interface ChainIterator<TKey, THead> extends ReadRepository<TKey, BlockBoundWitness>, IterableRepository<TKey, BlockBoundWitness> {
+export interface ChainIterator<TKey, THead>
+  extends ReadRepository<TKey, BlockBoundWitness | undefined>, IterableRepository<TKey, BlockBoundWitness | undefined> {
   chainId: Address
   head(): Promise<THead>
   previous(cursor?: TKey | undefined, limit?: number): Promise<BlockBoundWitness[]>
