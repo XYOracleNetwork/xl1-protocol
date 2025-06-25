@@ -14,10 +14,6 @@ export interface BlockNumberFields {
    * The block number
    */
   block: Hex
-  /**
-   * The chain id
-   */
-  chain?: Hex
 }
 /**
  * The number of a block

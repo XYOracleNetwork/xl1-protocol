@@ -53,7 +53,7 @@
     "@xyo-network/wallet-model": "^3.18.10"
   },
   "devDependencies": {
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.4",
     "@xylabs/eslint-config-flat": "^6.5.8",
     "@xylabs/ts-scripts-yarn3": "^6.5.8",
     "@xylabs/tsconfig": "^6.5.8",
@@ -63,7 +63,7 @@
     "eslint-import-resolver-typescript": "^4.4.3",
     "knip": "^5.61.2",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
+    "vite": "^7.0.0",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   },
