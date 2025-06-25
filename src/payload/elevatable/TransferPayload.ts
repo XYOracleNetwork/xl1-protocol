@@ -14,7 +14,7 @@ export type TransferSchema = typeof TransferSchema
 export interface TransferFields extends FromFields {
   epoch: number
   // the amount that is being sent to another address
-  transfers: Record<Address, Hex>
+  transfers: Partial<Record<Address, Hex>>
 }
 
 // if this payload is included in a boundwitness, it needs to be available for inspection to be included in block
@@ -23,4 +23,3 @@ export type Transfer = Payload<TransferFields, TransferSchema>
 export const isTransfer = isPayloadOfSchemaType<Transfer>(TransferSchema)
 
 export const asTransfer = AsObjectFactory.create(isTransfer)
-export const asOptionalTransfer = AsObjectFactory.createOptional(isTransfer)

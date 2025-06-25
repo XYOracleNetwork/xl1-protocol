@@ -14,10 +14,6 @@ export interface BlockNumberFields {
    * The block number
    */
   block: Hex
-  /**
-   * The chain id
-   */
-  chain?: Hex
 }
 /**
  * The number of a block
@@ -29,11 +25,9 @@ export type BlockNumber = Payload<BlockNumberFields, BlockNumberSchema>
  */
 export const isBlockNumber = isPayloadOfSchemaType<BlockNumber>(BlockNumberSchema)
 export const asBlockNumber = AsObjectFactory.create<BlockNumber>(isBlockNumber)
-export const asOptionalBlockNumber = AsObjectFactory.createOptional<BlockNumber>(isBlockNumber)
 
 /**
  * Identity function for determining if an object is a BlockNumber with sources
  */
 export const isBlockNumberWithSources = isPayloadOfSchemaTypeWithSources<BlockNumber>(BlockNumberSchema)
 export const asBlockNumberWithSources = AsObjectFactory.create<WithSources<BlockNumber>>(isBlockNumberWithSources)
-export const asOptionalBlockNumberWithSources = AsObjectFactory.createOptional<WithSources<BlockNumber>>(isBlockNumberWithSources)

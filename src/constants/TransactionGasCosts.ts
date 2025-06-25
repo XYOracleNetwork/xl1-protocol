@@ -1,23 +1,21 @@
-import { MicroXL1 } from '../xl1/index.ts'
-
 export const TransactionGasCosts = {
   /**
    * The cost of storing each character that is added to the chain
    * This includes the transaction JSON and all the elevated payloads' JSON
   */
-  characterStorage: MicroXL1(10n),
+  characterStorage: 10n,
 
   /** The cost of static validating every payload that will be included in the chain */
-  payloadValidation: MicroXL1(1000n),
+  payloadValidation: 1000n,
 
   /** The cost of validating each signature that will be included in the chain */
-  signatureValidation: MicroXL1(1000n),
+  signatureValidation: 1000n,
 
   /** The cost of validating each hash that will be included in the chain */
-  hashValidation: MicroXL1(100n),
+  hashValidation: 100n,
 
   /** The cost of validating a balance state, triggered by a Transfer payload or gas collection */
-  balanceValidation: MicroXL1(100n),
+  balanceValidation: 100n,
 } as const
 
 /** Gas Calculation

@@ -41,6 +41,3 @@ export const isChainIndexingServiceStateWithStorageMeta
 
 export const asChainIndexingServiceStateWithStorageMeta
 = AsObjectFactory.create<WithStorageMeta<ChainIndexingServiceState>>(isChainIndexingServiceStateWithStorageMeta)
-
-export const asOptionalChainIndexingServiceStateWithStorageMeta
-= AsObjectFactory.createOptional<WithStorageMeta<ChainIndexingServiceState>>(isChainIndexingServiceStateWithStorageMeta)

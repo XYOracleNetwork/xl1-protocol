@@ -1,8 +1,9 @@
 import type { Address } from '@xylabs/hex'
 
-import type { Intent } from '#payload'
+import type { Intent } from '../../payload/index.ts'
+import type { Service } from '../Service.ts'
 
-export interface StakeIntentService {
+export interface StakeIntentService extends Service {
 
   /**
    * Gets the declared ranges for an address based on historical on-chain data
@@ -17,6 +18,13 @@ export interface StakeIntentService {
    * @param intent The declared intent to filter for
   */
   getDeclaredCandidatesForBlock(block: number, intent: Intent): Promise<Address[]>
+
+  /**
+   * Gets the required minimum stake for a given intent
+   * @param intent The declared intent to filter for
+   * @returns The required minimum stake for the intent
+   */
+  getRequiredMinimumStakeForIntent(intent: Intent): bigint
 
   /**
    * Checks if the address is staked for a block for a given intent

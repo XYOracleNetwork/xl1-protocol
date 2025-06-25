@@ -126,6 +126,7 @@
     "payloadset",
     "Pico",
     "preinstall",
+    "primorial",
     "Promisable",
     "Promisifying",
     "publint",
@@ -167,5 +168,6 @@
     "XYOL"
   ],
   "npm.packageManager": "yarn",
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "vitest.disableWorkspaceWarning": true
 }

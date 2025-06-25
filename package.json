@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol",
-  "version": "1.4.1",
+  "version": "1.5.11",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -22,57 +22,60 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/types/index.d.ts",
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
+    },
+    "./v2": {
+      "types": "./dist/types/provider/v2/index.d.ts",
+      "source": "./src/provider/v2/index.ts",
+      "default": "./dist/neutral/provider/v2/index.mjs"
     },
     "./package.json": "./package.json"
   },
   "module": "./dist/neutral/index.mjs",
   "source": "./src/index.ts",
-  "types": "./dist/index.d.ts",
-  "scripts": {
-    "package-compile": "package-compile-only && rollup --config rollup.dts.config.mjs"
-  },
+  "types": "./dist/types/index.d.ts",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@xylabs/base": "^4.10.0",
-    "@xylabs/events": "^4.10.0",
-    "@xylabs/hex": "^4.10.0",
-    "@xylabs/logger": "^4.10.0",
-    "@xylabs/object": "^4.10.0",
-    "@xylabs/promise": "^4.10.0",
-    "@xyo-network/account-model": "^3.17.0",
-    "@xyo-network/archivist-model": "^3.17.0",
-    "@xyo-network/boundwitness-model": "^3.17.0",
-    "@xyo-network/payload-model": "^3.17.0",
-    "@xyo-network/schema-payload-plugin": "^3.17.0",
-    "@xyo-network/wallet-model": "^3.17.0"
+    "@xylabs/base": "^4.12.10",
+    "@xylabs/creatable": "^4.12.10",
+    "@xylabs/events": "^4.12.10",
+    "@xylabs/hex": "^4.12.10",
+    "@xylabs/object": "^4.12.10",
+    "@xylabs/promise": "^4.12.10",
+    "@xylabs/typeof": "^4.12.10",
+    "@xyo-network/account-model": "^3.18.10",
+    "@xyo-network/archivist-model": "^3.18.10",
+    "@xyo-network/boundwitness-model": "^3.18.10",
+    "@xyo-network/payload-model": "^3.18.10",
+    "@xyo-network/schema-payload-plugin": "^3.18.10",
+    "@xyo-network/wallet-model": "^3.18.10"
   },
   "devDependencies": {
-    "@esbuild-plugins/tsconfig-paths": "^0.1.2",
-    "@rollup/plugin-alias": "^5.1.1",
-    "@types/node": "^22.15.21",
-    "@xylabs/eslint-config-flat": "^6.5.7",
-    "@xylabs/ts-scripts-yarn3": "^6.5.7",
-    "@xylabs/tsconfig": "^6.5.7",
-    "dependency-cruiser": "^16.10.2",
+    "@types/node": "^24.0.4",
+    "@xylabs/eslint-config-flat": "^6.5.8",
+    "@xylabs/ts-scripts-yarn3": "^6.5.8",
+    "@xylabs/tsconfig": "^6.5.8",
+    "dependency-cruiser": "^16.10.3",
     "dotenv": "^16.5.0",
-    "eslint": "^9.27.0",
-    "eslint-import-resolver-typescript": "^4.3.5",
-    "knip": "^5.57.0",
-    "rollup": "^4.41.0",
-    "rollup-plugin-dts": "^6.2.1",
+    "eslint": "^9.29.0",
+    "eslint-import-resolver-typescript": "^4.4.3",
+    "knip": "^5.61.2",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
+    "vite": "^7.0.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   },
-  "packageManager": "yarn@4.9.1",
+  "packageManager": "yarn@4.9.2",
   "engines": {
     "node": ">=22.3 <23"
   },
   "engineStrict": true,
+  "volta": {
+    "node": "22.3.0",
+    "yarn": "4.9.2"
+  },
   "publishConfig": {
     "access": "public"
   }

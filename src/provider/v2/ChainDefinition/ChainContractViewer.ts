@@ -1,8 +1,8 @@
 import type { Address } from '@xylabs/hex'
 
 export interface ChainContractViewer {
+  chainId: Address
   active(): Promise<bigint>
-  chainId(): Promise<Address>
   forkedAtBlockNumber(): Promise<bigint>
   forkedAtHash(): Promise<bigint>
   forkedChainId(): Promise<Address>

@@ -1,8 +1,9 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
-import type { ReadArchivist } from '@xyo-network/archivist-model'
 
-import type { HydratedBlock } from '#block'
+import type { HydratedBlock } from '../../block/index.ts'
+import type { AccountBalanceService, AccountBalanceServiceV2 } from '../../services/index.ts'
+import type { HydratedBlockStateValidationError } from './error.ts'
 
 /**
  * A function that validates a hydrated block against chain state.
@@ -14,5 +15,11 @@ import type { HydratedBlock } from '#block'
 export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlock,
   chainId: Address,
-  archivist: ReadArchivist,
-) => Promisable<Error[]>
+  services: { accountBalance: AccountBalanceService },
+) => Promisable<(HydratedBlockStateValidationError | Error)[]>
+
+export type HydratedBlockStateValidationFunctionV2 = (
+  hydratedBlock: HydratedBlock,
+  chainId: Address,
+  services: { accountBalance: AccountBalanceServiceV2 },
+) => Promisable<(HydratedBlockStateValidationError | Error)[]>

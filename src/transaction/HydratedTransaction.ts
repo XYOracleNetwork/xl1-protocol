@@ -1,19 +1,21 @@
+import { AsObjectFactory } from '@xylabs/object'
 import type { Signed } from '@xyo-network/boundwitness-model'
-import type {
-  Payload, WithHashStorageMeta, WithStorageMeta,
-} from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 
-import type { TransactionBoundWitness } from './TransactionBoundWitness.ts'
+import { isHydratedBoundWitness } from '../isHydratedBoundWitness.ts'
+import { isSignedTransactionBoundWitnessWithStorageMeta, type TransactionBoundWitness } from './TransactionBoundWitness.ts'
 
-export type HydratedTransaction<T extends TransactionBoundWitness = TransactionBoundWitness, P extends Payload = Payload> = [T, P[]]
+export type HydratedTransaction<T extends TransactionBoundWitness = TransactionBoundWitness, P extends Payload = Payload> =
+[WithStorageMeta<Signed<T>>, WithStorageMeta<P>[]]
 
-export type HydratedTransactionWithStorageMeta<T extends HydratedTransaction = HydratedTransaction>
- = [WithStorageMeta<T[0]>, WithStorageMeta<T[1][number]>[]]
+export const isHydratedTransaction = (
+  value: unknown,
+): value is HydratedTransaction => {
+  return (
+    isHydratedBoundWitness(value) && isSignedTransactionBoundWitnessWithStorageMeta(value[0])
+  )
+}
 
-export type HydratedTransactionWithHashStorageMeta<T extends HydratedTransaction = HydratedTransaction>
- = [WithHashStorageMeta<T[0]>, WithHashStorageMeta<T[1][number]>[]]
-
-export type SignedHydratedTransaction<T extends HydratedTransaction = HydratedTransaction> = [Signed<T[0]>, T[1][number][]] & HydratedTransaction
-
-export type SignedHydratedTransactionWithStorageMeta<T extends HydratedTransaction = HydratedTransaction>
- = [WithStorageMeta<Signed<T[0]>>, WithStorageMeta<T[1][number]>[]] & SignedHydratedTransaction<T> & HydratedTransaction
+export const asHydratedTransaction = AsObjectFactory.create<HydratedTransaction>(
+  isHydratedTransaction,
+)
