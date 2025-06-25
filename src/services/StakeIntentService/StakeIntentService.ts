@@ -20,6 +20,13 @@ export interface StakeIntentService extends Service {
   getDeclaredCandidatesForBlock(block: number, intent: Intent): Promise<Address[]>
 
   /**
+   * Gets the required minimum stake for a given intent
+   * @param intent The declared intent to filter for
+   * @returns The required minimum stake for the intent
+   */
+  getRequiredMinimumStakeForIntent(intent: Intent): bigint
+
+  /**
    * Checks if the address is staked for a block for a given intent
    * @param block The block number to check
    * @param intent The declared intent to filter for
