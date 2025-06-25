@@ -167,6 +167,35 @@ Step Hashes in the XYO Layer One Blockchain significantly improve the efficiency
     \includegraphics[width=15cm]{step-hash.png}
 \end{center}
 
+\subsubsection{Step Hash Size}
+
+The Step Hash Size is determined using a modified primorial function, defined as the product of the first \(n+2\) prime numbers, incremented by 1. This structure ensures that step intervals avoid overlapping too frequently, enabling broader and more distributed step coverage across the blockchain.
+
+We define the Step Size at index \(n\) as:
+
+\[
+    \text{StepSize}_n = \text{primorial}(n+2) + 1
+\]
+
+Where:
+\[
+    \text{primorial}(k) = \prod_{i=1}^{k} p_i
+\]
+and \(p_i\) is the \(i^\text{th}\) prime number.
+
+\textbf{Example:}
+\begin{align*}
+\text{primorial}(1+2) &= 2 \times 3 = 6 \quad \Rightarrow \text{StepSize}_1 = 7 \\
+\text{primorial}(2+2) &= 2 \times 3 \times 5 = 30 \quad \Rightarrow \text{StepSize}_2 = 31 \\
+\text{primorial}(3+2) &= 2 \times 3 \times 5 \times 7 = 210 \quad \Rightarrow \text{StepSize}_3 = 211 \\
+\text{primorial}(4+2) &= 2 \times 3 \times 5 \times 7 \times 11 = 2310 \quad \Rightarrow \text{StepSize}_4 = 2311
+\end{align*}
+
+This produces the following predefined Step Sizes used in the protocol:
+\[
+\texttt{StepSizes} = \text{[7, 31, 211, 2,311, 30,031, 510,511, 9,699,691, 223,092,871, 6,469,693,231]}
+\]
+
 \subsection{Rollups}
 Rollups are a crucial feature for enhancing the scalability and performance of the XYO Layer One Blockchain, particularly in industries requiring high volumes of data processing such as AI, Machine Learning, and DePIN. 
 
@@ -489,17 +518,27 @@ Step rewards are granted at predefined milestone blocks. Unlike block rewards, w
 The Step Reward Pool is an incentive mechanism that distributes rewards at specific block milestones.
 
 \subsubsection{Step Triggers}
-The following block intervals represent recurring Step Triggers within the XYO Layer One Blockchain. At each trigger block, a fixed percentage of the Step Reward Pool is released. These triggers occur repeatedly throughout the blockchain's lifecycle—for example, the 11,576-block trigger occurs approximately 1,157 times within the first 13.4 million blocks. Each time approximately 13.4 million blocks are created, 45\% of the Reward Pool is distributed.
+
+The following block intervals represent recurring Step Triggers within the XYO Layer One Blockchain. At each trigger block, a fixed percentage of the Step Reward Pool is released. These triggers are determined using the primorial-based Step Size formula:
+
+\[
+\text{StepSize}_n = \text{primorial}(n + 2) + 1
+\]
+
+These triggers occur repeatedly throughout the blockchain's lifecycle, increasing in spacing and impact over time. Each milestone pays out a percentage of the accumulated Step Reward Pool.
 
 \begin{itemize}
-    \item 10 (no Step Pool Rewards\footnote{These small Step Triggers are mainly used for internal housekeeping and blockchain efficiency and do not trigger distributions from the Step Reward Pool.})
-    \item 105 (no Step Pool Rewards)
-    \item 1,103 (no Step Pool Rewards)
-    \item 11,576 (0.01\% of Step Pool Rewards)
-    \item 121,551 (0.2\% of Step Pool Rewards)
-    \item 1,276,282 (3\% of Step Pool Rewards)
-    \item 13,400,956 (45\% of Step Pool Rewards)
+    \item 7 (no Step Pool Rewards\footnote{Used for internal housekeeping and blockchain efficiency.})
+    \item 31 (no Step Pool Rewards)
+    \item 211 (no Step Pool Rewards)
+    \item 2,311 (0.01\% of Step Pool Rewards)
+    \item 30,031 (0.2\% of Step Pool Rewards)
+    \item 510,511 (3\% of Step Pool Rewards)
+    \item 9,699,691 (45\% of Step Pool Rewards)
 \end{itemize}
+
+\noindent
+\textit{Note: Additional Step Triggers such as 223,092,871 and 6,469,693,231 exist and may be used in the distant future, allowing the system to scale indefinitely.}
 
 \subsubsection{Step Reward Allocation}
 Step Rewards are allocated to both Block Producers and Validators. However, the sum of Step Rewards allocated to Validators will always exceed the amount allocated to Block Producers. This is because Step Rewards are primarily designed to incentivize long-term network participation, especially by nodes completing participational tasks that are not otherwise rewarded. 
