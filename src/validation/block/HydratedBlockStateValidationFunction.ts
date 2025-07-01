@@ -16,10 +16,10 @@ export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlock,
   chainId: Address,
   services: { accountBalance: AccountBalanceService },
-) => Promisable<(HydratedBlockStateValidationError)[]>
+) => Promisable<HydratedBlockStateValidationError[]>
 
 export type HydratedBlockStateValidationFunctionV2 = (
   hydratedBlock: HydratedBlock,
   chainId: Address,
   services: { accountBalance: AccountBalanceServiceV2 },
-) => Promisable<(HydratedBlockStateValidationError)[]>
+) => Promisable<HydratedBlockStateValidationError[]>

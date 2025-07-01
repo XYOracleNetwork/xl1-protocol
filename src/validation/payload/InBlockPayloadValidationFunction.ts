@@ -6,4 +6,4 @@ import type { InBlockPayloadValidationError } from './error.ts'
 
 export type InBlockPayloadValidationFunction = (
   payload: WithHashStorageMeta<Payload>, block: HydratedBlock
-) => Promisable<(InBlockPayloadValidationError)[]>
+) => Promisable<InBlockPayloadValidationError[]>

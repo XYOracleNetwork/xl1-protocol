@@ -1,4 +1,4 @@
-import { type HydratedTransaction, isHydratedTransaction } from '../../transaction/index.ts'
+import { type HydratedTransaction } from '../../transaction/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class HydratedTransactionValidationError extends ValidationError<HydratedTransaction> {}
@@ -6,7 +6,8 @@ export class HydratedTransactionValidationError extends ValidationError<Hydrated
 export const isHydratedTransactionValidationError = (
   error: unknown,
 ): error is HydratedTransactionValidationError => {
+  if (!isValidationError(error)) return false
   return (
-    isValidationError(error) && isHydratedTransaction(error)
+    error.name === HydratedTransactionValidationError.constructor.name
   )
 }

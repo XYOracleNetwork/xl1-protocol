@@ -3,14 +3,14 @@ import { isError } from '@xylabs/typeof'
 import type { Payload } from '@xyo-network/payload-model'
 
 export class ValidationError<TValue = Payload> extends Error {
-  errors?: Error[]
+  hash: Hash
   value: TValue
-  constructor(cause: Hash, value: TValue, message?: string, errors?: Error[]) {
+  constructor(hash: Hash, value: TValue, message?: string, cause?: unknown) {
     super(message)
-    this.cause = cause
-    this.errors = errors
+    this.hash = hash
     this.name = this.constructor.name
     this.value = value
+    this.cause = cause
   }
 }
 
@@ -18,6 +18,6 @@ export const isValidationError = <TValue = Payload>(
   error: unknown,
 ): error is ValidationError<TValue> => {
   return (
-    isError(error) && isHash((error as ValidationError<TValue>)?.cause) && (error as ValidationError<TValue>)?.value !== undefined
+    isError(error) && isHash((error as ValidationError<TValue>)?.hash) && (error as ValidationError<TValue>)?.value !== undefined
   )
 }
