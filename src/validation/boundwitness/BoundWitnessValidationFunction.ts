@@ -5,4 +5,4 @@ import type { BoundWitnessValidationError } from './error.ts'
 
 export type BoundWitnessValidationFunction<T extends BoundWitness = BoundWitness> = (
   bw: T
-) => Promisable<(BoundWitnessValidationError | Error)[]>
+) => Promisable<(BoundWitnessValidationError)[]>
