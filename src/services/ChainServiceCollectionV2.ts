@@ -11,6 +11,7 @@ import type {
 import type { ElectionService } from './Election.ts'
 import type { StakeIntentService } from './StakeIntentService/index.ts'
 
+/** @deprecated use from @xyo-network/xl1-protocol-sdk instead */
 export interface ChainServiceCollectionV2 {
 
   /**

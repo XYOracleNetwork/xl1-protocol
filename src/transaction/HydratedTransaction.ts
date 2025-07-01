@@ -5,8 +5,8 @@ import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHydratedBoundWitness } from '../isHydratedBoundWitness.ts'
 import { isSignedTransactionBoundWitnessWithStorageMeta, type TransactionBoundWitness } from './TransactionBoundWitness.ts'
 
-export type HydratedTransaction<T extends TransactionBoundWitness = TransactionBoundWitness, P extends Payload = Payload> =
-[WithStorageMeta<Signed<T>>, WithStorageMeta<P>[]]
+export type HydratedTransaction<T extends TransactionBoundWitness = TransactionBoundWitness,
+  P extends Payload = Payload> = [WithStorageMeta<Signed<T>>, WithStorageMeta<P>[]]
 
 export const isHydratedTransaction = (
   value: unknown,
