@@ -27,8 +27,8 @@ export const isHydratedBlockValidationError = (
 
 export class HydratedBlockStateValidationError extends ValidationError<HydratedBlock> {
   chainId: Address
-  constructor(hash: Hash, chainId: Address, value: HydratedBlock, message?: string, errors?: Error[]) {
-    super(hash, value, message, errors)
+  constructor(hash: Hash, chainId: Address, value: HydratedBlock, message?: string, cause?: unknown) {
+    super(hash, value, message, cause)
     this.chainId = chainId
   }
 }
