@@ -6,8 +6,8 @@ import { isValidationError, ValidationError } from '../error.ts'
 
 export class InBlockPayloadValidationError extends ValidationError<Payload> {
   block: HydratedBlock
-  constructor(cause: Hash, block: HydratedBlock, value: Payload, message?: string, errors?: Error[]) {
-    super(cause, value, message, errors)
+  constructor(hash: Hash, block: HydratedBlock, value: Payload, message?: string, cause?: unknown) {
+    super(hash, value, message, cause)
     this.block = block
   }
 }
