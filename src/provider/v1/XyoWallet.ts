@@ -1,8 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-// TODO: define the permissions object and return object types
-
+/** @deprecated  - use XyoHost instead */
 export interface XyoWallet {
   accounts(): Promisable<Address[]>
   addChain(chain: Address, name?: string): Promisable<object>

@@ -5,6 +5,7 @@ import type { Payload } from '@xyo-network/payload-model'
 import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
 import type { XyoDataLakeProvider } from './XyoDataLake.ts'
+import type { XyoHost } from './XyoHost.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
 import type { XyoSigner } from './XyoSigner.ts'
@@ -12,6 +13,7 @@ import type { XyoViewer } from './XyoViewer.ts'
 import type { XyoWallet } from './XyoWallet.ts'
 
 export interface XyoProvider {
+  host?: XyoHost
   network?: XyoNetwork
   runner?: XyoRunner
   send?: (
@@ -26,5 +28,6 @@ export interface XyoProvider {
   signer?: XyoSigner
   storage?: XyoDataLakeProvider
   viewer?: XyoViewer
+  /** @deprecated  - use XyoHost instead */
   wallet?: XyoWallet
 }
