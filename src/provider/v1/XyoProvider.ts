@@ -10,6 +10,7 @@ import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
 import type { XyoSigner } from './XyoSigner.ts'
 import type { XyoViewer } from './XyoViewer.ts'
+// eslint-disable-next-line sonarjs/deprecation
 import type { XyoWallet } from './XyoWallet.ts'
 
 export interface XyoProvider {
@@ -28,6 +29,7 @@ export interface XyoProvider {
   signer?: XyoSigner
   storage?: XyoDataLakeProvider
   viewer?: XyoViewer
-  /** @deprecated  - use XyoHost instead */
+  /** @deprecated  - use host instead */
+  // eslint-disable-next-line sonarjs/deprecation
   wallet?: XyoWallet
 }

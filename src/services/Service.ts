@@ -1,3 +1,1 @@
-export type Service = {
-
-}
+export interface Service {}

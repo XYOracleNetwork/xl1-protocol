@@ -1,13 +1,13 @@
 import type { ArchivistInstance, WriteArchivist } from '@xyo-network/archivist-model'
 import type { WalletInstance } from '@xyo-network/wallet-model'
 
-import type { EventingChainBlockNumberIterator } from '../iterator/index.ts'
 import type { AccountBalanceServiceV2 } from './AccountBalanceService.ts'
 import type { BlockProducerService } from './BlockProducerService.ts'
 import type { BlockRewardService } from './BlockRewardService.ts'
 import type {
   ChainContractViewer, ChainStaker, ChainStakeViewer,
 } from './Chain/index.ts'
+import type { EventingChainBlockNumberIteratorService } from './ChainIterator/index.ts'
 import type { ElectionService } from './Election.ts'
 import type { StakeIntentService } from './StakeIntentService/index.ts'
 
@@ -34,7 +34,7 @@ export interface ChainServiceCollectionV2 {
   /**
    * The chain iterator
    */
-  chainIterator?: EventingChainBlockNumberIterator
+  chainIterator?: EventingChainBlockNumberIteratorService
   /**
    * Service for viewing stake information
    */
