@@ -4,6 +4,7 @@ import { AsObjectFactory } from '@xylabs/object'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
 
+/** @public */
 export interface ChainIndexingServiceStateFields<T extends JsonValue = JsonValue> {
   /**
    * The hash of the last block that this service has indexing
@@ -19,25 +20,35 @@ export interface ChainIndexingServiceStateFields<T extends JsonValue = JsonValue
    */
   state: T
 }
+
+/** @public */
 export const ChainIndexingServiceStateSchema = 'network.xyo.chain.indexing.service.state' as const
+/** @public */
 export type ChainIndexingServiceStateSchema = typeof ChainIndexingServiceStateSchema
 
 /**
+ * @public
  * The result of a ChainIndexingServiceState
  */
 export type ChainIndexingServiceState<T extends JsonValue = JsonValue> = Payload<ChainIndexingServiceStateFields<T>, ChainIndexingServiceStateSchema>
 
 /**
+ * @public
  * Identity functions for determining if an object is an ChainIndexingServiceState
  */
 export const isChainIndexingServiceState = <T extends JsonValue = JsonValue>(payload?: unknown): payload is ChainIndexingServiceState<T> => {
   return isPayloadOfSchemaType<ChainIndexingServiceState<T>>(ChainIndexingServiceStateSchema)(payload)
 }
-export const asChainIndexingServiceState = AsObjectFactory.create<ChainIndexingServiceState<JsonValue>>(isChainIndexingServiceState)
 
+/** @public */
+export const asChainIndexingServiceState
+= AsObjectFactory.create<ChainIndexingServiceState<JsonValue>>(isChainIndexingServiceState)
+
+/** @public */
 export const isChainIndexingServiceStateWithStorageMeta
 = <T extends JsonValue = JsonValue>(value: unknown): value is WithStorageMeta<ChainIndexingServiceState<T>> =>
   isChainIndexingServiceState<T>(value) && isStorageMeta(value)
 
+/** @public */
 export const asChainIndexingServiceStateWithStorageMeta
 = AsObjectFactory.create<WithStorageMeta<ChainIndexingServiceState>>(isChainIndexingServiceStateWithStorageMeta)

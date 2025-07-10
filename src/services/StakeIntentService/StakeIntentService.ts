@@ -3,6 +3,7 @@ import type { Address } from '@xylabs/hex'
 import type { Intent } from '../../payload/index.ts'
 import type { Service } from '../Service.ts'
 
+/** @public */
 export interface StakeIntentService extends Service {
 
   /**
