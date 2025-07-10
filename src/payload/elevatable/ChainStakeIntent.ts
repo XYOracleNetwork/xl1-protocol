@@ -1,6 +1,6 @@
 import { AsObjectFactory } from '@xylabs/object'
-import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
 
 import type { BlockDuration } from '../../fields/index.ts'
 import type { FromFields } from './Executable.ts'
@@ -25,6 +25,10 @@ export const isChainStakeIntent = (x?: unknown | null): x is ChainStakeIntent =>
     && asNonNegativeInteger(x.exp) !== undefined
 }
 export const asChainStakeIntent = AsObjectFactory.create(isChainStakeIntent)
+
+export const isChainStakeIntentWithStorageMeta = (x?: unknown | null): x is WithStorageMeta<ChainStakeIntent> => {
+  return isChainStakeIntent(x) && isStorageMeta(x)
+}
 
 const asNonNegativeInteger = (num: number) => {
   return (Number.isInteger(num) && num >= 0) ? num : undefined
