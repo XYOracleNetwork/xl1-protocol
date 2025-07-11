@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -22,12 +22,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/neutral/index.d.ts",
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
     "./v2": {
-      "types": "./dist/types/provider/v2/index.d.ts",
+      "types": "./dist/neutral/provider/v2/index.d.ts",
       "source": "./src/provider/v2/index.ts",
       "default": "./dist/neutral/provider/v2/index.mjs"
     },
@@ -35,7 +35,7 @@
   },
   "module": "./dist/neutral/index.mjs",
   "source": "./src/index.ts",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/neutral/index.d.ts",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@xylabs/base": "^4.13.9",
