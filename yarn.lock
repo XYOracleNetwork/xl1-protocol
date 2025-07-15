@@ -903,6 +903,138 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/core-darwin-arm64@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-darwin-arm64@npm:1.12.14"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-darwin-x64@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-darwin-x64@npm:1.12.14"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm-gnueabihf@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.12.14"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-gnu@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.12.14"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-arm64-musl@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-linux-arm64-musl@npm:1.12.14"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-gnu@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-linux-x64-gnu@npm:1.12.14"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@swc/core-linux-x64-musl@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-linux-x64-musl@npm:1.12.14"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-arm64-msvc@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.12.14"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-ia32-msvc@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.12.14"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
+"@swc/core-win32-x64-msvc@npm:1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core-win32-x64-msvc@npm:1.12.14"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@swc/core@npm:^1.12.14":
+  version: 1.12.14
+  resolution: "@swc/core@npm:1.12.14"
+  dependencies:
+    "@swc/core-darwin-arm64": "npm:1.12.14"
+    "@swc/core-darwin-x64": "npm:1.12.14"
+    "@swc/core-linux-arm-gnueabihf": "npm:1.12.14"
+    "@swc/core-linux-arm64-gnu": "npm:1.12.14"
+    "@swc/core-linux-arm64-musl": "npm:1.12.14"
+    "@swc/core-linux-x64-gnu": "npm:1.12.14"
+    "@swc/core-linux-x64-musl": "npm:1.12.14"
+    "@swc/core-win32-arm64-msvc": "npm:1.12.14"
+    "@swc/core-win32-ia32-msvc": "npm:1.12.14"
+    "@swc/core-win32-x64-msvc": "npm:1.12.14"
+    "@swc/counter": "npm:^0.1.3"
+    "@swc/types": "npm:^0.1.23"
+  peerDependencies:
+    "@swc/helpers": ">=0.5.17"
+  dependenciesMeta:
+    "@swc/core-darwin-arm64":
+      optional: true
+    "@swc/core-darwin-x64":
+      optional: true
+    "@swc/core-linux-arm-gnueabihf":
+      optional: true
+    "@swc/core-linux-arm64-gnu":
+      optional: true
+    "@swc/core-linux-arm64-musl":
+      optional: true
+    "@swc/core-linux-x64-gnu":
+      optional: true
+    "@swc/core-linux-x64-musl":
+      optional: true
+    "@swc/core-win32-arm64-msvc":
+      optional: true
+    "@swc/core-win32-ia32-msvc":
+      optional: true
+    "@swc/core-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc/helpers":
+      optional: true
+  checksum: 10/9763e3ba483220addfe6ad875dc64490234e4b3c2e5c259005a4e156deb448124e62b182fc93210aa12684a32369bbe0027031ec64822bdd11c5f6f6b3623b03
+  languageName: node
+  linkType: hard
+
+"@swc/counter@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@swc/counter@npm:0.1.3"
+  checksum: 10/df8f9cfba9904d3d60f511664c70d23bb323b3a0803ec9890f60133954173047ba9bdeabce28cd70ba89ccd3fd6c71c7b0bd58be85f611e1ffbe5d5c18616598
+  languageName: node
+  linkType: hard
+
+"@swc/types@npm:^0.1.23":
+  version: 0.1.23
+  resolution: "@swc/types@npm:0.1.23"
+  dependencies:
+    "@swc/counter": "npm:^0.1.3"
+  checksum: 10/8d9d73dd1fc9335105105da57595ab913bad6addd4fbcb2eb147300694630232225eb7dc74b733205af33352803e4fcefc18e3a36f8924cf821ef91384767670
+  languageName: node
+  linkType: hard
+
 "@tybys/wasm-util@npm:^0.9.0":
   version: 0.9.0
   resolution: "@tybys/wasm-util@npm:0.9.0"
@@ -969,12 +1101,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.0.13":
-  version: 24.0.13
-  resolution: "@types/node@npm:24.0.13"
+"@types/node@npm:^24.0.14":
+  version: 24.0.14
+  resolution: "@types/node@npm:24.0.14"
   dependencies:
     undici-types: "npm:~7.8.0"
-  checksum: 10/e438734b2f1ec1cbb88ca47134389e074fc8392f747dd1a81b9432b7d0503113c07f4238ff98a512101d576652e6cddb5faf9bc9a79dd602ce2dfc36602a365b
+  checksum: 10/60e546f905734ab37f02f5c30eeb98e350c97837c96e2191972fba0638aa0d414489fad989245a9f106b0a0405410e56fab769fdcfb6504341fc2286d9e1f496
   languageName: node
   linkType: hard
 
@@ -1347,87 +1479,87 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xylabs/arraybuffer@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/arraybuffer@npm:4.13.15"
+"@xylabs/arraybuffer@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/arraybuffer@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/c9e401f175b15e2d65867b8bf61c1bafcfdd13daf4654748219e54dbda34e1aa3bf0e6ae2c2517f04c1502155f66859eaff7bcc7eb4681ad0d09c5bdbd480cb7
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/5fc10a1f577ba554e15d104f7c5b56fb8face58e3dd3356037f0c4ef2ecc64598d49650e0452fb3b19a315453548ff49d104b451d38fa6e956697b502cd632be
   languageName: node
   linkType: hard
 
-"@xylabs/assert@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/assert@npm:4.13.15"
-  checksum: 10/220730e4eb90406a9c4b5bb1d5ef3382deed67c9de41426099672a3b10d2ab93533e224f98dbf93df458ee585f9ea30369d8684626f6adcfd56883ef0546ab3c
+"@xylabs/assert@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/assert@npm:4.13.16"
+  checksum: 10/7344f337f73d05ed11a40466060c3884e323456d9e1ca9065a0e40d757f261e895d4a5dec0e6f4ee91baf753b64ab61c49af673f730543459ea1cdf533041baa
   languageName: node
   linkType: hard
 
-"@xylabs/axios@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/axios@npm:4.13.15"
+"@xylabs/axios@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/axios@npm:4.13.16"
   dependencies:
-    "@xylabs/logger": "npm:^4.13.15"
+    "@xylabs/logger": "npm:^4.13.16"
     axios: "npm:^1.10.0"
     pako: "npm:^2.1.0"
-  checksum: 10/2467f92700ba7a35a23a9005dc42a1c71d62971581d7c0fb1010761ebce9f992d517aa48c820eb55f3d4e803d1fd7da28867c72e683516105f594c457d7785d7
+  checksum: 10/0e5d720fb786ef6bb52c3a78b98e5fc76a1392ba090a35bc64b5641ec9892e1c2ca66e3ebb9bbd1d1f364c4e90c77918690062e6dca21fb72e1a70f3bc8e4aee
   languageName: node
   linkType: hard
 
-"@xylabs/base@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/base@npm:4.13.15"
+"@xylabs/base@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/base@npm:4.13.16"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-  checksum: 10/5daf33e61b35a04e18ecefab44a2b23d6cfe7b9665b0cf3b776412c8eaf1bf09c88a85a66ab0e2ae2825f7e5b0144972e6d7fa7760c6cfaf115f9d632c2fb780
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+  checksum: 10/5b6a82c98e0830045774bf39b2f34d634d3df299eba78df9bb7eea35e8367da1fc95407c19d390df0ec2f2ca492dc63555072a0e2eea2cae2f81645b92c699e0
   languageName: node
   linkType: hard
 
-"@xylabs/creatable@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/creatable@npm:4.13.15"
+"@xylabs/creatable@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/creatable@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/base": "npm:^4.13.15"
-    "@xylabs/events": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/c069be305a4dde73ada3d574808363b047ba914eacee8643b48265a1cf09115313c1b1e7106021a277b406f80d747e09dcbc6a46a2fe0a8c9e50453fe1fb6078
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/base": "npm:^4.13.16"
+    "@xylabs/events": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/e165676147fc62a54e05da0f2bd679d04f98b65d1b13cd1b83b535d428befe071c859c67abc6f3c5bd181e910e6a16c1680da9bf573e8c5884b03296505e90b1
   languageName: node
   linkType: hard
 
-"@xylabs/delay@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/delay@npm:4.13.15"
+"@xylabs/delay@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/delay@npm:4.13.16"
   dependencies:
-    "@xylabs/timer": "npm:^4.13.15"
-  checksum: 10/a345267c441d1d577248b855eeef4cd48424101fad837c104c1785ecc5bcd942a1b5c2904719e8e40205a86689d0e10107cd9bc4834ebaa5a6aa93ce8961fc5e
+    "@xylabs/timer": "npm:^4.13.16"
+  checksum: 10/55e17b0fa6762f36f823faa89b4869bbddb26f922731329f3d63e4b68af788dfdc80319e57354c06ab25976e8de154a0de9bfe8e3ebbab1bbb5a982ddcf4a3d1
   languageName: node
   linkType: hard
 
-"@xylabs/enum@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/enum@npm:4.13.15"
-  checksum: 10/a3555382a7a59a6bd10fb00754e2f93bc548b38d68079853804901c4d25d254df657119a186c8e9a1c594c7c74016929367e2918ce886479bcf61ea03b5553b2
+"@xylabs/enum@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/enum@npm:4.13.16"
+  checksum: 10/1fff877d9232f1b0c4b6bc112fccc0788cc32b789096ef3ad38813b2f0b5e26b03415c779050d8cf528cb4a4d1f6abc57f900170a91a2716d1c06853c1d36d4c
   languageName: node
   linkType: hard
 
-"@xylabs/error@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/error@npm:4.13.15"
-  checksum: 10/0f8dfcc4f6c9155ad630d725db67158a1c2a5b8ae1f95a59b41d47c69eb41c9bcf225a504e2970cffcfa3cd007dd5f8c35d5409c7c1998cf4fef93f583a0bcc9
+"@xylabs/error@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/error@npm:4.13.16"
+  checksum: 10/d07514fd79db364ffb92baa3fe2df6b89e920b5f5a47b901e08412c8af34f920a2585c12f60b20fd5c5b60c537f27bbafb328269e650ed1f537996751159d11c
   languageName: node
   linkType: hard
 
-"@xylabs/eslint-config-flat@npm:^7.0.0-rc.23":
-  version: 7.0.0-rc.23
-  resolution: "@xylabs/eslint-config-flat@npm:7.0.0-rc.23"
+"@xylabs/eslint-config-flat@npm:^7.0.0-rc.27":
+  version: 7.0.0-rc.27
+  resolution: "@xylabs/eslint-config-flat@npm:7.0.0-rc.27"
   dependencies:
     "@eslint/json": "npm:^0.13.0"
     "@stylistic/eslint-plugin": "npm:^5.1.0"
@@ -1443,139 +1575,140 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^8.32.1
     "@typescript-eslint/parser": ^8.32.1
     eslint: ^9
-  checksum: 10/1b2cc6f15011236432c9c66486ec904b70d73f8e102d9efb3b3324baae15cbba9f7621483b0219585ff04b97bf53dd49edd0e0472a252cb86b9b72ff8a6dfb88
+  checksum: 10/ff856b893b93bb90efc6345fd93178e0fc687f48b9535b2d673d8b0176cf95d4e8bad997e40e765ef0ad0f392c0cf9a19a13f67bd3a165c865a33742b3520872
   languageName: node
   linkType: hard
 
-"@xylabs/events@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/events@npm:4.13.15"
+"@xylabs/events@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/events@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/base": "npm:^4.13.15"
-    "@xylabs/error": "npm:^4.13.15"
-    "@xylabs/forget": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/018c3b036c6ea06be3e991acd3cfa6bdc6f057b3f52f298c8a88c24a8febe1636ef1a27a467856afb6f7a95ba9b59f4ab3abfd75cddf877b0e03b6ed68f31007
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/base": "npm:^4.13.16"
+    "@xylabs/error": "npm:^4.13.16"
+    "@xylabs/forget": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/53f2cac0f60acc3cd002ef59ff07c47264fa20d3d40d358167fdc7510194ad3e902f1d02e565bcedb773c70e1843a15307786aa17898ce9b3e4aa1ea34a4e705
   languageName: node
   linkType: hard
 
-"@xylabs/exists@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/exists@npm:4.13.15"
-  checksum: 10/07ce6261ea6a3f77d50d9055658d2e38d7038e0fd54f955798743dd666164dc10ffc0dbf3bb8ac7881f68f073a5ce9e3da1e864eeb469429bf226eac9d035f69
+"@xylabs/exists@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/exists@npm:4.13.16"
+  checksum: 10/f25ff3e913e629cdc8cf9462253423fe09b685eff71f6cf5e7b4709e3b1b04765c8fb5d618b41e37f09ef69c36ee86ad911ab85d7df50f9f7fcd648ac4aa8e5c
   languageName: node
   linkType: hard
 
-"@xylabs/forget@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/forget@npm:4.13.15"
+"@xylabs/forget@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/forget@npm:4.13.16"
   dependencies:
-    "@xylabs/delay": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/afc7228ab16f6b9d742c690857582583104cf258649722cdedc4567c6e174deb908d660f1d6777ae75d8fe98f96163032c688262b5a4ceef8a3f33e9708f6935
+    "@xylabs/delay": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/dc9006c368498363be977b181ad96c092dac8dfe7929c9e496116010813ba5c85d26e7fae29ad4968ec4cac04ba5c066903b4240a60e51ab341db88e0ef56e96
   languageName: node
   linkType: hard
 
-"@xylabs/hex@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/hex@npm:4.13.15"
+"@xylabs/hex@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/hex@npm:4.13.16"
   dependencies:
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/df7c04448c3f64aa5cbd865cef326610814159aa6c3f017c7d2315c9342392d9b7c11e89414f86be2c7624e3b99de947dd5dae433f4c9172cd4664bbac420073
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/f16c3a5d59082872a7f366fab9e42c8ee6d7085e9f3908120a859d1e782b36150dcba51619524e4c3caf12a8d366d3f13392bacb6c66a2498c822b8bd951732f
   languageName: node
   linkType: hard
 
-"@xylabs/logger@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/logger@npm:4.13.15"
+"@xylabs/logger@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/logger@npm:4.13.16"
   dependencies:
-    "@xylabs/enum": "npm:^4.13.15"
-    "@xylabs/error": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/73a4be127e6ef59594cdca7f3e8d484e7b6d8ad5a09ccac9d4f4cf522dc83eac206854e14e11e083c303843cabd05881216ffa6aa817a90ca521b010215d1bee
+    "@xylabs/enum": "npm:^4.13.16"
+    "@xylabs/error": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/3e48acbc5fbaf90a8409eb3eca0113288fec84602a428ed413b2c0b1de232060ddc1696a6f6fee4ab63a07368e5bd22b737bb1dfdc994299f192a69306b04fa8
   languageName: node
   linkType: hard
 
-"@xylabs/object-model@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/object-model@npm:4.13.15"
+"@xylabs/object-model@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/object-model@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/d5d5db36b5267bc0d1445231f5284f10339142095477645c80d10319acc4e7fded04146666740a6fefb2c06f126f03cd7dada3181a4507253d8d45ce6c07836e
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/d52fe095b3b2e2264d970248c8fe3dff525f1a9d1a472581c8ab395b56e3ccedd77adb32a7134359c2fd52719397009e2811dbc9e404a06d311c185746866cf6
   languageName: node
   linkType: hard
 
-"@xylabs/object@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/object@npm:4.13.15"
+"@xylabs/object@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/object@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/object-model": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/0831acc520f0d59e23cabae2540af7c78d541dd9bca9762ab73e331745ac0c20784f50c33fe3060f66d47837cd8c24c4c878413cb2232df4f378409a5724fc7b
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/object-model": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/c596b7bcf41056c267e7c5b32ab64e6156bb1154f1399ecea26af2bb38c424b96698cbc3fb4adbe8f48a4c0bc6e8c7e82e4876a7175ee563faa24ddb0e22e352
   languageName: node
   linkType: hard
 
-"@xylabs/platform@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/platform@npm:4.13.15"
-  checksum: 10/9d429d0217c1cb4fc1461e6e37e3d682ab400bf9dbf83d9987229d87833d8a5dd3e545bc2eb47e46dc84e3ab1b786bae2bfa7d9f34f1d9a5c9434e8692318b67
+"@xylabs/platform@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/platform@npm:4.13.16"
+  checksum: 10/ef04958bdea751ad22c0fed36e86fc77928a9246330ddc377a8fc263a5567fe7b6ff79a17b0544e6d63b55b40bb3deb46002056c2ca8fce93528cdff774eaac0
   languageName: node
   linkType: hard
 
-"@xylabs/promise@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/promise@npm:4.13.15"
+"@xylabs/promise@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/promise@npm:4.13.16"
   dependencies:
-    "@xylabs/typeof": "npm:^4.13.15"
-  checksum: 10/396e400c6d3984c22f28c1376faa08062c5d1745b76d7ab8dbbee6e591461a90c19d0cb41c2b925a5615b7ac11895aa6badb2f33fbad54863a9f3b82bb954eaf
+    "@xylabs/typeof": "npm:^4.13.16"
+  checksum: 10/7defe96ac78c0bed5913ccb4cfbddb6b19bf2a541bb54b3dd57905c246d073f97f3b9a0d2777c17c2c26781ed4203d254d69f073f05e3afc979cab79e02fdae6
   languageName: node
   linkType: hard
 
-"@xylabs/retry@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/retry@npm:4.13.15"
+"@xylabs/retry@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/retry@npm:4.13.16"
   dependencies:
-    "@xylabs/delay": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-  checksum: 10/7c879862a4982cd1ea6a856a697098aebf57af221331a7005be01156a1270d916c27e09942e401c33bfae78e13517612095a4e8ec655ee3c4ebb068be064b7ad
+    "@xylabs/delay": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+  checksum: 10/0ae76345e78564b005c12d28de3b04461072336752e8cfb4563135b51a75a024f653dba6daece4ef5c205641a2c4daf8613272c1cd66a8d4d6c40792a749fca5
   languageName: node
   linkType: hard
 
-"@xylabs/threads@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/threads@npm:4.13.15"
+"@xylabs/threads@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/threads@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
+    "@xylabs/assert": "npm:^4.13.16"
     debug: "npm:^4.4.1"
     is-observable-2-1-0: "npm:is-observable@2.1.0"
     observable-fns: "npm:^0.6.1"
-  checksum: 10/764bf5ba242f2c4f83ea0c1bac75e2888f40ae0ed24ee4f32a8a738ee5ac229a2c41eb3aab9ed64bf5e7c4bf2fb2c3a697b58cf171809c1062863b4a961c9f2f
+  checksum: 10/312286226ef81bf10751791a7e07b55f635fb6761218b9d1085d7bdd4ed051399a8882671ac2d8a758fa51253a71e7970277acf81ba3bfd8660ba1c9a226e8dc
   languageName: node
   linkType: hard
 
-"@xylabs/timer@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/timer@npm:4.13.15"
+"@xylabs/timer@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/timer@npm:4.13.16"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-  checksum: 10/6a9d6f2839f1cf255efff136f5dd7bea5e0d2580e7ac32c392193c86337af59513d6463c0c04269eaee2c4311010a9a0d2e423b9b51f864da9c112db481c13ff
+    "@xylabs/assert": "npm:^4.13.16"
+  checksum: 10/59273b23fdcd744af1cec9af6d28a3947c0edff3469ad457f187a2eaa20894548395af23dd7ccd54a7a30b0cbaaf79412ec60023bae58c3cf589d329819f10f5
   languageName: node
   linkType: hard
 
-"@xylabs/ts-scripts-yarn3@npm:^7.0.0-rc.23":
-  version: 7.0.0-rc.23
-  resolution: "@xylabs/ts-scripts-yarn3@npm:7.0.0-rc.23"
+"@xylabs/ts-scripts-yarn3@npm:^7.0.0-rc.27":
+  version: 7.0.0-rc.27
+  resolution: "@xylabs/ts-scripts-yarn3@npm:7.0.0-rc.27"
   dependencies:
+    "@swc/core": "npm:^1.12.14"
     async-mutex: "npm:^0.5.0"
     chalk: "npm:^5.4.1"
     cosmiconfig: "npm:^9.0.0"
@@ -1596,7 +1729,7 @@ __metadata:
     rollup-plugin-node-externals: "npm:^8.0.1"
     sort-package-json: "npm:^3.4.0"
     tsc-prog: "npm:^2.3.0"
-    tsup: "npm:8.5.0"
+    tsup: "npm:^8.5.0"
     typedoc: "npm:^0.28.7"
     yargs: "npm:^18.0.0"
   peerDependencies:
@@ -1617,262 +1750,262 @@ __metadata:
     package-recompile: dist/bin/package/recompile.mjs
     package-relint: dist/bin/package/relint.mjs
     xy: dist/bin/xy.mjs
-  checksum: 10/c7754ebf2fdef4b1d4df87615de11496da151db930a1d3a094baf1414e032e5c213c2c9be304177a0f9db2baf6878951f198e671ecf132a28e77fd2fd46617ea
+  checksum: 10/e1475d32c1efc34aeb52f2417a674a437358c3cb6c26d4cabc81ea3189f5c292b479860a33f80382e992d11264f4efbba25a5d73b3c52bcd91bfe8351ec9235b
   languageName: node
   linkType: hard
 
-"@xylabs/tsconfig@npm:^7.0.0-rc.23":
-  version: 7.0.0-rc.23
-  resolution: "@xylabs/tsconfig@npm:7.0.0-rc.23"
-  checksum: 10/ba75b4dfb2fb2768903b209aa6aa6ec9f3e8f7308e3a60538362d15b5e6577d2e40826990e9db4ae865a4c088baf47e129e6317ff0c1d80c9d1c9c2a08351606
+"@xylabs/tsconfig@npm:^7.0.0-rc.27":
+  version: 7.0.0-rc.27
+  resolution: "@xylabs/tsconfig@npm:7.0.0-rc.27"
+  checksum: 10/1c9e6177e847e9763d9fbec3527ad9f2b39044a89c0596fccd3506fbf25ff27b079d4009457cab2eec22958d4a324041b204d4263c91b1d51d22d535054477da
   languageName: node
   linkType: hard
 
-"@xylabs/typeof@npm:^4.13.15":
-  version: 4.13.15
-  resolution: "@xylabs/typeof@npm:4.13.15"
-  checksum: 10/d1f1eff3269e3719a4d683d904ea095a3b8e2515854630a56a88ac054209e41419670033883dbb765cef71e2555f625d5990d98feaab66d658c3a7f4a67b180f
+"@xylabs/typeof@npm:^4.13.16":
+  version: 4.13.16
+  resolution: "@xylabs/typeof@npm:4.13.16"
+  checksum: 10/1db656158a03318575083200e19805f426f899526c9d7cdbf74ffa211be8897778af5ea0bdf73fa19f09c17b4f3edaa38a338d4566a5423b7b652ea1bb740901
   languageName: node
   linkType: hard
 
-"@xyo-network/account-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/account-model@npm:4.1.0"
+"@xyo-network/account-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/account-model@npm:4.1.3"
   dependencies:
-    "@xylabs/arraybuffer": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xyo-network/key-model": "npm:^4.1.0"
-    "@xyo-network/previous-hash-store-model": "npm:^4.1.0"
-  checksum: 10/94eed2fe8d4f9af226c11f599e77909438c39f5896a71e974028290c4b50e20032d9d515a9c97b7b1397e6be25a3e07968ad91e2df3e1fb6ea3a18f07126351d
+    "@xylabs/arraybuffer": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xyo-network/key-model": "npm:^4.1.3"
+    "@xyo-network/previous-hash-store-model": "npm:^4.1.3"
+  checksum: 10/c3e903aa7a87850821340c0ceb580390108b2cd1ae6855c5c9aae025be78fe5862303f7d426ed2cf56713ae608066c7c86fc33630f1a26924ef5d05c24a9681d
   languageName: node
   linkType: hard
 
-"@xyo-network/archivist-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/archivist-model@npm:4.1.0"
+"@xyo-network/archivist-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/archivist-model@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/events": "npm:^4.13.15"
-    "@xylabs/exists": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-    "@xyo-network/account-model": "npm:^4.1.0"
-    "@xyo-network/boundwitness-model": "npm:^4.1.0"
-    "@xyo-network/module-model": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-  checksum: 10/469ec2f0d548b530619e30789347557acbd30a85245e3bd8b28bcbe81ef742c469e2eeed3ba7d094d216af89a60de3571ad33f193882bc8385757ab09fa7a236
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/events": "npm:^4.13.16"
+    "@xylabs/exists": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+    "@xyo-network/account-model": "npm:^4.1.3"
+    "@xyo-network/boundwitness-model": "npm:^4.1.3"
+    "@xyo-network/module-model": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+  checksum: 10/6a9ceba2bca0157d397e8a929d8dc2acd5f6e859d2c4c54e26436de0b0a9fe34963e4c4b8f94c94103aa8440d0ea9179ccb37eddc54badccb331778ef20ca880
   languageName: node
   linkType: hard
 
-"@xyo-network/boundwitness-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/boundwitness-model@npm:4.1.0"
+"@xyo-network/boundwitness-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/boundwitness-model@npm:4.1.3"
   dependencies:
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-  checksum: 10/11b2cdca2d45bff612eca44757a046b1afedff5c0481c635ff4931a84adf95a155d4aa606a976d1e37f3b1e02abbfee5366adede8cbcf03e617e0a4fdfbd8f51
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+  checksum: 10/607219b000961e96183b6d259bd3c92dc332bdd22dffc530f8bf29d5c5294ad48548561230cecf3fa849b45bf0917678764cd80e432a5b17479e527b2f33155f
   languageName: node
   linkType: hard
 
-"@xyo-network/data@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/data@npm:4.1.0"
+"@xyo-network/data@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/data@npm:4.1.3"
   dependencies:
     "@scure/base": "npm:^1.2.6"
-    "@xylabs/arraybuffer": "npm:^4.13.15"
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
+    "@xylabs/arraybuffer": "npm:^4.13.16"
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
     ethers: "npm:^6.15.0"
-  checksum: 10/1590b1ed02c339a8dc39044d8a14bb0dda7120e296ccc56620b8a1268a9e078b36e86cc32f05ccf4d6bbceea23eb8a1537653bc3fd5d6011c35bd6d595b68011
+  checksum: 10/d27b480a2fb3a6cdc980513e9ac7c91a3465ec758e06488b196fc1dc6fe2b58151146b655e7b4f654c853fab2421224016e8c0d1590725065c4c853f357ff3c2
   languageName: node
   linkType: hard
 
-"@xyo-network/dns@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/dns@npm:4.1.0"
+"@xyo-network/dns@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/dns@npm:4.1.3"
   dependencies:
-    "@xylabs/axios": "npm:^4.13.15"
-  checksum: 10/71986942d72fa6a1718112fc3a9dc5dc8db8b88d54199668538cce13c87d53a4eb574dcad4d88fc5db484752921ee594f4547c38738dfc0f738a21f477629f69
+    "@xylabs/axios": "npm:^4.13.16"
+  checksum: 10/f85c4ca7865108e4d468f5b6cebe1f67200c1cc4c4ec81b46cd6b6a62b2f2660f67fb0fbfc877cada347c2b05adc34b5ce5475067a6ce8dc30e9f566560d8a76
   languageName: node
   linkType: hard
 
-"@xyo-network/hash@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/hash@npm:4.1.0"
+"@xyo-network/hash@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/hash@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/platform": "npm:^4.13.15"
-    "@xylabs/threads": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-    "@xyo-network/wasm": "npm:^4.1.0"
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/platform": "npm:^4.13.16"
+    "@xylabs/threads": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+    "@xyo-network/wasm": "npm:^4.1.3"
     hash-wasm: "npm:^4.12.0"
-  checksum: 10/90070faa73988513cd33ea8e5642a3a946d21a76631e9d7248140183be6e90a8f1d03e61cddab0a985c1028848f6bd20e85dabca431e3e275e00e805e20ab07f
+  checksum: 10/bf10f25aafca231e51e8d87f790304929657774467042feb6ecbcc345299b3450e1f62dfca05ec645dc407bdba951d66aef6b80ddcfa291a4f464fef72a6e01b
   languageName: node
   linkType: hard
 
-"@xyo-network/key-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/key-model@npm:4.1.0"
+"@xyo-network/key-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/key-model@npm:4.1.3"
   dependencies:
-    "@xyo-network/data": "npm:^4.1.0"
-  checksum: 10/83f980c2a10a97c97d98848ed3686b76c008eccf8fe5a7184ed12f64542342765416a59d5be486ab5335de245c8a6beb3c31a10373310f2d4322259f3e4a5495
+    "@xyo-network/data": "npm:^4.1.3"
+  checksum: 10/cc39b0a343649c99ab30a1b114af6a2073d19fad83ca30c48624af5d38ec3d9d5bde26aeb253a1328693fd74e72342c3e4cd6085cc65c39fab33cff072e80e17
   languageName: node
   linkType: hard
 
-"@xyo-network/manifest-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/manifest-model@npm:4.1.0"
+"@xyo-network/manifest-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/manifest-model@npm:4.1.3"
   dependencies:
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-  checksum: 10/7f051a2c83696706bb153eaf9d7c86442b24e0d7e3fa027e0ad315bc25610c01a8f71d09d153df52c87cc6f2c86f43881b5bf2f78aaa8a4af980586c680152c8
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+  checksum: 10/dda8cc693df53140f703e435d041f6a9b58a9b2a3a9ea3c54a90a91a8d75124ca23d1d4257d5da23e28f6d999a015bd97c41ff81c7a6c05249f141836abddad8
   languageName: node
   linkType: hard
 
-"@xyo-network/module-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/module-model@npm:4.1.0"
+"@xyo-network/module-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/module-model@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/creatable": "npm:^4.13.15"
-    "@xylabs/events": "npm:^4.13.15"
-    "@xylabs/exists": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/retry": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-    "@xyo-network/account-model": "npm:^4.1.0"
-    "@xyo-network/boundwitness-model": "npm:^4.1.0"
-    "@xyo-network/manifest-model": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-  checksum: 10/bcf3b8c92cdf03a85ea3cb9c23eb9e8534a3f2cc0b5f158c9793455f060c29103ccad68f04b55650d1cac1554adb74bede05f9d6c761eaebc852338205ca5538
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/creatable": "npm:^4.13.16"
+    "@xylabs/events": "npm:^4.13.16"
+    "@xylabs/exists": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/retry": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+    "@xyo-network/account-model": "npm:^4.1.3"
+    "@xyo-network/boundwitness-model": "npm:^4.1.3"
+    "@xyo-network/manifest-model": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+  checksum: 10/28a84a3d886e43cfe958f6c83af66462ed577f32331980e79003302c85c72021bbcf26fdd10069fb3a067fc12bdd0aafaf77238b9a511fd08fbfa2a77524e62e
   languageName: node
   linkType: hard
 
-"@xyo-network/payload-builder@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/payload-builder@npm:4.1.0"
+"@xyo-network/payload-builder@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/payload-builder@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/exists": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/logger": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xyo-network/hash": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-  checksum: 10/1899a6d8ab22ed640c46b28fce8b11413e7126349ed269f094b2991a44a90e0984eaa071e6534f92cc2e460b97af56c731bd32a1f07713a1d7168d238fa2ef12
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/exists": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xyo-network/hash": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+  checksum: 10/bbf2b5341aab45b9f5cc033eef8e4a14ac0a554610d43c8eadd56db67d83f0b507a530b3d0259d5daddbe7e58a79c968ec2f4ff58119bf1a0d77873c47d0f4db
   languageName: node
   linkType: hard
 
-"@xyo-network/payload-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/payload-model@npm:4.1.0"
+"@xyo-network/payload-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/payload-model@npm:4.1.3"
   dependencies:
-    "@xylabs/arraybuffer": "npm:^4.13.15"
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-  checksum: 10/fc7d208bd0dac25bc756570a8984e58940a9b7f052a7ac3a652a729b3beda4906ebea246eebbdacad6a142606b0c17ea8a092c00657aa93b022b1db58c80a3ea
+    "@xylabs/arraybuffer": "npm:^4.13.16"
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+  checksum: 10/a140e04c51f203a3cfd71e54c28fe9f4ecd4ef48b92788285655338b6a3b8059c65932b25d54ea98bd78f41d806ae08571d9e0397a0aa02f0861f66542282cff
   languageName: node
   linkType: hard
 
-"@xyo-network/payload-plugin@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/payload-plugin@npm:4.1.0"
+"@xyo-network/payload-plugin@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/payload-plugin@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xyo-network/payload-builder": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-    "@xyo-network/payload-validator": "npm:^4.1.0"
-    "@xyo-network/payload-wrapper": "npm:^4.1.0"
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xyo-network/payload-builder": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+    "@xyo-network/payload-validator": "npm:^4.1.3"
+    "@xyo-network/payload-wrapper": "npm:^4.1.3"
     ajv: "npm:^8.17.1"
-  checksum: 10/a78ce59016f9eb7e957aecfb11e9555f4f354c24f698117ed63806360891b08b997658b7fdc91fb1cf00a359e27e3e5fb789bcbae1382c1bdb442c446da761e4
+  checksum: 10/f70c5af00a0838ab3b1679d8f86f3d0e1613db2d4ece485324427de8b4f7348ea9d9621e5bcf14fd097cd3b72473d11b6be9b4ea635b9a536839d7402640c47b
   languageName: node
   linkType: hard
 
-"@xyo-network/payload-validator@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/payload-validator@npm:4.1.0"
+"@xyo-network/payload-validator@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/payload-validator@npm:4.1.3"
   dependencies:
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/typeof": "npm:^4.13.15"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-    "@xyo-network/schema-name-validator": "npm:^4.1.0"
-  checksum: 10/5b2aadafd09c8f2ba55a3a3c9a7abefa3c80f7ca0ab8eef33edaf9d54e78ac70430bbf2d7b615fc738236a1437e2db7bd3d1f40cc837e6ae705de1e66f58765d
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/typeof": "npm:^4.13.16"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+    "@xyo-network/schema-name-validator": "npm:^4.1.3"
+  checksum: 10/dd2a215060eef3913f001f655b5985b14d056bcbc6d1e5d4ea99929c9fa0c6b397efa9c2c04024fcb134015b30874086a5cc5dccc889e36555cee2c20dd8218c
   languageName: node
   linkType: hard
 
-"@xyo-network/payload-wrapper@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/payload-wrapper@npm:4.1.0"
+"@xyo-network/payload-wrapper@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/payload-wrapper@npm:4.1.3"
   dependencies:
-    "@xylabs/assert": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xyo-network/payload-builder": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-    "@xyo-network/payload-validator": "npm:^4.1.0"
+    "@xylabs/assert": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xyo-network/payload-builder": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+    "@xyo-network/payload-validator": "npm:^4.1.3"
     ajv: "npm:^8.17.1"
-  checksum: 10/ebf484cde7ceee05a87efb3fe85355b72547f6deacceddaef96b8d2fea67e5ef634b3891b5df36248a395838f8b367f7cc464cffb2f407a38069f811c6edf6ee
+  checksum: 10/1da8c4889f9683c9d92d13a542cad26fbbff20198ed6d14b670ecab5c230b56338ce7a5fdaa925dfb7aebdda67af6ffbf3999765931859760c29d22ea77922c3
   languageName: node
   linkType: hard
 
-"@xyo-network/previous-hash-store-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/previous-hash-store-model@npm:4.1.0"
+"@xyo-network/previous-hash-store-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/previous-hash-store-model@npm:4.1.3"
   dependencies:
-    "@xylabs/hex": "npm:^4.13.15"
-  checksum: 10/07d7baecac0b3c774104a7dcb3a537fb2600fa0e3023623f3aeaffed90c95e74bd5c91603db1fa879e6e77407459258367d8bbe65258ddf9048256226891e291
+    "@xylabs/hex": "npm:^4.13.16"
+  checksum: 10/3e4b1f67f484351d67c03896d8d8990c317a29b67b54270c7b419d69d5a5200545479209527e59b411a624b339aeefb08ad3c8cd3d0fcc3e2b3366374730953f
   languageName: node
   linkType: hard
 
-"@xyo-network/schema-name-validator@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/schema-name-validator@npm:4.1.0"
+"@xyo-network/schema-name-validator@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/schema-name-validator@npm:4.1.3"
   dependencies:
-    "@xyo-network/dns": "npm:^4.1.0"
-  checksum: 10/ef0ca91872cb7af615b97fc21acc46fd15a8c6de01df05860929c5cf49fc88b2694fdfb9500b7af4a535f7c66c885ac209ef3e312833377656bedd5c0a2de79d
+    "@xyo-network/dns": "npm:^4.1.3"
+  checksum: 10/44bf90b51a31517ceaa98994ac2b5b744478ae51d2f98bd0924cd6b847c372df07b273e9963ffc8b112bf92baa7c1c56eafa7753fbee3e86b7bcbd85618b00b2
   languageName: node
   linkType: hard
 
-"@xyo-network/schema-payload-plugin@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/schema-payload-plugin@npm:4.1.0"
+"@xyo-network/schema-payload-plugin@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/schema-payload-plugin@npm:4.1.3"
   dependencies:
-    "@xyo-network/payload-model": "npm:^4.1.0"
-    "@xyo-network/payload-plugin": "npm:^4.1.0"
-  checksum: 10/d57340b5a85c5c88b9877842bc42cf774b9e162831d3b9ab65fd85f16b13eda5d13e4620e05ba49db265b365193673f0817f851a3238bfb9755ff050c205be82
+    "@xyo-network/payload-model": "npm:^4.1.3"
+    "@xyo-network/payload-plugin": "npm:^4.1.3"
+  checksum: 10/5e16e2c17b143eaaedf9c80891cf855705fddc0337738cf18f2ee12607b30919e6ed4cd344726a869d9fb7a43d7f2fbe6ccc60a0252f7fd9cea00f7528d33020
   languageName: node
   linkType: hard
 
-"@xyo-network/wallet-model@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/wallet-model@npm:4.1.0"
+"@xyo-network/wallet-model@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/wallet-model@npm:4.1.3"
   dependencies:
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xyo-network/account-model": "npm:^4.1.0"
-  checksum: 10/fcf394cb5ac0c06993060d936069798de89b25fc19fdf00885f4d9cfdbcc9a7c155209acafe0dfdb1d507f6482f0a0a8ae93f76d6c8a341b3091c520752029c0
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xyo-network/account-model": "npm:^4.1.3"
+  checksum: 10/d49178fb9fd58a3690fa7328f8862979c5d4eb7a0c3a62ef0bdc0fdb14ba1c872b0b31e4fea623e41b6cf7c1ed5a6f9741f0cd60a24e8d486b43aa22cfa3c1b6
   languageName: node
   linkType: hard
 
-"@xyo-network/wasm@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@xyo-network/wasm@npm:4.1.0"
+"@xyo-network/wasm@npm:^4.1.3":
+  version: 4.1.3
+  resolution: "@xyo-network/wasm@npm:4.1.3"
   dependencies:
-    "@xylabs/typeof": "npm:^4.13.15"
+    "@xylabs/typeof": "npm:^4.13.16"
     wasm-feature-detect: "npm:^1.8.0"
-  checksum: 10/4669e072b8a609f9d423ed0efbf395f9d543106b0f22c2e32bc4708f55ddab88c13f6b17ac00b990eb5e3bf8f079a230fd24a6fa85ca7cdf35eca0e109d60a4c
+  checksum: 10/72fc05e0b9005c108b813cfd00500a747fe552355c21e981036c9c691c439648992639baf57f2591d226fbedb11b472d68ca4a2999e803e91390bbadb7343f1f
   languageName: node
   linkType: hard
 
@@ -1881,24 +2014,24 @@ __metadata:
   resolution: "@xyo-network/xl1-protocol@workspace:."
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@types/node": "npm:^24.0.13"
+    "@types/node": "npm:^24.0.14"
     "@typescript-eslint/types": "npm:^8.37.0"
-    "@xylabs/base": "npm:^4.13.15"
-    "@xylabs/creatable": "npm:^4.13.15"
-    "@xylabs/eslint-config-flat": "npm:^7.0.0-rc.23"
-    "@xylabs/events": "npm:^4.13.15"
-    "@xylabs/hex": "npm:^4.13.15"
-    "@xylabs/object": "npm:^4.13.15"
-    "@xylabs/promise": "npm:^4.13.15"
-    "@xylabs/ts-scripts-yarn3": "npm:^7.0.0-rc.23"
-    "@xylabs/tsconfig": "npm:^7.0.0-rc.23"
-    "@xylabs/typeof": "npm:^4.13.15"
-    "@xyo-network/account-model": "npm:^4.1.0"
-    "@xyo-network/archivist-model": "npm:^4.1.0"
-    "@xyo-network/boundwitness-model": "npm:^4.1.0"
-    "@xyo-network/payload-model": "npm:^4.1.0"
-    "@xyo-network/schema-payload-plugin": "npm:^4.1.0"
-    "@xyo-network/wallet-model": "npm:^4.1.0"
+    "@xylabs/base": "npm:^4.13.16"
+    "@xylabs/creatable": "npm:^4.13.16"
+    "@xylabs/eslint-config-flat": "npm:^7.0.0-rc.27"
+    "@xylabs/events": "npm:^4.13.16"
+    "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/object": "npm:^4.13.16"
+    "@xylabs/promise": "npm:^4.13.16"
+    "@xylabs/ts-scripts-yarn3": "npm:^7.0.0-rc.27"
+    "@xylabs/tsconfig": "npm:^7.0.0-rc.27"
+    "@xylabs/typeof": "npm:^4.13.16"
+    "@xyo-network/account-model": "npm:^4.1.3"
+    "@xyo-network/archivist-model": "npm:^4.1.3"
+    "@xyo-network/boundwitness-model": "npm:^4.1.3"
+    "@xyo-network/payload-model": "npm:^4.1.3"
+    "@xyo-network/schema-payload-plugin": "npm:^4.1.3"
+    "@xyo-network/wallet-model": "npm:^4.1.3"
     dependency-cruiser: "npm:^16.10.4"
     dotenv: "npm:^17.2.0"
     eslint: "npm:^9.31.0"
@@ -6773,7 +6906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:8.5.0":
+"tsup@npm:^8.5.0":
   version: 8.5.0
   resolution: "tsup@npm:8.5.0"
   dependencies:
