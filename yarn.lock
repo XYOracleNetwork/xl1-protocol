@@ -2021,6 +2021,7 @@ __metadata:
     "@xylabs/eslint-config-flat": "npm:^7.0.0-rc.27"
     "@xylabs/events": "npm:^4.13.16"
     "@xylabs/hex": "npm:^4.13.16"
+    "@xylabs/logger": "npm:^4.13.16"
     "@xylabs/object": "npm:^4.13.16"
     "@xylabs/promise": "npm:^4.13.16"
     "@xylabs/ts-scripts-yarn3": "npm:^7.0.0-rc.27"

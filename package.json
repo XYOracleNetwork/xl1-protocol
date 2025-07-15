@@ -41,6 +41,7 @@
     "@xylabs/base": "^4.13.16",
     "@xylabs/events": "^4.13.16",
     "@xylabs/hex": "^4.13.16",
+    "@xylabs/logger": "^4.13.16",
     "@xylabs/object": "^4.13.16",
     "@xylabs/promise": "^4.13.16",
     "@xylabs/typeof": "^4.13.16",
