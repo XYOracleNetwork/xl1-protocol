@@ -1,7 +1,8 @@
 import type { Logger } from '@xylabs/logger'
+import type { EmptyObject } from '@xylabs/object'
 import type { Promisable } from '@xylabs/promise'
 
-export interface InitializableParams {
+export type InitializableParams<T extends EmptyObject = {}> = T & {
   logger?: Logger
 }
 
