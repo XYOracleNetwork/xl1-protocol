@@ -12,6 +12,15 @@ import type { XyoViewer } from './XyoViewer.ts'
 // eslint-disable-next-line sonarjs/deprecation
 import type { XyoWallet } from './XyoWallet.ts'
 
+export interface XyoConnectionConfig {
+  name: string
+}
+
+export interface XyoRpcConnectionConfig extends XyoConnectionConfig {
+  dataLakeEndpoint: string
+  networkEndpoint: string
+}
+
 export interface XyoConnectionProviderDeprecated {
   /** @deprecated  - use host.submit instead */
   send?: (

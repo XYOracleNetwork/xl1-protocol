@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { Signed } from '@xyo-network/boundwitness-model'
 
 import type { HydratedTransaction, TransactionBoundWitness } from '../../transaction/index.ts'
-import type { XyoConnectionProvider } from './XyoProvider.ts'
+import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnection.ts'
 
 /**
  * Modeled after EIP-2255
@@ -59,7 +59,7 @@ export interface InvokerPermission extends Permission {
 
 export interface XyoGatewayProvider {
   activeConnection(): Promisable<XyoConnectionProvider | undefined>
-  addConnection(chainConnectionInfo: XyoConnectionProvider): Promisable<boolean>
+  addConnection(config: XyoRpcConnectionConfig): Promisable<XyoConnectionProvider>
   connections(): Promisable<Record<string, XyoConnectionProvider>>
   getPermissions(): Promisable<InvokerPermission[]>
   requestPermissions(permissions: Permission[]): Promisable<boolean>
