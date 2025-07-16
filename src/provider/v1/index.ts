@@ -1,5 +1,5 @@
 export * from './XyoDataLake.ts'
-export * from './XyoHost.ts'
+export * from './XyoGateway.ts'
 export * from './XyoNetwork.ts'
 export * from './XyoProvider.ts'
 export * from './XyoRunner.ts'

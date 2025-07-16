@@ -83,6 +83,7 @@
     "codeql",
     "copyfiles",
     "cryengine",
+    "datalake",
     "depcheck",
     "depcruise",
     "deplint",

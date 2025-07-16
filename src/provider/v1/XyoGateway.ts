@@ -1,10 +1,13 @@
 import type { Hex } from '@xylabs/hex'
 import type { JsonValue } from '@xylabs/object'
 import type { Promisable } from '@xylabs/promise'
+import type { Signed } from '@xyo-network/boundwitness-model'
+
+import type { HydratedTransaction, TransactionBoundWitness } from '../../transaction/index.ts'
 
 export interface ChainConnection {
   /** Chain Identifier - can be a hex (eth contract address) or a string */
-  chainId?: string | Hex
+  chain?: Hex
   /** Name of the chain */
   name: string
   /** Url for accessing the network */
@@ -63,10 +66,12 @@ export interface InvokerPermission extends Permission {
   date?: number
 }
 
-export interface XyoHost {
+export interface XyoGateway {
+  activeChain: Hex
   addChain(chainConnectionInfo: ChainConnection): Promisable<boolean>
   chains(): Promisable<ChainConnection[]>
   getPermissions(): Promisable<InvokerPermission[]>
   requestPermissions(permissions: Permission[]): Promisable<boolean>
   revokePermissions(permissions: Permission[]): Promisable<boolean>
+  submitTransaction(tx: HydratedTransaction): Promise<Signed<TransactionBoundWitness>>
 }
