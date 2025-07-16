@@ -67,7 +67,7 @@ export interface InvokerPermission extends Permission {
 }
 
 export interface XyoGateway {
-  activeChain: Hex
+  activeChain(): Promisable<Hex>
   addChain(chainConnectionInfo: ChainConnection): Promisable<boolean>
   chains(): Promisable<ChainConnection[]>
   getPermissions(): Promisable<InvokerPermission[]>
