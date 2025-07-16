@@ -66,7 +66,7 @@ export interface InvokerPermission extends Permission {
   date?: number
 }
 
-export interface XyoGateway {
+export interface XyoGatewayProvider {
   activeChain(): Promisable<Hex>
   addChain(chainConnectionInfo: ChainConnection): Promisable<boolean>
   chains(): Promisable<ChainConnection[]>
