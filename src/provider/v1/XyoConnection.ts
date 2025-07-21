@@ -4,6 +4,7 @@ import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
+import type { TransactionSubmitter } from './TransactionSubmitter.ts'
 import type { XyoDataLakeProvider } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
@@ -38,22 +39,11 @@ export interface XyoConnectionProviderDeprecated {
   wallet?: XyoWallet
 }
 
-export interface XyoConnectionProvider extends XyoConnectionProviderDeprecated {
+export interface XyoConnectionProvider extends Partial<TransactionSubmitter>, XyoConnectionProviderDeprecated {
   network?: XyoNetwork
   runner?: XyoRunner
   signer?: XyoSigner
   storage?: XyoDataLakeProvider
-
-  submitTransaction?: (
-    elevatedPayloads: AllowedBlockPayload[],
-    additionalPayloads: Payload[],
-    chain?: Address,
-    nbf?: number,
-    exp?: number,
-    from?: Address,
-    fees?: TransactionFeesBigInt,
-  ) => Promise<Signed<TransactionBoundWitness>>
-
   viewer?: XyoViewer
 }
 
