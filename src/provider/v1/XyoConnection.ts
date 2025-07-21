@@ -22,7 +22,7 @@ export interface XyoRpcConnectionConfig extends XyoConnectionConfig {
 }
 
 export interface XyoConnectionProviderDeprecated {
-  /** @deprecated  - use submit instead */
+  /** @deprecated  - use submitTransaction instead */
   send?: (
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
@@ -44,7 +44,7 @@ export interface XyoConnectionProvider extends XyoConnectionProviderDeprecated {
   signer?: XyoSigner
   storage?: XyoDataLakeProvider
 
-  submit?: (
+  submitTransaction?: (
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
     chain?: Address,

@@ -1,9 +1,9 @@
-import type { Hash } from '@xylabs/hex'
+import type { Address, Hash } from '@xylabs/hex'
 import type { JsonValue } from '@xylabs/object'
 import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
-import type { HydratedTransaction, TransactionBoundWitness } from '../../transaction/index.ts'
+import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
 import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnection.ts'
 
 /**
@@ -65,5 +65,13 @@ export interface XyoGatewayProvider {
   getPermissions(): Promisable<InvokerPermission[]>
   requestPermissions(permissions: Permission[]): Promisable<boolean>
   revokePermissions(permissions: Permission[]): Promisable<boolean>
-  submitTransaction(tx: TransactionBoundWitness, payloads: Payload[]): Promise<Hash>
+  submitTransaction(
+    tx: TransactionBoundWitness,
+    payloads: Payload[],
+    chain?: Address,
+    nbf?: number,
+    exp?: number,
+    from?: Address,
+    fees?: TransactionFeesBigInt
+  ): Promise<Hash>
 }
