@@ -22,7 +22,7 @@ export interface XyoRpcConnectionConfig extends XyoConnectionConfig {
 }
 
 export interface XyoConnectionProviderDeprecated {
-  /** @deprecated  - use host.submit instead */
+  /** @deprecated  - use submit instead */
   send?: (
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
@@ -32,6 +32,7 @@ export interface XyoConnectionProviderDeprecated {
     from?: Address,
     fees?: TransactionFeesBigInt,
   ) => Promise<Signed<TransactionBoundWitness>>
+
   /** @deprecated  - use host instead */
   // eslint-disable-next-line sonarjs/deprecation
   wallet?: XyoWallet
@@ -42,6 +43,17 @@ export interface XyoConnectionProvider extends XyoConnectionProviderDeprecated {
   runner?: XyoRunner
   signer?: XyoSigner
   storage?: XyoDataLakeProvider
+
+  submit?: (
+    elevatedPayloads: AllowedBlockPayload[],
+    additionalPayloads: Payload[],
+    chain?: Address,
+    nbf?: number,
+    exp?: number,
+    from?: Address,
+    fees?: TransactionFeesBigInt,
+  ) => Promise<Signed<TransactionBoundWitness>>
+
   viewer?: XyoViewer
 }
 
