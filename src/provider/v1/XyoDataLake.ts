@@ -10,7 +10,7 @@ export interface XyoDataLakeViewer {
   // same as fetch but never follows hash payloads
   get(hashes: Hash[]): Promisable<DataLakeData[]>
   // same as fetch, except returns each step in tuple containing the result and the steps
-  trace(hash: Hash): Promisable<[DataLakeData, Payload[]]>
+  trace(hash: Hash): Promisable<[DataLakeData | undefined, Payload[]]>
 }
 
 export interface XyoDataLakeProvider extends XyoDataLakeViewer {
