@@ -5,7 +5,7 @@ import type { Payload } from '@xyo-network/payload-model'
 import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../../transaction/index.ts'
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
-import type { XyoDataLakeProvider } from './XyoDataLake.ts'
+import type { XyoDataLakeProvider, XyoDataLakeViewer } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
 import type { XyoSigner } from './XyoSigner.ts'
@@ -43,7 +43,7 @@ export interface XyoConnectionProvider extends Partial<TransactionSubmitter>, Xy
   network?: XyoNetwork
   runner?: XyoRunner
   signer?: XyoSigner
-  storage?: XyoDataLakeProvider
+  storage?: XyoDataLakeProvider | XyoDataLakeViewer
   viewer?: XyoViewer
 }
 
