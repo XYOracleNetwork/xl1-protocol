@@ -16,3 +16,24 @@ export interface XyoDataLakeViewer {
 export interface XyoDataLakeProvider extends XyoDataLakeViewer {
   add(items: DataLakeData[]): Promisable<DataLakeData[]>
 }
+
+export const isDataLakeViewer = (value: unknown): value is XyoDataLakeViewer => {
+  return (
+    typeof value === 'object'
+    && value !== null
+    && 'fetch' in value
+    && typeof (value as XyoDataLakeViewer).fetch === 'function'
+    && 'get' in value
+    && typeof (value as XyoDataLakeViewer).get === 'function'
+    && 'trace' in value
+    && typeof (value as XyoDataLakeViewer).trace === 'function'
+  )
+}
+
+export const isDataLakeProvider = (value: unknown): value is XyoDataLakeProvider => {
+  return (
+    isDataLakeViewer(value)
+    && 'add' in value
+    && typeof (value as XyoDataLakeProvider).add === 'function'
+  )
+}
