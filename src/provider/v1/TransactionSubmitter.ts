@@ -5,15 +5,18 @@ import type { Payload } from '@xyo-network/payload-model'
 import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { HydratedTransaction, TransactionFeesBigInt } from '../../transaction/index.ts'
 
+export interface TransactionSubmitterOptions {
+  chain?: Address
+  exp?: number
+  fees?: TransactionFeesBigInt
+  from?: Address
+  nbf?: number
+}
+
 export interface TransactionSubmitter {
   submitTransaction(
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
-    options?: {
-      chain?: Address
-      exp?: number
-      fees?: TransactionFeesBigInt
-      from?: Address
-      nbf?: number
-    }): Promisable<HydratedTransaction>
+    options?: TransactionSubmitterOptions
+  ): Promisable<HydratedTransaction>
 }
