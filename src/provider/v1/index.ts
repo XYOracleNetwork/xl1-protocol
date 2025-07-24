@@ -1,3 +1,4 @@
+export * from './Permissions.ts'
 export * from './TransactionSubmitter.ts'
 export * from './XyoConnection.ts'
 export * from './XyoDataLake.ts'
