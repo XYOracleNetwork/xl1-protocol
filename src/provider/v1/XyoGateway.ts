@@ -1,6 +1,6 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { InvokerPermission, Permission } from './Permissions.ts'
+import type { InvokerPermission, Permission } from './PermissionsProvider.ts'
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
 import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnection.ts'
 import type { XyoSigner } from './XyoSigner.ts'
