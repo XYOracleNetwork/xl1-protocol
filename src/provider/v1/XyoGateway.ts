@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import type { JsonValue } from '@xylabs/object'
 import type { Promisable } from '@xylabs/promise'
 
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
 import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnection.ts'
+import type { XyoSigner } from './XyoSigner.ts'
 
 /**
  * Modeled after EIP-2255
@@ -57,10 +59,31 @@ export interface InvokerPermission extends Permission {
 }
 
 export interface XyoGatewayProvider extends TransactionSubmitter {
+  connection(): Promisable<XyoConnectionProvider>
+  signer(): Promisable<XyoSigner>
+
+  /**
+   * @deprecated use `connection()` instead
+   */
   activeConnection(): Promisable<XyoConnectionProvider | undefined>
+  /**
+   * @deprecated use `connection()` instead
+   */
   addConnection(config: XyoRpcConnectionConfig): Promisable<XyoConnectionProvider>
+  /**
+   * @deprecated use `connection()` instead
+   */
   connections(): Promisable<Record<string, XyoConnectionProvider>>
+  /**
+   * @deprecated Permissions now at Client level
+   */
   getPermissions(): Promisable<InvokerPermission[]>
+  /**
+   * @deprecated Permissions now at Client level
+   */
   requestPermissions(permissions: Permission[]): Promisable<boolean>
+  /**
+   * @deprecated Permissions now at Client level
+   */
   revokePermissions(permissions: Permission[]): Promisable<boolean>
 }
