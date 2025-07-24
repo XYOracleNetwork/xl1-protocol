@@ -6,7 +6,6 @@ import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnect
 import type { XyoSigner } from './XyoSigner.ts'
 
 export interface XyoGatewayProvider extends TransactionSubmitter {
-
   /**
    * @deprecated use `connection()` instead
    */
@@ -39,5 +38,4 @@ export interface XyoGatewayProvider extends TransactionSubmitter {
    * Returns the signer for this gateway.
    */
   signer(): Promisable<XyoSigner>
-
 }
