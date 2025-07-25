@@ -1,4 +1,4 @@
-import type { Address } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
@@ -14,12 +14,12 @@ import type { HydratedBlockStateValidationError } from './error.ts'
  */
 export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlock,
-  chainId: Address,
+  chainId: Hex,
   services: { accountBalance: AccountBalanceService },
 ) => Promisable<HydratedBlockStateValidationError[]>
 
 export type HydratedBlockStateValidationFunctionV2 = (
   hydratedBlock: HydratedBlock,
-  chainId: Address,
+  chainId: Hex,
   services: { accountBalance: AccountBalanceServiceV2 },
 ) => Promisable<HydratedBlockStateValidationError[]>
