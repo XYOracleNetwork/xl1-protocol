@@ -1,4 +1,4 @@
-import type { Address } from '@xylabs/hex'
+import type { Address, Hex } from '@xylabs/hex'
 
 import type { ChainContractProvider } from './ChainContractProvider.ts'
 import type { ChainContractViewer } from './ChainContractViewer.ts'
@@ -6,7 +6,7 @@ import type { StakeContractProvider, StakeContractViewer } from './Stake/index.t
 
 export interface ChainDefinitionViewer<TChainContractViewer extends ChainContractViewer = ChainContractViewer,
   TStakeContractViewer extends StakeContractViewer = StakeContractViewer> {
-  chainId: Address
+  chainId: Hex
   contract: TChainContractViewer
   stake: TStakeContractViewer
 }

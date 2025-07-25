@@ -1,11 +1,11 @@
-import type { Address } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 
 export interface ChainContractViewer {
-  chainId: Address
+  chainId: Hex
   active(): Promise<bigint>
   forkedAtBlockNumber(): Promise<bigint>
   forkedAtHash(): Promise<bigint>
-  forkedChainId(): Promise<Address>
+  forkedChainId(): Promise<Hex>
   minWithdrawalBlocks(): Promise<bigint>
   rewardsContract(): Promise<string>
   stakingTokenAddress(): Promise<string>

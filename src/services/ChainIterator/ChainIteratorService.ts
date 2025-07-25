@@ -1,6 +1,6 @@
 import type { BaseParams } from '@xylabs/base'
 import type { BaseEmitter } from '@xylabs/events'
-import type { Address, Hash } from '@xylabs/hex'
+import type { Hash, Hex } from '@xylabs/hex'
 
 import type { BlockBoundWitness } from '../../block/index.ts'
 import type { IterableRepository, ReadRepository } from '../../repository/index.ts'
@@ -8,7 +8,7 @@ import type { ChainIteratorServiceEventData } from './ChainIteratorServiceEventD
 
 export interface ChainIteratorService<TKey, THead>
   extends ReadRepository<TKey, BlockBoundWitness | undefined>, IterableRepository<TKey, BlockBoundWitness | undefined> {
-  chainId: Address
+  chainId: Hex
   head(): Promise<THead>
   previous(cursor?: TKey | undefined, limit?: number): Promise<BlockBoundWitness[]>
   updateHead(head: THead): Promise<void>
