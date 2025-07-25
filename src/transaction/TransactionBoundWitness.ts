@@ -1,4 +1,4 @@
-import type { Address } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
@@ -10,7 +10,7 @@ import type { FromFields, OptionalExecutable } from '../payload/index.ts'
 import type { TransactionFeesFields } from './TransactionFeesFields.ts'
 
 export interface TransactionBoundWitnessFields extends BlockDuration, TransactionFeesFields {
-  chain: Address
+  chain: Hex
 }
 
 export type TransactionBoundWitness = BoundWitness<TransactionBoundWitnessFields & OptionalExecutable & FromFields>
