@@ -1,4 +1,6 @@
-import type { Address, Hash } from '@xylabs/hex'
+import type {
+  Address, Hash, Hex,
+} from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
@@ -13,7 +15,7 @@ export interface XyoViewer {
   blockByNumber(blockNumber: number): Promisable<HydratedBlock | null>
   blocksByHash(hash: Hash, limit?: number): Promisable<HydratedBlock[]>
 
-  chainId(): Promisable<Address>
+  chainId(): Promisable<Hex>
 
   currentBlock(): Promisable<HydratedBlock>
   currentBlockHash(): Promisable<Hash>
