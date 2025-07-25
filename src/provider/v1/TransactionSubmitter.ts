@@ -1,4 +1,4 @@
-import type { Address } from '@xylabs/hex'
+import type { Address, Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
@@ -6,7 +6,7 @@ import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { HydratedTransaction, TransactionFeesBigInt } from '../../transaction/index.ts'
 
 export interface TransactionSubmitterOptions {
-  chain?: Address
+  chain?: Hex
   exp?: number
   fees?: TransactionFeesBigInt
   from?: Address

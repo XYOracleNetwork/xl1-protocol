@@ -1,4 +1,4 @@
-import type { Address } from '@xylabs/hex'
+import type { Address, Hex } from '@xylabs/hex'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
@@ -27,7 +27,7 @@ export interface XyoConnectionProviderDeprecated {
   send?: (
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
-    chain?: Address,
+    chain?: Hex,
     nbf?: number,
     exp?: number,
     from?: Address,
