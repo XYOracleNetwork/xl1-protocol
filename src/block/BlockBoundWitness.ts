@@ -20,7 +20,7 @@ export interface BlockBoundWitnessFields {
   /** Version of the protocol being used major * 1,000,000 + minor * 1,000 + patch */
   protocol: number
   /** Step hashes */
-  step_hashes: Hex[]
+  step_hashes: Hash[]
 }
 
 export type BlockBoundWitness = BoundWitness<BlockBoundWitnessFields & BlockBoundWitnessMeta>
