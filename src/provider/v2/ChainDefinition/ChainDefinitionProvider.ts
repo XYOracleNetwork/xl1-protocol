@@ -1,4 +1,4 @@
-import type { Address, Hex } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 
 import type { ChainContractProvider } from './ChainContractProvider.ts'
 import type { ChainContractViewer } from './ChainContractViewer.ts'

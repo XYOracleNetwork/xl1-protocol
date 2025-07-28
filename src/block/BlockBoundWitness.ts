@@ -1,6 +1,4 @@
-import type {
-  Address, Hash, Hex,
-} from '@xylabs/hex'
+import type { Address, Hash } from '@xylabs/hex'
 import { isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
