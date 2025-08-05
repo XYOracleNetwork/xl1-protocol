@@ -2,8 +2,8 @@ import type { Address, Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
-import type { AllowedBlockPayload } from '../../block/index.ts'
-import type { HydratedTransaction, TransactionFeesBigInt } from '../../transaction/index.ts'
+import type { AllowedBlockPayload } from '../block/index.ts'
+import type { HydratedTransaction, TransactionFeesBigInt } from '../transaction/index.ts'
 
 export interface TransactionSubmitterOptions {
   chain?: Hex
@@ -14,6 +14,7 @@ export interface TransactionSubmitterOptions {
 }
 
 export interface TransactionSubmitter {
+  /** @deprecated use runner.broadcastTransaction */
   submitTransaction(
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],

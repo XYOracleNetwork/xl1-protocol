@@ -2,10 +2,16 @@ import type { Promisable } from '@xylabs/promise'
 
 import type { InvokerPermission, Permission } from './PermissionsProvider.ts'
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
-import type { XyoConnectionProvider, XyoRpcConnectionConfig } from './XyoConnection.ts'
+import type { XyoConnectionProvider } from './XyoConnection.ts'
 import type { XyoSigner } from './XyoSigner.ts'
 
-export interface XyoGatewayProvider extends TransactionSubmitter {
+/** @deprecated use XyoConnectionConfig instead */
+export interface XyoConnectionConfigDeprecated {
+  name: string
+}
+
+/** @deprecated use XyoGatewayProvider instead */
+export interface XyoGatewayProviderDeprecated {
   /**
    * @deprecated use `connection()` instead
    */
@@ -13,11 +19,8 @@ export interface XyoGatewayProvider extends TransactionSubmitter {
   /**
    * @deprecated use `connection()` instead
    */
-  addConnection?(config: XyoRpcConnectionConfig): Promisable<XyoConnectionProvider>
-  /**
-   * Returns the connection provider for this gateway.
-   */
-  connection(): Promisable<XyoConnectionProvider>
+  // eslint-disable-next-line sonarjs/deprecation
+  addConnection?(config: XyoConnectionConfigDeprecated): Promisable<XyoConnectionProvider>
   /**
    * @deprecated use `connection()` instead
    */
@@ -34,6 +37,14 @@ export interface XyoGatewayProvider extends TransactionSubmitter {
    * @deprecated Permissions now at Client level
    */
   revokePermissions?(permissions: Permission[]): Promisable<boolean>
+}
+
+// eslint-disable-next-line sonarjs/deprecation
+export interface XyoGatewayProvider extends XyoGatewayProviderDeprecated, TransactionSubmitter {
+  /**
+   * Returns the connection provider for this gateway.
+   */
+  connection(): Promisable<XyoConnectionProvider>
   /**
    * Returns the signer for this gateway.
    */
