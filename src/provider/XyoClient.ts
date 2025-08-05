@@ -13,8 +13,9 @@ export interface XyoRpcGatewayConfig extends XyoGatewayConfig {
 }
 
 export interface XyoClient {
-  addGateway?: (providerOrConfig: XyoGatewayConfig | XyoRpcGatewayConfig | XyoGatewayProvider) => Promise<XyoGatewayProvider>
   gateways: Readonly<Record<GatewayName, XyoGatewayProvider>>
-  permissionsProvider: PermissionsProvider
-  removeGateway?: (name: GatewayName) => Promise<void>
+  permissions: PermissionsProvider
+
+  addGateway?(providerOrConfig: XyoGatewayConfig | XyoRpcGatewayConfig | XyoGatewayProvider): Promise<XyoGatewayProvider>
+  removeGateway?(name: GatewayName): Promise<void>
 }

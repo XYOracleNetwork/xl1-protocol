@@ -4,6 +4,7 @@ import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
+// eslint-disable-next-line sonarjs/deprecation
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
 import type { XyoDataLakeProvider, XyoDataLakeViewer } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
@@ -14,9 +15,18 @@ import type { XyoViewer } from './XyoViewer.ts'
 import type { XyoWallet } from './XyoWallet.ts'
 
 /** @deprecated use XyoConnectionProvider instead */
-export interface XyoConnectionProviderDeprecated {
+// eslint-disable-next-line sonarjs/deprecation
+export interface XyoConnectionProviderDeprecated extends TransactionSubmitter {
+
+  /** @deprecated  - use from gateway instead */
+  signer: XyoSigner
+
+  /** @deprecated  - use host instead */
+  // eslint-disable-next-line sonarjs/deprecation
+  wallet: XyoWallet
+
   /** @deprecated  - use submitTransaction instead */
-  send?: (
+  send(
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
     chain?: Hex,
@@ -24,18 +34,11 @@ export interface XyoConnectionProviderDeprecated {
     exp?: number,
     from?: Address,
     fees?: TransactionFeesBigInt,
-  ) => Promise<Signed<TransactionBoundWitness>>
-
-  /** @deprecated  - use from gateway instead */
-  signer?: XyoSigner
-
-  /** @deprecated  - use host instead */
-  // eslint-disable-next-line sonarjs/deprecation
-  wallet?: XyoWallet
+  ): Promise<Signed<TransactionBoundWitness>>
 }
 
 // eslint-disable-next-line sonarjs/deprecation
-export interface XyoConnectionProvider extends Partial<TransactionSubmitter>, XyoConnectionProviderDeprecated {
+export interface XyoConnectionProvider extends Partial<XyoConnectionProviderDeprecated> {
   network?: XyoNetwork
   runner?: XyoRunner
   storage?: XyoDataLakeProvider | XyoDataLakeViewer
