@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
-import type { HydratedTransaction, TransactionFeesBigInt } from '../transaction/index.ts'
+import type { SignedHydratedTransaction, TransactionFeesBigInt } from '../transaction/index.ts'
 
 /** @deprecated use TransactionOptions instead */
 export interface TransactionSubmitterOptions {
@@ -22,5 +22,5 @@ export interface TransactionSubmitter {
     additionalPayloads: Payload[],
     // eslint-disable-next-line sonarjs/deprecation
     options?: TransactionSubmitterOptions
-  ): Promisable<HydratedTransaction>
+  ): Promisable<SignedHydratedTransaction>
 }

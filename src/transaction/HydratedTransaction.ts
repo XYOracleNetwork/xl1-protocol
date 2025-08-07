@@ -1,9 +1,11 @@
 import { AsObjectFactory } from '@xylabs/object'
-import { isUnsigned, type Signed } from '@xyo-network/boundwitness-model'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import { isSigned, type Signed } from '@xyo-network/boundwitness-model'
+import {
+  isStorageMeta, type Payload, type WithStorageMeta,
+} from '@xyo-network/payload-model'
 
 import { isHydratedBoundWitness } from '../isHydratedBoundWitness.ts'
-import { isSignedTransactionBoundWitnessWithStorageMeta, type TransactionBoundWitness } from './TransactionBoundWitness.ts'
+import { isTransactionBoundWitness, type TransactionBoundWitness } from './TransactionBoundWitness.ts'
 
 /** @deprecated Use HydratedTransactionWithStorageMeta instead */
 export type HydratedTransaction<T extends TransactionBoundWitness = TransactionBoundWitness,
@@ -15,7 +17,7 @@ export const isHydratedTransaction = (
 // eslint-disable-next-line sonarjs/deprecation
 ): value is HydratedTransaction => {
   return (
-    isHydratedBoundWitness(value) && isSignedTransactionBoundWitnessWithStorageMeta(value[0])
+    isHydratedBoundWitness(value) && isTransactionBoundWitness(value[0]) && isSigned(value[0]) && isStorageMeta(value[0])
   )
 }
 

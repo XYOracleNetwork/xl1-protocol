@@ -5,7 +5,7 @@ import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../block/index.ts'
 import type { Transfer } from '../payload/index.ts'
-import type { HydratedTransaction, TransactionBoundWitness } from '../transaction/index.ts'
+import type { SignedHydratedTransaction, TransactionBoundWitness } from '../transaction/index.ts'
 
 export interface XyoViewer {
   accountBalance: (address: Address) => Promisable<bigint>
@@ -21,7 +21,7 @@ export interface XyoViewer {
   currentBlockHash(): Promisable<Hash>
   currentBlockNumber(): Promisable<number>
 
-  transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promisable<HydratedTransaction | null>
-  transactionByBlockNumberAndIndex(blockNumber: number, transactionIndex: number): Promisable<HydratedTransaction | null>
-  transactionByHash(transactionHash: Hash): Promisable<HydratedTransaction | null>
+  transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promisable<SignedHydratedTransaction | null>
+  transactionByBlockNumberAndIndex(blockNumber: number, transactionIndex: number): Promisable<SignedHydratedTransaction | null>
+  transactionByHash(transactionHash: Hash): Promisable<SignedHydratedTransaction | null>
 }
