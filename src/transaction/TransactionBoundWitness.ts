@@ -1,7 +1,7 @@
 import type { Hex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
-import { isBoundWitness } from '@xyo-network/boundwitness-model'
+import { isBoundWitness, isSigned } from '@xyo-network/boundwitness-model'
 import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
 
@@ -24,37 +24,39 @@ export const isTransactionBoundWitness = (value: unknown): value is TransactionB
     && typedObj.nbf !== undefined
 }
 
+/** @deprecated use isSigned instead */
 export const isSignedTransactionBoundWitness = (value: unknown): value is Signed<TransactionBoundWitness> => {
   return isTransactionBoundWitness(value) && isSigned(value)
 }
 
-export const isSigned = <T extends BoundWitness = BoundWitness>(value: unknown): value is Signed<T> =>
-  isBoundWitness(value)
-  && value.$signatures.length === value.addresses.length
-  && value.addresses.length > 0
-
-export const isUnsigned = <T extends BoundWitness = BoundWitness>(value: unknown): value is T =>
-  isBoundWitness(value)
-  && value.$signatures.length === 0
-
+/** @deprecated use isStorageMeta instead */
 export const isTransactionBoundWitnessWithStorageMeta = (value: unknown): value is WithStorageMeta<TransactionBoundWitness> =>
   isTransactionBoundWitness(value)
   && isStorageMeta(value)
 
+/** @deprecated use isHashStorageMeta instead */
 export const isTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<TransactionBoundWitness> =>
   isTransactionBoundWitness(value)
   && isHashStorageMeta(value)
 
+/** @deprecated use isSigned && isStorageMeta instead */
 export const isSignedTransactionBoundWitnessWithStorageMeta = (value: unknown): value is WithStorageMeta<Signed<TransactionBoundWitness>> =>
+  // eslint-disable-next-line sonarjs/deprecation
   isSignedTransactionBoundWitness(value)
   && isStorageMeta(value)
 
+/** @deprecated use isSigned && isHashStorageMeta instead */
 export const isSignedTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<Signed<TransactionBoundWitness>> =>
+  // eslint-disable-next-line sonarjs/deprecation
   isSignedTransactionBoundWitness(value)
   && isHashStorageMeta(value)
 
 export const asTransactionBoundWitness = AsObjectFactory.create(isTransactionBoundWitness)
 
+/** @deprecated use isSigned && asStorageMeta instead */
+// eslint-disable-next-line sonarjs/deprecation
 export const asTransactionBoundWitnessWithStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithStorageMeta)
 
+/** @deprecated use isSigned && asHashStorageMeta instead */
+// eslint-disable-next-line sonarjs/deprecation
 export const asTransactionBoundWitnessWithHashStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithHashStorageMeta)

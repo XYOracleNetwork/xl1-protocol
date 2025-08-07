@@ -1,4 +1,5 @@
 import { AsObjectFactory } from '@xylabs/object'
+import { isUnsigned } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
 import { isHydratedBoundWitness } from '../isHydratedBoundWitness.ts'
@@ -11,7 +12,7 @@ export const isUnsignedHydratedTransaction = (
   value: unknown,
 ): value is UnsignedHydratedTransaction => {
   return (
-    isHydratedBoundWitness(value) && isTransactionBoundWitness(value[0])
+    isHydratedBoundWitness(value) && isTransactionBoundWitness(value[0]) && isUnsigned(value[0])
   )
 }
 

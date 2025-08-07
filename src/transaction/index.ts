@@ -1,3 +1,5 @@
 export * from './HydratedTransaction.ts'
+export * from './SignedHydratedTransaction.ts'
 export * from './TransactionBoundWitness.ts'
 export * from './TransactionFeesFields.ts'
+export * from './UnsignedHydratedTransaction.ts'
