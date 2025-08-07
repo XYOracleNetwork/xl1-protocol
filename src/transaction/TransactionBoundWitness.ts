@@ -33,6 +33,10 @@ export const isSigned = <T extends BoundWitness = BoundWitness>(value: unknown):
   && value.$signatures.length === value.addresses.length
   && value.addresses.length > 0
 
+export const isUnsigned = <T extends BoundWitness = BoundWitness>(value: unknown): value is T =>
+  isBoundWitness(value)
+  && value.$signatures.length === 0
+
 export const isTransactionBoundWitnessWithStorageMeta = (value: unknown): value is WithStorageMeta<TransactionBoundWitness> =>
   isTransactionBoundWitness(value)
   && isStorageMeta(value)
