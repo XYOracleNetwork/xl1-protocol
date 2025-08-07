@@ -1,3 +1,4 @@
+import { AsObjectFactory } from '@xylabs/object'
 import type { HydratedBoundWitness, HydratedBoundWitnessWithStorageMeta } from '@xyo-network/archivist-model'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
 import { isAnyPayload, isStorageMeta } from '@xyo-network/payload-model'
@@ -23,3 +24,11 @@ export const isHydratedBoundWitnessWithStorageMeta = (
     && !value[1].some(item => (!isStorageMeta(item)))
   )
 }
+
+export const asHydratedBoundWitness = AsObjectFactory.create<HydratedBoundWitness>(
+  isHydratedBoundWitness,
+)
+
+export const asHydratedBoundWitnessWithStorageMeta = AsObjectFactory.create<HydratedBoundWitnessWithStorageMeta>(
+  isHydratedBoundWitnessWithStorageMeta,
+)
