@@ -1,4 +1,4 @@
-import type { Hex } from '@xylabs/hex'
+import { type Hex, isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import { isObject } from '@xylabs/typeof'
 
@@ -36,4 +36,23 @@ export const isTransactionFeesBigInt = (value: unknown): value is TransactionFee
 
 export const asTransactionFeesBigInt = AsObjectFactory.create<TransactionFeesBigInt>(
   isTransactionFeesBigInt,
+)
+
+export const isTransactionFeesHex = (value: unknown): value is TransactionFeesHex => {
+  if (!isObject(value)) {
+    return false
+  }
+  const {
+    base, gasLimit, gasPrice, priority,
+  } = value as TransactionFeesHex
+  return (
+    isHex(base)
+    && isHex(gasLimit)
+    && isHex(gasPrice)
+    && isHex(priority)
+  )
+}
+
+export const asTransactionFeesHex = AsObjectFactory.create<TransactionFeesHex>(
+  isTransactionFeesHex,
 )
