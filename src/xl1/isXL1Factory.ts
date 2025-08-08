@@ -32,7 +32,7 @@ export const asXL1Factory = <T extends bigint>(places: bigint) => {
     if (result.success) {
       return result.data as T
     }
-    throw new Error(`Invalid value for ${places}, must be between 0 and ${xl1MaxValue(places)}`)
+    throw result.error
   }
 }
 
