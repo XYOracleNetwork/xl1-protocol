@@ -1,8 +1,9 @@
 import type { XyTsupConfig } from '@xylabs/ts-scripts-yarn3'
 const config: XyTsupConfig = {
   compile: {
+    entryMode: 'custom',
     browser: {},
-    neutral: { src: { entry: ['src/index.ts', 'src/cli/index.ts', 'src/provider/v2/index.ts'] } },
+    neutral: { src: { entry: ['index.ts'] } },
     node: {},
   },
 }

@@ -1,7 +1,6 @@
 import type { HydratedBoundWitness } from '@xyo-network/archivist-model'
-import { type BoundWitness, isBoundWitness } from '@xyo-network/boundwitness-model'
+import { type BoundWitness } from '@xyo-network/boundwitness-model'
 
-import { isHydratedBoundWitness } from '../../isHydratedBoundWitness.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class BoundWitnessValidationError extends ValidationError<BoundWitness> {}
@@ -10,9 +9,8 @@ export const isBoundWitnessValidationError = (
   error: unknown,
 ): error is BoundWitnessValidationError => {
   if (!isValidationError(error)) return false
-  const { cause } = error as BoundWitnessValidationError
   return (
-    isBoundWitness(cause)
+    error.name === BoundWitnessValidationError.constructor.name
   )
 }
 
@@ -21,9 +19,8 @@ export class HydratedBoundWitnessValidationError extends ValidationError<Hydrate
 export const isHydratedBoundWitnessValidationError = (
   error: unknown,
 ): error is HydratedBoundWitnessValidationError => {
-  if (!isValidationError<HydratedBoundWitness>(error)) return false
-  const { cause } = error as HydratedBoundWitnessValidationError
+  if (!isValidationError(error)) return false
   return (
-    isHydratedBoundWitness(cause)
+    error.name === HydratedBoundWitnessValidationError.constructor.name
   )
 }

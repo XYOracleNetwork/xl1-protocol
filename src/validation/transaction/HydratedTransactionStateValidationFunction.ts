@@ -1,8 +1,8 @@
-import type { Address } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
-import type { HydratedBoundWitnessWithStorageMeta, ReadArchivist } from '@xyo-network/archivist-model'
+import type { ReadArchivist } from '@xyo-network/archivist-model'
 
-import type { TransactionBoundWitness } from '../../transaction/index.ts'
+import type { HydratedTransactionWithStorageMeta, TransactionBoundWitness } from '../../transaction/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'
 
 /**
@@ -13,7 +13,7 @@ import type { HydratedTransactionValidationError } from './error.ts'
  * @returns An array of errors if the transaction is invalid, or an empty array if it is valid.
  */
 export type HydratedTransactionStateValidationFunction<T extends TransactionBoundWitness = TransactionBoundWitness> = (
-  hydratedTransaction: HydratedBoundWitnessWithStorageMeta<T>,
-  chainId: Address,
+  hydratedTransaction: HydratedTransactionWithStorageMeta<T>,
+  chainId: Hex,
   archivist: ReadArchivist,
-) => Promisable<(HydratedTransactionValidationError | Error)[]>
+) => Promisable<HydratedTransactionValidationError[]>

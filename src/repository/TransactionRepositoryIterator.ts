@@ -1,4 +1,4 @@
-import type { HydratedTransaction, TransactionBoundWitness } from '../transaction/index.ts'
+import type { SignedHydratedTransactionWithStorageMeta, TransactionBoundWitness } from '../transaction/index.ts'
 import type { IterableRepository } from './Repository.ts'
 
-export interface TransactionRepositoryIterator extends IterableRepository<TransactionBoundWitness, HydratedTransaction | undefined> {}
+export interface TransactionRepositoryIterator extends IterableRepository<TransactionBoundWitness, SignedHydratedTransactionWithStorageMeta | undefined> {}

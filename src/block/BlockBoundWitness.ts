@@ -1,4 +1,4 @@
-import type { Hash, Hex } from '@xylabs/hex'
+import type { Address, Hash } from '@xylabs/hex'
 import { isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
@@ -14,13 +14,13 @@ export interface BlockBoundWitnessFields {
   /** Block number */
   block: number
   /** Chain id - this should be "0" for the genesis block */
-  chain: Hex
+  chain: Address
   /** Previous block hash if not block 0 */
   previous: Hash | null /* the previous block hash */
   /** Version of the protocol being used major * 1,000,000 + minor * 1,000 + patch */
   protocol: number
   /** Step hashes */
-  step_hashes: Hex[]
+  step_hashes: Hash[]
 }
 
 export type BlockBoundWitness = BoundWitness<BlockBoundWitnessFields & BlockBoundWitnessMeta>

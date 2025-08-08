@@ -9,4 +9,4 @@ export type HydratedBoundWitnessWithHashStorageMeta<T extends BoundWitness = Bou
 
 export type HydratedBoundWitnessValidationFunction<T extends BoundWitness = BoundWitness> = (
   bw: HydratedBoundWitnessWithHashStorageMeta<T>
-) => Promisable<(HydratedBoundWitnessValidationError | Error)[]>
+) => Promisable<HydratedBoundWitnessValidationError[]>
