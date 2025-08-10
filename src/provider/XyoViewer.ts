@@ -4,6 +4,7 @@ import type {
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../block/index.ts'
+import type { Chain } from '../model.ts'
 import type { Transfer } from '../payload/index.ts'
 import type { SignedHydratedTransaction, TransactionBoundWitness } from '../transaction/index.ts'
 
@@ -15,7 +16,7 @@ export interface XyoViewer {
   blockByNumber(blockNumber: number): Promisable<HydratedBlock | null>
   blocksByHash(hash: Hash, limit?: number): Promisable<HydratedBlock[]>
 
-  chainId(): Promisable<Hex>
+  chainId(): Promisable<Chain>
 
   currentBlock(): Promisable<HydratedBlock>
   currentBlockHash(): Promisable<Hash>
