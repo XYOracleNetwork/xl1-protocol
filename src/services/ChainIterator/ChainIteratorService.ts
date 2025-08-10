@@ -1,6 +1,6 @@
 import type { BaseParams } from '@xylabs/base'
 import type { BaseEmitter } from '@xylabs/events'
-import type { Hash, Hex } from '@xylabs/hex'
+import type { Hash } from '@xylabs/hex'
 
 import type { BlockBoundWitness } from '../../block/index.ts'
 import type { Chain } from '../../model.ts'

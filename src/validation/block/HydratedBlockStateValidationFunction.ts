@@ -1,4 +1,3 @@
-import type { Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
