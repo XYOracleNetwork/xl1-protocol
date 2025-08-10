@@ -10,7 +10,7 @@ import type { FromFields, OptionalExecutable } from '../payload/index.ts'
 import type { TransactionFeesFields } from './TransactionFeesFields.ts'
 
 export interface TransactionBoundWitnessFields extends BlockDuration, TransactionFeesFields {
-  chain: Hex | Address
+  chain: Hex | Address & { __chain: true }
 }
 
 export type TransactionBoundWitness = BoundWitness<TransactionBoundWitnessFields & OptionalExecutable & FromFields>

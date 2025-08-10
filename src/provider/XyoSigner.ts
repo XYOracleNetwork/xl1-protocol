@@ -1,16 +1,17 @@
-import type { Address, Hex } from '@xylabs/hex'
+import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { Signed, UnsignedBoundWitness } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
+import type { Chain } from '../model.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
 
 export interface XyoSigner {
   address(): Promisable<Address>
   /** @deprecated use signTransaction instead */
   createSignedTransaction(
-    chain: Hex,
+    chain: Chain,
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
     nbf: number,
