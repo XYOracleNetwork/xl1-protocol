@@ -1,7 +1,7 @@
-import type { Hex } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 
+import type { Chain } from '../../model.ts'
 import type { HydratedTransactionWithStorageMeta, TransactionBoundWitness } from '../../transaction/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'
 
@@ -14,6 +14,6 @@ import type { HydratedTransactionValidationError } from './error.ts'
  */
 export type HydratedTransactionStateValidationFunction<T extends TransactionBoundWitness = TransactionBoundWitness> = (
   hydratedTransaction: HydratedTransactionWithStorageMeta<T>,
-  chainId: Hex,
+  chainId: Chain,
   archivist: ReadArchivist,
 ) => Promisable<HydratedTransactionValidationError[]>
