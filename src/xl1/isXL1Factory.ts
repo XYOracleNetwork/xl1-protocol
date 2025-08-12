@@ -11,7 +11,10 @@ export const XL1ZodFactory = <T extends bigint>(places: bigint, name: string) =>
   const is = isXL1Factory<T>(places)
   const message = `Invalid value for ${name}, must be between 0 and ${xl1MaxValue(places)}`
   return z.bigint().refine(
-    is,
+    (x) => {
+      const result = is(x)
+      return result
+    },
     { message },
   )
 }
@@ -20,7 +23,10 @@ export const XL1TransformZodFactory = <T extends bigint>(places: bigint, name: s
   const is = isXL1Factory<T>(places)
   const message = `Invalid value for ${name}, must be between 0 and ${xl1MaxValue(places)}`
   return z.union([z.bigint(), z.number(), z.string(), z.boolean()]).transform(val => BigInt(val) as T).refine(
-    is,
+    (x) => {
+      const result = is(x)
+      return result
+    },
     { message },
   )
 }
