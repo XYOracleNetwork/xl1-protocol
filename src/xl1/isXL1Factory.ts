@@ -1,4 +1,4 @@
-import z from 'zod'
+import { z } from 'zod'
 
 import { xl1MaxValue } from './xl1MaxValue.ts'
 
