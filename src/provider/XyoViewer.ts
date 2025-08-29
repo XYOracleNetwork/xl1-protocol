@@ -7,8 +7,8 @@ import type { Transfer } from '../payload/index.ts'
 import type { SignedHydratedTransaction } from '../transaction/index.ts'
 
 export interface XyoViewer {
-  accountBalance: (address: Address) => Promisable<bigint>
-  accountHistory: (address: Address) => Promisable<[Hash /* block */, Hash /* transaction */, Transfer][]>
+  accountBalance(address: Address): Promisable<bigint>
+  accountHistory(address: Address): Promisable<[Hash /* block */, Hash /* transaction */, Transfer][]>
 
   blockByHash(hash: Hash): Promisable<HydratedBlock | null>
   blockByNumber(blockNumber: number): Promisable<HydratedBlock | null>
