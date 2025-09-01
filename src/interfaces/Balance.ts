@@ -1,6 +1,4 @@
-import type { Hash } from 'node:crypto'
-
-import type { Address } from '@xylabs/hex'
+import type { Address, Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { Transfer } from '../payload/index.ts'
