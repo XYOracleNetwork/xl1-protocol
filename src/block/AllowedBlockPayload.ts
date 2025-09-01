@@ -5,22 +5,25 @@ import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
 
 import type {
-  ChainStakeIntent, HashPayload, Transfer,
+  ChainStakeIntent, HashPayload, StepComplete,
+  Transfer,
   TransferRequest,
 } from '../payload/index.ts'
 import {
-  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, TransferRequestSchema, TransferSchema,
+  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, StepCompleteSchema, TransferRequestSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
-export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload | TransferRequest
+export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload | TransferRequest | StepComplete
 
 export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema,
   ChainStakeIntentSchema,
   SchemaSchema,
   BoundWitnessSchema,
   HashSchema,
-  TransferRequestSchema]
+  TransferRequestSchema,
+  StepCompleteSchema,
+]
 
 export type AllowedBlockPayloadSchema = typeof AllowedBlockPayloadSchemas[number]
 

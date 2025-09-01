@@ -1,5 +1,6 @@
 export * from './ChainStakeIntent.ts'
 export * from './Executable.ts'
 export * from './Hash.ts'
+export * from './StepComplete.ts'
 export * from './TransferPayload.ts'
 export * from './TransferRequest.ts'
