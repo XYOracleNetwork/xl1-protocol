@@ -1,4 +1,4 @@
-export * from './Balance.ts'
+export * from './AccountBalance.ts'
 export * from './Block.ts'
 export * from './Chain.ts'
 export * from './ChainContract.ts'
