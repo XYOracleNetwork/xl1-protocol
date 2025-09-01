@@ -1,9 +1,9 @@
 import type { Address } from '@xylabs/hex'
 
 import type { Intent } from '../../payload/index.ts'
-import type { Service } from '../Service.ts'
+import type { ServiceInterface } from '../Service.ts'
 
-export interface StakeIntentService extends Service {
+export interface StakeIntentService extends ServiceInterface {
 
   /**
    * Gets the declared ranges for an address based on historical on-chain data

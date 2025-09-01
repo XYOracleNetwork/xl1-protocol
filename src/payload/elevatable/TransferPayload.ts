@@ -13,7 +13,7 @@ export type TransferSchema = typeof TransferSchema
 
 export interface TransferFields extends FromFields {
   epoch: number
-  // the amount that is being sent to another address
+  // the amount that is being sent to other addresses
   transfers: Partial<Record<Address, Hex>>
 }
 

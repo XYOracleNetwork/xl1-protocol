@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { InvokerPermission, Permission } from './PermissionsProvider.ts'
 // eslint-disable-next-line sonarjs/deprecation
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
-import type { XyoConnectionProvider } from './XyoConnection.ts'
+import type { XyoConnection } from './XyoConnection.ts'
 import type { XyoGatewayHelpers } from './XyoGatewayHelpers.ts'
 import type { XyoSigner } from './XyoSigner.ts'
 
@@ -18,16 +18,16 @@ export interface XyoGatewayProviderDeprecated extends TransactionSubmitter {
   /**
    * @deprecated use `connection()` instead
    */
-  activeConnection(): Promisable<XyoConnectionProvider | undefined>
+  activeConnection(): Promisable<XyoConnection | undefined>
   /**
    * @deprecated use `connection()` instead
    */
   // eslint-disable-next-line sonarjs/deprecation
-  addConnection(config: XyoConnectionConfigDeprecated): Promisable<XyoConnectionProvider>
+  addConnection(config: XyoConnectionConfigDeprecated): Promisable<XyoConnection>
   /**
    * @deprecated use `connection()` instead
    */
-  connections(): Promisable<Record<string, XyoConnectionProvider>>
+  connections(): Promisable<Record<string, XyoConnection>>
   /**
    * @deprecated Permissions now at Client level
    */
@@ -47,7 +47,7 @@ export interface XyoGatewayProvider extends Partial<XyoGatewayHelpers>, Partial<
   /**
    * Returns the connection provider for this gateway.
    */
-  connection(): Promisable<XyoConnectionProvider>
+  connection(): Promisable<XyoConnection>
   /**
    * Returns the signer for this gateway.
    */

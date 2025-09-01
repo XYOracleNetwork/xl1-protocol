@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { Service } from './Service.ts'
+import type { ServiceInterface } from './Service.ts'
 
-export interface BlockRewardService extends Service {
+export interface BlockRewardService extends ServiceInterface {
   getRewardForBlock(block: bigint): Promisable<bigint>
 }

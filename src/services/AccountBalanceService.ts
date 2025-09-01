@@ -4,17 +4,19 @@ import type {
 import type { Promisable } from '@xylabs/promise'
 
 import type { AttoXL1 } from '../xl1/index.ts'
-import type { Service } from './Service.ts'
+import type { ServiceInterface } from './Service.ts'
 
-export interface AccountBalanceService extends Service {
-  getBalanceValue?: (address: Address) => bigint
+export interface AccountBalanceProvider {
+  getBalanceValue: (address: Address) => bigint
+}
+
+export interface AccountBalanceService extends AccountBalanceProvider, ServiceInterface {
   getBalanceValues?: Record<Address, bigint>
 
   getBalance(address: Address): Hex
   getBalances(): Record<Address, Hex>
-  sync(head: Hash): Promise<void>
 }
 
-export interface AccountBalanceServiceV2 extends Service {
+export interface AccountBalanceServiceV2 extends ServiceInterface {
   balances(head: Hash, addresses: Address[]): Promisable<Partial<Record<Address, AttoXL1>>>
 }

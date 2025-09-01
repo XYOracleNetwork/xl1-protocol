@@ -1,11 +1,5 @@
-import type { Address } from '@xylabs/hex'
+import type { ChainContractInterface } from '../../../interfaces/index.ts'
 
-export interface ChainContractViewer {
-  active(): Promise<bigint>
-  forkedAtBlockNumber(): Promise<bigint>
-  forkedAtHash(): Promise<bigint>
-  forkedChainId(): Promise<Address>
-  minWithdrawalBlocks(): Promise<bigint>
-  rewardsContract(): Promise<string>
-  stakingTokenAddress(): Promise<string>
+export interface ChainContractViewer extends ChainContractInterface {
+
 }

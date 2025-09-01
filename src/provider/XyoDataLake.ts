@@ -13,8 +13,12 @@ export interface XyoDataLakeViewer {
   trace(hash: Hash): Promisable<[DataLakeData | undefined, Payload[]]>
 }
 
-export interface XyoDataLakeProvider extends XyoDataLakeViewer {
+export interface XyoDataLake extends XyoDataLakeViewer {
   add(items: DataLakeData[]): Promisable<DataLakeData[]>
+}
+
+/** @deprecated use XyoDataLake instead */
+export interface XyoDataLakeProvider extends XyoDataLake {
 }
 
 export const isDataLakeViewer = (value: unknown): value is XyoDataLakeViewer => {
@@ -30,10 +34,10 @@ export const isDataLakeViewer = (value: unknown): value is XyoDataLakeViewer => 
   )
 }
 
-export const isDataLakeProvider = (value: unknown): value is XyoDataLakeProvider => {
+export const isDataLakeProvider = (value: unknown): value is XyoDataLake => {
   return (
     isDataLakeViewer(value)
     && 'add' in value
-    && typeof (value as XyoDataLakeProvider).add === 'function'
+    && typeof (value as XyoDataLake).add === 'function'
   )
 }

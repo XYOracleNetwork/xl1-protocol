@@ -6,14 +6,22 @@ import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugi
 
 import type {
   ChainStakeIntent, HashPayload, Transfer,
+  TransferRequest,
 } from '../payload/index.ts'
 import {
-  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, TransferSchema,
+  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, TransferRequestSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
-export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload
-export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema, ChainStakeIntentSchema, SchemaSchema, BoundWitnessSchema, HashSchema]
+export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload | TransferRequest
+
+export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema,
+  ChainStakeIntentSchema,
+  SchemaSchema,
+  BoundWitnessSchema,
+  HashSchema,
+  TransferRequestSchema]
+
 export type AllowedBlockPayloadSchema = typeof AllowedBlockPayloadSchemas[number]
 
 export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlockPayloadSchema => {

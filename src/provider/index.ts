@@ -1,6 +1,4 @@
-export * from './ForkViewer.ts'
 export * from './PermissionsProvider.ts'
-export * from './StakeViewer.ts'
 export * from './TransactionSubmitter.ts'
 export * from './XyoClient.ts'
 export * from './XyoConnection.ts'

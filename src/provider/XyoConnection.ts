@@ -6,7 +6,7 @@ import type { AllowedBlockPayload } from '../block/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
 // eslint-disable-next-line sonarjs/deprecation
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
-import type { XyoDataLakeProvider, XyoDataLakeViewer } from './XyoDataLake.ts'
+import type { XyoDataLake, XyoDataLakeViewer } from './XyoDataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
 import type { XyoSigner } from './XyoSigner.ts'
@@ -38,12 +38,15 @@ export interface XyoConnectionProviderDeprecated extends TransactionSubmitter {
 }
 
 // eslint-disable-next-line sonarjs/deprecation
-export interface XyoConnectionProvider extends Partial<XyoConnectionProviderDeprecated> {
+export interface XyoConnection extends Partial<XyoConnectionProviderDeprecated> {
   network?: XyoNetwork
   runner?: XyoRunner
-  storage?: XyoDataLakeProvider | XyoDataLakeViewer
+  storage?: XyoDataLake | XyoDataLakeViewer
   viewer?: XyoViewer
 }
 
 /** @deprecated use XyoConnectionProvider */
-export interface XyoProvider extends XyoConnectionProvider {}
+export interface XyoConnectionProvider extends XyoConnection {}
+
+/** @deprecated use XyoConnectionProvider */
+export interface XyoProvider extends XyoConnection {}

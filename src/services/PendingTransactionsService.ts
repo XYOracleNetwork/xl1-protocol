@@ -1,8 +1,8 @@
 import type { Hash } from '@xylabs/hex'
 
 import type { SignedHydratedTransaction } from '../transaction/index.ts'
-import type { Service } from './Service.ts'
+import type { ServiceInterface } from './Service.ts'
 
-export interface PendingTransactionsService extends Service {
+export interface PendingTransactionsService extends ServiceInterface {
   getPendingTransactions(head: Hash, limit: number, timeout?: number): Promise<SignedHydratedTransaction[]>
 }

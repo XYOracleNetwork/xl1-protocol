@@ -1,6 +1,6 @@
 import type { Chain } from '../../model.ts'
-import type { Service } from '../Service.ts'
+import type { ServiceInterface } from '../Service.ts'
 
-export interface BaseChainService extends Service {
+export interface BaseChainService extends ServiceInterface {
   chainId: Chain
 }
