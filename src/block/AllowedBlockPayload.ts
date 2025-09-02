@@ -3,17 +3,19 @@ import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashStorageMeta, isSchema } from '@xyo-network/payload-model'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
+import z from 'zod'
 
 import type {
   ChainStakeIntent, HashPayload, StepComplete,
+  TimePayload,
   Transfer,
 } from '../payload/index.ts'
 import {
-  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, StepCompleteSchema, TransferSchema,
+  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
-export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload | StepComplete
+export type AllowedBlockPayload = Transfer | ChainStakeIntent | SchemaPayload | TransactionBoundWitness | HashPayload | StepComplete | TimePayload
 
 export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema,
   ChainStakeIntentSchema,
@@ -21,6 +23,7 @@ export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema,
   BoundWitnessSchema,
   HashSchema,
   StepCompleteSchema,
+  TimeSchema,
 ]
 
 export type AllowedBlockPayloadSchema = typeof AllowedBlockPayloadSchemas[number]
@@ -36,3 +39,5 @@ export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayl
 export const isAllowedBlockPayloadWithHashStorageMeta = (value: unknown): value is WithStorageMeta<AllowedBlockPayload> => {
   return isAllowedBlockPayload(value) && isHashStorageMeta(value)
 }
+
+export const AllowedBlockPayloadZod = z.object({ schema: z.enum(AllowedBlockPayloadSchemas) })
