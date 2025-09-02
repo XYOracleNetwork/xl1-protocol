@@ -1,4 +1,4 @@
-export interface ChainStakeInterface {
+export interface ChainStakeViewInterface {
   active(): Promise<bigint>
   activeByAddressStaked(address: string): Promise<bigint>
   activeByStaker(address: string): Promise<bigint>

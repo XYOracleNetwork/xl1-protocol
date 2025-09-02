@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-export interface NetworkStakeStepAddressReward {
+export interface NetworkStakeStepAddressRewardViewInterface {
   claimedRewards(address: Address): Promisable<bigint>
 
   // the step rewards for a specific network stakers for a given step and block
@@ -16,7 +16,7 @@ export interface NetworkStakeStepAddressReward {
   unclaimedRewards(address: Address): Promisable<bigint>
 }
 
-export interface NetworkStakeStepPoolReward {
+export interface NetworkStakeStepPoolRewardViewInterface {
 
   // all the shares for all the network stakers for a given step and block
   networkStakeStepPoolRewardShares(step: number, block: number): Promisable<Record<Address, bigint>>
@@ -25,7 +25,7 @@ export interface NetworkStakeStepPoolReward {
   networkStakeStepPoolRewards(step: number, block: number): Promisable<Record<Address, bigint>>
 }
 
-export interface NetworkStakeStepReward extends NetworkStakeStepPoolReward, NetworkStakeStepAddressReward {
+export interface NetworkStakeStepRewardViewInterface extends NetworkStakeStepPoolRewardViewInterface, NetworkStakeStepAddressRewardViewInterface {
   // the predictable random number for a given step and block
   networkStakeStepRewardRandomizer(step: number, block: number): Promisable<bigint>
 }

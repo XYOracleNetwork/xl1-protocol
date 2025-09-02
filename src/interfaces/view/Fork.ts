@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 
 export type ForkHistory = Record<number, Address>
 
-export interface ForkInterface {
+export interface ForkViewInterface {
   chainIdAtBlock(blockNumber: number): Promisable<Address>
   forkHistory(): Promisable<ForkHistory>
 }

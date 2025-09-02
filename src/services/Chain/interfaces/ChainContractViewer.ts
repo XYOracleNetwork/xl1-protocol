@@ -1,5 +1,5 @@
-import type { ChainContractInterface } from '../../../interfaces/index.ts'
+import type { ChainContractViewInterface } from '../../../interfaces/index.ts'
 
-export interface ChainContractViewer extends ChainContractInterface {
+export interface ChainContractViewer extends ChainContractViewInterface {
 
 }

@@ -18,7 +18,7 @@ export type Stake = {
   withdrawBlock: number
 }
 
-export interface StakeInterface {
+export interface StakeViewInterface {
   stakeByAddress(address: Address, slot: number): Promisable<Stake>
   stakeById(id: number): Promisable<Stake>
 }

@@ -1,8 +1,9 @@
 import type {
-  AccountBalanceInterface, BlockInterface, ChainInterface,
-  ForkInterface,
-  StakeInterface,
-  TransactionInterface,
+  AccountBalanceViewInterface, BlockViewInterface, ChainViewInterface,
+  ForkViewInterface,
+  StakeViewInterface,
+  TransactionViewInterface,
 } from '../interfaces/index.ts'
 
-export interface XyoViewer extends AccountBalanceInterface, ChainInterface, BlockInterface, TransactionInterface, StakeInterface, ForkInterface {}
+export interface XyoViewer extends AccountBalanceViewInterface,
+  ChainViewInterface, BlockViewInterface, TransactionViewInterface, StakeViewInterface, ForkViewInterface {}

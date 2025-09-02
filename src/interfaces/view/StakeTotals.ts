@@ -8,7 +8,7 @@ export interface StakeScope {
   type?: 'all' | 'network' | 'address'
 }
 
-export interface StakeTotalsInterface {
+export interface StakeTotalsViewInterface {
   // the total amount that is staked in a given scope
   stakeAmount(scope?: StakeScope): Promisable<[bigint /* amount */, number /* external block number */]>
 

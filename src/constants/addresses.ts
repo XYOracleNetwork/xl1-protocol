@@ -1,0 +1,6 @@
+import type { Address } from '@xylabs/hex'
+
+export const XYO_ZERO_ADDRESS = '0000000000000000000000000000000000000000' as const as Address
+
+export const XYO_STEP_REWARD_ADDRESS = '1216197612161976121619761216197612161976' as const as Address
+export const XYO_BRIDGE_ADDRESS = '3012193230121932301219323012193230121932' as const as Address

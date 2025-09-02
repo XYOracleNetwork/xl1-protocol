@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { TimeDomain } from '../payload/index.ts'
+import type { TimeDomain } from '../../payload/index.ts'
 
-export interface TimeSyncInterface {
+export interface TimeSyncViewInterface {
   convertTime: (from: TimeDomain, to: TimeDomain) => Promisable<number>
 }

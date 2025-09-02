@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/hex'
 
-export interface ChainContractInterface {
+export interface ChainContractViewInterface {
   forkedAtBlockNumber(): Promise<bigint>
   forkedAtHash(): Promise<bigint>
   forkedChainId(): Promise<Address>

@@ -1,9 +1,9 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { CompletedStep } from '../model.ts'
+import type { CompletedStep } from '../../model.ts'
 
-export interface StepStakeInterface {
+export interface StepStakeViewInterface {
   // this is the prorated stake for all addresses in the step
   stepStake: (step: CompletedStep) => Promisable<Record<Address, bigint>>
 
