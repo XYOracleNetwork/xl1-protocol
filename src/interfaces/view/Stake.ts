@@ -1,11 +1,13 @@
-import type { Address, Hex } from '@xylabs/hex'
+import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
+
+import type { AttoXL1 } from '../../xl1/index.ts'
 
 export type Stake = {
   // the block number when the stake was added
   addBlock: number
   // the amount that is staked
-  amount: Hex
+  amount: AttoXL1
   // the unique id for the stake item
   id: number
   // the block number when the stake was removed (set to 0 if not removed)
