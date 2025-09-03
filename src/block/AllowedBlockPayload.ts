@@ -17,7 +17,7 @@ import {
   BridgeBackSchema,
   BridgeCompleteSchema,
   BridgeRequestSchema,
-  ChainStakeIntentSchema, HashSchema, isChainStakeIntent, isHashPayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
+  ChainStakeIntentSchema, HashSchema, isBridgeBack, isBridgeComplete, isBridgeRequest, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
@@ -47,7 +47,8 @@ export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlo
 }
 
 export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
-  return isTransfer(value) || isChainStakeIntent(value) || isSchemaPayload(value) || isTransactionBoundWitness(value) || isHashPayload(value)
+  return isTransfer(value) || isChainStakeIntent(value) || isSchemaPayload(value) || isTransactionBoundWitness(value)
+    || isHashPayload(value) || isTimePayload(value) || isBridgeBack(value) || isBridgeComplete(value) || isBridgeRequest(value)
 }
 
 export const isAllowedBlockPayloadWithHashStorageMeta = (value: unknown): value is WithStorageMeta<AllowedBlockPayload> => {
