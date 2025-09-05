@@ -13,7 +13,7 @@ describe('Bridge', () => {
   const destAmount = srcAmount // 1:1 for test
 
   const xl1ChainId: Chain = toHex('dd381fbb392c85160d8b0453e446757b12384046')
-  const ethChainId = toHex('0x01')
+  const ethChainId = toHex('0x1')
 
   const xl1Sender = toAddress('1111111111111111111111111111111111111111')
   const ethReceiver = toAddress('0x2222222222222222222222222222222222222222')
@@ -24,7 +24,7 @@ describe('Bridge', () => {
 
   const ethTxConfirmationHash = toHex('0x4444444444444444444444444444444444444444444444444444444444444444') // Some Eth tx hash
 
-  describe('Bridge to ETH', () => {
+  describe('XL1 to ETH', () => {
     it('BridgeIntent', () => {
       const intent: BridgeIntentFields = {
         dest: ethChainId, // To Ethereum
@@ -39,6 +39,22 @@ describe('Bridge', () => {
       }
       expect(intent).toMatchSnapshot()
     })
+    it('BridgeObservation', () => {
+      const observation: BridgeObservationFields = {
+        dest: ethChainId, // To Ethereum
+        destAddress: ethReceiver,
+        destAmount,
+        destToken: bridgeableTokenContract,
+        destConfirmation: ethTxConfirmationHash,
+        src: xl1ChainId, // From XL1
+        srcAddress: xl1Sender, // From XL1 sender
+        srcAmount,
+        srcToken: xl1ChainId, // In XL1
+      }
+      expect(observation).toMatchSnapshot()
+    })
+  })
+  describe('ETH to XL1', () => {
     it('BridgeObservation', () => {
       const observation: BridgeObservationFields = {
         dest: ethChainId, // To Ethereum
