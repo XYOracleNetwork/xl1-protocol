@@ -1,8 +1,8 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
-dotenv.config()
+config({ quiet: true })
 
 export default defineConfig({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
