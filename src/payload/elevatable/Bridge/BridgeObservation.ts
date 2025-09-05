@@ -1,4 +1,4 @@
-import type { Hash } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 
 import type { BridgeDetailsFields } from './BridgeDetails.ts'
 
@@ -9,7 +9,7 @@ export interface BridgeObservationFields extends BridgeDetailsFields {
   /**
    * Destination chain confirmation
    */
-  destConfirmation: Hash
+  destConfirmation: Hex
 
   /**
    * Type of confirmation (e.g., 'txHash', 'eventId')
