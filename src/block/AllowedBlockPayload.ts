@@ -17,7 +17,9 @@ import {
   BridgeBackSchema,
   BridgeCompleteSchema,
   BridgeRequestSchema,
-  ChainStakeIntentSchema, HashSchema, isBridgeBack, isBridgeComplete, isBridgeRequest, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
+  ChainStakeIntentSchema, HashSchema, isBridgeBack, isBridgeComplete,
+  isBridgeRequest, isChainStakeIntent, isHashPayload, isTimePayload,
+  isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
