@@ -6,7 +6,6 @@ exports[`Bridge > BridgeIntent 1`] = `
   "destAddress": "abc123",
   "destAmount": "f9ccd8a1c5080000",
   "destToken": "f5d1c979ce9d2caf07c247771b195a2fbec8a9b4",
-  "initiator": "abc123",
   "nonce": "d5eeff33-d5bc-4aca-9ecb-3406c02a5dc4",
   "src": "dd381fbb392c85160d8b0453e446757b12384046",
   "srcAddress": "abc123",

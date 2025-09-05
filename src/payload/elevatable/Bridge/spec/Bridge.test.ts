@@ -27,7 +27,6 @@ describe('Bridge', () => {
       destAddress: ethReceiver,
       destAmount,
       destToken: bridgeableTokenContract,
-      initiator: xl1Sender, // TODO: In BW or Servicer Module Address
       nonce,
       src: xl1ChainId, // From XL1
       srcAddress: xl1Sender, // From XL1 sender
