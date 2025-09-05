@@ -1,5 +1,3 @@
-import type { Hex } from '@xylabs/hex'
-
 import type { BridgeDetailsFields } from './BridgeDetails.ts'
 
 /**
