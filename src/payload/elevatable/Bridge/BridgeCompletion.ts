@@ -18,6 +18,5 @@ export interface BridgeCompletionFields {
   /**
    * Reference to original intent hash
    */
-  srcIntent: Hash
-
+  srcIntent?: Hash
 }
