@@ -8,7 +8,8 @@ import { AttoXL1ConvertFactor } from '../../../../xl1/index.ts'
 import type { BridgeIntentFields } from '../BridgeIntent.ts'
 
 describe('Bridge', () => {
-  const amount = toHex(18n * AttoXL1ConvertFactor.xl1) // 18 XL1 in AttoXL1
+  const srcAmount = toHex(18n * AttoXL1ConvertFactor.xl1) // 18 XL1 in AttoXL1
+  const destAmount = srcAmount // 1:1 for test
 
   const xl1ChainId: Chain = toHex('dd381fbb392c85160d8b0453e446757b12384046')
   const ethChainId = toHex('0x01')
@@ -22,15 +23,15 @@ describe('Bridge', () => {
 
   it('BridgeIntent', () => {
     const intent: BridgeIntentFields = {
-      amount, // TODO: Should source & dest token amounts be different?
       dest: ethChainId, // To Ethereum
       destAddress: ethReceiver,
+      destAmount,
       destToken: bridgeableTokenContract,
-      direction: 'srcToDest', // TODO: Implied
       initiator: xl1Sender, // TODO: In BW or Servicer Module Address
       nonce,
       src: xl1ChainId, // From XL1
       srcAddress: xl1Sender, // From XL1 sender
+      srcAmount,
       srcToken: xl1ChainId, // In XL1
     }
 
