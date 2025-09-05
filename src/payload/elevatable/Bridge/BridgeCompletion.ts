@@ -11,12 +11,18 @@ export interface BridgeCompletionFields {
   completedAt?: Hash
 
   /**
-   * Reference to observed confirmation hash
+   * Reference to observed destination confirmation hash
    */
   destObservation: Hash
 
   /**
-   * Reference to original intent hash
+   * Reference to source intent hash
    */
   srcIntent?: Hash
+
+  /**
+   * Reference to observed source confirmation hash
+   */
+  srcObservation: Hash
+
 }
