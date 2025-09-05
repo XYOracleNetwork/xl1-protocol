@@ -1,29 +1,71 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Bridge > Bridge to ETH > BridgeIntent 1`] = `
+exports[`Bridge > ETH to XL1 > BridgeObservation (ETH Side) 1`] = `
+{
+  "dest": "dd381fbb392c85160d8b0453e446757b12384046",
+  "destAddress": "1111111111111111111111111111111111111111",
+  "destAmount": "056bc75e2d63100000",
+  "destToken": "dd381fbb392c85160d8b0453e446757b12384046",
+  "src": "01",
+  "srcAddress": "2222222222222222222222222222222222222222",
+  "srcAmount": "056bc75e2d63100000",
+  "srcConfirmation": "5555555555555555555555555555555555555555555555555555555555555555",
+  "srcToken": "3333333333333333333333333333333333333333",
+}
+`;
+
+exports[`Bridge > ETH to XL1 > BridgeObservation (XL1 Side) 1`] = `
+{
+  "dest": "dd381fbb392c85160d8b0453e446757b12384046",
+  "destAddress": "1111111111111111111111111111111111111111",
+  "destAmount": "056bc75e2d63100000",
+  "destConfirmation": "4444444444444444444444444444444444444444444444444444444444444444",
+  "destToken": "dd381fbb392c85160d8b0453e446757b12384046",
+  "src": "01",
+  "srcAddress": "2222222222222222222222222222222222222222",
+  "srcAmount": "056bc75e2d63100000",
+  "srcToken": "3333333333333333333333333333333333333333",
+}
+`;
+
+exports[`Bridge > XL1 to ETH > BridgeObservation (ETH Side) 1`] = `
 {
   "dest": "01",
   "destAddress": "2222222222222222222222222222222222222222",
-  "destAmount": "f9ccd8a1c5080000",
+  "destAmount": "056bc75e2d63100000",
+  "destConfirmation": "5555555555555555555555555555555555555555555555555555555555555555",
   "destToken": "3333333333333333333333333333333333333333",
-  "nonce": "d5eeff33-d5bc-4aca-9ecb-3406c02a5dc4",
   "src": "dd381fbb392c85160d8b0453e446757b12384046",
   "srcAddress": "1111111111111111111111111111111111111111",
-  "srcAmount": "f9ccd8a1c5080000",
+  "srcAmount": "056bc75e2d63100000",
   "srcToken": "dd381fbb392c85160d8b0453e446757b12384046",
 }
 `;
 
-exports[`Bridge > Bridge to ETH > BridgeObservation 1`] = `
+exports[`Bridge > XL1 to ETH > BridgeObservation (XL1 Side) 1`] = `
 {
   "dest": "01",
   "destAddress": "2222222222222222222222222222222222222222",
-  "destAmount": "f9ccd8a1c5080000",
-  "destConfirmation": "4444444444444444444444444444444444444444444444444444444444444444",
+  "destAmount": "056bc75e2d63100000",
   "destToken": "3333333333333333333333333333333333333333",
   "src": "dd381fbb392c85160d8b0453e446757b12384046",
   "srcAddress": "1111111111111111111111111111111111111111",
-  "srcAmount": "f9ccd8a1c5080000",
+  "srcAmount": "056bc75e2d63100000",
+  "srcConfirmation": "4444444444444444444444444444444444444444444444444444444444444444",
+  "srcToken": "dd381fbb392c85160d8b0453e446757b12384046",
+}
+`;
+
+exports[`Bridge > XL1 to ETH > Sender issues BridgeIntent 1`] = `
+{
+  "dest": "01",
+  "destAddress": "2222222222222222222222222222222222222222",
+  "destAmount": "056bc75e2d63100000",
+  "destToken": "3333333333333333333333333333333333333333",
+  "nonce": "d5eeff33-d5bc-4aca-9ecb-3406c02a5dc4",
+  "src": "dd381fbb392c85160d8b0453e446757b12384046",
+  "srcAddress": "1111111111111111111111111111111111111111",
+  "srcAmount": "056bc75e2d63100000",
   "srcToken": "dd381fbb392c85160d8b0453e446757b12384046",
 }
 `;
