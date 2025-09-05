@@ -5,29 +5,35 @@ import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
 
-import type { FromFields } from './Executable.ts'
+import type { FromFields } from '../Executable.ts'
 
 /**
  * A chain/network identifier, such as chain ID or name
- * */
+ */
 export type Networkish = string | Hex
 
 /**
  * Direction of bridging
- * */
+ */
 export type BridgeDirection = 'srcToDest' | 'destToSrc'
 
 /**
  * Represents an Addresses intent to initiate a token bridge.
  */
 export interface BridgeIntentFields {
-  /** Token amount to bridge */
+  /**
+   * Token amount to bridge
+   */
   amount: Hex
 
   /**
-   * Destination network and address
+   * Destination network
    */
   dest: Networkish
+
+  /**
+   * Destination address (EOA or contract)
+   */
   destAddress: Hex
 
   /**
@@ -51,9 +57,13 @@ export interface BridgeIntentFields {
   nonce: string
 
   /**
-   * Source network and address
+   * Source network
    */
   src: Networkish
+
+  /**
+   * Source address (EOA or contract)
+   */
   srcAddress: Hex
 
   /**
@@ -73,7 +83,7 @@ export interface BridgeObservationFields extends BridgeIntentFields {
 
   /**
    * Type of confirmation (e.g., 'txHash', 'eventId')
-   * */
+   */
   destConfirmationType?: string
 
   /**
@@ -94,12 +104,12 @@ export interface BridgeCompleteFields {
 
   /**
    * Reference to observed confirmation hash
-   * */
+   */
   destObservation: Hash
 
   /**
    * Reference to original intent hash
-   * */
+   */
   srcIntent: Hash
 
 }
