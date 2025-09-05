@@ -6,9 +6,9 @@ import type { Hash } from '@xylabs/hex'
 export interface BridgeCompletionFields {
 
   /**
-   * Timestamp when the bridge was completed
+   * Block number, event ID, or timestamp when the bridge was completed
    */
-  completedAt?: number
+  completedAt?: Hash
 
   /**
    * Reference to observed confirmation hash
