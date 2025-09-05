@@ -1,11 +1,6 @@
 import type { Hex } from '@xylabs/hex'
 
 /**
- * A chain/network identifier, such as chain ID or name
- */
-export type Networkish = string | Hex
-
-/**
  * Represents an Addresses intent to initiate a token bridge.
  */
 export interface BridgeIntentFields {
@@ -13,7 +8,7 @@ export interface BridgeIntentFields {
   /**
    * Destination network
    */
-  dest: Networkish
+  dest: Hex
 
   /**
    * Destination address (EOA or contract)
@@ -31,11 +26,6 @@ export interface BridgeIntentFields {
   destToken: Hex
 
   /**
-   * Request initiator (EOA or contract)
-   */
-  initiator: Hex
-
-  /**
    * Unique identifier for replay protection
    */
   nonce: string
@@ -43,7 +33,7 @@ export interface BridgeIntentFields {
   /**
    * Source network
    */
-  src: Networkish
+  src: Hex
 
   /**
    * Source address (EOA or contract)
