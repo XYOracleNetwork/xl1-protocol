@@ -1,3 +1,4 @@
+export * from './Bridge/index.ts'
 export * from './BridgeBack.ts'
 export * from './BridgeComplete.ts'
 export * from './BridgeRequest.ts'

@@ -15,8 +15,6 @@ describe('HydratedBlockStateValidationError', () => {
       'Test Error',
       [new Error('Inner error')],
     )
-    console.log('error', error)
-
     expect(error).toBeDefined()
   })
 })
