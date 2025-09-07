@@ -1,10 +1,9 @@
 import type { Hex } from '@xylabs/hex'
 
 /**
- * Represents a transfer from a source chain/token/address to a destination chain/token/address.
+ * Represents a transfer destination
  */
-export interface BridgeDetailsFields {
-
+export interface BridgeDetailsDestinationFields {
   /**
    * Destination network
    */
@@ -24,7 +23,12 @@ export interface BridgeDetailsFields {
    * Token being bridged to
    */
   destToken: Hex
+}
 
+/**
+ * Represents a transfer source
+ */
+export interface BridgeDetailsSourceFields {
   /**
    * Source network
    */
@@ -45,3 +49,8 @@ export interface BridgeDetailsFields {
    */
   srcToken: Hex
 }
+
+/**
+ * Represents a transfer from a source chain/token/address/amount to a destination chain/token/address/amount.
+ */
+export interface BridgeDetailsFields extends BridgeDetailsSourceFields, BridgeDetailsDestinationFields {}
