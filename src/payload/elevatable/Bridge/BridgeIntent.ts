@@ -1,3 +1,7 @@
+import { AsObjectFactory } from '@xylabs/object'
+import type { Payload } from '@xyo-network/payload-model'
+import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+
 import type { BridgeDetailsFields } from './BridgeDetails.ts'
 
 /**
@@ -9,3 +13,12 @@ export interface BridgeIntentFields extends BridgeDetailsFields {
    */
   nonce: string
 }
+
+export const BridgeIntentSchema = 'network.xyo.chain.bridge.intent' as const
+export type BridgeIntentSchema = typeof BridgeIntentSchema
+
+export type BridgeIntent = Payload<BridgeIntentFields, BridgeIntentSchema>
+
+export const isBridgeIntent = isPayloadOfSchemaType<BridgeIntent>(BridgeIntentSchema)
+
+export const asBridgeIntent = AsObjectFactory.create(isBridgeIntent)
