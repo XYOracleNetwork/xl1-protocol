@@ -6,16 +6,15 @@ import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugi
 import z from 'zod'
 
 import type {
-  BridgeBack,
-  BridgeComplete,
-  BridgeRequest,
+  BridgeIntent,
+  BridgeObservation,
   ChainStakeIntent, HashPayload, StepComplete,
   TimePayload,
   Transfer,
 } from '../payload/index.ts'
 import {
-  BridgeBackSchema,
-  BridgeCompleteSchema,
+  BridgeIntentSchema,
+  BridgeObservationSchema,
   BridgeRequestSchema,
   ChainStakeIntentSchema, HashSchema, isBridgeBack, isBridgeComplete,
   isBridgeRequest, isChainStakeIntent, isHashPayload, isTimePayload,
@@ -25,9 +24,8 @@ import { isTransactionBoundWitness, type TransactionBoundWitness } from '../tran
 
 export type AllowedBlockPayload
   = Transfer
-    | BridgeBack
-    | BridgeComplete
-    | BridgeRequest
+    | BridgeIntent
+    | BridgeObservation
     | ChainStakeIntent
     | HashPayload
     | SchemaPayload
@@ -37,8 +35,8 @@ export type AllowedBlockPayload
 
 export const AllowedBlockPayloadSchemas: Schema[] = [
   BoundWitnessSchema,
-  BridgeBackSchema,
-  BridgeCompleteSchema,
+  BridgeIntentSchema,
+  BridgeObservationSchema,
   BridgeRequestSchema,
   ChainStakeIntentSchema,
   HashSchema,
