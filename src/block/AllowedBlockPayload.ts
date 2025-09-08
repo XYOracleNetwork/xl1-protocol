@@ -23,23 +23,29 @@ import {
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
-export type AllowedBlockPayload = Transfer
-  | ChainStakeIntent | SchemaPayload
-  | TransactionBoundWitness | HashPayload
-  | StepComplete | TimePayload
-  | BridgeRequest | BridgeComplete
-  | BridgeBack
+export type AllowedBlockPayload
+  = Transfer
+    | BridgeBack
+    | BridgeComplete
+    | BridgeRequest
+    | ChainStakeIntent
+    | HashPayload
+    | SchemaPayload
+    | StepComplete
+    | TimePayload
+    | TransactionBoundWitness
 
-export const AllowedBlockPayloadSchemas: Schema[] = [TransferSchema,
-  ChainStakeIntentSchema,
-  SchemaSchema,
+export const AllowedBlockPayloadSchemas: Schema[] = [
   BoundWitnessSchema,
-  HashSchema,
-  StepCompleteSchema,
-  TimeSchema,
+  BridgeBackSchema,
   BridgeCompleteSchema,
   BridgeRequestSchema,
-  BridgeBackSchema,
+  ChainStakeIntentSchema,
+  HashSchema,
+  SchemaSchema,
+  StepCompleteSchema,
+  TimeSchema,
+  TransferSchema,
 ]
 
 export type AllowedBlockPayloadSchema = typeof AllowedBlockPayloadSchemas[number]
