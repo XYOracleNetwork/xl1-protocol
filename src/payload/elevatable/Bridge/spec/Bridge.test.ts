@@ -5,8 +5,9 @@ import {
 
 import type { Chain } from '../../../../model.ts'
 import { AttoXL1ConvertFactor } from '../../../../xl1/index.ts'
+import type { BridgeDestinationObservationFields } from '../BridgeDestinationObservation.ts'
 import type { BridgeIntentFields } from '../BridgeIntent.ts'
-import type { BridgeObservationFields } from '../BridgeObservation.ts'
+import type { BridgeSourceObservationFields } from '../BridgeSourceObservation.ts'
 
 describe('Bridge', () => {
   const srcAmount = toHex(100n * AttoXL1ConvertFactor.xl1) // 100 XL1 in AttoXL1
@@ -46,7 +47,7 @@ describe('Bridge', () => {
       expect(intent).toMatchSnapshot()
     })
     it('BridgeObservation (XL1 Side)', () => {
-      const observation: BridgeObservationFields = {
+      const observation: BridgeSourceObservationFields = {
         // Source
         src: xl1ChainId, // From XL1
         srcAddress: xl1Address, // From XL1 sender
@@ -65,7 +66,7 @@ describe('Bridge', () => {
       expect(observation).toMatchSnapshot()
     })
     it('BridgeObservation (ETH Side)', () => {
-      const observation: BridgeObservationFields = {
+      const observation: BridgeDestinationObservationFields = {
         // Source
         src: xl1ChainId, // From XL1
         srcAddress: xl1Address, // From XL1 sender
@@ -86,7 +87,7 @@ describe('Bridge', () => {
   })
   describe('ETH to XL1', () => {
     it('BridgeObservation (ETH Side)', () => {
-      const observation: BridgeObservationFields = {
+      const observation: BridgeSourceObservationFields = {
         // Source
         src: ethChainId, // From Ethereum
         srcToken: bridgeableTokenContract, // In Ethereum
@@ -105,7 +106,7 @@ describe('Bridge', () => {
       expect(observation).toMatchSnapshot()
     })
     it('BridgeObservation (XL1 Side)', () => {
-      const observation: BridgeObservationFields = {
+      const observation: BridgeDestinationObservationFields = {
         // Source
         src: ethChainId, // From Ethereum
         srcToken: bridgeableTokenContract, // In Ethereum
