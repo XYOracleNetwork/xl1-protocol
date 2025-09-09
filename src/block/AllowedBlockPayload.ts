@@ -6,19 +6,11 @@ import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugi
 import z from 'zod'
 
 import type {
-  BridgeIntent,
-  BridgeObservation,
-  ChainStakeIntent, HashPayload, StepComplete,
-  TimePayload,
-  Transfer,
+  BridgeIntent, BridgeObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
 } from '../payload/index.ts'
 import {
-  BridgeIntentSchema,
-  BridgeObservationSchema,
-  BridgeRequestSchema,
-  ChainStakeIntentSchema, HashSchema, isBridgeBack, isBridgeComplete,
-  isBridgeRequest, isChainStakeIntent, isHashPayload, isTimePayload,
-  isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
+  BridgeIntentSchema, BridgeObservationSchema, BridgeRequestSchema, ChainStakeIntentSchema, HashSchema, isBridgeIntent, isBridgeObservation, isChainStakeIntent,
+  isHashPayload, isTimePayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
@@ -54,9 +46,8 @@ export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlo
 
 export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
   return isTransfer(value)
-    || isBridgeBack(value)
-    || isBridgeComplete(value)
-    || isBridgeRequest(value)
+    || isBridgeIntent(value)
+    || isBridgeObservation(value)
     || isChainStakeIntent(value)
     || isHashPayload(value)
     || isSchemaPayload(value)
