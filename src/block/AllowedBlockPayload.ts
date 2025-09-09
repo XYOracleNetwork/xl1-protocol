@@ -6,18 +6,20 @@ import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugi
 import z from 'zod'
 
 import type {
-  BridgeIntent, BridgeObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
+  BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
 } from '../payload/index.ts'
 import {
-  BridgeIntentSchema, BridgeObservationSchema, BridgeRequestSchema, ChainStakeIntentSchema, HashSchema, isBridgeIntent, isBridgeObservation, isChainStakeIntent,
-  isHashPayload, isTimePayload, isTransfer, StepCompleteSchema, TimeSchema, TransferSchema,
+  BridgeDestinationObservationSchema, BridgeIntentSchema, BridgeRequestSchema, BridgeSourceObservationSchema, ChainStakeIntentSchema, HashSchema,
+  isBridgeDestinationObservation, isBridgeIntent, isBridgeSourceObservation, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema,
+  TimeSchema, TransferSchema,
 } from '../payload/index.ts'
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
 
 export type AllowedBlockPayload
   = Transfer
+    | BridgeDestinationObservation
     | BridgeIntent
-    | BridgeObservation
+    | BridgeSourceObservation
     | ChainStakeIntent
     | HashPayload
     | SchemaPayload
@@ -27,9 +29,10 @@ export type AllowedBlockPayload
 
 export const AllowedBlockPayloadSchemas: Schema[] = [
   BoundWitnessSchema,
+  BridgeDestinationObservationSchema,
   BridgeIntentSchema,
-  BridgeObservationSchema,
   BridgeRequestSchema,
+  BridgeSourceObservationSchema,
   ChainStakeIntentSchema,
   HashSchema,
   SchemaSchema,
@@ -46,8 +49,9 @@ export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlo
 
 export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
   return isTransfer(value)
+    || isBridgeDestinationObservation(value)
     || isBridgeIntent(value)
-    || isBridgeObservation(value)
+    || isBridgeSourceObservation(value)
     || isChainStakeIntent(value)
     || isHashPayload(value)
     || isSchemaPayload(value)
