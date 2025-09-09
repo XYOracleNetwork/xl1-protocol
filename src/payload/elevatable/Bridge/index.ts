@@ -1,4 +1,5 @@
 export * from './BridgeCompletion.ts'
+export * from './BridgeDestinationObservation.ts'
 export * from './BridgeDetails.ts'
 export * from './BridgeIntent.ts'
-export * from './BridgeObservation.ts'
+export * from './BridgeSourceObservation.ts'
