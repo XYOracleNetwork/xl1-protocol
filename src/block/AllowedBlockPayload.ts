@@ -54,14 +54,14 @@ export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlo
 
 export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
   return isTransfer(value)
-    || isChainStakeIntent(value)
-    || isSchemaPayload(value)
-    || isTransactionBoundWitness(value)
-    || isHashPayload(value)
-    || isTimePayload(value)
     || isBridgeBack(value)
     || isBridgeComplete(value)
     || isBridgeRequest(value)
+    || isChainStakeIntent(value)
+    || isHashPayload(value)
+    || isSchemaPayload(value)
+    || isTimePayload(value)
+    || isTransactionBoundWitness(value)
 }
 
 export const isAllowedBlockPayloadWithHashStorageMeta = (value: unknown): value is WithStorageMeta<AllowedBlockPayload> => {
