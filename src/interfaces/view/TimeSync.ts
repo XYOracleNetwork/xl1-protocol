@@ -1,3 +1,4 @@
+import type { Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 import type { TimeDomain, TimePayload } from '../../payload/index.ts'
@@ -11,6 +12,9 @@ export interface TimeSyncViewInterface {
 }
 
 export interface TimeSyncViewInterfaceV2 extends TimeSyncViewInterface {
+  /** Get the current time for a given domain */
+  currentTimeAndHash(domain: TimeDomain): Promisable<[number, Hash | null]>
+
   /** Create a TimePayload with the current time from all configured domains */
   currentTimePayload(domain: TimeDomain): Promisable<TimePayload>
 }
