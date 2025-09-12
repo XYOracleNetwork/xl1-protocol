@@ -1,7 +1,4 @@
 export * from './Bridge/index.ts'
-export * from './BridgeBack.ts'
-export * from './BridgeComplete.ts'
-export * from './BridgeRequest.ts'
 export * from './ChainStakeIntent.ts'
 export * from './Executable.ts'
 export * from './Hash.ts'

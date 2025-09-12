@@ -9,7 +9,7 @@ import type {
   BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
 } from '../payload/index.ts'
 import {
-  BridgeDestinationObservationSchema, BridgeIntentSchema, BridgeRequestSchema, BridgeSourceObservationSchema, ChainStakeIntentSchema, HashSchema,
+  BridgeDestinationObservationSchema, BridgeIntentSchema, BridgeSourceObservationSchema, ChainStakeIntentSchema, HashSchema,
   isBridgeDestinationObservation, isBridgeIntent, isBridgeSourceObservation, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema,
   TimeSchema, TransferSchema,
 } from '../payload/index.ts'
@@ -31,7 +31,6 @@ export const AllowedBlockPayloadSchemas: Schema[] = [
   BoundWitnessSchema,
   BridgeDestinationObservationSchema,
   BridgeIntentSchema,
-  BridgeRequestSchema,
   BridgeSourceObservationSchema,
   ChainStakeIntentSchema,
   HashSchema,
