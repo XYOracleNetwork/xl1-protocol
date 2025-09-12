@@ -16,5 +16,5 @@ export interface TimeSyncViewInterfaceV2 extends TimeSyncViewInterface {
   currentTimeAndHash(domain: TimeDomain): Promisable<[number, Hash | null]>
 
   /** Create a TimePayload with the current time from all configured domains */
-  currentTimePayload(domain: TimeDomain): Promisable<TimePayload>
+  currentTimePayload(): Promisable<TimePayload>
 }
