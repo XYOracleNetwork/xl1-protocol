@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol",
-  "version": "1.12.26",
+  "version": "1.12.27",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
