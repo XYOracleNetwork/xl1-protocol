@@ -13,6 +13,9 @@ export interface NetworkStakeStepAddressRewardViewInterface {
   // the shares for a specific network staker for a given step and block
   networkStakeStepRewardAddressShare(address: Address, step: number, block: number): Promisable<[/* address shares */bigint, /* total shares */bigint]>
 
+  // estimate the current reward weight for a given address at a given step
+  networkStakeStepRewardWeightForAddress?(address: Address, step: number): Promisable<bigint>
+
   unclaimedRewards(address: Address): Promisable<bigint>
 }
 
@@ -25,7 +28,22 @@ export interface NetworkStakeStepPoolRewardViewInterface {
   networkStakeStepPoolRewards(step: number, block: number): Promisable<Record<Address, bigint>>
 }
 
-export interface NetworkStakeStepRewardViewInterface extends NetworkStakeStepPoolRewardViewInterface, NetworkStakeStepAddressRewardViewInterface {
+export interface NetworkStakeStepRewardPositionViewInterface {
+  // estimate the current weight for a given position at a given step
+  networkStakeStepRewardPositionWeight?(position: bigint, step: number): Promisable<number>
+
+  // estimate the potential loss for removing a given position at a given step
+  networkStakeStepRewardPotentialPositionLoss?(position: bigint, step: number): Promisable<bigint>
+}
+
+export interface NetworkStakeStepRewardViewInterface extends
+  NetworkStakeStepPoolRewardViewInterface,
+  NetworkStakeStepAddressRewardViewInterface,
+  NetworkStakeStepRewardPositionViewInterface
+{
+  // estimate the total possible block rewards for a given step
+  networkStakeStepRewardForStep?(step: number): Promisable<bigint>
+
   // the predictable random number for a given step and block
   networkStakeStepRewardRandomizer(step: number, block: number): Promisable<bigint>
 }
