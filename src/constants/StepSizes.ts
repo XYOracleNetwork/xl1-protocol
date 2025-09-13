@@ -18,3 +18,13 @@ export function stepSize(step: number): number {
   const validatedStep = asValidStep(step, () => `Invalid step (${step}), must be an integer between 0 and ${StepSizes.length - 1}`, { required: true })
   return StepSizes[validatedStep]
 }
+
+export const StepRewardFractions = [
+  [0n / 1n], // 0%
+  [0n / 1n], // 0%
+  [0n / 1n], // 0%
+  [1n / 10_000n], // 0.01%
+  [2n / 1000n], // 0.2%
+  [3n / 100n], // 3%
+  [45n / 100n], // 45%
+] as const
