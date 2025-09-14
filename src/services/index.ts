@@ -1,4 +1,5 @@
 export * from './AccountBalanceService.ts'
+export * from './AccountTransfersService.ts'
 export * from './BlockProducerService.ts'
 export * from './BlockRewardService.ts'
 export * from './BlockRewardServiceV2.ts'
