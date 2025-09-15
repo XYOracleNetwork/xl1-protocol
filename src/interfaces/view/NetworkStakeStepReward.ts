@@ -46,4 +46,7 @@ export interface NetworkStakeStepRewardViewInterface extends
 
   // the predictable random number for a given step and block
   networkStakeStepRewardRandomizer(step: number, block: number): Promisable<bigint>
+
+  // the total number of stakers for a given step and block
+  networkStakeStepRewardStakerCount(step: number, block: number): Promisable<number>
 }
