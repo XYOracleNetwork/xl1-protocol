@@ -1,5 +1,4 @@
 import type { JsonValue } from '@xylabs/object'
-import type { Promisable } from '@xylabs/promise'
 
 /**
  * Modeled after EIP-2255
@@ -22,7 +21,7 @@ export interface RequestedPermission {
   date?: number
 }
 
-export type CaveatTypes = 'chain' | 'expiration' | 'filteredResponse' | 'rateLimit'
+export type CaveatTypes = 'chain' | 'expiration' | 'filteredResponse' | 'rateLimit' | 'restrictReturnedAccounts'
 
 /**
  * Modeled after EIP-2255
@@ -51,10 +50,4 @@ export interface Permission {
 export interface InvokerPermission extends Permission {
   /** Time at which the permission was granted */
   date?: number
-}
-
-export interface PermissionsProvider {
-  getPermissions(): Promisable<InvokerPermission[]>
-  requestPermissions(permissions: Permission[]): Promisable<boolean>
-  revokePermissions(permissions: Permission[]): Promisable<boolean>
 }

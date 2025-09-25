@@ -1,6 +1,6 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { InvokerPermission, Permission } from './PermissionsProvider.ts'
+import type { InvokerPermission, Permission } from './permissions/index.ts'
 // eslint-disable-next-line sonarjs/deprecation
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
 import type { XyoConnection } from './XyoConnection.ts'

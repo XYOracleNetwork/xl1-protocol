@@ -1,4 +1,4 @@
-import type { PermissionsProvider } from './PermissionsProvider.ts'
+import type { PermissionsProvider } from './permissions/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'
 
 export type GatewayName = string & { __gatewayName: true }

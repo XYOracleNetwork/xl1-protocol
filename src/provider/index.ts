@@ -1,4 +1,4 @@
-export * from './PermissionsProvider.ts'
+export * from './permissions/index.ts'
 export * from './TransactionSubmitter.ts'
 export * from './XyoClient.ts'
 export * from './XyoConnection.ts'
