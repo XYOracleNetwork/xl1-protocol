@@ -10,5 +10,5 @@ export interface HeadEventData extends EventData {
 
 export interface ChainIteratorServiceEventData extends HeadEventData { }
 
-/** @deprecated use ChainIteratorServiceEventData instead */
-export interface ChainIteratorEventData extends ChainIteratorServiceEventData { }
+// /** @deprecated use ChainIteratorServiceEventData instead */
+// export interface ChainIteratorEventData extends ChainIteratorServiceEventData { }
