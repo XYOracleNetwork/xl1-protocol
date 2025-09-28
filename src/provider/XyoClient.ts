@@ -1,3 +1,5 @@
+import type { Promisable } from '@xylabs/promise'
+
 import type { PermissionsProvider } from './permissions/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'
 
@@ -13,6 +15,7 @@ export interface XyoRpcGatewayConfig extends XyoGatewayConfig {
 }
 
 export interface XyoClient {
+  connect?: Promisable<string[]>
   gateways: Readonly<Record<GatewayName, XyoGatewayProvider>>
   permissions: PermissionsProvider
 
