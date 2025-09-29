@@ -1,3 +1,4 @@
+export * from './amount/index.ts'
 export * from './block/index.ts'
 export * from './chain/index.ts'
 export * from './constants/index.ts'

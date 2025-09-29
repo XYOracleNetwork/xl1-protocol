@@ -1937,6 +1937,7 @@ __metadata:
     "@opentelemetry/api": "npm:~1.9.0"
     "@types/node": "npm:~24.3.0"
     "@typescript-eslint/types": "npm:~8.41.0"
+    "@xylabs/assert": "npm:~5.0.11"
     "@xylabs/base": "npm:~5.0.11"
     "@xylabs/creatable": "npm:~5.0.11"
     "@xylabs/eslint-config-flat": "npm:~7.1.7"
