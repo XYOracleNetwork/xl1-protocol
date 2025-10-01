@@ -16,7 +16,7 @@ export interface NetworkStakeStepAddressRewardViewInterface {
   // estimate the current reward weight for a given address at a given step
   networkStakeStepRewardWeightForAddress?(address: Address, step: number): Promisable<bigint>
 
-  unclaimedRewards(address: Address): Promisable<bigint>
+  networkStakeUnclaimedRewards(address: Address): Promisable<bigint>
 }
 
 export interface NetworkStakeStepPoolRewardViewInterface {
