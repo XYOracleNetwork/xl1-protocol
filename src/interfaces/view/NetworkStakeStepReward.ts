@@ -30,10 +30,10 @@ export interface NetworkStakeStepPoolRewardViewInterface {
 
 export interface NetworkStakeStepRewardPositionViewInterface {
   // estimate the current weight for a given position at a given step
-  networkStakeStepRewardPositionWeight?(position: bigint, step: number): Promisable<number>
+  networkStakeStepRewardPositionWeight(position: bigint, step: number): Promisable<number>
 
   // estimate the potential loss for removing a given position at a given step
-  networkStakeStepRewardPotentialPositionLoss?(position: bigint, step: number): Promisable<bigint>
+  networkStakeStepRewardPotentialPositionLoss(position: bigint, step: number): Promisable<bigint>
 }
 
 export interface NetworkStakeStepRewardViewInterface extends
@@ -42,7 +42,7 @@ export interface NetworkStakeStepRewardViewInterface extends
   NetworkStakeStepRewardPositionViewInterface
 {
   // estimate the total possible block rewards for a given step
-  networkStakeStepRewardForStep?(step: number): Promisable<bigint>
+  networkStakeStepRewardForStep(step: number): Promisable<bigint>
 
   // the predictable random number for a given step and block
   networkStakeStepRewardRandomizer(step: number, block: number): Promisable<bigint>
