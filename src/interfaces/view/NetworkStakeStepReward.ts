@@ -2,7 +2,7 @@ import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
 export interface NetworkStakeStepAddressRewardViewInterface {
-  claimedRewards(address: Address): Promisable<bigint>
+  networkStakeClaimedRewards(address: Address): Promisable<bigint>
 
   // the step rewards for a specific network stakers for a given step and block
   networkStakeStepAddressReward(address: Address, step: number, block: number): Promisable<Record<Address, bigint>>
