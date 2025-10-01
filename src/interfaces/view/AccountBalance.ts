@@ -7,8 +7,8 @@ import type { AttoXL1 } from '../../xl1/index.ts'
 export type AccountBalanceHistoryItem = [Hash /* block */, Hash /* transaction */, Transfer /* the actual transfer payload */]
 
 export interface AccountBalancesViewInterface {
-  accountBalanceHistories(address: Address): Promisable<Partial<Record<Address, AccountBalanceHistoryItem[]>>>
   accountBalances(address: Address[]): Promisable<Partial<Record<Address, AttoXL1>>>
+  accountBalancesHistories(address: Address[]): Promisable<Partial<Record<Address, AccountBalanceHistoryItem[]>>>
 }
 
 export interface AccountBalanceViewInterface {

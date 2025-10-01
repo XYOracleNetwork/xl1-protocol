@@ -36,8 +36,8 @@ export const isChainIndexingServiceState = <T extends JsonValue = JsonValue>(pay
 export const asChainIndexingServiceState = AsObjectFactory.create<ChainIndexingServiceState<JsonValue>>(isChainIndexingServiceState)
 
 export const isChainIndexingServiceStateWithStorageMeta
-= <T extends JsonValue = JsonValue>(value: unknown): value is WithStorageMeta<ChainIndexingServiceState<T>> =>
-  isChainIndexingServiceState<T>(value) && isStorageMeta(value)
+  = <T extends JsonValue = JsonValue>(value: unknown): value is WithStorageMeta<ChainIndexingServiceState<T>> =>
+    isChainIndexingServiceState<T>(value) && isStorageMeta(value)
 
 export const asChainIndexingServiceStateWithStorageMeta
-= AsObjectFactory.create<WithStorageMeta<ChainIndexingServiceState>>(isChainIndexingServiceStateWithStorageMeta)
+  = AsObjectFactory.create<WithStorageMeta<ChainIndexingServiceState>>(isChainIndexingServiceStateWithStorageMeta)

@@ -7,7 +7,7 @@ import {
 import { ShiftedBigInt } from './ShiftedBigInt.ts'
 import type { ShiftedBigIntConfig } from './ShiftedBigIntConfig.ts'
 
-const MAX_XL1_AMOUNT = 2n ** BigInt(256) - 1n
+const MAX_XL1_AMOUNT = 2n ** 256n - 1n
 const allowedPlaces = Object.values(XL1Places)
 
 export interface XL1AmountInstance {
