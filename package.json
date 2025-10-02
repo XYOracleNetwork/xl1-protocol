@@ -52,7 +52,7 @@
     "zod": "~4.1.11"
   },
   "devDependencies": {
-    "@types/node": "~24.6.1",
+    "@types/node": "~24.6.2",
     "@typescript-eslint/types": "~8.45.0",
     "@xylabs/creatable": "~5.0.11",
     "@xylabs/eslint-config-flat": "~7.1.8",
@@ -65,7 +65,7 @@
     "eslint-import-resolver-typescript": "~4.4.4",
     "knip": "~5.64.1",
     "typescript": "~5.9.3",
-    "vite": "~7.1.7",
+    "vite": "~7.1.8",
     "vite-tsconfig-paths": "~5.1.4",
     "vitest": "~3.2.4"
   },
