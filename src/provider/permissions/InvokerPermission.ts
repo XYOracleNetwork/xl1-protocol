@@ -5,7 +5,7 @@ import type { JsonValue } from '@xylabs/object'
  * See - https://eips.ethereum.org/EIPS/eip-2255#specification
  */
 export interface PermissionRequest {
-  [capability: string]: {
+  [parentCapability: string]: {
     [caveatName: string]: JsonValue
   }
 }
@@ -15,10 +15,10 @@ export interface PermissionRequest {
  * See - https://eips.ethereum.org/EIPS/eip-2255#specification
  */
 export interface RequestedPermission {
-  /** Permission identifier (i.e. RPC method, action, etc.) */
-  capability: string
   /** Optional timestamp for when the permission was granted */
   date?: number
+  /** Permission identifier (i.e. RPC method, action, etc.) */
+  parentCapability: string
 }
 
 export type CaveatTypes = 'chain' | 'expiration' | 'filteredResponse' | 'rateLimit' | 'restrictReturnedAccounts'
@@ -39,12 +39,12 @@ export interface Caveats {
  * See - https://eips.ethereum.org/EIPS/eip-2255#specification
  */
 export interface Permission {
-  /** Permission identifier (i.e. RPC method, action, etc.) */
-  capability: string
   /** Caveats for the permission, if applicable (i.e. allowed accounts, signing, etc.) */
   caveats?: Caveats[]
   /** Invoker for the given permission (URI, domain, webpage, address, etc.) */
   invoker: string
+  /** Permission identifier (i.e. RPC method, action, etc.) */
+  parentCapability: string
 }
 
 export interface InvokerPermission extends Permission {
