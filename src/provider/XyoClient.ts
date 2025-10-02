@@ -1,4 +1,4 @@
-import type { PermissionsProvider } from './permissions/index.ts'
+import type { XyoPermissions } from './permissions/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'
 
 export type GatewayName = string & { __gatewayName: true }
@@ -14,7 +14,7 @@ export interface XyoRpcGatewayConfig extends XyoGatewayConfig {
 
 export interface XyoClient {
   gateways: Readonly<Record<GatewayName, XyoGatewayProvider>>
-  permissions: PermissionsProvider
+  permissions: XyoPermissions
 
   addGateway?(providerOrConfig: XyoGatewayConfig | XyoRpcGatewayConfig | XyoGatewayProvider): Promise<XyoGatewayProvider>
   removeGateway?(name: GatewayName): Promise<void>

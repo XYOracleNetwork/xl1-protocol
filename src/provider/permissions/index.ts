@@ -1,2 +1,2 @@
 export * from './InvokerPermission.ts'
-export * from './PermissionsProvider.ts'
+export * from './XyoPermissions.ts'
