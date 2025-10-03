@@ -3,6 +3,9 @@ import type { JsonValue } from '@xylabs/object'
 /**
  * Modeled after EIP-2255
  * See - https://eips.ethereum.org/EIPS/eip-2255#specification
+ *
+ * NOTE: In order to send multiple permission requests at once, do not send multiple parentCapability keys.
+ * Instead, send multiple PermissionRequest objects in the params array of the rpc call.
  */
 export interface PermissionRequest {
   [parentCapability: string]: {
