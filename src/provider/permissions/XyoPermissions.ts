@@ -2,7 +2,10 @@ import type {
   InvokerPermission, PermissionRequest, RequestedPermission,
 } from './InvokerPermission.ts'
 
-export interface XyoPermissions {
+/**
+ * Handles Getting Permissions
+ */
+export interface XyoPermissionsGetHandler {
   /**
    * Returns the permissions that are currently granted
    *
@@ -12,10 +15,25 @@ export interface XyoPermissions {
    * See - https://eips.ethereum.org/EIPS/eip-2255#specification
    */
   getPermissions(): Promise<InvokerPermission[]>
+}
+
+/**
+ * Handles Permission Requests
+ */
+export interface XyoPermissionsRequestHandler {
   // Given a permissions request, attempts to request the permissions from the user
   requestPermissions(permissions: PermissionRequest[]): Promise<RequestedPermission[]>
   // Given a permissions request, attempts to revoke the permissions from the user
   revokePermissions(permissions: PermissionRequest): Promise<RequestedPermission[]>
+}
+
+/**
+ * Interface for getting, requesting and revoking permissions
+ *
+ * See - https://eips.ethereum.org/EIPS/eip-2255
+ */
+export interface XyoPermissions extends XyoPermissionsGetHandler, XyoPermissionsRequestHandler {
+
 }
 
 // @deprecated - use XyoPermissions instead
