@@ -1,5 +1,3 @@
-import type { Promisable } from '@xylabs/promise'
-
 import type {
   InvokerPermission, PermissionRequest, RequestedPermission,
 } from './InvokerPermission.ts'
@@ -13,11 +11,11 @@ export interface XyoPermissions {
    *
    * See - https://eips.ethereum.org/EIPS/eip-2255#specification
    */
-  getPermissions(): Promisable<InvokerPermission[]>
+  getPermissions(): Promise<InvokerPermission[]>
   // Given a permissions request, attempts to request the permissions from the user
-  requestPermissions(permissions: PermissionRequest[]): Promisable<RequestedPermission[]>
+  requestPermissions(permissions: PermissionRequest[]): Promise<RequestedPermission[]>
   // Given a permissions request, attempts to revoke the permissions from the user
-  revokePermissions(permissions: PermissionRequest): Promisable<RequestedPermission[]>
+  revokePermissions(permissions: PermissionRequest): Promise<RequestedPermission[]>
 }
 
 // @deprecated - use XyoPermissions instead
