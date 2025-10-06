@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 
 import type { Chain } from '../model.ts'
 
-/** @deprecated  - use XyoHost instead */
+/** @deprecated  - use XyoClient instead */
 export interface XyoWallet {
   accounts(): Promisable<Address[]>
   addChain(chain: Chain, name?: string): Promisable<object>
