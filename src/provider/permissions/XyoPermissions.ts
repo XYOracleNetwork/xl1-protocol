@@ -5,7 +5,7 @@ import type {
 /**
  * Handles Getting Permissions
  */
-export interface XyoPermissionsGetHandler {
+export interface PermissionsGetHandler {
   /**
    * Returns the permissions that are currently granted
    *
@@ -20,7 +20,7 @@ export interface XyoPermissionsGetHandler {
 /**
  * Handles Permission Requests
  */
-export interface XyoPermissionsRequestHandler {
+export interface PermissionRequestsHandler {
   // Given a permissions request, attempts to request the permissions from the user
   requestPermissions(permissions: PermissionRequest[]): Promise<RequestedPermission[]>
   // Given a permissions request, attempts to revoke the permissions from the user
@@ -32,7 +32,7 @@ export interface XyoPermissionsRequestHandler {
  *
  * See - https://eips.ethereum.org/EIPS/eip-2255
  */
-export interface XyoPermissions extends XyoPermissionsGetHandler, XyoPermissionsRequestHandler {
+export interface XyoPermissions extends PermissionsGetHandler, PermissionRequestsHandler {
 
 }
 
