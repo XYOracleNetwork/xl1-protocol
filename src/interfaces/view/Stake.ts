@@ -21,8 +21,8 @@ export type Stake = {
 }
 
 export interface StakeViewInterface {
-  stakeByAddress(address: Address, slot: number): Promisable<Stake>
   stakeById(id: number): Promisable<Stake>
+  stakeByStaker(staker: Address, slot: number): Promisable<Stake>
   stakedByStaker(staker: Address): Promisable<Address[]>
   stakesByStaked(staked: Address): Promisable<Stake[]>
   stakesByStaker(staker: Address): Promisable<Stake[]>
