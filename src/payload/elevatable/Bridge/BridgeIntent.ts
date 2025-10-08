@@ -1,21 +1,24 @@
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import z from 'zod'
 
-import type { BridgeDetailsFields } from './BridgeDetails.ts'
+import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
 
 export const BridgeIntentSchema = 'network.xyo.chain.bridge.intent' as const
 export type BridgeIntentSchema = typeof BridgeIntentSchema
 
 /**
- * Represents an Addresses intent to initiate a token bridge.
+ * Represents an Address's intent to initiate a token bridge.
  */
-export interface BridgeIntentFields extends BridgeDetailsFields {
+export const BridgeIntentFieldsZod = BridgeDetailsFieldsZod.extend({
   /**
    * Unique identifier for replay protection
    */
-  nonce: string
-}
+  nonce: z.string().describe('Unique identifier for replay protection'),
+})
+
+export type BridgeIntentFields = z.infer<typeof BridgeIntentFieldsZod>
 
 export type BridgeIntent = Payload<BridgeIntentFields, BridgeIntentSchema>
 
