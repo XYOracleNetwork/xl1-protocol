@@ -52,6 +52,11 @@ export const BridgeDetailsSourceFieldsZod = z.object({
 })
 
 /**
+ * Represents a transfer source
+ */
+export type BridgeDetailsSourceFields = z.infer<typeof BridgeDetailsSourceFieldsZod>
+
+/**
  * Represents a transfer from a source chain/token/address/amount to a destination chain/token/address/amount.
  */
 export const BridgeDetailsFieldsZod = BridgeDetailsSourceFieldsZod.extend(
