@@ -31,7 +31,7 @@ export interface NetworkStakeStepPoolRewardViewInterface {
 
 export interface NetworkStakeStepRewardPositionViewInterface {
   // estimate the current weight for a given position at a given step
-  networkStakeStepRewardPositionWeight(context: StepContext, position: number): Promisable<number>
+  networkStakeStepRewardPositionWeight(context: StepContext, position: number): Promisable<bigint>
 
   // estimate the potential loss for removing a given position at a given step
   networkStakeStepRewardPotentialPositionLoss(context: StepContext, position: number): Promisable<bigint>
