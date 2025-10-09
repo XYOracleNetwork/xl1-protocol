@@ -1,56 +1,64 @@
-import type { Hex } from '@xylabs/hex'
+import { HexZod } from '@xylabs/hex'
+import z from 'zod'
 
 /**
  * Represents a transfer destination
  */
-export interface BridgeDetailsDestinationFields {
+export const BridgeDetailsDestinationFieldsZod = z.object({
   /**
    * Destination network
    */
-  dest: Hex
-
+  dest: HexZod.describe('The destination network identifier'),
   /**
    * Destination address (EOA or contract)
    */
-  destAddress: Hex
-
+  destAddress: HexZod.describe('The destination address (EOA or contract)'),
   /**
    * Token amount to bridge to destination
    */
-  destAmount: Hex
-
+  destAmount: HexZod.describe('The token amount to bridge to destination'),
   /**
    * Token being bridged to
    */
-  destToken: Hex
-}
+  destToken: HexZod.describe('The token being bridged to'),
+})
+
+/**
+ * Represents a transfer destination
+ */
+export type BridgeDetailsDestinationFields = z.infer<typeof BridgeDetailsDestinationFieldsZod>
 
 /**
  * Represents a transfer source
  */
-export interface BridgeDetailsSourceFields {
+export const BridgeDetailsSourceFieldsZod = z.object({
   /**
    * Source network
    */
-  src: Hex
+  src: HexZod.describe('The source network identifier'),
 
   /**
    * Source address (EOA or contract)
    */
-  srcAddress: Hex
-
+  srcAddress: HexZod.describe('The source address (EOA or contract)'),
   /**
-   * Token amount to bridge form source
+   * Token amount to bridge from source
    */
-  srcAmount: Hex
-
+  srcAmount: HexZod.describe('The token amount to bridge from source'),
   /**
    * Token being bridged from
    */
-  srcToken: Hex
-}
+  srcToken: HexZod.describe('The token being bridged from'),
+})
 
 /**
  * Represents a transfer from a source chain/token/address/amount to a destination chain/token/address/amount.
  */
-export interface BridgeDetailsFields extends BridgeDetailsSourceFields, BridgeDetailsDestinationFields {}
+export const BridgeDetailsFieldsZod = BridgeDetailsSourceFieldsZod.extend(
+  BridgeDetailsDestinationFieldsZod.shape,
+)
+
+/**
+ * Represents a transfer from a source chain/token/address/amount to a destination chain/token/address/amount.
+ */
+export type BridgeDetailsFields = z.infer<typeof BridgeDetailsFieldsZod>

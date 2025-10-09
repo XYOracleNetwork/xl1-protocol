@@ -1,9 +1,10 @@
-import type { Hex } from '@xylabs/hex'
+import { HexZod } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import type z from 'zod'
 
-import type { BridgeDetailsFields } from './BridgeDetails.ts'
+import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
 
 export const BridgeSourceObservationSchema = 'network.xyo.chain.bridge.observation.source' as const
 export type BridgeSourceObservationSchema = typeof BridgeSourceObservationSchema
@@ -11,13 +12,14 @@ export type BridgeSourceObservationSchema = typeof BridgeSourceObservationSchema
 /**
  * Represents an observation that confirms a bridge action occurred on the source chain.
  */
-export interface BridgeSourceObservationFields extends BridgeDetailsFields {
+export const BridgeSourceObservationFieldsZod = BridgeDetailsFieldsZod.extend({
   /**
    * Source chain confirmation
    */
-  srcConfirmation?: Hex
-}
+  srcConfirmation: HexZod.optional().describe('Source chain confirmation'),
+})
 
+export type BridgeSourceObservationFields = z.infer<typeof BridgeSourceObservationFieldsZod>
 /**
  * Represents an observation that confirms a bridge action occurred on the source chain.
  */

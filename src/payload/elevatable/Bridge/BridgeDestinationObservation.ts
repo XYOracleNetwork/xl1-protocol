@@ -1,9 +1,10 @@
-import type { Hex } from '@xylabs/hex'
+import { HexZod } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import type z from 'zod'
 
-import type { BridgeDetailsFields } from './BridgeDetails.ts'
+import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
 
 export const BridgeDestinationObservationSchema = 'network.xyo.chain.bridge.observation.destination' as const
 export type BridgeDestinationObservationSchema = typeof BridgeDestinationObservationSchema
@@ -11,12 +12,14 @@ export type BridgeDestinationObservationSchema = typeof BridgeDestinationObserva
 /**
  * Represents an observation that confirms a bridge action occurred on the destination chain.
  */
-export interface BridgeDestinationObservationFields extends BridgeDetailsFields {
+export const BridgeDestinationObservationFieldsZod = BridgeDetailsFieldsZod.extend({
   /**
    * Destination chain confirmation
    */
-  destConfirmation?: Hex
-}
+  destConfirmation: HexZod.optional().describe('Destination chain confirmation'),
+})
+
+export type BridgeDestinationObservationFields = z.infer<typeof BridgeDestinationObservationFieldsZod>
 
 /**
  * Represents an observation that confirms a bridge action occurred on the destination chain.
