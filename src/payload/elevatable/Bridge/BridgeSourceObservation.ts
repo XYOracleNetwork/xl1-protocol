@@ -1,7 +1,7 @@
 import { HexZod } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { isPayloadOfZodType } from '@xyo-network/payload-model'
 import type z from 'zod'
 
 import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
@@ -25,6 +25,9 @@ export type BridgeSourceObservationFields = z.infer<typeof BridgeSourceObservati
  */
 export type BridgeSourceObservation = Payload<BridgeSourceObservationFields, BridgeSourceObservationSchema>
 
-export const isBridgeSourceObservation = isPayloadOfSchemaType<BridgeSourceObservation>(BridgeSourceObservationSchema)
+export const isBridgeSourceObservation = isPayloadOfZodType<BridgeSourceObservation>(
+  BridgeSourceObservationFieldsZod,
+  BridgeSourceObservationSchema,
+)
 
 export const asBridgeSourceObservation = AsObjectFactory.create(isBridgeSourceObservation)

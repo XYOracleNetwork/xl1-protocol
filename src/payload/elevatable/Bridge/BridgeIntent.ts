@@ -1,6 +1,6 @@
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { isPayloadOfZodType } from '@xyo-network/payload-model'
 import z from 'zod'
 
 import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
@@ -22,6 +22,9 @@ export type BridgeIntentFields = z.infer<typeof BridgeIntentFieldsZod>
 
 export type BridgeIntent = Payload<BridgeIntentFields, BridgeIntentSchema>
 
-export const isBridgeIntent = isPayloadOfSchemaType<BridgeIntent>(BridgeIntentSchema)
+export const isBridgeIntent = isPayloadOfZodType<BridgeIntent>(
+  BridgeIntentFieldsZod,
+  BridgeIntentSchema,
+)
 
 export const asBridgeIntent = AsObjectFactory.create(isBridgeIntent)
