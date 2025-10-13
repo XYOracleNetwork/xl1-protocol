@@ -4,13 +4,13 @@ import type { Hash } from '@xylabs/hex'
 import type { WithStorageMeta } from '@xyo-network/payload-model'
 
 import type { BlockBoundWitness } from '../../block/index.ts'
-import type { Chain } from '../../model.ts'
+import type { ChainId } from '../../model.ts'
 import type { IterableRepository, ReadRepository } from '../../repository/index.ts'
 import type { ChainIteratorServiceEventData } from './ChainIteratorServiceEventData.ts'
 
 export interface ChainIteratorService<TKey>
   extends ReadRepository<TKey, BlockBoundWitness | undefined>, IterableRepository<TKey, WithStorageMeta<BlockBoundWitness> | undefined> {
-  chainId: Chain
+  chainId: ChainId
   head(): Promise<WithStorageMeta<BlockBoundWitness>>
   previous(cursor?: TKey | undefined, limit?: number): Promise<WithStorageMeta<BlockBoundWitness>[]>
   updateHead(head: BlockBoundWitness): Promise<void>

@@ -1,7 +1,7 @@
-import type { Hash, Hex } from '@xylabs/hex'
+import type { Hash } from '@xylabs/hex'
 
 import { type BlockBoundWitness, type HydratedBlock } from '../../block/index.ts'
-import type { Chain } from '../../model.ts'
+import type { ChainId } from '../../model.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class BlockValidationError extends ValidationError<BlockBoundWitness> {}
@@ -27,8 +27,8 @@ export const isHydratedBlockValidationError = (
 }
 
 export class HydratedBlockStateValidationError extends ValidationError<HydratedBlock> {
-  chainId: Chain
-  constructor(hash: Hash, chainId: Hex, value: HydratedBlock, message?: string, cause?: unknown) {
+  chainId: ChainId
+  constructor(hash: Hash, chainId: ChainId, value: HydratedBlock, message?: string, cause?: unknown) {
     super(hash, value, message, cause)
     this.chainId = chainId
   }

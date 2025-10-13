@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/promise'
 
 import type { HydratedBlock } from '../../block/index.ts'
-import type { Chain } from '../../model.ts'
+import type { ChainId } from '../../model.ts'
 import type { HydratedBlockValidationError } from './error.ts'
 
 /**
@@ -12,5 +12,5 @@ import type { HydratedBlockValidationError } from './error.ts'
  */
 export type HydratedBlockValidationFunction = (
   hydratedBlock: HydratedBlock,
-  chainId?: Chain,
+  chainId?: ChainId,
 ) => Promisable<HydratedBlockValidationError[]>

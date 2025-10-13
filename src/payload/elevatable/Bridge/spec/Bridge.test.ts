@@ -3,7 +3,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import type { Chain } from '../../../../model.ts'
+import type { ChainId } from '../../../../model.ts'
 import { AttoXL1ConvertFactor } from '../../../../xl1/index.ts'
 import type { BridgeDestinationObservationFields } from '../BridgeDestinationObservation.ts'
 import type { BridgeIntentFields } from '../BridgeIntent.ts'
@@ -13,7 +13,7 @@ describe('Bridge', () => {
   const srcAmount = toHex(100n * AttoXL1ConvertFactor.xl1) // 100 XL1 in AttoXL1
   const destAmount = srcAmount // 1:1 for test
 
-  const xl1ChainId: Chain = toHex('dd381fbb392c85160d8b0453e446757b12384046')
+  const xl1ChainId: ChainId = toHex('dd381fbb392c85160d8b0453e446757b12384046')
   const ethChainId = toHex('0x1')
 
   const xl1Address = toAddress('1111111111111111111111111111111111111111')

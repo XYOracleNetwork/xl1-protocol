@@ -4,14 +4,14 @@ import type { Signed, UnsignedBoundWitness } from '@xyo-network/boundwitness-mod
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
-import type { Chain } from '../model.ts'
+import type { ChainId } from '../model.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
 
 export interface XyoSigner {
   address(): Promisable<Address>
   /** @deprecated use signTransaction instead */
   createSignedTransaction(
-    chain: Chain,
+    chain: ChainId,
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
     nbf: number,

@@ -6,7 +6,7 @@ import { isBoundWitness, isSigned } from '@xyo-network/boundwitness-model'
 import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
 
-import type { Chain } from '../model.ts'
+import type { ChainId } from '../model.ts'
 
 export interface BlockBoundWitnessMeta {
   $epoch: number
@@ -16,7 +16,7 @@ export interface BlockBoundWitnessFields {
   /** Block number */
   block: number
   /** Chain id - this should be "0" for the genesis block */
-  chain: Chain
+  chain: ChainId
   /** Previous block hash if not block 0 */
   previous: Hash | null /* the previous block hash */
   /** Version of the protocol being used major * 1,000,000 + minor * 1,000 + patch */

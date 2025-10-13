@@ -1,9 +1,10 @@
-import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-export type ForkHistory = Record<number, Address>
+import type { ChainId } from '../../model.ts'
+
+export type ForkHistory = Record<number, ChainId>
 
 export interface ForkViewInterface {
-  chainIdAtBlock(blockNumber: number): Promisable<Address>
+  chainIdAtBlock(blockNumber: number): Promisable<ChainId | undefined>
   forkHistory(): Promisable<ForkHistory>
 }

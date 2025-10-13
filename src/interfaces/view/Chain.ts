@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { Chain } from '../../model.ts'
+import type { ChainId } from '../../model.ts'
 
 export interface ChainViewInterface {
-  chainId(): Promisable<Chain>
+  chainId(): Promisable<ChainId>
 }
