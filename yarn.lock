@@ -1052,12 +1052,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:~24.7.1":
-  version: 24.7.1
-  resolution: "@types/node@npm:24.7.1"
+"@types/node@npm:~24.7.2":
+  version: 24.7.2
+  resolution: "@types/node@npm:24.7.2"
   dependencies:
     undici-types: "npm:~7.14.0"
-  checksum: 10/b1796fa90ab360d6ca5a85457a3b6a70ac53ba75e29e36f1bae1b22d4fd5883277a2ee08475d24c29061474207b132a82d7490180e2c508ee8b081179923dd55
+  checksum: 10/62073022f7fc11363683e6ce82332193129c3053e7f973127a83b0daa5d755ecf5806d310f5a7c78375e6c3d309aa15b4ae87c4c1797a9eec091425d36098b60
   languageName: node
   linkType: hard
 
@@ -1167,10 +1167,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:^8.35.0, @typescript-eslint/types@npm:^8.44.0, @typescript-eslint/types@npm:^8.45.0, @typescript-eslint/types@npm:~8.46.0":
-  version: 8.46.0
-  resolution: "@typescript-eslint/types@npm:8.46.0"
-  checksum: 10/0118b0dd592bf4beaf41e8c6be812980dd0adea44d48c90d8b0272777b58d4cfd6326b8bc363efa3c640be476a6bf3632aee2d97052d5e34071e6576b9c28264
+"@typescript-eslint/types@npm:^8.35.0, @typescript-eslint/types@npm:^8.44.0, @typescript-eslint/types@npm:^8.45.0, @typescript-eslint/types@npm:~8.46.1":
+  version: 8.46.1
+  resolution: "@typescript-eslint/types@npm:8.46.1"
+  checksum: 10/d162ddf6d77d8c9bdfca942da5de5fb4ba80efa740b14077482b5a71282f1d05e1b1dd393ae810eb2923ca9c845bd26b4a9d2dbf25d43dd5d9cb6e20c2a1db46
   languageName: node
   linkType: hard
 
@@ -1969,8 +1969,8 @@ __metadata:
   resolution: "@xyo-network/xl1-protocol@workspace:."
   dependencies:
     "@opentelemetry/api": "npm:~1.9.0"
-    "@types/node": "npm:~24.7.1"
-    "@typescript-eslint/types": "npm:~8.46.0"
+    "@types/node": "npm:~24.7.2"
+    "@typescript-eslint/types": "npm:~8.46.1"
     "@xylabs/assert": "npm:~5.0.12"
     "@xylabs/base": "npm:~5.0.12"
     "@xylabs/creatable": "npm:~5.0.12"
@@ -1992,9 +1992,9 @@ __metadata:
     dotenv: "npm:~17.2.3"
     eslint: "npm:~9.37.0"
     eslint-import-resolver-typescript: "npm:~4.4.4"
-    knip: "npm:~5.64.3"
+    knip: "npm:~5.65.0"
     typescript: "npm:~5.9.3"
-    vite: "npm:~7.1.9"
+    vite: "npm:~7.1.10"
     vite-tsconfig-paths: "npm:~5.1.4"
     vitest: "npm:~3.2.4"
     zod: "npm:~4.1.12"
@@ -4237,9 +4237,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:~5.64.3":
-  version: 5.64.3
-  resolution: "knip@npm:5.64.3"
+"knip@npm:~5.65.0":
+  version: 5.65.0
+  resolution: "knip@npm:5.65.0"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -4259,7 +4259,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/e8b0b02c9bb248c15c2252b36a6018111a83c28be8450f830877d72579a906310d2f0fe70c126e10ed4c92a3643aff822309a86347ff8bf85510c901212d57f8
+  checksum: 10/c45d944946335340f9015f7db3af0a1820e8c7719c97a4a29280fe507a7253ccbb1e2c1da30b26057c216d875cf0d7718755262ece6c7c89775b44a8126bd396
   languageName: node
   linkType: hard
 
@@ -6466,9 +6466,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.0.0 || ^6.0.0 || ^7.0.0-0, vite@npm:~7.1.9":
-  version: 7.1.9
-  resolution: "vite@npm:7.1.9"
+"vite@npm:^5.0.0 || ^6.0.0 || ^7.0.0-0, vite@npm:~7.1.10":
+  version: 7.1.10
+  resolution: "vite@npm:7.1.10"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.5.0"
@@ -6517,7 +6517,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10/361b8dfea414233927761fdb63ec38c2cc4630007efc33a7a02ef9a5c033552c41b2e95f7fcc9acf427da5a3cf194d62dc5f0853bc31e940a13528d0fb180132
+  checksum: 10/34482c3698a6e10986036caa91c0114fc59f5a4bdda571d19b863a44a8b231dda09b0e3c63eb459e3b27ce453e695bce476f504b160451706563ce97e841ac5a
   languageName: node
   linkType: hard
 
