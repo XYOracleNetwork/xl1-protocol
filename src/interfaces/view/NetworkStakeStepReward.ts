@@ -47,6 +47,9 @@ export interface NetworkStakeStepRewardViewInterface extends
   // estimate the total possible block rewards for a given step
   networkStakeStepRewardForStep(context: StepContext): Promisable<bigint>
 
+  // the claimed & total rewards for a given step and block for a given position
+  networkStakeStepRewardForStepForPosition(context: StepContext, position: number): Promisable<[bigint, bigint]>
+
   // the predictable random number for a given step and block
   networkStakeStepRewardRandomizer(context: StepContext): Promisable<bigint>
 
