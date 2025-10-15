@@ -1,5 +1,4 @@
 import type { Address } from '@xylabs/hex'
-import type { Promisable } from '@xylabs/promise'
 
 export type Stake = {
   // the block number when the stake was added
@@ -16,12 +15,4 @@ export type Stake = {
   staker: Address
   // the block number when the stake was withdrawn (set to 0 if not withdrawn)
   withdrawBlock: number
-}
-
-export interface StakeViewInterface {
-  stakeById(id: number): Promisable<Stake>
-  stakeByStaker(staker: Address, slot: number): Promisable<Stake>
-  stakedByStaker(staker: Address): Promisable<Address[]>
-  stakesByStaked(staked: Address): Promisable<Stake[]>
-  stakesByStaker(staker: Address): Promisable<Stake[]>
 }

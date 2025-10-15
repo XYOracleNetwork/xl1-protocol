@@ -6,7 +6,7 @@ import { isBoundWitness, isSigned } from '@xyo-network/boundwitness-model'
 import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
 
-import type { ChainId } from '../model.ts'
+import type { ChainId } from '../model/index.ts'
 
 export interface BlockBoundWitnessMeta {
   $epoch: number

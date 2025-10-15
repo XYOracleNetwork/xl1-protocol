@@ -1,6 +1,6 @@
-import type { ChainStakeViewInterface } from '../../../interfaces/index.ts'
+import type { StakeTotalsViewer } from '../../../interfaces/index.ts'
 import type { ChainContractViewer } from './ChainContractViewer.ts'
 
-export interface ChainStakeViewer extends ChainContractViewer, ChainStakeViewInterface {
+export interface ChainStakeViewer extends ChainContractViewer, StakeTotalsViewer {
 
 }

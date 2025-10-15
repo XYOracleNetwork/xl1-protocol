@@ -1,14 +1,14 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { CompletedStep } from '../../model.ts'
+import type { StepIdentity } from '../../model/index.ts'
 
 export interface StepStakeViewInterface {
   // this is the prorated stake for all addresses in the step
-  stepStake: (step: CompletedStep) => Promisable<Record<Address, bigint>>
+  stepStake: (step: StepIdentity) => Promisable<Record<Address, bigint>>
 
   // this is the prorated stake for a specific address in the step
-  stepStakeForAddress: (address: Address, step: CompletedStep) => Promisable<bigint>
+  stepStakeForAddress: (address: Address, step: StepIdentity) => Promisable<bigint>
 }
 
 /* Prorated stake is the amount of stake that is allocated to a specific step

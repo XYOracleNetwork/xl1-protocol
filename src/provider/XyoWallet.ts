@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { ChainId } from '../model.ts'
+import type { ChainId } from '../model/index.ts'
 
 /** @deprecated  - use XyoClient instead */
 export interface XyoWallet {

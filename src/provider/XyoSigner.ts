@@ -4,7 +4,7 @@ import type { Signed, UnsignedBoundWitness } from '@xyo-network/boundwitness-mod
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
-import type { ChainId } from '../model.ts'
+import type { ChainId } from '../model/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
 
 export interface XyoSigner {

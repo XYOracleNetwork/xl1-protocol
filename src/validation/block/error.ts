@@ -1,7 +1,7 @@
 import type { Hash } from '@xylabs/hex'
 
 import { type BlockBoundWitness, type HydratedBlock } from '../../block/index.ts'
-import type { ChainId } from '../../model.ts'
+import type { ChainId } from '../../model/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class BlockValidationError extends ValidationError<BlockBoundWitness> {}

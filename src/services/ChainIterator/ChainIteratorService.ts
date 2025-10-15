@@ -4,7 +4,7 @@ import type { Hash } from '@xylabs/hex'
 import type { WithStorageMeta } from '@xyo-network/payload-model'
 
 import type { BlockBoundWitness } from '../../block/index.ts'
-import type { ChainId } from '../../model.ts'
+import type { ChainId } from '../../model/index.ts'
 import type { IterableRepository, ReadRepository } from '../../repository/index.ts'
 import type { ChainIteratorServiceEventData } from './ChainIteratorServiceEventData.ts'
 
