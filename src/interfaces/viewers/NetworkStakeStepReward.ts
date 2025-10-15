@@ -42,7 +42,7 @@ export interface NetworkStakeStepRewardViewInterface extends
   networkStakeStepRewardClaimedByAddress(address: Address): Promisable<bigint>
 
   // the share & total rewards for a given position
-  networkStakeStepRewardForPosition(position: number): Promisable<[bigint, bigint]>
+  networkStakeStepRewardForPosition(position: number, range: [number, number]): Promisable<[bigint, bigint]>
 
   // estimate the total possible block rewards for a given step
   networkStakeStepRewardForStep(context: StepIdentity): Promisable<bigint>
