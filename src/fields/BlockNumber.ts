@@ -18,16 +18,16 @@ export interface BlockNumberFields {
 /**
  * The number of a block
  */
-export type BlockNumber = Payload<BlockNumberFields, BlockNumberSchema>
+export type BlockNumberPayload = Payload<BlockNumberFields, BlockNumberSchema>
 
 /**
  * Identity function for determining if an object is a BlockNumber
  */
-export const isBlockNumber = isPayloadOfSchemaType<BlockNumber>(BlockNumberSchema)
-export const asBlockNumber = AsObjectFactory.create<BlockNumber>(isBlockNumber)
+export const isBlockNumberPayload = isPayloadOfSchemaType<BlockNumberPayload>(BlockNumberSchema)
+export const asBlockNumberPayload = AsObjectFactory.create<BlockNumberPayload>(isBlockNumberPayload)
 
 /**
  * Identity function for determining if an object is a BlockNumber with sources
  */
-export const isBlockNumberWithSources = isPayloadOfSchemaTypeWithSources<BlockNumber>(BlockNumberSchema)
-export const asBlockNumberWithSources = AsObjectFactory.create<WithSources<BlockNumber>>(isBlockNumberWithSources)
+export const isBlockNumberPayloadWithSources = isPayloadOfSchemaTypeWithSources<BlockNumberPayload>(BlockNumberSchema)
+export const asBlockNumberPayloadWithSources = AsObjectFactory.create<WithSources<BlockNumberPayload>>(isBlockNumberPayloadWithSources)

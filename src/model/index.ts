@@ -1,4 +1,4 @@
-export * from './BlockRange.ts'
+export * from './BlockNumber/index.ts'
 export * from './ChainId.ts'
 export * from './RewardShare.ts'
 export * from './StepHash.ts'
