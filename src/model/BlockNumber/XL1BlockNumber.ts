@@ -11,7 +11,7 @@ export function asXL1BlockNumber(value: unknown) {
   return asBlockNumber(value) as XL1BlockNumber
 }
 
-export function asXL1BlockNumberRange(value: unknown) {
+export function asXL1BlockRange(value: unknown) {
   return asBlockRange(value) as XL1BlockRange
 }
 
