@@ -6,7 +6,7 @@ import type {
   AttoXL1, FemtoXL1, MicroXL1, MilliXL1, NanoXL1, PicoXL1,
 } from '../../xl1/index.ts'
 import { XL1Places } from '../../xl1/index.ts'
-import { XL1Amount } from '../XL1Amount2.ts'
+import { XL1Amount } from '../XL1Amount.ts'
 
 describe('XL1Amount', () => {
   describe('constructor', () => {
