@@ -8,7 +8,8 @@ export type BlockNumber = Brand<number, { __blockNumber: true }>
 export type BlockRange = [BlockNumber, BlockNumber]
 
 export function asBlockNumber(value: unknown) {
-  return assertEx(isNumber(value) ? (value as BlockNumber) : undefined, () => 'Not a valid BlockNumber')
+  assertEx(isNumber(value), () => 'Not a valid BlockNumber')
+  return value as BlockNumber
 }
 
 export function asBlockRange(value: unknown) {
