@@ -1,7 +1,9 @@
 import type { Brand } from '@xylabs/typeof'
 
+import type { XL1BlockNumber } from './BlockNumber/index.ts'
+
 export interface StepIdentity {
-  block: number
+  block: XL1BlockNumber
   step: number
 }
 

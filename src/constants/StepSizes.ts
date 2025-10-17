@@ -1,9 +1,21 @@
 import { AsTypeFactory } from '@xylabs/object'
 
+import { asXL1BlockNumber, type XL1BlockNumber } from '../model/index.ts'
+
 // StepsV2 are primorial(n+2) + 1, where n is the index of the step size
 // primorial(n+2) = 2 → 2×3=6 → 6×5=30 → 30×7=210 → 210×11=2310
 
-export const StepSizes = [7, 31, 211, 2311, 30_031, 510_511, 9_699_691, 223_092_871, 6_469_693_231] as const
+export const StepSizes: XL1BlockNumber[] = [
+  asXL1BlockNumber(7),
+  asXL1BlockNumber(31),
+  asXL1BlockNumber(211),
+  asXL1BlockNumber(2311),
+  asXL1BlockNumber(30_031),
+  asXL1BlockNumber(510_511),
+  asXL1BlockNumber(9_699_691),
+  asXL1BlockNumber(223_092_871),
+  asXL1BlockNumber(6_469_693_231),
+]
 
 export function isValidStep(step: unknown): step is number {
   if (typeof step === 'number' && Number.isInteger(step)) {
