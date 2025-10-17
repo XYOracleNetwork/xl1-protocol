@@ -2,7 +2,8 @@
 import { assertEx } from '@xylabs/assert'
 
 import {
-  AttoXL1, FemtoXL1, MicroXL1, MilliXL1, NanoXL1, PicoXL1, XL1Places,
+  AttoXL1, FemtoXL1, MicroXL1, MilliXL1, NanoXL1, PicoXL1, XL1,
+  XL1Places,
 } from '../xl1/index.ts'
 import { ShiftedBigInt } from './ShiftedBigInt.ts'
 import type { ShiftedBigIntConfig } from './ShiftedBigIntConfig.ts'
@@ -26,6 +27,8 @@ export interface XL1AmountInstance {
   femto: FemtoXL1
 
   atto: AttoXL1
+
+  xl1: XL1
 
   toString(places: number, config: Partial<ShiftedBigIntConfig>): string
 }
@@ -94,6 +97,10 @@ export class XL1Amount implements XL1AmountInstance {
 
   get atto() {
     return AttoXL1(this.to(XL1Places.atto))
+  }
+
+  get xl1() {
+    return XL1(this.to(XL1Places.xl1))
   }
 
   toString(places: number = Number(XL1Places.atto), config: Partial<ShiftedBigIntConfig> = {}): string {
