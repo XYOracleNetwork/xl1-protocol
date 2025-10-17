@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
-import type { StepIdentity } from '../../model/index.ts'
+import type { StepIdentity, StepIdentityString } from '../../model/index.ts'
 
 export interface NetworkStakeStepAddressRewardViewInterface {
   // the step rewards for a specific network stakers for all of history
@@ -43,6 +43,9 @@ export interface NetworkStakeStepRewardViewInterface extends
 
   // the share & total rewards for a given position
   networkStakeStepRewardForPosition(position: number, range: [number, number]): Promisable<[bigint, bigint]>
+
+  // the share & total rewards for a given position for each step in range
+  networkStakeStepRewardForPosition(position: number, range: [number, number]): Promisable<Record<StepIdentityString, [bigint, bigint]>>
 
   // estimate the total possible block rewards for a given step
   networkStakeStepRewardForStep(context: StepIdentity): Promisable<bigint>
