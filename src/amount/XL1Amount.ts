@@ -71,6 +71,10 @@ export class XL1Amount implements XL1AmountInstance {
     return this.from(value, XL1Places.atto)
   }
 
+  static fromXL1(value: XL1) {
+    return this.from(value, XL1Places.xl1)
+  }
+
   to(places: number | bigint = XL1Places.atto) {
     return this.value / 10n ** BigInt(places)
   }
