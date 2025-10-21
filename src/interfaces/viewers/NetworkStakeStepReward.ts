@@ -61,4 +61,10 @@ export interface NetworkStakeStepRewardViewInterface extends
   // the share & total rewards for a given position for each step in range
   networkStakeStepRewardsForPosition(position: number,
     range: [number, number]): Promisable<Record<StepIdentityString, [bigint, bigint]>>
+
+  // the total rewards for a given range
+  networkStakeStepRewardsForRange(range: [number, number]): Promisable<bigint>
+
+  // the total rewards for a given range and step level
+  networkStakeStepRewardsForStepLevel(stepLevel: number, range: [number, number]): Promisable<bigint>
 }
