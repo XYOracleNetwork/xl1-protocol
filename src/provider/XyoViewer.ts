@@ -3,9 +3,9 @@ import type {
   ForkViewer,
   NetworkStakeStepRewardViewInterface,
   StakeViewer,
-  TransactionViewInterface, TransferBalancesViewInterface, TransferBalanceViewInterface,
+  TransactionViewInterface, TransferBalanceViewInterface,
 } from '../interfaces/index.ts'
 
 export interface XyoViewer extends AccountBalanceViewInterface, TransferBalanceViewInterface,
-  TransferBalancesViewInterface, NetworkStakeStepRewardViewInterface,
+  NetworkStakeStepRewardViewInterface,
   ChainViewInterface, BlockViewInterface, TransactionViewInterface, StakeViewer, ForkViewer {}
