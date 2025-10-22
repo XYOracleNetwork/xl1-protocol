@@ -8,4 +8,5 @@ import type {
 
 export interface XyoViewer extends AccountBalanceViewInterface, TransferBalanceViewInterface,
   NetworkStakeStepRewardViewInterface,
-  ChainViewInterface, BlockViewInterface, TransactionViewInterface, StakeViewer, ForkViewer {}
+  ChainViewInterface, BlockViewInterface, TransactionViewInterface, StakeViewer, ForkViewer {
+}

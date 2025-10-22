@@ -5,7 +5,7 @@ import type {
   BlockRange, RewardShare, StepIdentity, StepIdentityString,
 } from '../../model/index.ts'
 
-export interface NetworkStakeStepRewardStakerViewer {
+export interface NetworkStakeStepRewardsStakerViewer {
   // total amount claimed by a given staker for a given range
   claimed(staker: Address, range?: BlockRange): Promisable<bigint>
 
@@ -19,7 +19,7 @@ export interface NetworkStakeStepRewardStakerViewer {
   unclaimed(staker: Address, range?: BlockRange): Promisable<bigint>
 }
 
-export interface NetworkStakeStepRewardStepViewer {
+export interface NetworkStakeStepRewardsStepViewer {
 
   // the predictable random number for a given step and block
   randomizer(step: StepIdentity): Promisable<bigint>
@@ -37,7 +37,7 @@ export interface NetworkStakeStepRewardStepViewer {
   weight(step: StepIdentity): Promisable<bigint>
 }
 
-export interface NetworkStakeStepRewardPositionViewer {
+export interface NetworkStakeStepRewardsPositionViewer {
 
   // total amount claimed by a given position for a given range
   claimed(position: number, range?: BlockRange): Promisable<bigint>
@@ -52,7 +52,7 @@ export interface NetworkStakeStepRewardPositionViewer {
   unclaimed(position: number, range?: BlockRange): Promisable<bigint>
 }
 
-export interface NetworkStakeStepRewardTotalViewer {
+export interface NetworkStakeStepRewardsTotalViewer {
   // the available tokens in the overall reward pool
   available(range?: BlockRange): Promisable<bigint>
   claimed(range?: BlockRange): Promisable<bigint>
@@ -60,11 +60,11 @@ export interface NetworkStakeStepRewardTotalViewer {
   unclaimedByStaker(address: Address, range?: BlockRange): Promisable<bigint>
 }
 
-export interface NetworkStakeStepRewardViewer extends
-  NetworkStakeStepRewardPositionViewer
+export interface NetworkStakeStepRewardsViewer extends
+  NetworkStakeStepRewardsPositionViewer
 {
-  position(): Promisable<NetworkStakeStepRewardPositionViewer>
-  staker(): Promisable<NetworkStakeStepRewardStakerViewer>
-  step(): Promisable<NetworkStakeStepRewardStepViewer>
-  total(): Promisable<NetworkStakeStepRewardTotalViewer>
+  position(): Promisable<NetworkStakeStepRewardsPositionViewer>
+  staker(): Promisable<NetworkStakeStepRewardsStakerViewer>
+  step(): Promisable<NetworkStakeStepRewardsStepViewer>
+  total(): Promisable<NetworkStakeStepRewardsTotalViewer>
 }
