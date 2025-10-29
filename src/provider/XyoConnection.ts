@@ -3,6 +3,7 @@ import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
+import type { NetworkStakeViewer } from '../interfaces/index.ts'
 import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transaction/index.ts'
 // eslint-disable-next-line sonarjs/deprecation
 import type { TransactionSubmitter } from './TransactionSubmitter.ts'
@@ -40,6 +41,7 @@ export interface XyoConnectionProviderDeprecated extends TransactionSubmitter {
 // eslint-disable-next-line sonarjs/deprecation
 export interface XyoConnection extends Partial<XyoConnectionProviderDeprecated> {
   network?: XyoNetwork
+  networkStake?: NetworkStakeViewer
   runner?: XyoRunner
   storage?: XyoDataLake | XyoDataLakeViewer
   viewer?: XyoViewer
