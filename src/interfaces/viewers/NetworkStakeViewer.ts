@@ -4,17 +4,43 @@ import type { Promisable } from '@xylabs/promise'
 import type {
   BlockRange, RewardShare, StepIdentity, StepIdentityString,
 } from '../../model/index.ts'
+import type { AttoXL1 } from '../../xl1/index.ts'
 
-export interface RewardsViewer<TIndex> {
-  claimed(index: TIndex, range?: BlockRange): Promisable<bigint>
-  reward(index: TIndex, step: StepIdentity): Promisable<RewardShare>
-  rewards(index: TIndex, range?: BlockRange): Promisable<Record<StepIdentityString, RewardShare>>
-  unclaimed(index: TIndex, range?: BlockRange): Promisable<bigint>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type RecordKeyType<T = keyof any> = T extends keyof any ? T : never
+
+export interface RewardsViewerTemplate<TOptions, TResult> {
+  bonus(options?: TOptions): Promisable<TResult>
+  claimed(options?: TOptions): Promisable<TResult>
+  earned(options?: TOptions): Promisable<TResult>
+  total(options?: TOptions): Promisable<TResult>
+  unclaimed(options?: TOptions): Promisable<TResult>
 }
 
-export interface RewardsStakerViewer extends RewardsViewer<Address> {}
+export interface RewardsByIndexViewer<TOptions, TResultIndex extends RecordKeyType> extends RewardsViewerTemplate<TOptions, Record<TResultIndex, AttoXL1>> {}
 
-export interface RewardsStepViewer {
+export interface RewardsRangeOptions {
+  range?: BlockRange
+}
+
+export interface RewardsByStepViewerOptions extends RewardsRangeOptions {
+  steps?: StepIdentity[]
+}
+
+export interface RewardsByStakerViewerOptions extends RewardsRangeOptions {
+  stakers?: Address[]
+}
+
+export interface RewardsByPositionViewerOptions extends RewardsRangeOptions {
+  positions?: number[]
+}
+
+export interface RewardsByStepViewer extends RewardsByIndexViewer<RewardsByStepViewerOptions, StepIdentityString> {}
+export interface RewardsByStakerViewer extends RewardsByIndexViewer<RewardsByStakerViewerOptions, Address> {}
+export interface RewardsByPositionViewer extends RewardsByIndexViewer<RewardsByPositionViewerOptions, number> {}
+export interface RewardsTotalViewer extends RewardsViewerTemplate<RewardsRangeOptions, AttoXL1> {}
+
+export interface StepViewer {
 
   // the predictable random number for a given step and block
   randomizer(step: StepIdentity): Promisable<bigint>
@@ -32,33 +58,10 @@ export interface RewardsStepViewer {
   weight(step: StepIdentity): Promisable<bigint>
 }
 
-export interface RewardsPositionViewer {
-
-  // total amount claimed by a given position for a given range
-  claimed(position: number, range?: BlockRange): Promisable<bigint>
-
-  // estimate the current reward for a given position at a given step
-  reward(position: number, step: StepIdentity): Promisable<RewardShare>
-
-  // the step rewards for a specific network stakers for all of history
-  rewards(staker: Address, range?: BlockRange): Promisable<Record<StepIdentityString, RewardShare>>
-
-  // total amount unclaimed by a given position for a given range
-  unclaimed(position: number, range?: BlockRange): Promisable<bigint>
-}
-
-export interface RewardsTotalViewer {
-  // the available tokens in the overall reward pool
-  available(range?: BlockRange): Promisable<bigint>
-  claimed(range?: BlockRange): Promisable<bigint>
-  earned(range?: BlockRange): Promisable<bigint>
-  unclaimed(range?: BlockRange): Promisable<bigint>
-}
-
 export interface StepRewardsViewer {
-  position(): Promisable<RewardsPositionViewer>
-  staker(): Promisable<RewardsViewer<Address>>
-  step(): Promisable<RewardsViewer<StepIdentity>>
+  position(): Promisable<RewardsByPositionViewer>
+  staker(): Promisable<RewardsByStakerViewer>
+  step(): Promisable<RewardsByStepViewer>
   total(): Promisable<RewardsTotalViewer>
 }
 
