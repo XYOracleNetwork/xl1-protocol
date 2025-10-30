@@ -9,13 +9,13 @@ export const splitOnDecimalToString = (
   locale: Intl.LocalesArgument = 'en-US',
 ): string => {
   const [whole, decimal] = splitOnDecimal(value, places)
-  if (whole === 0n && decimal < 10 ** maxDecimal && decimal !== 0n) return '< 0.'.padEnd(maxDecimal + 5, '0') + '1'
+  const remainderLength = decimal.toString().length
+  const precedingZerosInDecimal = places - remainderLength
+  if (whole === 0n && precedingZerosInDecimal >= maxDecimal && decimal !== 0n) return '< 0.'.padEnd(maxDecimal + 5, '0') + '1'
 
   const wholeCharacters = whole.toString(10).length
   const calcMaxDecimalCharacters = maxCharacters === -1 ? places : wholeCharacters > maxCharacters ? 0 : maxCharacters - wholeCharacters
-  // take the max between user defined maxDecimal and calculated maxDecimalCharacters
-  // this allows the maxCharacters to take priority over maxDecimal
-  const maxDecimalCharacters = Math.max(maxDecimal, calcMaxDecimalCharacters)
+  const maxDecimalCharacters = Math.min(maxDecimal, calcMaxDecimalCharacters)
 
   // Format whole number with thousand separators according to locale
   const formattedWhole = new Intl.NumberFormat(locale, {
