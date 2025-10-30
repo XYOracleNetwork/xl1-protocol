@@ -48,7 +48,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "packages/rpc/src/provider/provider/spec/HttpJsonRpcXyoViewer.spec.ts"
+        "src/amount/specs/Xl1Amount.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [
