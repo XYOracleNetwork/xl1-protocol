@@ -13,7 +13,9 @@ export const splitOnDecimalToString = (
 
   const wholeCharacters = whole.toString(10).length
   const calcMaxDecimalCharacters = maxCharacters === -1 ? places : wholeCharacters > maxCharacters ? 0 : maxCharacters - wholeCharacters
-  const maxDecimalCharacters = Math.min(maxDecimal, calcMaxDecimalCharacters)
+  // take the max between user defined maxDecimal and calculated maxDecimalCharacters
+  // this allows the maxCharacters to take priority over maxDecimal
+  const maxDecimalCharacters = Math.max(maxDecimal, calcMaxDecimalCharacters)
 
   // Format whole number with thousand separators according to locale
   const formattedWhole = new Intl.NumberFormat(locale, {

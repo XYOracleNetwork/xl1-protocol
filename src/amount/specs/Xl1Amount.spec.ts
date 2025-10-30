@@ -139,6 +139,15 @@ describe('XL1Amount', () => {
       expect(typeof result).toBe('string')
     })
 
+    it('should convert to string with specified places when less than 0', () => {
+      const reallySmallAmount = new XL1Amount(168_648_642_742n)
+      const reallySmallResult = reallySmallAmount.toString(Number(XL1Places.xl1), {
+        maxDecimal: 11, maxCharacters: 24, minDecimals: 0, locale: navigator.language,
+      })
+
+      expect(reallySmallResult).toBe('0.000000168648642742')
+    })
+
     it('should accept custom config', () => {
       const amount = new XL1Amount(1_000_000_000_000_000_000n)
       const result = amount.toString(Number(XL1Places.milli), { minDecimals: 2 })
