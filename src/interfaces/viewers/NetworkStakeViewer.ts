@@ -65,6 +65,10 @@ export interface StepRewardsViewer {
   total(): Promisable<RewardsTotalViewer>
 }
 
-export interface NetworkStakeViewer {
+export interface NetworkStakeViewerFunctions {
+  stake(blockNumber?: number): Promisable<bigint>
+}
+
+export interface NetworkStakeViewer extends NetworkStakeViewerFunctions {
   stepRewards(): Promisable<StepRewardsViewer>
 }
