@@ -3,7 +3,7 @@ import type { Promisable } from '@xylabs/promise'
 
 import type { RewardShare, StepIdentity } from '../../../model/index.ts'
 
-export interface StepViewer {
+export interface StepViewerMethods {
 
   // the predictable random number for a given step and block
   randomizer(step: StepIdentity): Promisable<bigint>
@@ -20,3 +20,5 @@ export interface StepViewer {
   // total weight of all stakers during a given step
   weight(step: StepIdentity): Promisable<bigint>
 }
+
+export interface StepViewer extends StepViewerMethods {}
