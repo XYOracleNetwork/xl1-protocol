@@ -17,7 +17,7 @@ export function asEthBlockRange(value: unknown) {
 
 export const ETH_BLOCK_NUMBER_ZERO = asEthBlockNumber(0)
 
-export type EthBlockRangeKey = Brand<string, { __blockRangeKey: true }>
+export type EthBlockRangeKey = Brand<string, { readonly __blockRangeKey: true }>
 export const toEthBlockRangeKey = (range: EthBlockRange) => `${range[0]}|${range[1]}` as EthBlockRangeKey
 export const fromEthBlockNumberKey = (key: EthBlockRangeKey): EthBlockRange => {
   const [start, end] = key.split('|').map(v => asEthBlockNumber(Number(v)))

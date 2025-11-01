@@ -3,7 +3,7 @@ import {
   type Brand, isArray, isNumber,
 } from '@xylabs/typeof'
 
-export type BlockNumber = Brand<number, { __blockNumber: true }>
+export type BlockNumber = Brand<number, { readonly __blockNumber: true }>
 
 export type BlockRange = [BlockNumber, BlockNumber]
 
@@ -21,7 +21,7 @@ export function asBlockRange(value: unknown) {
 
 export const BLOCK_NUMBER_ZERO = asBlockNumber(0)
 
-export type BlockRangeKey = Brand<string, { __blockRangeKey: true }>
+export type BlockRangeKey = Brand<string, { readonly __blockRangeKey: true }>
 export const toBlockNumberKey = (range: BlockRange) => `${range[0]}|${range[1]}` as BlockRangeKey
 export const fromBlockNumberKey = (key: BlockRangeKey): BlockRange => {
   const [start, end] = key.split('|').map(v => asBlockNumber(Number(v)))

@@ -1,5 +1,7 @@
 export * from './BlockNumber/index.ts'
 export * from './ChainId.ts'
+export * from './PositionId.ts'
+export * from './PositionId.ts'
 export * from './RangeMultipliers.ts'
 export * from './RewardShare.ts'
 export * from './StepHash.ts'
