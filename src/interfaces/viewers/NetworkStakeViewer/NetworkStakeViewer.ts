@@ -3,7 +3,8 @@ import type { Promisable } from '@xylabs/promise'
 import type { StepRewardsViewer } from './StepRewardsViewer.ts'
 
 export interface NetworkStakeViewerMethods {
-  stake(blockNumber?: number): Promisable<bigint>
+  /** @returns the active stake and the number of active validators [active, block] */
+  active(blockNumber?: number): Promisable<[bigint, number]>
 }
 
 export interface NetworkStakeViewer extends NetworkStakeViewerMethods {
