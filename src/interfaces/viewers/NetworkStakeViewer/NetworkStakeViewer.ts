@@ -8,5 +8,5 @@ export interface NetworkStakeViewerMethods {
 }
 
 export interface NetworkStakeViewer extends NetworkStakeViewerMethods {
-  stepRewards(): Promisable<StepRewardsViewer>
+  stepRewards?: StepRewardsViewer
 }
