@@ -9,8 +9,15 @@ import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transact
 
 export interface XyoSigner {
   address(): Promisable<Address>
+  // The tx passed in must have all the payloads (on and off chain) in the payloads array
+  // Returns the signed transaction and the payloads array excluding the off-chain payloads.
+  // The return value is ready to be broadcast to block producers
+  signTransaction(tx: [UnsignedBoundWitness<TransactionBoundWitness>, Payload[]]): Promisable<[Signed<TransactionBoundWitness>, Payload[]]>
+}
+
+export interface XyoSignerDeprecated {
   /** @deprecated use signTransaction instead */
-  createSignedTransaction?(
+  createSignedTransaction(
     chain: ChainId,
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
@@ -19,9 +26,4 @@ export interface XyoSigner {
     fees: TransactionFeesBigInt,
     from?: Address,
   ): Promisable<Signed<TransactionBoundWitness>>
-
-  // The tx passed in must have all the payloads (on and off chain) in the payloads array
-  // Returns the signed transaction and the payloads array excluding the off-chain payloads.
-  // The return value is ready to be broadcast to block producers
-  signTransaction(tx: [UnsignedBoundWitness<TransactionBoundWitness>, Payload[]]): Promisable<[Signed<TransactionBoundWitness>, Payload[]]>
 }
