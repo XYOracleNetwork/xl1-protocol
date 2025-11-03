@@ -10,7 +10,7 @@ import type { TransactionBoundWitness, TransactionFeesBigInt } from '../transact
 export interface XyoSigner {
   address(): Promisable<Address>
   /** @deprecated use signTransaction instead */
-  createSignedTransaction(
+  createSignedTransaction?(
     chain: ChainId,
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
