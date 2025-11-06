@@ -11,5 +11,5 @@ import type { HydratedTransactionValidationError } from './error.ts'
  */
 export type HydratedTransactionValidationFunction<T extends TransactionBoundWitness = TransactionBoundWitness, TContext extends {} = {}> = (
   hydratedTransaction: HydratedTransactionWithStorageMeta<T>,
-  context?: TContext
+  context?: TContext,
 ) => Promisable<HydratedTransactionValidationError[]>

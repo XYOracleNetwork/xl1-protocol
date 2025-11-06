@@ -1,12 +1,12 @@
 import type { Promisable } from '@xylabs/promise'
 import type { BoundWitness } from '@xyo-network/boundwitness-model'
-import type { Payload, WithHashStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 
 import type { HydratedBoundWitnessValidationError } from './error.ts'
 
-export type HydratedBoundWitnessWithHashStorageMeta<T extends BoundWitness = BoundWitness, P extends Payload = Payload>
-  = [WithHashStorageMeta<T>, WithHashStorageMeta<P>[]]
+export type HydratedBoundWitnessWithHashMeta<T extends BoundWitness = BoundWitness, P extends Payload = Payload>
+  = [WithHashMeta<T>, WithHashMeta<P>[]]
 
 export type HydratedBoundWitnessValidationFunction<T extends BoundWitness = BoundWitness> = (
-  bw: HydratedBoundWitnessWithHashStorageMeta<T>
+  bw: HydratedBoundWitnessWithHashMeta<T>,
 ) => Promisable<HydratedBoundWitnessValidationError[]>

@@ -3,8 +3,8 @@ import { isHex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { BoundWitness, Signed } from '@xyo-network/boundwitness-model'
 import { isBoundWitness, isSigned } from '@xyo-network/boundwitness-model'
-import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
-import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta, WithStorageMeta } from '@xyo-network/payload-model'
+import { isHashMeta, isStorageMeta } from '@xyo-network/payload-model'
 
 import type { ChainId, XL1BlockNumber } from '../model/index.ts'
 
@@ -46,12 +46,12 @@ export const isSignedBlockBoundWitnessWithStorageMeta = (value: unknown): value 
   return isBlockBoundWitnessWithStorageMeta(value) && isSigned(value)
 }
 
-export const isBlockBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<BlockBoundWitness> => {
-  return isBlockBoundWitness(value) && isHashStorageMeta(value)
+export const isBlockBoundWitnessWithHashMeta = (value: unknown): value is WithHashMeta<BlockBoundWitness> => {
+  return isBlockBoundWitness(value) && isHashMeta(value)
 }
 
-export const isSignedBlockBoundWitnessWithHashStorageMeta = (value: unknown): value is Signed<WithHashStorageMeta<BlockBoundWitness>> => {
-  return isBlockBoundWitnessWithHashStorageMeta(value) && isSigned(value)
+export const isSignedBlockBoundWitnessWithHashMeta = (value: unknown): value is Signed<WithHashMeta<BlockBoundWitness>> => {
+  return isBlockBoundWitnessWithHashMeta(value) && isSigned(value)
 }
 
 export const asBlockBoundWitness = AsObjectFactory.create(isBlockBoundWitness)
@@ -60,5 +60,5 @@ export const asSignedBlockBoundWitness = AsObjectFactory.create(isSignedBlockBou
 export const asBlockBoundWitnessWithStorageMeta = AsObjectFactory.create(isBlockBoundWitnessWithStorageMeta)
 export const asSignedBlockBoundWitnessWithStorageMeta = AsObjectFactory.create(isSignedBlockBoundWitnessWithStorageMeta)
 
-export const asBlockBoundWitnessWithHashStorageMeta = AsObjectFactory.create(isBlockBoundWitnessWithHashStorageMeta)
-export const asSignedBlockBoundWitnessWithHashStorageMeta = AsObjectFactory.create(isSignedBlockBoundWitnessWithHashStorageMeta)
+export const asBlockBoundWitnessWithHashMeta = AsObjectFactory.create(isBlockBoundWitnessWithHashMeta)
+export const asSignedBlockBoundWitnessWithHashMeta = AsObjectFactory.create(isSignedBlockBoundWitnessWithHashMeta)

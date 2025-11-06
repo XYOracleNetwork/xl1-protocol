@@ -4,5 +4,5 @@ import type { BoundWitness } from '@xyo-network/boundwitness-model'
 import type { BoundWitnessValidationError } from './error.ts'
 
 export type BoundWitnessValidationFunction<T extends BoundWitness = BoundWitness> = (
-  bw: T
+  bw: T,
 ) => Promisable<BoundWitnessValidationError[]>

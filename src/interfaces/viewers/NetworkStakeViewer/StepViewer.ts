@@ -14,6 +14,11 @@ export interface PagedStakersOptions {
   limit?: number
 }
 
+export interface StepStatistics {
+  endTime: number
+  startTime: number
+}
+
 export interface StepViewerMethods {
 
   // the total number of positions for a given step
@@ -35,5 +40,3 @@ export interface StepViewerMethods {
   // total weight of all stakers during a given step
   weight(step: StepIdentity): Promisable<bigint>
 }
-
-export interface StepViewer extends StepViewerMethods {}

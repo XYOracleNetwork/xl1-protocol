@@ -1,8 +1,8 @@
 import { AsObjectFactory } from '@xylabs/object'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import { isSigned } from '@xyo-network/boundwitness-model'
-import type { WithHashStorageMeta, WithStorageMeta } from '@xyo-network/payload-model'
-import { isHashStorageMeta, isStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta, WithStorageMeta } from '@xyo-network/payload-model'
+import { isHashMeta, isStorageMeta } from '@xyo-network/payload-model'
 
 import { isTransactionBoundWitness, type TransactionBoundWitness } from './TransactionBoundWitness.ts'
 
@@ -14,20 +14,20 @@ export const isTransactionBoundWitnessWithStorageMeta = (value: unknown): value 
   isTransactionBoundWitness(value)
   && isStorageMeta(value)
 
-export const isTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<TransactionBoundWitness> =>
+export const isTransactionBoundWitnessWithHashMeta = (value: unknown): value is WithHashMeta<TransactionBoundWitness> =>
   isTransactionBoundWitness(value)
-  && isHashStorageMeta(value)
+  && isHashMeta(value)
 
 export const isSignedTransactionBoundWitnessWithStorageMeta = (value: unknown): value is WithStorageMeta<Signed<TransactionBoundWitness>> =>
 
   isSignedTransactionBoundWitness(value)
   && isStorageMeta(value)
 
-export const isSignedTransactionBoundWitnessWithHashStorageMeta = (value: unknown): value is WithHashStorageMeta<Signed<TransactionBoundWitness>> =>
+export const isSignedTransactionBoundWitnessWithHashMeta = (value: unknown): value is WithHashMeta<Signed<TransactionBoundWitness>> =>
 
   isSignedTransactionBoundWitness(value)
-  && isHashStorageMeta(value)
+  && isHashMeta(value)
 
 export const asTransactionBoundWitnessWithStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithStorageMeta)
 
-export const asTransactionBoundWitnessWithHashStorageMeta = AsObjectFactory.create(isTransactionBoundWitnessWithHashStorageMeta)
+export const asTransactionBoundWitnessWithHashMeta = AsObjectFactory.create(isTransactionBoundWitnessWithHashMeta)

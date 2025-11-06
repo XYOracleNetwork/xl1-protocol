@@ -1,24 +1,24 @@
 import { AsObjectFactory } from '@xylabs/object'
 import type { Unsigned } from '@xyo-network/boundwitness-model'
 import {
-  isHashStorageMeta,
-  type Payload, type WithHashStorageMeta,
+  isHashMeta,
+  type Payload, type WithHashMeta,
 } from '@xyo-network/payload-model'
 
 import { isSignedHydratedTransaction } from './SignedHydratedTransaction.ts'
 import { type TransactionBoundWitness } from './TransactionBoundWitness.ts'
 
-export type UnsignedHydratedTransactionWithHashStorageMeta<T extends TransactionBoundWitness = TransactionBoundWitness,
-  P extends Payload = Payload> = [WithHashStorageMeta<Unsigned<T>>, WithHashStorageMeta<P>[]]
+export type UnsignedHydratedTransactionWithHashMeta<T extends TransactionBoundWitness = TransactionBoundWitness,
+  P extends Payload = Payload> = [WithHashMeta<Unsigned<T>>, WithHashMeta<P>[]]
 
-export const isUnsignedHydratedTransactionWithHashStorageMeta = (
+export const isUnsignedHydratedTransactionWithHashMeta = (
   value: unknown,
-): value is UnsignedHydratedTransactionWithHashStorageMeta => {
+): value is UnsignedHydratedTransactionWithHashMeta => {
   return (
-    isSignedHydratedTransaction(value) && isHashStorageMeta(value[0]) && !value[1].some(v => !isHashStorageMeta(v))
+    isSignedHydratedTransaction(value) && isHashMeta(value[0]) && !value[1].some(v => !isHashMeta(v))
   )
 }
 
-export const asUnsignedHydratedTransactionWithHashStorageMeta = AsObjectFactory.create<UnsignedHydratedTransactionWithHashStorageMeta>(
-  isUnsignedHydratedTransactionWithHashStorageMeta,
+export const asUnsignedHydratedTransactionWithHashMeta = AsObjectFactory.create<UnsignedHydratedTransactionWithHashMeta>(
+  isUnsignedHydratedTransactionWithHashMeta,
 )
