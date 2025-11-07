@@ -4,7 +4,7 @@ import type { Promisable } from '@xylabs/promise'
 import type { Transfer } from '../../payload/index.ts'
 import type { AttoXL1 } from '../../xl1/index.ts'
 
-export type AccountBalanceHistoryItem = [Hash /* block */, Hash /* transaction */, Transfer /* the actual transfer payload */]
+export type AccountBalanceHistoryItem = [Hash /* block */, Transfer /* the actual transfer payload */]
 
 export interface AccountBalancesViewInterface {
   accountBalances(address: Address[]): Promisable<Partial<Record<Address, AttoXL1>>>

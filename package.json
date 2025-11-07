@@ -63,7 +63,7 @@
     "dotenv": "~17.2.3",
     "eslint": "~9.39.1",
     "eslint-import-resolver-typescript": "~4.4.4",
-    "knip": "~5.67.1",
+    "knip": "~5.68.0",
     "typescript": "~5.9.3",
     "vite": "~7.2.1",
     "vite-tsconfig-paths": "~5.1.4",

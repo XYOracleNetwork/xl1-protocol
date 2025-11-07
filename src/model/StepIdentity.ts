@@ -4,6 +4,7 @@ import { asXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
 
 export interface StepIdentity {
   block: XL1BlockNumber
+  // the index of the step into the StepSize array
   step: number
 }
 
