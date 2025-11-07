@@ -1,6 +1,7 @@
 import type { Address, Hash } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
 
+import type { XL1BlockRange } from '../../model/index.ts'
 import type { Transfer } from '../../payload/index.ts'
 import type { AttoXL1 } from '../../xl1/index.ts'
 
@@ -13,5 +14,5 @@ export interface AccountBalancesViewInterface {
 
 export interface AccountBalanceViewInterface {
   accountBalance(address: Address): Promisable<AttoXL1>
-  accountBalanceHistory(address: Address): Promisable<AccountBalanceHistoryItem[]>
+  accountBalanceHistory(address: Address, range?: XL1BlockRange): Promisable<AccountBalanceHistoryItem[]>
 }
