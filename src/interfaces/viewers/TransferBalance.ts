@@ -1,10 +1,18 @@
-import type { Address, Hash } from '@xylabs/hex'
+import type { Address } from '@xylabs/hex'
 import type { Promisable } from '@xylabs/promise'
+import type { WithHashMeta } from '@xyo-network/payload-model'
 
+import type { BlockBoundWitness } from '../../block/index.ts'
+import type { XL1BlockRange } from '../../model/index.ts'
 import type { Transfer } from '../../payload/index.ts'
+import type { TransactionBoundWitness } from '../../transaction/index.ts'
 import type { AttoXL1 } from '../../xl1/index.ts'
 
-export type TransferBalanceHistoryItem = [Hash /* block */, Hash /* transaction */, Transfer /* the actual transfer payload */]
+export type TransferBalanceHistoryItem = [
+  WithHashMeta<BlockBoundWitness> /* block */,
+  WithHashMeta<TransactionBoundWitness> | null,
+  WithHashMeta<Transfer>, /* the actual transfer payload */
+]
 export type TransferPair = [/* from */ Address, /* to */Address]
 
 export interface TransferBalancesViewInterface {
@@ -16,7 +24,7 @@ export interface TransferBalancesViewInterface {
 
 export interface TransferBalanceViewInterface {
   transferBalance(address: Address): Promisable<AttoXL1>
-  transferBalanceHistory(address: Address): Promisable<TransferBalanceHistoryItem[]>
+  transferBalanceHistory(address: Address, range?: XL1BlockRange): Promisable<TransferBalanceHistoryItem[]>
   transferPairBalance(address: TransferPair): Promisable<AttoXL1>
   transferPairBalanceHistory(address: TransferPair): Promisable<TransferBalanceHistoryItem[]>
 }
