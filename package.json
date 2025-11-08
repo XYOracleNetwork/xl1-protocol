@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol",
-  "version": "1.12.108",
+  "version": "1.13.0",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -38,8 +38,6 @@
   "dependencies": {
     "@opentelemetry/api": "~1.9.0",
     "@xylabs/assert": "~5.0.19",
-    "@xylabs/base": "~5.0.19",
-    "@xylabs/events": "~5.0.19",
     "@xylabs/hex": "~5.0.19",
     "@xylabs/logger": "~5.0.19",
     "@xylabs/object": "~5.0.19",
