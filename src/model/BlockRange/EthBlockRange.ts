@@ -3,15 +3,16 @@ import { assertError } from '@xylabs/hex'
 import { type Brand, isDefined } from '@xylabs/typeof'
 import z from 'zod'
 
+import type { EthBlockNumber } from '../BlockNumber/index.ts'
 import {
   asEthBlockNumber,
-  type BlockNumber, EthBlockNumberZod,
+  EthBlockNumberZod,
   NumberishEthBlockNumberZod,
 } from '../BlockNumber/index.ts'
 import { zodAsFactory, zodToFactory } from '../zod/index.ts'
 
-export type EthBlockRange = [BlockNumber, BlockNumber]
-export type NumberishEthBlockRange = [BlockNumber, BlockNumber]
+export type EthBlockRange = [EthBlockNumber, EthBlockNumber]
+export type NumberishEthBlockRange = [EthBlockNumber, EthBlockNumber]
 
 export const EthBlockRangeZod = z.tuple([EthBlockNumberZod, EthBlockNumberZod])
 export const NumberishEthBlockRangeZod = z.tuple([NumberishEthBlockNumberZod, NumberishEthBlockNumberZod])
