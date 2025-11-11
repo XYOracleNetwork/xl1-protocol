@@ -1,6 +1,12 @@
 import { type Brand, isUndefined } from '@xylabs/typeof'
+import * as z from 'zod'
 
 import { toXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
+
+export const StepIdentityZod = z.object({
+  block: z.number().int().nonnegative(),
+  step: z.number().int().nonnegative(),
+})
 
 export interface StepIdentity {
   block: XL1BlockNumber
