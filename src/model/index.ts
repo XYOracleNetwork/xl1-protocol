@@ -1,4 +1,5 @@
 export * from './BlockNumber/index.ts'
+export * from './BlockRange/index.ts'
 export * from './ChainId.ts'
 export * from './GatewayName.ts'
 export * from './PositionId.ts'
