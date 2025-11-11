@@ -6,15 +6,15 @@ import { asXL1BlockNumber, type XL1BlockNumber } from '../model/index.ts'
 // primorial(n+2) = 2 → 2×3=6 → 6×5=30 → 30×7=210 → 210×11=2310
 
 export const StepSizes: XL1BlockNumber[] = [
-  asXL1BlockNumber(7),
-  asXL1BlockNumber(31),
-  asXL1BlockNumber(211),
-  asXL1BlockNumber(2311),
-  asXL1BlockNumber(30_031),
-  asXL1BlockNumber(510_511),
-  asXL1BlockNumber(9_699_691),
-  asXL1BlockNumber(223_092_871),
-  asXL1BlockNumber(6_469_693_231),
+  asXL1BlockNumber(7, true),
+  asXL1BlockNumber(31, true),
+  asXL1BlockNumber(211, true),
+  asXL1BlockNumber(2311, true),
+  asXL1BlockNumber(30_031, true),
+  asXL1BlockNumber(510_511, true),
+  asXL1BlockNumber(9_699_691, true),
+  asXL1BlockNumber(223_092_871, true),
+  asXL1BlockNumber(6_469_693_231, true),
 ]
 
 export function isValidStep(step: unknown): step is number {

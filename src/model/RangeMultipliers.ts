@@ -1,6 +1,6 @@
 import type {
   BlockRangeKey, EthBlockRangeKey, XL1BlockRangeKey,
-} from './BlockNumber/index.ts'
+} from './BlockRange/index.ts'
 
 export type BigFraction = [bigint, bigint] // numerator, denominator
 

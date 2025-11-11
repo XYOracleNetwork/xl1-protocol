@@ -1,29 +1,15 @@
-import { assertEx } from '@xylabs/assert'
-import {
-  type Brand, isArray, isNumber,
-} from '@xylabs/typeof'
+import { type Brand } from '@xylabs/typeof'
+import z from 'zod'
+
+import { zodAsFactory, zodToFactory } from '../zod/index.ts'
+import { NumberishZod } from './Numberish.ts'
 
 export type BlockNumber = Brand<number, { readonly __blockNumber: true }>
 
-export type BlockRange = [BlockNumber, BlockNumber]
+export const BlockNumberZod = z.number().transform(v => v as BlockNumber)
+export const NumberishBlockNumberZod = NumberishZod.transform(v => v as BlockNumber)
 
-export function asBlockNumber(value: unknown) {
-  assertEx(isNumber(value), () => 'Not a valid BlockNumber')
-  return value as BlockNumber
-}
-
-export function asBlockRange(value: unknown) {
-  if (isArray(value) && value.length === 2 && isNumber(value[0]) && isNumber(value[1])) {
-    return value as BlockRange
-  }
-  throw new Error('Not a valid BlockNumberRange')
-}
+export const asBlockNumber = zodAsFactory<BlockNumber>(BlockNumberZod)
+export const toBlockNumber = zodToFactory<BlockNumber>(NumberishBlockNumberZod)
 
 export const BLOCK_NUMBER_ZERO = asBlockNumber(0)
-
-export type BlockRangeKey = Brand<string, { readonly __blockRangeKey: true }>
-export const toBlockNumberKey = (range: BlockRange) => `${range[0]}|${range[1]}` as BlockRangeKey
-export const fromBlockNumberKey = (key: BlockRangeKey): BlockRange => {
-  const [start, end] = key.split('|').map(v => asBlockNumber(Number(v)))
-  return [start, end]
-}

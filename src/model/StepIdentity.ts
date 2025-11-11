@@ -1,6 +1,6 @@
 import { type Brand, isUndefined } from '@xylabs/typeof'
 
-import { asXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
+import { toXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
 
 export interface StepIdentity {
   block: XL1BlockNumber
@@ -30,11 +30,11 @@ export const asStepIdentity = (stepIdentityString: string): StepIdentity | undef
       return undefined
     }
     const step = tryParseInt(stepString)
-    const blockNumber = tryParseInt(blockNumberString)
-    if (isUndefined(blockNumber) || isUndefined(step)) {
+    const block = toXL1BlockNumber(blockNumberString)
+    if (isUndefined(block) || isUndefined(step)) {
       return undefined
     }
-    const block = asXL1BlockNumber(blockNumber)
+
     return { block, step }
   } catch {
     return undefined
