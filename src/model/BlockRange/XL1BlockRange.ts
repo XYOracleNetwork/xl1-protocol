@@ -5,15 +5,17 @@ import z from 'zod'
 
 import {
   asXL1BlockNumber,
-  type BlockNumber, BlockNumberZod, NumberishBlockNumberZod,
+  type BlockNumber,
+  NumberishXL1BlockNumberZod,
+  XL1BlockNumberZod,
 } from '../BlockNumber/index.ts'
 import { zodAsFactory, zodToFactory } from '../zod/index.ts'
 
 export type XL1BlockRange = [BlockNumber, BlockNumber]
 export type NumberishXL1BlockRange = [BlockNumber, BlockNumber]
 
-export const XL1BlockRangeZod = z.tuple([BlockNumberZod, BlockNumberZod])
-export const NumberishXL1BlockRangeZod = z.tuple([NumberishBlockNumberZod, NumberishBlockNumberZod])
+export const XL1BlockRangeZod = z.tuple([XL1BlockNumberZod, XL1BlockNumberZod])
+export const NumberishXL1BlockRangeZod = z.tuple([NumberishXL1BlockNumberZod, NumberishXL1BlockNumberZod])
 
 export const asXL1BlockRange = zodAsFactory<XL1BlockRange>(XL1BlockRangeZod)
 export const toXL1BlockRange = zodToFactory<XL1BlockRange>(NumberishXL1BlockRangeZod)
