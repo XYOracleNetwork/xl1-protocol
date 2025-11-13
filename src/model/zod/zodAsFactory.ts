@@ -12,29 +12,31 @@ export function zodAsFactory<T>(zod: z.ZodType<T>, name: string) {
     if (result.success) {
       return result.data
     }
-    let assertConfig: AssertConfig
-    switch (typeof assert) {
-      case 'string': {
-        assertConfig = `[${name}][${value}] ${assert}`
-        break
+    if (assert !== undefined) {
+      let assertConfig: AssertConfig
+      switch (typeof assert) {
+        case 'string': {
+          assertConfig = `[${name}][${value}] ${assert}`
+          break
+        }
+        case 'object': {
+          assertConfig = `[${name}][${assert.name}][${value}] ${result.error.message}`
+          break
+        }
+        case 'boolean': {
+          assertConfig = `[${name}][${value}] ${result.error.message}`
+          break
+        }
+        case 'function': {
+          assertConfig = assert(value, result.error.message)
+          break
+        }
+        default: {
+          assertConfig = true
+        }
       }
-      case 'object': {
-        assertConfig = `[${name}][${assert.name}][${value}] ${result.error.message}`
-        break
-      }
-      case 'boolean': {
-        assertConfig = `[${name}][${value}] ${result.error.message}`
-        break
-      }
-      case 'function': {
-        assertConfig = assert(value, result.error.message)
-        break
-      }
-      default: {
-        assertConfig = true
-      }
+      return assertError(value, assertConfig, result.error.message)
     }
-    return assertError(value, assertConfig, result.error.message)
   }
 
   return asFunc
