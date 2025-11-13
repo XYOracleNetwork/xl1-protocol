@@ -17,8 +17,8 @@ export type NumberishEthBlockRange = [EthBlockNumber, EthBlockNumber]
 export const EthBlockRangeZod = z.tuple([EthBlockNumberZod, EthBlockNumberZod])
 export const NumberishEthBlockRangeZod = z.tuple([NumberishEthBlockNumberZod, NumberishEthBlockNumberZod])
 
-export const asEthBlockRange = zodAsFactory<EthBlockRange>(EthBlockRangeZod)
-export const toEthBlockRange = zodToFactory<EthBlockRange>(NumberishEthBlockRangeZod)
+export const asEthBlockRange = zodAsFactory<EthBlockRange>(EthBlockRangeZod, 'EthBlockRange')
+export const toEthBlockRange = zodToFactory<EthBlockRange>(NumberishEthBlockRangeZod, 'EthBlockRange')
 
 export type EthBlockRangeKey = Brand<string, { readonly __ethBlockRangeKey: true }>
 export const toEthBlockNumberKey = (range: EthBlockRange) => `${range[0]}|${range[1]}` as EthBlockRangeKey

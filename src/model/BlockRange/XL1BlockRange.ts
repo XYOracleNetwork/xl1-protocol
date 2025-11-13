@@ -17,8 +17,8 @@ export type NumberishXL1BlockRange = [XL1BlockNumber, XL1BlockNumber]
 export const XL1BlockRangeZod = z.tuple([XL1BlockNumberZod, XL1BlockNumberZod])
 export const NumberishXL1BlockRangeZod = z.tuple([NumberishXL1BlockNumberZod, NumberishXL1BlockNumberZod])
 
-export const asXL1BlockRange = zodAsFactory<XL1BlockRange>(XL1BlockRangeZod)
-export const toXL1BlockRange = zodToFactory<XL1BlockRange>(NumberishXL1BlockRangeZod)
+export const asXL1BlockRange = zodAsFactory<XL1BlockRange>(XL1BlockRangeZod, 'XL1BlockRange')
+export const toXL1BlockRange = zodToFactory<XL1BlockRange>(NumberishXL1BlockRangeZod, 'XL1BlockRange')
 
 export type XL1BlockRangeKey = Brand<string, { readonly __xl1BlockRangeKey: true }>
 export const toXL1BlockNumberKey = (range: XL1BlockRange) => `${range[0]}|${range[1]}` as XL1BlockRangeKey

@@ -10,7 +10,7 @@ export type EthBlockNumber = Brand<BlockNumber, { readonly __ethBlockNumber: tru
 export const EthBlockNumberZod = z.number().transform(v => v as EthBlockNumber)
 export const NumberishEthBlockNumberZod = NumberishBlockNumberZod.transform(v => v as EthBlockNumber)
 
-export const asEthBlockNumber = zodAsFactory<EthBlockNumber>(EthBlockNumberZod)
-export const toEthBlockNumber = zodToFactory<EthBlockNumber>(NumberishEthBlockNumberZod)
+export const asEthBlockNumber = zodAsFactory<EthBlockNumber>(EthBlockNumberZod, 'asEthBlockNumber')
+export const toEthBlockNumber = zodToFactory<EthBlockNumber>(NumberishEthBlockNumberZod, 'toEthBlockNumber')
 
 export const ETH_BLOCK_NUMBER_ZERO = asEthBlockNumber(0)

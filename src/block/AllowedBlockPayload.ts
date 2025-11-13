@@ -1,10 +1,11 @@
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
-import { isHashMeta, isSchema } from '@xyo-network/payload-model'
+import { isHashMeta } from '@xyo-network/payload-model'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
 import z from 'zod'
 
+import { zodIsFactory } from '../model/index.ts'
 import type {
   BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
 } from '../payload/index.ts'
@@ -27,7 +28,7 @@ export type AllowedBlockPayload
     | TimePayload
     | TransactionBoundWitness
 
-export const AllowedBlockPayloadSchemas: Schema[] = [
+export const AllowedBlockPayloadSchemas = [
   BoundWitnessSchema,
   BridgeDestinationObservationSchema,
   BridgeIntentSchema,
@@ -38,13 +39,11 @@ export const AllowedBlockPayloadSchemas: Schema[] = [
   StepCompleteSchema,
   TimeSchema,
   TransferSchema,
-]
+] satisfies Schema[]
 
-export type AllowedBlockPayloadSchema = typeof AllowedBlockPayloadSchemas[number]
-
-export const isAllowedBlockPayloadSchema = (value: unknown): value is AllowedBlockPayloadSchema => {
-  return isSchema(value) && AllowedBlockPayloadSchemas.includes(value)
-}
+export const AllowedBlockPayloadSchemaZod = z.enum(AllowedBlockPayloadSchemas)
+export type AllowedBlockPayloadSchema = z.infer<typeof AllowedBlockPayloadSchemaZod>
+export const isAllowedBlockPayloadSchema = zodIsFactory<AllowedBlockPayloadSchema>(AllowedBlockPayloadSchemaZod)
 
 export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
   return isTransfer(value)
@@ -61,5 +60,3 @@ export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayl
 export const isAllowedBlockPayloadWithHashMeta = (value: unknown): value is WithStorageMeta<AllowedBlockPayload> => {
   return isAllowedBlockPayload(value) && isHashMeta(value)
 }
-
-export const AllowedBlockPayloadZod = z.object({ schema: z.enum(AllowedBlockPayloadSchemas) })
