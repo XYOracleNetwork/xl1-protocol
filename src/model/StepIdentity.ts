@@ -1,18 +1,13 @@
 import { type Brand, isUndefined } from '@xylabs/typeof'
 import * as z from 'zod'
 
-import { toXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
+import { toXL1BlockNumber, XL1BlockNumberZod } from './BlockNumber/index.ts'
 
 export const StepIdentityZod = z.object({
-  block: z.number().int().nonnegative(),
-  step: z.number().int().nonnegative(),
+  block: XL1BlockNumberZod.describe('The block number at which the step occurs'),
+  step: z.number().int().nonnegative().describe('The index of the step into the StepSize array'),
 })
-
-export interface StepIdentity {
-  block: XL1BlockNumber
-  // the index of the step into the StepSize array
-  step: number
-}
+export type StepIdentity = z.infer<typeof StepIdentityZod>
 
 /** @deprecated use StepIdentity instead */
 export interface StepContext extends StepIdentity {}
