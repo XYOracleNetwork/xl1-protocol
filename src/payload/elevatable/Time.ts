@@ -1,7 +1,9 @@
-import type { Hash } from '@xylabs/hex'
+import { HashZod } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
-import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import z from 'zod'
+
+import { PayloadZodOfSchema } from './TransferPayload.ts'
 
 // xl1 = xl1 block number, epoch = epoch number, ethereum = ethereum block number
 export type TimeDomain = 'xl1' | 'epoch' | 'ethereum'
@@ -9,26 +11,30 @@ export type TimeDomain = 'xl1' | 'epoch' | 'ethereum'
 export const TimeSchema = 'network.xyo.time' as const
 export type TimeSchema = typeof TimeSchema
 
-export interface XL1TimeFields {
+export const XL1TimeFieldsZod = z.object({
   // block number
-  xl1?: number
+  xl1: z.number().optional(),
   // block hash
-  xl1Hash?: Hash
-}
+  xl1Hash: HashZod.optional(),
+})
 
-export interface EthereumTimeFields {
+export const EthereumTimeFieldsZod = z.object({
   // block number
-  ethereum?: number
+  ethereum: z.number().optional(),
   // block hash
-  ethereumHash?: Hash
-}
+  ethereumHash: HashZod.optional(),
+})
 
-export interface TimeFields extends XL1TimeFields, EthereumTimeFields {
+export const EpochTimeFieldsZod = z.object({
   // in milliseconds
-  epoch: number
-}
+  epoch: z.number(),
+})
 
-export type TimePayload = Payload<TimeFields, TimeSchema>
+export const TimeFieldsZod = XL1TimeFieldsZod.extend(XL1TimeFieldsZod.shape).extend(EthereumTimeFieldsZod.shape).extend(EpochTimeFieldsZod.shape)
+
+export const TimePayloadZod = PayloadZodOfSchema(TimeSchema).extend(TimeFieldsZod.shape)
+
+export type TimePayload = z.infer<typeof TimePayloadZod>
 
 // to prevent scaling problems, we use double the current time as a max safe epoch
 export const isSafeEpoch = (value: unknown): value is number => {
