@@ -1,10 +1,12 @@
-import type {
-  Address,
-  Hex,
+import {
+  type Address,
+  AddressZod,
+  type Hex,
+  HexZod,
 } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
-import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { isPayloadOfSchemaType, PayloadZod } from '@xyo-network/payload-model'
+import z from 'zod'
 
 import type { FromFields } from './Executable.ts'
 
@@ -18,8 +20,19 @@ export interface TransferFields<TContext extends {} = {}> extends FromFields {
   transfers: Partial<Record<Address, Hex>>
 }
 
-// if this payload is included in a boundwitness, it needs to be available for inspection to be included in block
-export type Transfer<TContext extends {} = {}> = Payload<TransferFields<TContext>, TransferSchema>
+export const TransferFieldsZod = z.object({
+  $opCodes: z.array(z.string()).optional(),
+  context: z.record(z.string(), z.json()).optional(),
+  epoch: z.number(),
+  from: AddressZod,
+  transfers: z.record(AddressZod, HexZod),
+})
+
+export const PayloadZodOfSchema = <S extends string>(schema: S) => PayloadZod.extend({ schema: z.literal(schema) })
+
+export const TransferZod = PayloadZodOfSchema(TransferSchema).extend(TransferFieldsZod.shape)
+
+export type Transfer = z.infer<typeof TransferZod>
 
 export const isTransfer = isPayloadOfSchemaType<Transfer>(TransferSchema)
 
