@@ -33,7 +33,10 @@
   "types": "./dist/neutral/index.d.ts",
   "files": [
     "dist",
-    "src"
+    "src",
+    "!**/*.bench.*",
+    "!**/*.spec.*",
+    "!**/*.test.*"
   ],
   "dependencies": {
     "@opentelemetry/api": "~1.9.0",
