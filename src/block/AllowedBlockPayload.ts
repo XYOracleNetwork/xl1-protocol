@@ -1,3 +1,4 @@
+import { zodIsFactory } from '@xylabs/zod'
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashMeta } from '@xyo-network/payload-model'
@@ -5,7 +6,6 @@ import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
 import z from 'zod'
 
-import { zodIsFactory } from '../model/index.ts'
 import type {
   BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
 } from '../payload/index.ts'

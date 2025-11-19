@@ -1,6 +1,7 @@
-import type { AssertConfig } from '@xylabs/hex'
-import { assertError } from '@xylabs/hex'
+import type { AssertConfig } from '@xylabs/error'
+import { assertError } from '@xylabs/error'
 import { type Brand, isDefined } from '@xylabs/typeof'
+import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import z from 'zod'
 
 import type { XL1BlockNumber } from '../BlockNumber/index.ts'
@@ -9,7 +10,6 @@ import {
   NumberishXL1BlockNumberZod,
   XL1BlockNumberZod,
 } from '../BlockNumber/index.ts'
-import { zodAsFactory, zodToFactory } from '../zod/index.ts'
 
 export type XL1BlockRange = [XL1BlockNumber, XL1BlockNumber]
 export type NumberishXL1BlockRange = [XL1BlockNumber, XL1BlockNumber]

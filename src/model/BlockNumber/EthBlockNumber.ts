@@ -1,7 +1,7 @@
 import { type Brand } from '@xylabs/typeof'
+import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import z from 'zod'
 
-import { zodAsFactory, zodToFactory } from '../zod/index.ts'
 import type { BlockNumber } from './BlockNumber.ts'
 import { NumberishBlockNumberZod } from './BlockNumber.ts'
 

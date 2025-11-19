@@ -1,13 +1,13 @@
-import type { AssertConfig } from '@xylabs/hex'
-import { assertError } from '@xylabs/hex'
+import type { AssertConfig } from '@xylabs/error'
+import { assertError } from '@xylabs/error'
 import { type Brand, isDefined } from '@xylabs/typeof'
+import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import z from 'zod'
 
 import {
   asBlockNumber,
   type BlockNumber, BlockNumberZod, NumberishBlockNumberZod,
 } from '../BlockNumber/index.ts'
-import { zodAsFactory, zodToFactory } from '../zod/index.ts'
 
 export type BlockRange = [BlockNumber, BlockNumber]
 export type NumberishBlockRange = [BlockNumber, BlockNumber]
