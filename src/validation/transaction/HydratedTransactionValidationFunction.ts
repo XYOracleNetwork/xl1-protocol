@@ -1,6 +1,6 @@
 import type { Promisable } from '@xylabs/promise'
 
-import type { HydratedTransactionWithHashMeta, TransactionBoundWitness } from '../../zod/index.ts'
+import type { HydratedTransactionWithHashMeta } from '../../zod/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'
 
 /**
@@ -9,7 +9,7 @@ import type { HydratedTransactionValidationError } from './error.ts'
  * @param context The context to use for validation.
  * @returns An array of errors if the transaction is invalid, or an empty array if it is valid.
  */
-export type HydratedTransactionValidationFunction<T extends TransactionBoundWitness = TransactionBoundWitness, TContext extends {} = {}> = (
-  hydratedTransaction: T & HydratedTransactionWithHashMeta,
+export type HydratedTransactionValidationFunction<TContext extends {} = {}> = (
+  hydratedTransaction: HydratedTransactionWithHashMeta,
   context?: TContext,
 ) => Promisable<HydratedTransactionValidationError[]>
