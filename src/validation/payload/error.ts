@@ -1,7 +1,7 @@
 import type { Hash } from '@xylabs/hex'
 import { type Payload } from '@xyo-network/payload-model'
 
-import { type HydratedBlock } from '../../block/index.ts'
+import type { HydratedBlock } from '../../zod/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class InBlockPayloadValidationError extends ValidationError<Payload> {

@@ -14,7 +14,7 @@ import {
   isBridgeDestinationObservation, isBridgeIntent, isBridgeSourceObservation, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema,
   TimeSchema, TransferSchema,
 } from '../payload/index.ts'
-import { isTransactionBoundWitness, type TransactionBoundWitness } from '../transaction/index.ts'
+import { isTransactionBoundWitness, type TransactionBoundWitness } from '../zod/index.ts'
 
 export type AllowedBlockPayload
   = Transfer

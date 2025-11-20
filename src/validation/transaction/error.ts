@@ -1,4 +1,4 @@
-import { type SignedHydratedTransaction } from '../../transaction/index.ts'
+import type { SignedHydratedTransaction } from '../../zod/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class HydratedTransactionValidationError extends ValidationError<SignedHydratedTransaction> {}
