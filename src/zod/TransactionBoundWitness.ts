@@ -19,13 +19,16 @@ export const BlockScriptsZod = z.object({ script: z.array(z.string()).optional()
 
 export const TransactionFeesZod = z.object({ fees: TransactionFeesHexZod })
 
-const TransactionBoundWitnessFields = z.object({ chain: ChainZod, from: AddressZod })
+export const TransactionBoundWitnessIdentityFields = z.object({ chain: ChainZod, from: AddressZod })
 
-export const TransactionBoundWitnessZod = BoundWitnessZod
+export const TransactionBoundWitnessFieldsZod = z.object()
   .extend(BlockDurationZod.shape)
   .extend(TransactionFeesZod.shape)
-  .extend(TransactionBoundWitnessFields.shape)
+  .extend(TransactionBoundWitnessIdentityFields.shape)
   .extend(BlockScriptsZod.shape)
+
+export const TransactionBoundWitnessZod = BoundWitnessZod
+  .extend(TransactionBoundWitnessFieldsZod.shape)
 
 export type TransactionBoundWitness = z.infer<typeof TransactionBoundWitnessZod>
 
@@ -52,10 +55,7 @@ export const asTransactionBoundWitnessWithStorageMeta = zodAsFactory(Transaction
 export const toTransactionBoundWitnessWithStorageMeta = zodToFactory(TransactionBoundWitnessWithStorageMetaZod, 'toTransactionBoundWitnessWithStorageMeta')
 
 export const UnsignedTransactionBoundWitnessZod = UnsignedBoundWitnessZod
-  .extend(BlockDurationZod.shape)
-  .extend(TransactionFeesZod.shape)
-  .extend(TransactionBoundWitnessFields.shape)
-  .extend(BlockScriptsZod.shape)
+  .extend(TransactionBoundWitnessFieldsZod.shape)
 
 export type UnsignedTransactionBoundWitness = z.infer<typeof UnsignedTransactionBoundWitnessZod>
 
@@ -93,10 +93,7 @@ export const toUnsignedTransactionBoundWitnessWithStorageMeta = zodToFactory(
 )
 
 export const SignedTransactionBoundWitnessZod = SignedBoundWitnessZod
-  .extend(BlockDurationZod.shape)
-  .extend(TransactionFeesZod.shape)
-  .extend(TransactionBoundWitnessFields.shape)
-  .extend(BlockScriptsZod.shape)
+  .extend(TransactionBoundWitnessFieldsZod.shape)
 
 export type SignedTransactionBoundWitness = z.infer<typeof SignedTransactionBoundWitnessZod>
 
