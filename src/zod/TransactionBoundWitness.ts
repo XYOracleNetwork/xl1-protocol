@@ -27,6 +27,8 @@ export const TransactionBoundWitnessFieldsZod = z.object()
   .extend(TransactionBoundWitnessIdentityFields.shape)
   .extend(BlockScriptsZod.shape)
 
+export type TransactionBoundWitnessFields = z.infer<typeof TransactionBoundWitnessFieldsZod>
+
 export const TransactionBoundWitnessZod = BoundWitnessZod
   .extend(TransactionBoundWitnessFieldsZod.shape)
 
