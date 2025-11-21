@@ -1,6 +1,5 @@
 export * from './ArrayBuffer.ts'
 export * from './BlockBoundWitness.ts'
-export * from './BoundWitness.ts'
 export * from './Chain.ts'
 export * from './HydratedBlock.ts'
 export * from './HydratedTransaction.ts'

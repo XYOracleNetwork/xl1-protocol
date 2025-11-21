@@ -2,15 +2,13 @@ import { HashZod } from '@xylabs/sdk-js'
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/zod'
+import {
+  BoundWitnessZod, SignedBoundWitnessZod, UnsignedBoundWitnessZod,
+} from '@xyo-network/boundwitness-model'
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import * as z from 'zod'
 
 import { XL1BlockNumberZod } from '../model/index.ts'
-import {
-  BoundWitnessZod,
-  SignedBoundWitnessZod,
-  UnsignedBoundWitnessZod,
-} from './BoundWitness.ts'
 import { ChainZod } from './Chain.ts'
 
 export const BlockBoundWitnessFieldsZod = z.object({

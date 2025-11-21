@@ -1,9 +1,8 @@
-import type { JsonObject } from '@xylabs/sdk-js'
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/zod'
 import {
-  asAnyPayload, PayloadZodLoose, WithHashMetaZod,
+  PayloadZodLoose, WithHashMetaZod,
   WithStorageMetaZod,
 } from '@xyo-network/payload-model'
 import * as z from 'zod'
@@ -120,19 +119,3 @@ export const toSignedHydratedTransactionWithStorageMeta = zodToFactory(
   SignedHydratedTransactionWithStorageMetaZod,
   'toSignedHydratedTransactionWithStorageMeta',
 )
-
-export const SignedHydratedTransactionToJsonZod = SignedHydratedTransactionZod.transform(([
-  tx,
-  payloads,
-]) => asSignedHydratedTransaction([
-  tx as JsonObject,
-  payloads.map(payload => payload as JsonObject),
-]))
-
-export const JsonToSignedHydratedTransactionZod = SignedHydratedTransactionZod.transform(([
-  tx,
-  payloads,
-]) => ([
-  asSignedHydratedTransaction(tx),
-  payloads.map(p => asAnyPayload(p)),
-]))
