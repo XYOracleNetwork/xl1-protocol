@@ -7,7 +7,9 @@ import {
 } from '@xyo-network/payload-model'
 import * as z from 'zod'
 
-import { SignedTransactionBoundWitnessZod, TransactionBoundWitnessZod } from './TransactionBoundWitness.ts'
+import {
+  SignedTransactionBoundWitnessZod, TransactionBoundWitnessZod, UnsignedTransactionBoundWitnessZod,
+} from './TransactionBoundWitness.ts'
 
 export const HydratedTransactionZod = z.tuple([
   TransactionBoundWitnessZod,
@@ -43,7 +45,7 @@ export const asHydratedTransactionWithStorageMeta = zodAsFactory(HydratedTransac
 export const toHydratedTransactionWithStorageMeta = zodToFactory(HydratedTransactionWithStorageMetaZod, 'toHydratedTransactionWithStorageMeta')
 
 export const UnsignedHydratedTransactionZod = z.tuple([
-  TransactionBoundWitnessZod,
+  UnsignedTransactionBoundWitnessZod,
   z.array(PayloadZodLoose),
 ])
 
