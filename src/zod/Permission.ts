@@ -13,7 +13,7 @@ export const PermissionZod = z.object({
   invoker: z.string(),
 })
 
-export const InvokerPermissionZod = PermissionZod.extend({ date: z.number().optional() })
+export const InvokerPermissionZod = PermissionZod.safeExtend({ date: z.number().optional() })
 
 export const PermissionRequestZod = z.record(z.string(), z.record(z.string(), z.any()))
 

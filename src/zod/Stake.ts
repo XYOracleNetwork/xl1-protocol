@@ -32,6 +32,7 @@ export const StakeToJsonZod = StakeZod.transform(val => ({
   withdrawBlock: val.withdrawBlock,
 }))
 
+// we intentionally use extend and not safeExtend here to ensure all fields are present
 export const JsonToStakeZod = StakeZod.extend({ amount: HexZod }).transform(val => ({
   addBlock: val.addBlock,
   amount: JsonToAttoZod.parse(val.amount),

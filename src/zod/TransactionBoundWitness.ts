@@ -5,16 +5,16 @@ import {
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import * as z from 'zod'
 
-import { BlockNumberZod } from '../model/index.ts'
+import { XL1BlockNumberZod } from '../model/index.ts'
 import {
   BoundWitnessZod, SignedBoundWitnessZod, UnsignedBoundWitnessZod,
 } from './BoundWitness.ts'
 import { ChainZod } from './Chain.ts'
 import { TransactionFeesHexZod } from './TransactionFees.ts'
 
-export const BlockStartZod = z.object({ nbf: BlockNumberZod })
-export const BlockEndZod = z.object({ exp: BlockNumberZod })
-export const BlockDurationZod = z.object({ nbf: BlockNumberZod, exp: BlockNumberZod })
+export const BlockStartZod = z.object({ nbf: XL1BlockNumberZod })
+export const BlockEndZod = z.object({ exp: XL1BlockNumberZod })
+export const BlockDurationZod = z.object({ nbf: XL1BlockNumberZod, exp: XL1BlockNumberZod })
 export const BlockScriptsZod = z.object({ script: z.array(z.string()).optional() })
 
 export const TransactionFeesZod = z.object({ fees: TransactionFeesHexZod })
@@ -22,15 +22,15 @@ export const TransactionFeesZod = z.object({ fees: TransactionFeesHexZod })
 export const TransactionBoundWitnessIdentityFields = z.object({ chain: ChainZod, from: AddressZod })
 
 export const TransactionBoundWitnessFieldsZod = z.object()
-  .extend(BlockDurationZod.shape)
-  .extend(TransactionFeesZod.shape)
-  .extend(TransactionBoundWitnessIdentityFields.shape)
-  .extend(BlockScriptsZod.shape)
+  .safeExtend(BlockDurationZod.shape)
+  .safeExtend(TransactionFeesZod.shape)
+  .safeExtend(TransactionBoundWitnessIdentityFields.shape)
+  .safeExtend(BlockScriptsZod.shape)
 
 export type TransactionBoundWitnessFields = z.infer<typeof TransactionBoundWitnessFieldsZod>
 
 export const TransactionBoundWitnessZod = BoundWitnessZod
-  .extend(TransactionBoundWitnessFieldsZod.shape)
+  .safeExtend(TransactionBoundWitnessFieldsZod.shape)
 
 export type TransactionBoundWitness = z.infer<typeof TransactionBoundWitnessZod>
 
@@ -39,7 +39,7 @@ export const asTransactionBoundWitness = zodAsFactory(TransactionBoundWitnessZod
 export const toTransactionBoundWitness = zodToFactory(TransactionBoundWitnessZod, 'toTransactionBoundWitness')
 
 export const TransactionBoundWitnessWithHashMetaZod = TransactionBoundWitnessZod
-  .extend(HashMetaZod.shape)
+  .safeExtend(HashMetaZod.shape)
 
 export type TransactionBoundWitnessWithHashMeta = z.infer<typeof TransactionBoundWitnessWithHashMetaZod>
 
@@ -48,7 +48,7 @@ export const asTransactionBoundWitnessWithHashMeta = zodAsFactory(TransactionBou
 export const toTransactionBoundWitnessWithHashMeta = zodToFactory(TransactionBoundWitnessWithHashMetaZod, 'toTransactionBoundWitnessWithHashMeta')
 
 export const TransactionBoundWitnessWithStorageMetaZod = TransactionBoundWitnessZod
-  .extend(StorageMetaZod.shape)
+  .safeExtend(StorageMetaZod.shape)
 
 export type TransactionBoundWitnessWithStorageMeta = z.infer<typeof TransactionBoundWitnessWithStorageMetaZod>
 
@@ -57,7 +57,7 @@ export const asTransactionBoundWitnessWithStorageMeta = zodAsFactory(Transaction
 export const toTransactionBoundWitnessWithStorageMeta = zodToFactory(TransactionBoundWitnessWithStorageMetaZod, 'toTransactionBoundWitnessWithStorageMeta')
 
 export const UnsignedTransactionBoundWitnessZod = UnsignedBoundWitnessZod
-  .extend(TransactionBoundWitnessFieldsZod.shape)
+  .safeExtend(TransactionBoundWitnessFieldsZod.shape)
 
 export type UnsignedTransactionBoundWitness = z.infer<typeof UnsignedTransactionBoundWitnessZod>
 
@@ -65,7 +65,7 @@ export const isUnsignedTransactionBoundWitness = zodIsFactory(UnsignedTransactio
 export const asUnsignedTransactionBoundWitness = zodAsFactory(UnsignedTransactionBoundWitnessZod, 'asUnsignedTransactionBoundWitness')
 export const toUnsignedTransactionBoundWitness = zodToFactory(UnsignedTransactionBoundWitnessZod, 'toUnsignedTransactionBoundWitness')
 
-export const UnsignedTransactionBoundWitnessWithHashMetaZod = UnsignedTransactionBoundWitnessZod.extend(HashMetaZod.shape)
+export const UnsignedTransactionBoundWitnessWithHashMetaZod = UnsignedTransactionBoundWitnessZod.safeExtend(HashMetaZod.shape)
 
 export type UnsignedTransactionBoundWitnessWithHashMeta = z.infer<typeof UnsignedTransactionBoundWitnessWithHashMetaZod>
 
@@ -80,7 +80,7 @@ export const toUnsignedTransactionBoundWitnessWithHashMeta = zodToFactory(
 )
 
 export const UnsignedTransactionBoundWitnessWithStorageMetaZod = UnsignedTransactionBoundWitnessZod
-  .extend(StorageMetaZod.shape)
+  .safeExtend(StorageMetaZod.shape)
 
 export type UnsignedTransactionBoundWitnessWithStorageMeta = z.infer<typeof UnsignedTransactionBoundWitnessWithStorageMetaZod>
 
@@ -95,7 +95,7 @@ export const toUnsignedTransactionBoundWitnessWithStorageMeta = zodToFactory(
 )
 
 export const SignedTransactionBoundWitnessZod = SignedBoundWitnessZod
-  .extend(TransactionBoundWitnessFieldsZod.shape)
+  .safeExtend(TransactionBoundWitnessFieldsZod.shape)
 
 export type SignedTransactionBoundWitness = z.infer<typeof SignedTransactionBoundWitnessZod>
 
@@ -104,7 +104,7 @@ export const asSignedTransactionBoundWitness = zodAsFactory(SignedTransactionBou
 export const toSignedTransactionBoundWitness = zodToFactory(SignedTransactionBoundWitnessZod, 'toSignedTransactionBoundWitness')
 
 export const SignedTransactionBoundWitnessWithHashMetaZod = SignedTransactionBoundWitnessZod
-  .extend(HashMetaZod.shape)
+  .safeExtend(HashMetaZod.shape)
 
 export type SignedTransactionBoundWitnessWithHashMeta = z.infer<typeof SignedTransactionBoundWitnessWithHashMetaZod>
 
@@ -119,7 +119,7 @@ export const toSignedTransactionBoundWitnessWithHashMeta = zodToFactory(
 )
 
 export const SignedTransactionBoundWitnessWithStorageMetaZod = SignedTransactionBoundWitnessZod
-  .extend(StorageMetaZod.shape)
+  .safeExtend(StorageMetaZod.shape)
 
 export type SignedTransactionBoundWitnessWithStorageMeta = z.infer<typeof SignedTransactionBoundWitnessWithStorageMetaZod>
 

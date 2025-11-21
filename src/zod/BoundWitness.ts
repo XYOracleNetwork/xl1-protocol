@@ -21,10 +21,9 @@ const BoundWitnessMetaZod = z.object({
 })
 
 export const BoundWitnessZod = PayloadZod
-  .extend({ schema: z.literal(BoundWitnessSchema) })
-  .extend(BoundWitnessRequiredFieldsZod.shape)
-  .extend(BoundWitnessMetaZod.shape)
-  .refine(data => data.$signatures.length === data.addresses.length, { message: '$signatures length must equal addresses length' })
+  .safeExtend({ schema: z.literal(BoundWitnessSchema) })
+  .safeExtend(BoundWitnessRequiredFieldsZod.shape)
+  .safeExtend(BoundWitnessMetaZod.shape)
 
 export type BoundWitness = z.infer<typeof BoundWitnessZod>
 

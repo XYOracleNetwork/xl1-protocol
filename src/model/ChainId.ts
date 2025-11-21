@@ -1,3 +1,3 @@
-import type { Address, Hex } from '@xylabs/hex'
+import type { Hex } from '@xylabs/hex'
 
-export type ChainId = Address | Hex
+export type ChainId = Hex

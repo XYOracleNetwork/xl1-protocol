@@ -6,17 +6,19 @@ import z from 'zod'
 
 import {
   asBlockNumber,
-  type BlockNumber, BlockNumberZod, NumberishBlockNumberZod,
+  type BlockNumber, BlockNumberishZod,
+  BlockNumberZod,
 } from '../BlockNumber/index.ts'
 
 export type BlockRange = [BlockNumber, BlockNumber]
-export type NumberishBlockRange = [BlockNumber, BlockNumber]
 
 export const BlockRangeZod = z.tuple([BlockNumberZod, BlockNumberZod])
-export const NumberishBlockRangeZod = z.tuple([NumberishBlockNumberZod, NumberishBlockNumberZod])
+export const BlockRangeishZod = z.tuple([BlockNumberishZod, BlockNumberishZod])
+
+export type BlockRangeish = z.input<typeof BlockRangeishZod>
 
 export const asBlockRange = zodAsFactory<BlockRange>(BlockRangeZod, 'BlockRange')
-export const toBlockRange = zodToFactory<BlockRange>(NumberishBlockRangeZod, 'BlockRange')
+export const toBlockRange = zodToFactory<BlockRange>(BlockRangeishZod, 'BlockRange')
 
 export type BlockRangeKey = Brand<string, { readonly __blockRangeKey: true }>
 export const toBlockNumberKey = (range: BlockRange) => `${range[0]}|${range[1]}` as BlockRangeKey

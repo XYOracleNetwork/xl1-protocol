@@ -1,6 +1,6 @@
 import { asHash } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { PayloadZod, WithStorageMetaZod } from '@xyo-network/payload-model'
+import { PayloadZodLoose, WithStorageMetaZod } from '@xyo-network/payload-model'
 import {
   describe, expect, it,
 } from 'vitest'
@@ -16,12 +16,12 @@ const hashPayloadWithMeta = await PayloadBuilder.addStorageMeta(hashPayload)
 
 describe('Payload', () => {
   it('should parse a HashPayload', () => {
-    const result = PayloadZod.safeParse(hashPayload)
+    const result = PayloadZodLoose.safeParse(hashPayload)
     expect(result.success).toBe(true)
     expect(result.data).toEqual(hashPayload)
   })
   it('should parse a HashPayload with storage Meta', () => {
-    const result = WithStorageMetaZod(PayloadZod).safeParse(hashPayloadWithMeta)
+    const result = WithStorageMetaZod(PayloadZodLoose).safeParse(hashPayloadWithMeta)
     expect(result.success).toBe(true)
     expect(result.data).toEqual(hashPayloadWithMeta)
   })

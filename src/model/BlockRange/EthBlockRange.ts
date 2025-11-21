@@ -7,18 +7,19 @@ import z from 'zod'
 import type { EthBlockNumber } from '../BlockNumber/index.ts'
 import {
   asEthBlockNumber,
+  EthBlockNumberishZod,
   EthBlockNumberZod,
-  NumberishEthBlockNumberZod,
 } from '../BlockNumber/index.ts'
 
 export type EthBlockRange = [EthBlockNumber, EthBlockNumber]
-export type NumberishEthBlockRange = [EthBlockNumber, EthBlockNumber]
 
 export const EthBlockRangeZod = z.tuple([EthBlockNumberZod, EthBlockNumberZod])
-export const NumberishEthBlockRangeZod = z.tuple([NumberishEthBlockNumberZod, NumberishEthBlockNumberZod])
+export const EthBlockRangeishZod = z.tuple([EthBlockNumberishZod, EthBlockNumberishZod])
+
+export type EthBlockRangeish = z.input<typeof EthBlockRangeishZod>
 
 export const asEthBlockRange = zodAsFactory<EthBlockRange>(EthBlockRangeZod, 'EthBlockRange')
-export const toEthBlockRange = zodToFactory<EthBlockRange>(NumberishEthBlockRangeZod, 'EthBlockRange')
+export const toEthBlockRange = zodToFactory<EthBlockRange>(EthBlockRangeishZod, 'EthBlockRange')
 
 export type EthBlockRangeKey = Brand<string, { readonly __ethBlockRangeKey: true }>
 export const toEthBlockNumberKey = (range: EthBlockRange) => `${range[0]}|${range[1]}` as EthBlockRangeKey
