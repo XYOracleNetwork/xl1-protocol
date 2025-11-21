@@ -15,7 +15,7 @@ export const BlockBoundWitnessFieldsZod = z.object({
   block: XL1BlockNumberZod,
   chain: ChainZod,
   previous: HashZod.nullable(),
-  protocol: z.number(),
+  protocol: z.number().optional(),
   step_hashes: z.array(HashZod).optional(),
 })
 
