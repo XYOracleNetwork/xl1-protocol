@@ -9,7 +9,7 @@ import * as z from 'zod'
 import {
   BlockBoundWitnessZod,
   SignedBlockBoundWitnessZod,
-} from './BlockBoundWitness.ts'
+} from './block/index.ts'
 
 export const HydratedBlockZod = z.tuple([
   BlockBoundWitnessZod,
@@ -73,11 +73,27 @@ export const SignedHydratedBlockWithHashMetaZod = z.tuple([
 
 export type SignedHydratedBlockWithHashMeta = z.infer<typeof SignedHydratedBlockWithHashMetaZod>
 
+export const SignedHydratedBlockWithHashMetaishZod = z.tuple([
+  z.union([WithHashMetaZod(SignedBlockBoundWitnessZod)]),
+  z.array(WithHashMetaZod(PayloadZodLoose)),
+])
+
 export const isSignedHydratedBlockWithHashMeta = zodIsFactory(SignedHydratedBlockWithHashMetaZod)
 export const asSignedHydratedBlockWithHashMeta = zodAsFactory(SignedHydratedBlockWithHashMetaZod, 'asSignedHydratedBlockWithHashMeta')
+
 export const toSignedHydratedBlockWithHashMeta = zodToFactory(SignedHydratedBlockWithHashMetaZod, 'toSignedHydratedBlockWithHashMeta')
 
 export const SignedHydratedBlockWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(SignedBlockBoundWitnessZod),
+  z.array(WithStorageMetaZod(PayloadZodLoose)),
+])
+export type SignedHydratedBlockWithStorageMeta = z.infer<typeof SignedHydratedBlockWithStorageMetaZod>
+
+export const isSignedHydratedBlockWithStorageMeta = zodIsFactory(SignedHydratedBlockWithStorageMetaZod)
+export const asSignedHydratedBlockWithStorageMeta = zodAsFactory(SignedHydratedBlockWithStorageMetaZod, 'asSignedHydratedBlockWithStorageMeta')
+export const toSignedHydratedBlockWithStorageMeta = zodToFactory(SignedHydratedBlockWithStorageMetaZod, 'toSignedHydratedBlockWithStorageMeta')
+
+export const SignedHydratedBlockWithStorageMetaishZod = z.tuple([
+  z.union([WithStorageMetaZod(SignedBlockBoundWitnessZod)]),
   z.array(WithStorageMetaZod(PayloadZodLoose)),
 ])

@@ -3,7 +3,7 @@ import {
   HexZod,
 } from '@xylabs/hex'
 import { AsObjectFactory, JsonObjectZod } from '@xylabs/object'
-import { isPayloadOfSchemaType, PayloadZod } from '@xyo-network/payload-model'
+import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
 import z from 'zod'
 
 export const TransferSchema = 'network.xyo.transfer' as const
@@ -16,8 +16,6 @@ export const TransferFieldsZod = z.object({
   from: AddressZod,
   transfers: z.record(AddressZod, HexZod),
 })
-
-export const PayloadZodOfSchema = <S extends string>(schema: S) => PayloadZod.extend({ schema: z.literal(schema) })
 
 export const TransferZod = PayloadZodOfSchema(TransferSchema).extend(TransferFieldsZod.shape)
 

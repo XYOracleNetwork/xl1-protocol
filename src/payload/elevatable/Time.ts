@@ -1,9 +1,7 @@
 import { HashZod } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
 import z from 'zod'
-
-import { PayloadZodOfSchema } from './TransferPayload.ts'
 
 // xl1 = xl1 block number, epoch = epoch number, ethereum = ethereum block number
 export type TimeDomain = 'xl1' | 'epoch' | 'ethereum'
