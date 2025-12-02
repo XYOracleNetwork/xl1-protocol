@@ -1,10 +1,11 @@
-import type { Hex } from '@xylabs/hex'
 import { AsObjectFactory } from '@xylabs/object'
 import type { Payload, WithSources } from '@xyo-network/payload-model'
 import {
   isPayloadOfSchemaType,
   isPayloadOfSchemaTypeWithSources,
 } from '@xyo-network/payload-model'
+
+import type { XL1BlockNumber } from '../model/index.ts'
 
 export const BlockNumberSchema = 'network.xyo.chain.block.number' as const
 export type BlockNumberSchema = typeof BlockNumberSchema
@@ -13,7 +14,7 @@ export interface BlockNumberFields {
   /**
    * The block number
    */
-  block: Hex
+  block: XL1BlockNumber
 }
 /**
  * The number of a block
