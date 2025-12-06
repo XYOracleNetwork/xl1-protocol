@@ -10,7 +10,8 @@ export const TransferSchema = 'network.xyo.transfer' as const
 export type TransferSchema = typeof TransferSchema
 
 export const TransferFieldsZod = z.object({
-  $opCodes: z.array(z.string()).optional(),
+  // Removed as only transaction have opCodes
+  // $opCodes: z.array(z.string()).optional(),
   context: JsonObjectZod.optional(),
   epoch: z.number(),
   from: AddressZod,
