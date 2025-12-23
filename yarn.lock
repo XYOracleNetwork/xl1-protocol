@@ -3544,6 +3544,7 @@ __metadata:
     "@xyo-network/account": "npm:~5.2.19"
     "@xyo-network/account-model": "npm:~5.2.19"
     "@xyo-network/archivist-model": "npm:~5.2.19"
+    "@xyo-network/boundwitness-model": "npm:~5.2.19"
     "@xyo-network/module-model": "npm:~5.2.19"
     "@xyo-network/node-model": "npm:~5.2.19"
     "@xyo-network/payload-builder": "npm:~5.2.19"

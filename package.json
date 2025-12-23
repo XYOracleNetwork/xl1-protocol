@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-sdk",
-  "version": "1.18.0",
+  "version": "1.18.1",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -43,6 +43,9 @@
     "packages/*/packages/*",
     "packages/*/packages/*/packages/*"
   ],
+  "scripts": {
+    "publish": "yarn workspaces foreach -A --no-private npm publish"
+  },
   "dependencies": {
     "@xyo-network/xl1-network-model": "workspace:~",
     "@xyo-network/xl1-protocol": "workspace:~",
