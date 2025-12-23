@@ -1,0 +1,197 @@
+import type { Hash } from '@xylabs/sdk-js'
+import {
+  assertEx,
+  exists,
+  isDefined,
+  isUndefined,
+  spanRootAsync,
+} from '@xylabs/sdk-js'
+import type { ReadArchivist } from '@xyo-network/archivist-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import {
+  asSignedHydratedBlockWithHashMeta,
+  asSignedHydratedBlockWithStorageMeta,
+  asXL1BlockNumber,
+  ChainId,
+  type SignedHydratedBlockWithHashMeta,
+  SignedHydratedBlockWithStorageMeta,
+  type XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
+
+import { hydrateBlock } from '../../block/index.ts'
+import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
+import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
+import { LruCacheMap } from '../../driver/index.ts'
+import type {
+  ChainContextRead,
+  ChainStoreRead, PayloadMap,
+} from '../../model/index.ts'
+import { hydratedBlockByNumber, readPayloadMapFromStore } from '../../primitives/index.ts'
+import { HydratedCache } from '../../utils/index.ts'
+import {
+  type BlockViewer, BlockViewerMoniker, FinalizationViewer, FinalizationViewerMoniker,
+} from '../../viewers/index.ts'
+
+export interface SimpleBlockViewerParams extends CreatableProviderParams {
+  finalizedArchivist: ReadArchivist
+}
+
+@creatableProvider()
+export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockViewerParams> implements BlockViewer {
+  static readonly defaultMoniker = BlockViewerMoniker
+  static readonly dependencies = [FinalizationViewerMoniker]
+  static readonly monikers = [BlockViewerMoniker]
+  moniker = SimpleBlockViewer.defaultMoniker
+
+  protected _store: ChainStoreRead | undefined
+  protected finalizationViewer!: FinalizationViewer
+
+  private _payloadCache: PayloadMap<WithStorageMeta<Payload>> | undefined
+  private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
+
+  get finalizedArchivist(): ReadArchivist {
+    return this.params.finalizedArchivist!
+  }
+
+  protected get hydratedBlockCache(): HydratedCache<SignedHydratedBlockWithStorageMeta> {
+    if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
+    const chainMap = this.store.chainMap
+    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithStorageMeta>(chainMap, async (
+      store: ChainStoreRead,
+      hash: Hash,
+      maxDepth?: number,
+      minDepth?: number,
+    ) => {
+      const result = await hydrateBlock(store, hash, maxDepth, minDepth)
+      return asSignedHydratedBlockWithStorageMeta(result, true)
+    }, 200)
+    return this._signedHydratedBlockCache
+  }
+
+  protected get payloadCache(): PayloadMap<WithStorageMeta<Payload>> {
+    if (this._payloadCache) return this._payloadCache
+    this._payloadCache = new LruCacheMap<Hash, WithStorageMeta<Payload>>({ max: 10_000 })
+    return this._payloadCache
+  }
+
+  protected get store() {
+    return this._store!
+  }
+
+  static override async paramsHandler(params: Partial<SimpleBlockViewerParams>) {
+    assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required')
+
+    return { ...await super.paramsHandler(params) }
+  }
+
+  async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
+    return await spanRootAsync('blockByHash', async () => {
+      const cache = this.hydratedBlockCache
+      return await cache.get(hash)
+    }, this.tracer)
+  }
+
+  async blockByNumber(blockNumber: XL1BlockNumber): Promise<SignedHydratedBlockWithHashMeta | null> {
+    return await spanRootAsync('blockByNumber', async () => {
+      const [head] = await this.currentBlock()
+      if (isUndefined(head)) {
+        return null
+      }
+      return asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber({
+        chainId: head.chain,
+        head: () => {
+          return [head._hash, head.block]
+        },
+        store: this.store,
+        singletons: this.context.singletons,
+      } satisfies ChainContextRead, blockNumber)) ?? null
+    }, this.tracer)
+  }
+
+  async blocksByHash(hash: Hash, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
+    return await spanRootAsync('blocksByHash', async () => {
+      assertEx(limit > 0, () => 'limit must be greater than 0')
+      assertEx(limit <= 100, () => 'limit must be less than 100')
+      const blocks: SignedHydratedBlockWithHashMeta[] = []
+      let current = await this.blockByHash(hash)
+      while (current && blocks.length < limit) {
+        blocks.push(current)
+        const previousHash = current[0].previous
+        if (previousHash === null) break
+        current = await this.blockByHash(previousHash)
+      }
+      return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
+    }, this.tracer)
+  }
+
+  async blocksByNumber(blockNumber: XL1BlockNumber, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
+    return await spanRootAsync('blocksByHash', async () => {
+      assertEx(limit > 0, () => 'limit must be greater than 0')
+      assertEx(limit <= 100, () => 'limit must be less than 100')
+      const blocks: SignedHydratedBlockWithHashMeta[] = []
+      let current = await this.blockByNumber(blockNumber)
+      while (current && blocks.length < limit) {
+        blocks.push(current)
+        if (current[0].block === 0) break
+        const previousNumber = asXL1BlockNumber(current[0].block - 1, true)
+        current = await this.blockByNumber(previousNumber)
+      }
+      return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
+    }, this.tracer)
+  }
+
+  chainId(): Promise<ChainId>
+  chainId(blockNumber: XL1BlockNumber): Promise<ChainId>
+  chainId(blockNumber: 'latest'): Promise<ChainId>
+  async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
+    return await spanRootAsync('chainId', async () => {
+      const block = assertEx(
+        blockNumber === 'latest' ? await this.currentBlock() : await this.blockByNumber(blockNumber),
+        () => `Could not find block for block number ${blockNumber}`,
+      )
+      return block[0].chain
+    })
+  }
+
+  override async createHandler() {
+    await super.createHandler()
+    this.finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
+    this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
+  }
+
+  async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {
+    return await this.finalizationViewer.head()
+  }
+
+  async currentBlockHash(): Promise<Hash> {
+    return await this.finalizationViewer.headHash()
+  }
+
+  async currentBlockNumber(): Promise<XL1BlockNumber> {
+    return await this.finalizationViewer.headNumber()
+  }
+
+  async payloadByHash(hash: Hash): Promise<WithStorageMeta<Payload> | null> {
+    const cachedPayload = await this.payloadCache.get(hash)
+    if (cachedPayload) {
+      return cachedPayload
+    } else {
+      const [result] = await this.finalizedArchivist.get([hash])
+      if (isDefined(result)) {
+        await this.payloadCache.set(hash, result)
+      }
+      return result ?? null
+    }
+  }
+
+  async payloadsByHash(hashes: Hash[]): Promise<WithStorageMeta<Payload>[]> {
+    let remainingHashes = [...hashes]
+    const cachedPayloads = await this.payloadCache.getMany(remainingHashes)
+    const cachedHashes = new Set(cachedPayloads.map(p => p._hash))
+    remainingHashes = remainingHashes.filter(h => !cachedHashes.has(h))
+    const remainingPayloads = remainingHashes.length > 0
+      ? await this.finalizedArchivist.get(remainingHashes)
+      : []
+    return [...cachedPayloads, ...remainingPayloads.filter(exists)]
+  }
+}

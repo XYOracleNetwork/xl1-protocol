@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json.schemastore.org/package.json",
+  "name": "@xyo-network/xl1-network-model",
+  "version": "1.18.0",
+  "description": "XYO Layer One API",
+  "homepage": "https://xylabs.com",
+  "bugs": {
+    "url": "git+https://github.com/xylabs/xyo-chain/issues",
+    "email": "support@xylabs.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xylabs/xyo-chain.git"
+  },
+  "license": "LGPL-3.0-only",
+  "author": {
+    "name": "XY Labs Development Team",
+    "email": "support@xylabs.com",
+    "url": "https://xylabs.com"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./dist/neutral/index.d.ts",
+        "src": "./src/index.ts",
+        "default": "./dist/neutral/index.mjs"
+      },
+      "node": {
+        "types": "./dist/neutral/index.d.ts",
+        "src": "./src/index.ts",
+        "default": "./dist/neutral/index.mjs"
+      },
+      "neutral": {
+        "types": "./dist/neutral/index.d.ts",
+        "src": "./src/index.ts",
+        "default": "./dist/neutral/index.mjs"
+      }
+    }
+  },
+  "module": "./dist/neutral/index.mjs",
+  "types": "./dist/neutral/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "!**/*.bench.*",
+    "!**/*.spec.*",
+    "!**/*.test.*"
+  ],
+  "dependencies": {
+    "@xylabs/sdk-js": "~5.0.61",
+    "@xyo-network/manifest-model": "~5.2.19",
+    "@xyo-network/manifest-wrapper": "~5.2.19",
+    "@xyo-network/module-factory-locator": "~5.2.19",
+    "@xyo-network/node-model": "~5.2.19",
+    "@xyo-network/payload-model": "~5.2.19",
+    "@xyo-network/wallet": "~5.2.19",
+    "@xyo-network/xl1-protocol": "workspace:~"
+  },
+  "devDependencies": {
+    "@types/node": "~25.0.3",
+    "@xylabs/ts-scripts-yarn3": "~7.2.32",
+    "@xylabs/tsconfig": "~7.2.32",
+    "@xylabs/vitest-extended": "~5.0.61",
+    "copyfiles": "~2.4.1",
+    "dotenv": "~17.2.3",
+    "eslint": "^9.39.2",
+    "typescript": "~5.9.3",
+    "vitest": "~4.0.16"
+  },
+  "packageManager": "yarn@4.6.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "volta": {
+    "node": "22.5.1",
+    "yarn": "4.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "src": "./src/index.ts"
+}

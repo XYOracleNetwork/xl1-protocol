@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/XYOracleNetwork/sdk-xyo-client-js/main/packages/manifest/src/schema.json",
+  "nodes": [
+    {
+      "config": {
+        "accountPath": "44'/60'/1",
+        "name": "Network",
+        "schema": "network.xyo.node.config"
+      },
+      "modules": {
+        "private": [],
+        "public": []
+      }
+    }
+  ],
+  "schema": "network.xyo.manifest"
+}

@@ -1,0 +1,14 @@
+import type { Hash } from '@xylabs/sdk-js'
+import type { SignedHydratedBlock, SignedHydratedTransaction } from '@xyo-network/xl1-protocol'
+
+import type { Provider } from '../model/index.ts'
+
+export interface MempoolRunnerMethods {
+  submitBlocks(blocks: SignedHydratedBlock[]): Promise<Hash[]>
+  submitTransactions(transactions: SignedHydratedTransaction[]): Promise<Hash[]>
+}
+
+export const MempoolRunnerMoniker = 'MempoolRunner' as const
+export type MempoolRunnerMoniker = typeof MempoolRunnerMoniker
+
+export interface MempoolRunner extends MempoolRunnerMethods, Provider<MempoolRunnerMoniker> {}

@@ -1,0 +1,40 @@
+import type {
+  InvokerPermission, PermissionRequest, RequestedPermission,
+} from './InvokerPermission.ts'
+
+/**
+ * Handles Getting Permissions
+ */
+export interface PermissionsGetHandler {
+  /**
+   * Returns the permissions that are currently granted
+   *
+   * Per the spec - "The wallet_getPermissions method is used for getting an array of current permissions
+   * (empty by default). It takes no parameters and returns an array of Permission objects."
+   *
+   * See - https://eips.ethereum.org/EIPS/eip-2255#specification
+   */
+  getPermissions(): Promise<InvokerPermission[]>
+}
+
+/**
+ * Handles Permission Requests
+ */
+export interface PermissionRequestsHandler {
+  // Given a permissions request, attempts to request the permissions from the user
+  requestPermissions(permissions: PermissionRequest[]): Promise<RequestedPermission[]>
+  // Given a permissions request, attempts to revoke the permissions from the user
+  revokePermissions(permissions: PermissionRequest): Promise<RequestedPermission[]>
+}
+
+/**
+ * Interface for getting, requesting and revoking permissions
+ *
+ * See - https://eips.ethereum.org/EIPS/eip-2255
+ */
+export interface XyoPermissions extends PermissionsGetHandler, PermissionRequestsHandler {
+
+}
+
+// @deprecated - use XyoPermissions instead
+export interface PermissionsProvider extends XyoPermissions {}

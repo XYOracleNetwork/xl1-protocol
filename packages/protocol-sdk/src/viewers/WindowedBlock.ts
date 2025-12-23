@@ -1,0 +1,17 @@
+import type { Hash } from '@xylabs/hex'
+import type { Promisable } from '@xylabs/sdk-js'
+import type { HydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+
+import type { Provider, ProviderMoniker } from '../model/index.ts'
+import type { BlockViewerMethods } from './Block.ts'
+
+export interface WindowedBlockViewerMethods extends BlockViewerMethods {
+  blocksByTransactionHashes(hashes: Hash[]): Promisable<HydratedBlockWithHashMeta[]>
+}
+
+export const WindowedBlockViewerMoniker = 'WindowedBlockViewer' as const
+export type WindowedBlockViewerMoniker = typeof WindowedBlockViewerMoniker
+
+export interface WindowedBlockViewer<TMoniker extends ProviderMoniker = WindowedBlockViewerMoniker> extends WindowedBlockViewerMethods, Provider<TMoniker> {
+  blockByTransactionHash(hash: Hash): Promisable<HydratedBlockWithHashMeta | null>
+}
