@@ -56,7 +56,7 @@ export const asUnsignedHydratedTransaction = zodAsFactory(UnsignedHydratedTransa
 export const toUnsignedHydratedTransaction = zodToFactory(UnsignedHydratedTransactionZod, 'toUnsignedHydratedTransaction')
 
 export const UnsignedHydratedTransactionWithHashMetaZod = z.tuple([
-  WithHashMetaZod(TransactionBoundWitnessZod),
+  WithHashMetaZod(UnsignedTransactionBoundWitnessZod),
   z.array(WithHashMetaZod(PayloadZodLoose)),
 ])
 
@@ -67,7 +67,7 @@ export const asUnsignedHydratedTransactionWithHashMeta = zodAsFactory(UnsignedHy
 export const toUnsignedHydratedTransactionWithHashMeta = zodToFactory(UnsignedHydratedTransactionWithHashMetaZod, 'toUnsignedHydratedTransactionWithHashMeta')
 
 export const UnsignedHydratedTransactionWithStorageMetaZod = z.tuple([
-  WithStorageMetaZod(TransactionBoundWitnessZod),
+  WithStorageMetaZod(UnsignedTransactionBoundWitnessZod),
   z.array(WithStorageMetaZod(PayloadZodLoose)),
 ])
 
