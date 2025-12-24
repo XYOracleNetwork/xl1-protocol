@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-providers",
-  "version": "1.18.3",
+  "version": "1.18.4",
   "description": "XYO Layer One API",
   "homepage": "https://xylabs.com",
   "bugs": {
