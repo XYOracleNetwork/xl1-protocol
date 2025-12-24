@@ -65,13 +65,13 @@
     "typescript": "~5.9.3",
     "vitest": "~4.0.16"
   },
+  "peerDependencies": {
+    "axios": "^1.13.2"
+  },
   "engines": {
     "node": ">=22.3 <23"
   },
   "engineStrict": true,
-  "peerDependencies": {
-    "axios": "^1.13.2"
-  },
   "publishConfig": {
     "access": "public"
   }
