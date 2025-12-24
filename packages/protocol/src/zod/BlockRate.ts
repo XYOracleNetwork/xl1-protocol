@@ -1,6 +1,7 @@
 import { zodAsFactory, zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
+import { StepSizes } from '../constants/index.ts'
 import { XL1BlockRangeZod } from '../model/index.ts'
 
 export const BlockRateZod = z.object({
@@ -25,4 +26,14 @@ export const TimeDurationsZod = z.object({
   weeks: z.number().nonnegative(),
 })
 
+export const isTimeDurations = zodIsFactory(TimeDurationsZod)
+export const asTimeDurations = zodAsFactory(TimeDurationsZod, 'asTimeDurations')
+export const toTimeDurations = zodAsFactory(TimeDurationsZod, 'toTimeDurations')
+
 export type TimeDurations = z.infer<typeof TimeDurationsZod>
+
+export const CountZod = z.int().nonnegative().describe('A non-negative integer count')
+export type Count = z.infer<typeof CountZod>
+
+export const StepIndexZod = z.int().min(0).max(StepSizes.length).describe('A non-negative integer step index')
+export type StepIndex = z.infer<typeof StepIndexZod>
