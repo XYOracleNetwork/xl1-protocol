@@ -4,8 +4,13 @@ import {
 } from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import {
+  BlockRangeZod,
+  BlockRateZod,
+  CountZod,
   JsonToStakeZod, SignedHydratedBlockWithHashMetaZod,
   SignedHydratedTransactionZod, StakeToJsonZod, StepIdentityZod,
+  StepIndexZod,
+  TimeDurationsZod,
   XL1BlockNumberZod, XL1BlockRangeZod,
 } from '@xyo-network/xl1-protocol'
 import { AccountBalanceHistoryItemZod } from '@xyo-network/xl1-protocol-sdk'
@@ -333,6 +338,26 @@ export const XyoViewerRpcSchemas = {
     result: {
       to: z.array(PayloadZodLoose),
       from: z.array(PayloadZodLoose),
+    },
+  },
+  xyoViewer_rate: {
+    params: {
+      to: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
+    },
+  },
+  xyoViewer_stepSizeRate: {
+    params: {
+      to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRateZod]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
     },
   },
 } satisfies RpcSchemaMap<XyoViewerRpcMethodName>

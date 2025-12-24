@@ -18,10 +18,14 @@ import type {
   Payload, WithHashMeta, WithStorageMeta,
 } from '@xyo-network/payload-model'
 import type {
+  BlockRate,
   ChainId,
+  Count,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransactionWithHashMeta,
   StepIdentity, StepIdentityString,
+  StepIndex,
+  TimeDurations,
   XL1BlockNumber, XL1BlockRange, XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import {
@@ -361,6 +365,10 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     throw new Error('Method [payloadsByHash] not implemented.')
   }
 
+  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.block.rate(range, timeUnit)
+  }
+
   async stakeById(id: number): Promise<Position> {
     return await this.stake.stakeById(id)
   }
@@ -390,6 +398,10 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
 
   async stakesByStaker(staker: Address): Promise<Position[]> {
     return await this.stake.stakesByStaker(staker)
+  }
+
+  async stepSizeRate(start: XL1BlockNumber, stepSizeIndex: StepIndex, count?: Count, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.block.stepSizeRate(start, stepSizeIndex, count, timeUnit)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {

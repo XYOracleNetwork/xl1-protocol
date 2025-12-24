@@ -3,7 +3,9 @@ import {
   asAnyPayload,
   asHashMeta, type Payload, type WithHashMeta,
 } from '@xyo-network/payload-model'
-import type { SignedHydratedBlockWithHashMeta, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import type {
+  BlockRate, Count, SignedHydratedBlockWithHashMeta, StepIndex, TimeDurations, XL1BlockNumber, XL1BlockRange,
+} from '@xyo-network/xl1-protocol'
 import { type BlockViewerMethods, BlockViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
 
 import { BlockViewerRpcSchemas } from '../../../types/index.ts'
@@ -41,6 +43,20 @@ export class JsonRpcBlockViewerMethods extends AbstractJsonRpcViewer<BlockViewer
       [hashes],
     )
     return result.map(p => asHashMeta(p, true)).map(p => asAnyPayload(p, { required: true }))
+  }
+
+  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.transport.sendRequest(
+      'blockViewer_rate',
+      [range, timeUnit],
+    )
+  }
+
+  async stepSizeRate(start: XL1BlockNumber, stepSizeIndex: StepIndex, count?: Count, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.transport.sendRequest(
+      'blockViewer_stepSizeRate',
+      [start, stepSizeIndex, count, timeUnit],
+    )
   }
 
   protected schemas() {

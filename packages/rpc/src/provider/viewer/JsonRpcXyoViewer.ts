@@ -1,15 +1,20 @@
-import type { Address, Hash } from '@xylabs/sdk-js'
+import type {
+  Address, Hash, Promisable,
+} from '@xylabs/sdk-js'
 import { Signed } from '@xyo-network/boundwitness-model'
 import type {
   AttoXL1,
   BlockBoundWitnessWithHashMeta,
+  BlockRate,
   ChainId,
   HydratedBlock,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransaction,
   StepIdentity,
   StepIdentityString,
+  TimeDurations,
   XL1BlockNumber,
+  XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 import {
   isSignedHydratedBlock, isSignedHydratedBlockWithHashMeta,
@@ -248,6 +253,10 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     )).map(p => toWithHashMeta(p, true)))
   }
 
+  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.block.rate(range, timeUnit)
+  }
+
   async stakeById(id: number): Promise<Position> {
     return (await this.transport.sendRequest('xyoViewer_stakeById', [id]))
   }
@@ -262,6 +271,10 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   async stakesByStaker(staker: Address): Promise<Position[]> {
     return (await this.transport.sendRequest('xyoViewer_stakesByStaker', [staker]))
+  }
+
+  async stepSizeRate(start: XL1BlockNumber, stepIndex: number, count?: number, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await this.block.stepSizeRate(start, stepIndex, count, timeUnit)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promise<SignedHydratedTransaction | null> {

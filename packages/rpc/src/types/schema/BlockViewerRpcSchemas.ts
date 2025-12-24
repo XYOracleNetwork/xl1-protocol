@@ -1,6 +1,9 @@
 import { HashZod } from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
-import { SignedHydratedBlockWithHashMetaZod, XL1BlockNumberZod } from '@xyo-network/xl1-protocol'
+import {
+  BlockRangeZod,
+  BlockRateZod, CountZod, SignedHydratedBlockWithHashMetaZod, StepIndexZod, TimeDurationsZod, XL1BlockNumberZod,
+} from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import type { BlockViewerRpcMethodName } from '../BlockViewerRpc.ts'
@@ -45,6 +48,26 @@ export const BlockViewerRpcSchemas = {
     result: {
       to: z.array(PayloadZodLoose),
       from: z.array(PayloadZodLoose),
+    },
+  },
+  blockViewer_rate: {
+    params: {
+      to: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
+    },
+  },
+  blockViewer_stepSizeRate: {
+    params: {
+      to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRateZod]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
     },
   },
 } satisfies RpcSchemaMap<BlockViewerRpcMethodName>

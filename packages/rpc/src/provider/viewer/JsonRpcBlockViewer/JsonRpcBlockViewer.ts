@@ -1,7 +1,9 @@
 import type { Hash } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  ChainId, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
+  ChainId,
+  SignedHydratedBlockWithHashMeta,
+  XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import {
   type BlockViewer, BlockViewerMoniker, creatableProvider,
