@@ -1,7 +1,9 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  ChainId, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
+  BlockRate,
+  ChainId, SignedHydratedBlockWithHashMeta, TimeDurations, XL1BlockNumber,
+  XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
 import type { Provider, ProviderMoniker } from '../model/index.ts'
@@ -11,6 +13,8 @@ export interface BlockViewerMethods {
   blocksByNumber(block: XL1BlockNumber, limit?: number): Promisable<SignedHydratedBlockWithHashMeta[]>
   currentBlock(): Promisable<SignedHydratedBlockWithHashMeta>
   payloadsByHash(hashes: Hash[]): Promisable<WithHashMeta<Payload>[]>
+  rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promisable<BlockRate>
+  stepSizeRate(start: XL1BlockNumber, stepIndex: number, count?: number, timeUnit?: keyof TimeDurations): Promisable<BlockRate>
 }
 
 export const BlockViewerMoniker = 'BlockViewer' as const
