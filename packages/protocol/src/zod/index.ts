@@ -1,5 +1,6 @@
 export * from './ArrayBuffer.ts'
 export * from './block/index.ts'
+export * from './BlockRate.ts'
 export * from './Chain.ts'
 export * from './HydratedBlock.ts'
 export * from './HydratedTransaction.ts'
