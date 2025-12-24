@@ -3491,7 +3491,7 @@ __metadata:
     dotenv: "npm:~17.2.3"
     eslint: "npm:~9.39.2"
     eslint-import-resolver-typescript: "npm:~4.4.4"
-    knip: "npm:~5.76.3"
+    knip: "npm:~5.77.1"
     typescript: "npm:~5.9.3"
     vite: "npm:~7.3.0"
     vite-tsconfig-paths: "npm:~6.0.3"
@@ -3612,7 +3612,7 @@ __metadata:
     dotenv: "npm:~17.2.3"
     eslint: "npm:~9.39.2"
     eslint-import-resolver-typescript: "npm:~4.4.4"
-    knip: "npm:~5.76.3"
+    knip: "npm:~5.77.1"
     typescript: "npm:~5.9.3"
     vite: "npm:~7.3.0"
     vite-tsconfig-paths: "npm:~6.0.3"
@@ -5956,9 +5956,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knip@npm:~5.76.3":
-  version: 5.76.3
-  resolution: "knip@npm:5.76.3"
+"knip@npm:~5.77.1":
+  version: 5.77.1
+  resolution: "knip@npm:5.77.1"
   dependencies:
     "@nodelib/fs.walk": "npm:^1.2.3"
     fast-glob: "npm:^3.3.3"
@@ -5978,7 +5978,7 @@ __metadata:
   bin:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
-  checksum: 10/298d71d5d3da4d2b8cbc8ba79fcccc3330a5cdc2a61ca35cb10292bda31652ac2202ef8eb69ff20020454d99ce543265f5e018c9de1afe5d08bc3b24d7e3bb07
+  checksum: 10/88fdcbb2d6d74aca87abf5ae05188419c5c826254b9d0da5baf9ca2454dd8c0904c3a8ef21c128b42c9d7aaec1510d167bc88566516610e44849d0c94eed5180
   languageName: node
   linkType: hard
 
