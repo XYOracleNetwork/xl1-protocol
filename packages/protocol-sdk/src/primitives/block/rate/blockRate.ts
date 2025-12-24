@@ -1,11 +1,10 @@
 import { isDefined, isFalsy } from '@xylabs/sdk-js'
 import type {
-  BlockRate, HydratedBlock, XL1BlockNumber, XL1BlockRange,
+  BlockRate, HydratedBlock, TimeDurations, XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
 import type { BlockViewer } from '../../../viewers/index.ts'
-import type { TimeDurations } from './timeHelpers.ts'
 import { rateMultipliers, timeDurations } from './timeHelpers.ts'
 
 export const blockRate = (
