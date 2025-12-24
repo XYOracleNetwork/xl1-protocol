@@ -81,12 +81,16 @@
     "@xyo-network/node-model": "~5.2.19",
     "@xyo-network/payload-model": "~5.2.19",
     "@xyo-network/typechain": "~4.0.11",
+    "axios": "^1.13.2",
     "dotenv": "~17.2.3",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
     "vitest": "~4.0.16"
   },
   "packageManager": "yarn@4.6.0",
+  "peerDependencies": {
+    "axios": "^1.13.2"
+  },
   "engines": {
     "node": ">=22"
   },

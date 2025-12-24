@@ -5,7 +5,9 @@ import type { HydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import type { Provider, ProviderMoniker } from '../model/index.ts'
 import type { BlockViewerMethods } from './Block.ts'
 
-export interface WindowedBlockViewerMethods extends BlockViewerMethods {
+type ExtendableBlockViewerMethods = Omit<BlockViewerMethods, 'rate' | 'stepSizeRate'>
+
+export interface WindowedBlockViewerMethods extends ExtendableBlockViewerMethods {
   blocksByTransactionHashes(hashes: Hash[]): Promisable<HydratedBlockWithHashMeta[]>
 }
 

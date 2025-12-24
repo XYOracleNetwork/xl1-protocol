@@ -12,10 +12,13 @@ import {
   asSignedHydratedBlockWithHashMeta,
   asSignedHydratedBlockWithStorageMeta,
   asXL1BlockNumber,
+  BlockRate,
   ChainId,
   type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta,
+  TimeDurations,
   type XL1BlockNumber,
+  XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
 import { hydrateBlock } from '../../block/index.ts'
@@ -26,7 +29,9 @@ import type {
   ChainContextRead,
   ChainStoreRead, PayloadMap,
 } from '../../model/index.ts'
-import { hydratedBlockByNumber, readPayloadMapFromStore } from '../../primitives/index.ts'
+import {
+  calculateBlockRate, calculateStepSizeRate, hydratedBlockByNumber, readPayloadMapFromStore,
+} from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 import {
   type BlockViewer, BlockViewerMoniker, FinalizationViewer, FinalizationViewerMoniker,
@@ -193,5 +198,13 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
       ? await this.finalizedArchivist.get(remainingHashes)
       : []
     return [...cachedPayloads, ...remainingPayloads.filter(exists)]
+  }
+
+  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await calculateBlockRate(this, range, timeUnit)
+  }
+
+  async stepSizeRate(start: XL1BlockNumber, stepIndex: number, count = 1, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await calculateStepSizeRate(this, start, stepIndex, count, timeUnit)
   }
 }
