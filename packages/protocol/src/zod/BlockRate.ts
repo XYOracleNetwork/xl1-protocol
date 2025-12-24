@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
 import { zodAsFactory, zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
@@ -17,11 +16,13 @@ export const isBlockRate = zodIsFactory(BlockRateZod)
 export const asBlockRate = zodAsFactory(BlockRateZod, 'asBlockRate')
 export const toBlockRate = zodAsFactory(BlockRateZod, 'toBlockRate')
 
-export type TimeDurations = {
-  millis: number
-  seconds: number
-  minutes: number
-  hours: number
-  days: number
-  weeks: number
-}
+export const TimeDurationsZod = z.object({
+  millis: z.number().nonnegative(),
+  seconds: z.number().nonnegative(),
+  minutes: z.number().nonnegative(),
+  hours: z.number().nonnegative(),
+  days: z.number().nonnegative(),
+  weeks: z.number().nonnegative(),
+})
+
+export type TimeDurations = z.infer<typeof TimeDurationsZod>
