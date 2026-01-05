@@ -48,7 +48,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "src/amount/specs/Xl1Amount.spec.ts"
+        "packages/protocol-sdk/src/primitives/block/rate/spec/timeRate.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [
