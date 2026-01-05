@@ -13,15 +13,18 @@ import type { BlockViewer } from '../../../viewers/index.ts'
 import { calculateBlockRate } from './blockRate.ts'
 import { getTimeConfigInMilliseconds } from './timeHelpers.ts'
 
+export const DEFAULT_TOLERANCE_MS = 30_000 // 30 seconds
+export const DEFAULT_MAX_ATTEMPTS = 10
+
 export const calculateTimeRate = async (
   viewer: BlockViewer,
   timeConfig: SingleTimeConfig,
   startBlockNumber?: XL1BlockNumber,
   timeUnit?: keyof TimeDurations,
   // default tolerance of 30 seconds to cut down on iterations
-  toleranceMs = 30_000,
+  toleranceMs = DEFAULT_TOLERANCE_MS,
   // maximum recursive attempts to prevent infinite loops
-  maxAttempts = 10,
+  maxAttempts = DEFAULT_MAX_ATTEMPTS,
 ) => {
   // check the time config has only one key
   assertEx(Object.keys(timeConfig ?? {}).length === 1, () => 'Only one time unit should be specified in timeConfig')
@@ -36,7 +39,7 @@ export const calculateTimeRate = async (
   assertEx(timeInMilliseconds > 0, () => 'Time duration must be greater than zero')
 
   // Estimate blocks per milliseconds (bpm) based on average block time
-  const blocksPerMillisecondRate = 1 / 340.16 // Approximate average block time of 340.16 ms
+  const blocksPerMillisecondRate = 1 / (12 * 1000) // Approximate average block time of 12 seconds
 
   // Calculate the number of blocks in the given time duration
   const initialBlocksInDuration = Math.floor(blocksPerMillisecondRate * timeInMilliseconds)
@@ -66,10 +69,14 @@ const findEndBlockRecursive = async (
   toleranceMs: number,
   attemptsRemaining: number,
 ): Promise<XL1BlockNumber> => {
+  console.log(`Attempts remaining: ${attemptsRemaining}, Estimated blocks back: ${estimatedBlocksBack}`)
   assertEx(attemptsRemaining > 0, () => 'Maximum attempts reached while searching for end block')
 
   const startBlockEpoch = startBlock.$epoch
   const estimatedEndBlockNumber = asXL1BlockNumber(startBlock.block - estimatedBlocksBack, true)
+  if (estimatedEndBlockNumber < 0) {
+    throw new Error('Estimated end block number is less than zero')
+  }
 
   // Fetch the estimated end block
   const endBlock = await viewer.blockByNumber(estimatedEndBlockNumber)
