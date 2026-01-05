@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-network-model",
-  "version": "1.18.4",
+  "version": "1.18.5",
   "description": "XYO Layer One API",
   "homepage": "https://xylabs.com",
   "bugs": {
