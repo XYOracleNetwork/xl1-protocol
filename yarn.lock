@@ -3447,6 +3447,7 @@ __metadata:
     "@xyo-network/wallet": "npm:~5.2.19"
     "@xyo-network/wallet-model": "npm:~5.2.19"
     "@xyo-network/xl1-protocol": "npm:~1.18.4"
+    "@xyo-network/xl1-providers": "npm:~1.18.5"
     async-mutex: "npm:~0.5.0"
     axios: "npm:^1.13.2"
     eslint: "npm:^9.39.2"
@@ -3500,7 +3501,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-providers@npm:~1.18.4, @xyo-network/xl1-providers@workspace:packages/providers":
+"@xyo-network/xl1-providers@npm:~1.18.4, @xyo-network/xl1-providers@npm:~1.18.5, @xyo-network/xl1-providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-providers@workspace:packages/providers"
   dependencies:

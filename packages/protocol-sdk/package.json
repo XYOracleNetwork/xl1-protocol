@@ -68,6 +68,7 @@
     "@xyo-network/archivist-memory": "~5.2.19",
     "@xyo-network/archivist-mongodb": "~5.2.19",
     "@xyo-network/boundwitness-validator": "~5.2.19",
+    "@xyo-network/xl1-providers": "~1.18.5",
     "axios": "^1.13.2",
     "eslint": "^9.39.2",
     "tslib": "^2.8.1",

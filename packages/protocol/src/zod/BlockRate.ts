@@ -37,3 +37,35 @@ export type Count = z.infer<typeof CountZod>
 
 export const StepIndexZod = z.int().min(0).max(StepSizes.length).describe('A non-negative integer step index')
 export type StepIndex = z.infer<typeof StepIndexZod>
+
+const timeUnitSchema = z.number().positive()
+
+export const TimeConfigZod = z.object({
+  minutes: timeUnitSchema.optional(),
+  hours: timeUnitSchema.optional(),
+  days: timeUnitSchema.optional(),
+  weeks: timeUnitSchema.optional(),
+  months: timeUnitSchema.optional(),
+  years: timeUnitSchema.optional(),
+}).describe('Time configuration with optional time units')
+
+export type TimeConfig = z.infer<typeof TimeConfigZod>
+
+export const isTimeConfig = zodIsFactory(TimeConfigZod)
+export const asTimeConfig = zodAsFactory(TimeConfigZod, 'asTimeConfig')
+export const toTimeConfig = zodAsFactory(TimeConfigZod, 'toTimeConfig')
+
+export const SingleTimeConfigZod = z.union([
+  z.object({ minutes: timeUnitSchema }),
+  z.object({ hours: timeUnitSchema }),
+  z.object({ days: timeUnitSchema }),
+  z.object({ weeks: timeUnitSchema }),
+  z.object({ months: timeUnitSchema }),
+  z.object({ years: timeUnitSchema }),
+]).describe('Time configuration with exactly one time unit')
+
+export type SingleTimeConfig = z.infer<typeof SingleTimeConfigZod>
+
+export const isSingleTimeConfig = zodIsFactory(SingleTimeConfigZod)
+export const asSingleTimeConfig = zodAsFactory(SingleTimeConfigZod, 'asSingleTimeConfig')
+export const toSingleTimeConfig = zodAsFactory(SingleTimeConfigZod, 'toSingleTimeConfig')
