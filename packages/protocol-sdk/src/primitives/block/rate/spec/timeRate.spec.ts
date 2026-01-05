@@ -10,13 +10,14 @@ import {
 import { type BlockViewer, BlockViewerMoniker } from '../../../../viewers/index.ts'
 import { rateMultipliers } from '../timeHelpers.ts'
 import { calculateTimeRate, DEFAULT_TOLERANCE_MS } from '../timeRate.ts'
+import { SkipRateSpecs } from './Config.ts'
 
 // ideally this would call to mainnet or sequence to get finalized blocks that won't change
 // that can happen once sdk 1.18.x is released with the new rpc changes
 // and we can update the block ranges to something static for all time
 const endpoint = 'http://localhost:8080/rpc'
 
-describe('calculateTimeRate', () => {
+describe.skipIf(SkipRateSpecs)('calculateTimeRate', () => {
   let viewer: BlockViewer
 
   beforeEach(async () => {
