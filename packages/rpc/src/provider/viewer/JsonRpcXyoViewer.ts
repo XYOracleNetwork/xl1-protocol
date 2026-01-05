@@ -1,6 +1,4 @@
-import type {
-  Address, Hash, Promisable,
-} from '@xylabs/sdk-js'
+import type { Address, Hash } from '@xylabs/sdk-js'
 import { Signed } from '@xyo-network/boundwitness-model'
 import type {
   AttoXL1,
