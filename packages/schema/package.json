@@ -46,7 +46,7 @@
     "@xyo-network/payload-model": "~5.2.19",
     "@xyo-network/payload-wrapper": "~5.2.19",
     "@xyo-network/schema-payload-plugin": "~5.2.19",
-    "@xyo-network/xl1-protocol": "workspace:~"
+    "@xyo-network/xl1-protocol": "~1.18.4"
   },
   "devDependencies": {
     "@types/node": "~25.0.3",

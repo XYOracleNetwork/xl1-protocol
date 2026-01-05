@@ -44,9 +44,9 @@
     "@xyo-network/boundwitness-validator": "~5.2.19",
     "@xyo-network/payload-builder": "~5.2.19",
     "@xyo-network/payload-model": "~5.2.19",
-    "@xyo-network/xl1-protocol": "workspace:~",
-    "@xyo-network/xl1-protocol-sdk": "workspace:~",
-    "@xyo-network/xl1-validation": "workspace:~"
+    "@xyo-network/xl1-protocol": "~1.18.4",
+    "@xyo-network/xl1-protocol-sdk": "~1.18.4",
+    "@xyo-network/xl1-validation": "~1.18.4"
   },
   "devDependencies": {
     "@types/node": "~25.0.3",

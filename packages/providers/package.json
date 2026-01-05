@@ -64,9 +64,9 @@
     "@xyo-network/archivist-model": "~5.2.19",
     "@xyo-network/boundwitness-model": "~5.2.19",
     "@xyo-network/diviner-model": "~5.2.19",
-    "@xyo-network/xl1-protocol": "workspace:~",
-    "@xyo-network/xl1-protocol-sdk": "workspace:~",
-    "@xyo-network/xl1-rpc": "workspace:~"
+    "@xyo-network/xl1-protocol": "~1.18.4",
+    "@xyo-network/xl1-protocol-sdk": "~1.18.4",
+    "@xyo-network/xl1-rpc": "~1.18.4"
   },
   "devDependencies": {
     "@opentelemetry/api": "^1.9.0",
