@@ -1,0 +1,7 @@
+{
+  "extends": "@xylabs/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"]
+}

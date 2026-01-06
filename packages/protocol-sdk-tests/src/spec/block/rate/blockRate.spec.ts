@@ -1,4 +1,7 @@
 import { asXL1BlockRange } from '@xyo-network/xl1-protocol'
+import {
+  type BlockViewer, BlockViewerMoniker, calculateBlockRate,
+} from '@xyo-network/xl1-protocol-sdk'
 import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'
 import type { RpcSchemaMap, TransportFactory } from '@xyo-network/xl1-rpc'
 import { HttpRpcTransport } from '@xyo-network/xl1-rpc'
@@ -6,8 +9,6 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import { type BlockViewer, BlockViewerMoniker } from '../../../../viewers/index.ts'
-import { calculateBlockRate } from '../blockRate.ts'
 import { SkipRateSpecs } from './Config.ts'
 
 // ideally this would call to mainnet or sequence to get finalized blocks that won't change

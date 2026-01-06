@@ -8,7 +8,7 @@ import {
   BlockRateZod,
   CountZod,
   JsonToStakeZod, SignedHydratedBlockWithHashMetaZod,
-  SignedHydratedTransactionZod, StakeToJsonZod, StepIdentityZod,
+  SignedHydratedTransactionZod, SingleTimeConfigZod, StakeToJsonZod, StepIdentityZod,
   StepIndexZod,
   TimeDurationsZod,
   XL1BlockNumberZod, XL1BlockRangeZod,
@@ -353,6 +353,16 @@ export const XyoViewerRpcSchemas = {
   xyoViewer_stepSizeRate: {
     params: {
       to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRateZod]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
+    },
+  },
+  xyoViewer_timeDurationRate: {
+    params: {
+      to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional(), z.number().optional(), z.number().optional()]),
       from: z.tuple([BlockRateZod]),
     },
     result: {
