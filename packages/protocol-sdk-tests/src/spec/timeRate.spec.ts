@@ -1,5 +1,9 @@
 import type { SingleTimeConfig } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
+import {
+  type BlockViewer, BlockViewerMoniker,
+  calculateTimeRate, DEFAULT_TOLERANCE_MS, rateMultipliers,
+} from '@xyo-network/xl1-protocol-sdk'
 import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'
 import type { RpcSchemaMap, TransportFactory } from '@xyo-network/xl1-rpc'
 import { HttpRpcTransport } from '@xyo-network/xl1-rpc'
@@ -7,10 +11,7 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import { type BlockViewer, BlockViewerMoniker } from '../../../../viewers/index.ts'
-import { rateMultipliers } from '../timeHelpers.ts'
-import { calculateTimeRate, DEFAULT_TOLERANCE_MS } from '../timeRate.ts'
-import { SkipRateSpecs } from './Config.ts'
+import { SkipRateSpecs } from './block/rate/Config.ts'
 
 // ideally this would call to mainnet or sequence to get finalized blocks that won't change
 // that can happen once sdk 1.18.x is released with the new rpc changes
