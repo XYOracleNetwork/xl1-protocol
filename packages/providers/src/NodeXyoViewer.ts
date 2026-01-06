@@ -23,6 +23,7 @@ import type {
   Count,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransactionWithHashMeta,
+  SingleTimeConfig,
   StepIdentity, StepIdentityString,
   StepIndex,
   TimeDurations,
@@ -402,6 +403,16 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
 
   async stepSizeRate(start: XL1BlockNumber, stepSizeIndex: StepIndex, count?: Count, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
     return await this.block.stepSizeRate(start, stepSizeIndex, count, timeUnit)
+  }
+
+  async timeDurationRate(
+    timeConfig: SingleTimeConfig,
+    startBlock: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
+  ): Promise<BlockRate> {
+    return await this.block.timeDurationRate(timeConfig, startBlock, timeUnit, toleranceMs, maxAttempts)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {

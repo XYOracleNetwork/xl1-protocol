@@ -15,7 +15,13 @@ export interface BlockViewerMethods {
   payloadsByHash(hashes: Hash[]): Promisable<WithHashMeta<Payload>[]>
   rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promisable<BlockRate>
   stepSizeRate(start: XL1BlockNumber, stepIndex: number, count?: number, timeUnit?: keyof TimeDurations): Promisable<BlockRate>
-  timeDurationRate(timeConfig: SingleTimeConfig, startBlockNumber?: XL1BlockNumber, timeUnit?: keyof TimeDurations): Promisable<BlockRate>
+  timeDurationRate(
+    timeConfig: SingleTimeConfig,
+    startBlockNumber?: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
+  ): Promisable<BlockRate>
 }
 
 export const BlockViewerMoniker = 'BlockViewer' as const
