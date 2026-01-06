@@ -362,7 +362,7 @@ export const XyoViewerRpcSchemas = {
   },
   xyoViewer_timeDurationRate: {
     params: {
-      to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional()]),
+      to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional(), z.number().optional(), z.number().optional()]),
       from: z.tuple([BlockRateZod]),
     },
     result: {

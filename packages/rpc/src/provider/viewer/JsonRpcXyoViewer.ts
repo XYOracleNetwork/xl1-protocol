@@ -276,8 +276,14 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return await this.block.stepSizeRate(start, stepIndex, count, timeUnit)
   }
 
-  async timeDurationRate(timeConfig: SingleTimeConfig, startBlockNumber?: XL1BlockNumber, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
-    return await this.block.timeDurationRate(timeConfig, startBlockNumber, timeUnit)
+  async timeDurationRate(
+    timeConfig: SingleTimeConfig,
+    startBlockNumber?: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
+  ): Promise<BlockRate> {
+    return await this.block.timeDurationRate(timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promise<SignedHydratedTransaction | null> {

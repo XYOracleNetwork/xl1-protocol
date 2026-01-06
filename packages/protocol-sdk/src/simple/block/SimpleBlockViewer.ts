@@ -209,7 +209,13 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     return await calculateStepSizeRate(this, start, stepIndex, count, timeUnit)
   }
 
-  async timeDurationRate(timeConfig: SingleTimeConfig, startBlockNumber?: XL1BlockNumber, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
-    return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit)
+  async timeDurationRate(
+    timeConfig: SingleTimeConfig,
+    startBlockNumber?: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
+  ): Promise<BlockRate> {
+    return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts)
   }
 }

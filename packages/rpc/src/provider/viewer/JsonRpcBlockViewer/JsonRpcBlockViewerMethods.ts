@@ -63,10 +63,12 @@ export class JsonRpcBlockViewerMethods extends AbstractJsonRpcViewer<BlockViewer
     timeConfig: Record<keyof TimeDurations, number>,
     startBlockNumber?: XL1BlockNumber,
     timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
   ): Promise<BlockRate> {
     return await this.transport.sendRequest(
       'blockViewer_timeDurationRate',
-      [timeConfig, startBlockNumber, timeUnit],
+      [timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts],
     )
   }
 
