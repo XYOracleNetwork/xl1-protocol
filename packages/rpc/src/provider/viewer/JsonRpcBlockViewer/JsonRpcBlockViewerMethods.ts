@@ -59,6 +59,17 @@ export class JsonRpcBlockViewerMethods extends AbstractJsonRpcViewer<BlockViewer
     )
   }
 
+  async timeDurationRate(
+    timeConfig: Record<keyof TimeDurations, number>,
+    startBlockNumber?: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+  ): Promise<BlockRate> {
+    return await this.transport.sendRequest(
+      'blockViewer_timeDurationRate',
+      [timeConfig, startBlockNumber, timeUnit],
+    )
+  }
+
   protected schemas() {
     return BlockViewerRpcSchemas
   }

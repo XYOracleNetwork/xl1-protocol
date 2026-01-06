@@ -16,6 +16,7 @@ import {
   ChainId,
   type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta,
+  SingleTimeConfig,
   TimeDurations,
   type XL1BlockNumber,
   XL1BlockRange,
@@ -30,7 +31,7 @@ import type {
   ChainStoreRead, PayloadMap,
 } from '../../model/index.ts'
 import {
-  calculateBlockRate, calculateStepSizeRate, hydratedBlockByNumber, readPayloadMapFromStore,
+  calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber, readPayloadMapFromStore,
 } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 import {
@@ -206,5 +207,9 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   async stepSizeRate(start: XL1BlockNumber, stepIndex: number, count = 1, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
     return await calculateStepSizeRate(this, start, stepIndex, count, timeUnit)
+  }
+
+  async timeDurationRate(timeConfig: SingleTimeConfig, startBlockNumber?: XL1BlockNumber, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit)
   }
 }
