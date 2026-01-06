@@ -2,7 +2,7 @@ import { HashZod } from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import {
   BlockRangeZod,
-  BlockRateZod, CountZod, SignedHydratedBlockWithHashMetaZod, StepIndexZod, TimeDurationsZod, XL1BlockNumberZod,
+  BlockRateZod, CountZod, SignedHydratedBlockWithHashMetaZod, SingleTimeConfigZod, StepIndexZod, TimeDurationsZod, XL1BlockNumberZod,
 } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
@@ -63,6 +63,16 @@ export const BlockViewerRpcSchemas = {
   blockViewer_stepSizeRate: {
     params: {
       to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
+      from: z.tuple([BlockRateZod]),
+    },
+    result: {
+      to: BlockRateZod,
+      from: BlockRateZod,
+    },
+  },
+  blockViewer_timeDurationRate: {
+    params: {
+      to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional()]),
       from: z.tuple([BlockRateZod]),
     },
     result: {
