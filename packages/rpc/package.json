@@ -50,8 +50,6 @@
   "scripts": {
     "build": "xy build-package",
     "build-tests": "tsc --noEmit --lib dom,esnext",
-    "deploy": "echo Deploy not allowed!",
-    "deploy3": "echo Deploy3 not allowed!",
     "start-esm": "node ./dist/node/index.mjs",
     "test": "vitest run",
     "test:ci": "vitest run",
