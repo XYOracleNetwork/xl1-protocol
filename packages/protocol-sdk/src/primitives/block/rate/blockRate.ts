@@ -24,6 +24,7 @@ export const blockRate = (
     range: asXL1BlockRange([startingBlock.block, endingBlock.block], true),
     span: heightDifference,
     rate: isDefined(timeUnit) ? rate * rateMultipliers[timeUnit] : rate,
+    rateUnit: isDefined(timeUnit) ? timeUnit : 'millis',
     timeDifference: isDefined(timeUnit) ? timeDurations(timeDifference)[timeUnit] : timeDifference,
   }
 }
