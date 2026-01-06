@@ -3432,6 +3432,7 @@ __metadata:
     "@xyo-network/xl1-protocol-sdk": "npm:~1.18.7"
     "@xyo-network/xl1-providers": "npm:~1.18.7"
     "@xyo-network/xl1-rpc": "npm:~1.18.7"
+    axios: "npm:^1.13.2"
     typescript: "npm:~5.9.3"
     vitest: "npm:~4.0.16"
   languageName: unknown
