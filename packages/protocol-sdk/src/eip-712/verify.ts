@@ -1,6 +1,6 @@
 import { asHash, isUndefined } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { verifyTypedData } from 'ethers/hash'
+import { verifyTypedData } from 'ethers'
 
 import type { EIP712DataPayload, EIP712SignaturePayload } from './Payloads/index.ts'
 

@@ -1,5 +1,5 @@
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { Signer } from 'ethers/providers'
+import type { Signer } from 'ethers'
 
 import {
   type EIP712DataPayload, type EIP712SignaturePayload, EIP712SignaturePayloadSchema,
