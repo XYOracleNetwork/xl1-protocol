@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol-sdk-tests",
-  "version": "1.18.9",
+  "version": "1.18.10",
   "private": true,
   "description": "XYO Layer One SDK Protocol Tests",
   "homepage": "https://xylabs.com",
@@ -36,10 +36,10 @@
     "@types/node": "~25.0.3",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
-    "@xyo-network/xl1-protocol": "~1.18.9",
-    "@xyo-network/xl1-protocol-sdk": "~1.18.9",
-    "@xyo-network/xl1-providers": "~1.18.9",
-    "@xyo-network/xl1-rpc": "~1.18.9",
+    "@xyo-network/xl1-protocol": "~1.18.10",
+    "@xyo-network/xl1-protocol-sdk": "~1.18.10",
+    "@xyo-network/xl1-providers": "~1.18.10",
+    "@xyo-network/xl1-rpc": "~1.18.10",
     "axios": "^1.13.2",
     "typescript": "~5.9.3",
     "vitest": "~4.0.16"
