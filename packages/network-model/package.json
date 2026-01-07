@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-network-model",
-  "version": "1.18.8",
+  "version": "1.18.9",
   "description": "XYO Layer One API",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -56,7 +56,7 @@
     "@xyo-network/node-model": "~5.2.19",
     "@xyo-network/payload-model": "~5.2.19",
     "@xyo-network/wallet": "~5.2.19",
-    "@xyo-network/xl1-protocol": "~1.18.8"
+    "@xyo-network/xl1-protocol": "~1.18.9"
   },
   "devDependencies": {
     "@types/node": "~25.0.3",
