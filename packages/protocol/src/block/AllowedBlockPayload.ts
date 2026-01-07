@@ -17,8 +17,7 @@ import {
 import { isTransactionBoundWitness, type TransactionBoundWitness } from '../zod/index.ts'
 
 export type AllowedBlockPayload
-  = Transfer
-    | BridgeDestinationObservation
+  = | BridgeDestinationObservation
     | BridgeIntent
     | BridgeSourceObservation
     | ChainStakeIntent
@@ -27,6 +26,7 @@ export type AllowedBlockPayload
     | StepComplete
     | TimePayload
     | TransactionBoundWitness
+    | Transfer
 
 export const AllowedBlockPayloadSchemas = [
   BoundWitnessSchema,
@@ -41,7 +41,7 @@ export const AllowedBlockPayloadSchemas = [
   TransferSchema,
 ] satisfies Schema[]
 
-export const AllowedBlockPayloadSchemaZod = z.enum(['a', 'b'])
+export const AllowedBlockPayloadSchemaZod = z.enum(AllowedBlockPayloadSchemas)
 export type AllowedBlockPayloadSchema = z.infer<typeof AllowedBlockPayloadSchemaZod>
 export const isAllowedBlockPayloadSchema = zodIsFactory(AllowedBlockPayloadSchemaZod)
 

@@ -1,4 +1,4 @@
-import { Wallet } from 'ethers/wallet'
+import { Wallet } from 'ethers'
 
 import type { EIP712DataPayload } from '../Payloads/index.ts'
 import { EIP712DataPayloadSchema } from '../Payloads/index.ts'
