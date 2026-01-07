@@ -95,6 +95,20 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
   }
 
   private async purgeIfInvalid(tx: HydratedTransactionWithHashMeta) {
+    const currentBlock = await this.windowedBlockViewer.currentBlock()
+    const currentBlockNumber = currentBlock[0].block
+    const nextBlockNumber = currentBlockNumber + 1
+    const { exp, nbf } = tx[0]
+    // If it's not time yet, keep it
+    if (nextBlockNumber < nbf) {
+      return true
+    }
+    // If it's expired, purge it
+    if (nextBlockNumber > exp) {
+      await this.pendingTransactionsArchivist.delete([tx[0]._hash])
+      return true
+    }
+    // If it's already included in a block, purge it
     const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
     if (existingBlock) {
       await this.pendingTransactionsArchivist.delete([tx[0]._hash])
