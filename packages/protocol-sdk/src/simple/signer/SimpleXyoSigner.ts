@@ -22,9 +22,9 @@ export interface SimpleXyoSignerParams extends CreatableProviderParams {
 
 export class SimpleXyoSigner extends AbstractCreatableProvider<SimpleXyoSignerParams> implements XyoSigner {
   static readonly defaultMoniker = XyoSignerMoniker
+  static readonly dependencies = []
   static readonly monikers = [XyoSignerMoniker]
   moniker = SimpleXyoSigner.defaultMoniker
-  protected readonly _account!: AccountInstance
 
   static override async paramsHandler(params?: Partial<SimpleXyoSignerParams>) {
     let account: AccountInstance
@@ -42,9 +42,10 @@ export class SimpleXyoSigner extends AbstractCreatableProvider<SimpleXyoSignerPa
   }
 
   address(): Promisable<Address> {
-    return this._account.address
+    return this.params.account.address
   }
 
+  /** @deprecated - use signTransaction instead */
   async createSignedTransaction(
     chain: ChainId,
     elevatedPayloads: AllowedBlockPayload[],
@@ -54,12 +55,12 @@ export class SimpleXyoSigner extends AbstractCreatableProvider<SimpleXyoSignerPa
     fees: TransactionFeesBigInt,
     from?: Address,
   ): Promise<SignedTransactionBoundWitness> {
-    const fromAddress = from ?? this._account.address
+    const fromAddress = from ?? await this.address()
     const transaction = await buildTransaction(
       chain,
       elevatedPayloads,
       additionalPayloads,
-      this._account,
+      this.params.account,
       nbf,
       exp,
       fromAddress,
@@ -69,7 +70,7 @@ export class SimpleXyoSigner extends AbstractCreatableProvider<SimpleXyoSignerPa
   }
 
   async signTransaction(tx: [UnsignedTransactionBoundWitness, Payload[]]): Promise<SignedHydratedTransactionWithHashMeta> {
-    const txBW = await signTransaction(tx[0], this._account)
+    const txBW = await signTransaction(tx[0], this.params.account)
     return SignedHydratedTransactionWithHashMetaZod.parse([await PayloadBuilder.addStorageMeta(txBW), await PayloadBuilder.addStorageMeta(tx[1])])
   }
 }

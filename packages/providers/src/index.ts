@@ -1,4 +1,5 @@
 export * from './buildProviderLocator.ts'
+export * from './buildSimpleXyoSigner.ts'
 export * from './NodeXyoViewer.ts'
 export * from './SimpleNetworkStakeViewer.ts'
 export * from './SimpleStepRewardsByPositionViewer.ts'
