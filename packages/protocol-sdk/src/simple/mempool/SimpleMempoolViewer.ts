@@ -3,7 +3,7 @@ import {
 } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import {
-  isHashMeta, isPayloadBundle, type Sequence,
+  HashMeta, isHashMeta, isPayloadBundle, PayloadBundle, type Sequence,
 } from '@xyo-network/payload-model'
 import type {
   HydratedTransactionWithHashMeta, SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta,
@@ -16,6 +16,13 @@ import { bundledPayloadToHydratedBlock, bundledPayloadToHydratedTransaction } fr
 import {
   type MempoolViewer, MempoolViewerMoniker, type PendingTransactionsOptions, WindowedBlockViewer, WindowedBlockViewerMoniker,
 } from '../../viewers/index.ts'
+
+type PayloadBundleWithHashMeta = PayloadBundle & HashMeta
+
+type HydratedTxWithBundle = {
+  bundle: PayloadBundleWithHashMeta
+  tx: SignedHydratedTransactionWithHashMeta
+}
 
 export interface SimpleMempoolViewerParams extends CreatableProviderParams {
   pendingBlocksArchivist: ArchivistInstance
@@ -73,21 +80,52 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     }
     this.logger?.info(`Fetching pending transactions from cursor: ${cursor}`)
     const bundles = await this.pendingTransactionsArchivist.next({
-      order: 'asc', limit, cursor,
+      order: 'asc',
+      limit,
+      cursor,
     })
     this.logger?.info(`Fetched pending transactions: ${bundles.length} bundles`)
-    const filteredBundles = bundles.filter(isPayloadBundle).filter(isHashMeta)
-    this.logger?.info(`Filtered pending transactions: ${JSON.stringify(bundles, null, 2)} filteredBundles`)
-    const result = (await Promise.all(filteredBundles.map(async bundle => await bundledPayloadToHydratedTransaction(bundle)))).filter(exists)
-    this.logger?.info(`Converted pending transactions: ${JSON.stringify(result, null, 2)} results`)
-    return (await Promise.all(result.map(async (tx) => {
-      const purged = await this.purgeIfInvalid(tx)
-      if (purged) {
-        this.logger?.info(`Purged completed/invalid transaction: ${tx[0]._hash}`)
-      } else {
-        return tx
-      }
+
+    const filteredBundles: PayloadBundleWithHashMeta[] = bundles.filter(isPayloadBundle).filter(isHashMeta)
+    this.logger?.info(`Filtered pending transactions: ${JSON.stringify(filteredBundles, null, 2)} filteredBundles`)
+
+    const hydratedWithBundle: HydratedTxWithBundle[] = (await Promise.all(
+      filteredBundles.map(async (bundle) => {
+        const tx = await bundledPayloadToHydratedTransaction(bundle)
+        return isDefined(tx) ? { bundle, tx } : undefined
+      }),
+    )).filter(exists)
+    this.logger?.info(`Converted pending transactions: ${JSON.stringify(hydratedWithBundle.map(x => x.tx), null, 2)} results`)
+
+    const currentBlock = await this.windowedBlockViewer.currentBlock()
+    const evaluated = await Promise.all(
+      hydratedWithBundle.map(async ({ bundle, tx }) => ({
+        bundle, tx, deletable: await this.isDeletable(tx, currentBlock),
+      })),
+    )
+
+    const valid = evaluated.filter(x => !x.deletable)
+    const deletionCandidates = evaluated.filter(x => x.deletable)
+    this.logger?.info(`Pending transactions: ${valid.length} valid, ${deletionCandidates.length} not deletable`)
+
+    // Delete the invalid transactions that should not remain in the mempool.
+    await Promise.all(
+      deletionCandidates.map(async ({ bundle, tx }) => {
+        await this.deleteBundledTransaction(bundle)
+        this.logger?.info(`Purged completed/invalid bundled transaction: ${bundle._hash}/${tx[0]._hash}`)
+      }),
+    )
+
+    const inclusionCandidates = (await Promise.all(valid.map(x => x.tx).map(async (tx) => {
+      if (await this.isInclusionCandidate(tx, currentBlock)) return tx
     }))).filter(exists)
+
+    this.logger?.info(`Inclusion candidates: ${inclusionCandidates.length}`)
+    return inclusionCandidates
+  }
+
+  private async deleteBundledTransaction(bundle: PayloadBundleWithHashMeta): Promise<void> {
+    await this.pendingTransactionsArchivist.delete([bundle._hash])
   }
 
   /**
@@ -97,8 +135,58 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
    * @param tx The transaction to evaluate
    * @returns True if the transaction is not valid for inclusion in the next block, false otherwise
    */
-  private async purgeIfInvalid(tx: HydratedTransactionWithHashMeta): Promise<boolean> {
-    const currentBlock = await this.windowedBlockViewer.currentBlock()
+  private async isDeletable(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
+    const currentBlockNumber = currentBlock[0].block
+    const nextBlockNumber = currentBlockNumber + 1
+    const { exp } = tx[0]
+
+    // If it's expired, purge it
+    if (nextBlockNumber > exp) {
+      return true
+    }
+    // If it's already included in a block, purge it
+    const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
+    if (existingBlock) {
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Evaluates a transaction to determine if is valid for inclusion in the next block. A transaction is invalid if:
+   * - The transaction is too early/expired
+   * - The transaction has already been included in a block
+   * @param tx The transaction to evaluate
+   * @returns True if the transaction is valid for inclusion in the next block, false otherwise
+   */
+  private async isInclusionCandidate(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
+    const currentBlockNumber = currentBlock[0].block
+    const nextBlockNumber = currentBlockNumber + 1
+    const { exp, nbf } = tx[0]
+    // If it's not time yet
+    if (nextBlockNumber < nbf) {
+      return false
+    }
+    // If it's expired
+    if (nextBlockNumber > exp) {
+      return false
+    }
+    // If it's already included in a block
+    const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
+    if (existingBlock) {
+      return false
+    }
+    return true
+  }
+
+  /**
+   * Evaluates a transaction to determine if it should be purged from the mempool.  Purges if:
+   * - The transaction is expired
+   * - The transaction has already been included in a block
+   * @param tx The transaction to evaluate
+   * @returns True if the transaction is not valid for inclusion in the next block, false otherwise
+   */
+  private async purgeIfInvalid(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
     const currentBlockNumber = currentBlock[0].block
     const nextBlockNumber = currentBlockNumber + 1
     const { exp, nbf } = tx[0]
