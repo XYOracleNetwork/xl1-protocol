@@ -42,7 +42,7 @@ export class SimpleXyoSigner extends AbstractCreatableProvider<SimpleXyoSignerPa
   }
 
   address(): Promisable<Address> {
-    return this._account.address
+    return this.params.account.address
   }
 
   async createSignedTransaction(
