@@ -6,10 +6,8 @@ import {
   asXL1BlockNumber, defaultTransactionFees, SignedHydratedTransactionWithHashMetaZod,
 } from '@xyo-network/xl1-protocol'
 import type { XyoSigner } from '@xyo-network/xl1-protocol-sdk'
-import {
-  buildUnsignedTransaction, SimpleXyoSigner, XyoSignerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
-import { buildProviderLocator } from '@xyo-network/xl1-providers'
+import { buildUnsignedTransaction, SimpleXyoSigner } from '@xyo-network/xl1-protocol-sdk'
+import { buildSimpleXyoSigner } from '@xyo-network/xl1-providers'
 import {
   beforeEach, describe, expect, it,
 } from 'vitest'
@@ -20,9 +18,7 @@ describe('SimpleXyoSigner', () => {
 
   beforeEach(async () => {
     account = await Account.random()
-    const locator = buildProviderLocator()
-    locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }))
-    sut = await locator.getInstance<SimpleXyoSigner>(XyoSignerMoniker)
+    sut = await buildSimpleXyoSigner({ account })
   })
 
   it('should create an instance of SimpleXyoSigner', () => {
