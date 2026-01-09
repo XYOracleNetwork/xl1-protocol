@@ -80,9 +80,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     }
     this.logger?.info(`Fetching pending transactions from cursor: ${cursor}`)
     const bundles = await this.pendingTransactionsArchivist.next({
-      order: 'asc',
-      limit,
-      cursor,
+      order: 'asc', limit, cursor,
     })
     this.logger?.info(`Fetched pending transactions: ${bundles.length} bundles`)
 
@@ -104,9 +102,9 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
       })),
     )
 
-    const valid = evaluated.filter(x => !x.deletable)
+    const validTransactions = evaluated.filter(x => !x.deletable)
     const deletionCandidates = evaluated.filter(x => x.deletable)
-    this.logger?.info(`Pending transactions: ${valid.length} valid, ${deletionCandidates.length} not deletable`)
+    this.logger?.info(`Pending transactions: ${validTransactions.length} valid, ${deletionCandidates.length} not deletable`)
 
     // Delete the invalid transactions that should not remain in the mempool.
     await Promise.all(
@@ -116,7 +114,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
       }),
     )
 
-    const inclusionCandidates = (await Promise.all(valid.map(x => x.tx).map(async (tx) => {
+    const inclusionCandidates = (await Promise.all(validTransactions.map(x => x.tx).map(async (tx) => {
       // Check if it's a candidate for inclusion (skip deletable check as we've already done that)
       if (await this.isInclusionCandidate(tx, currentBlock, false)) return tx
     }))).filter(exists)
@@ -132,6 +130,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
   /**
    * Evaluates a transaction to determine if it should be purged from the mempool.
    * @param tx The transaction to evaluate
+   * @param currentBlock The current block to use for evaluation
    * @returns True if the transaction should be purged, false otherwise
    */
   private async isDeletable(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
@@ -154,6 +153,8 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
    * - The transaction is too early/expired
    * - The transaction has already been included in a block
    * @param tx The transaction to evaluate
+   * @param currentBlock The current block to use for evaluation
+   * @param checkForDeletable Whether to check if the transaction is deletable (default: true)
    * @returns True if the transaction is valid for inclusion in the next block, false otherwise
    */
   private async isInclusionCandidate(
