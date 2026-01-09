@@ -129,11 +129,9 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
   }
 
   /**
-   * Evaluates a transaction to determine if it should be purged from the mempool.  Purges if:
-   * - The transaction is expired
-   * - The transaction has already been included in a block
+   * Evaluates a transaction to determine if it should be purged from the mempool.
    * @param tx The transaction to evaluate
-   * @returns True if the transaction is not valid for inclusion in the next block, false otherwise
+   * @returns True if the transaction should be purged, false otherwise
    */
   private async isDeletable(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
     const currentBlockNumber = currentBlock[0].block
@@ -177,34 +175,5 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
       return false
     }
     return true
-  }
-
-  /**
-   * Evaluates a transaction to determine if it should be purged from the mempool.  Purges if:
-   * - The transaction is expired
-   * - The transaction has already been included in a block
-   * @param tx The transaction to evaluate
-   * @returns True if the transaction is not valid for inclusion in the next block, false otherwise
-   */
-  private async purgeIfInvalid(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
-    const currentBlockNumber = currentBlock[0].block
-    const nextBlockNumber = currentBlockNumber + 1
-    const { exp, nbf } = tx[0]
-    // If it's not time yet, keep it
-    if (nextBlockNumber < nbf) {
-      return true
-    }
-    // If it's expired, purge it
-    if (nextBlockNumber > exp) {
-      await this.pendingTransactionsArchivist.delete([tx[0]._hash])
-      return true
-    }
-    // If it's already included in a block, purge it
-    const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
-    if (existingBlock) {
-      await this.pendingTransactionsArchivist.delete([tx[0]._hash])
-      return true
-    }
-    return false
   }
 }
