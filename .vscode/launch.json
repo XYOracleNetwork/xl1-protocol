@@ -2,43 +2,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Producer",
-      "program": "${workspaceFolder}/dist/node/cli/index.mjs",
-      "args": ["producer"],
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ],
-      "runtimeArgs": [
-        "--max-old-space-size=8192"
-      ],
-      "envFile": "${workspaceFolder}/.env",
-      "sourceMaps": true,
-      "resolveSourceMapLocations": [
-        "!**/node_modules/**"
-      ],
-      "pauseForSourceMap": true,
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "API",
-      "program": "${workspaceFolder}/dist/node/index.mjs",
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ],
-      "runtimeArgs": [
-        "--max-old-space-size=8192"
-      ],
-      "envFile": "${workspaceFolder}/.env",
-      "sourceMaps": true,
-      "resolveSourceMapLocations": [
-        "!**/node_modules/**"
-      ],
-      "pauseForSourceMap": true,
-    },
-    {
       "name": "Tests",
       "request": "launch",
       "type": "node",
@@ -48,7 +11,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "packages/protocol-sdk-tests/src/spec/simple/signer/SimpleSigner.spec.ts"
+        "packages/protocol-sdk-tests/src/spec/simple/mempool/SimpleMempoolViewer.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [
