@@ -1,32 +1,44 @@
 import '@xylabs/vitest-extended'
 
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import { SimpleMempoolViewer } from '@xyo-network/xl1-protocol-sdk'
+import {
+  SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolViewer, SimpleWindowedBlockViewer,
+} from '@xyo-network/xl1-protocol-sdk'
 import { buildSimpleProviderLocator } from '@xyo-network/xl1-providers'
 import {
   beforeAll, beforeEach, describe, expect, it,
 } from 'vitest'
 
-describe.skip('SimpleMempoolViewer', () => {
-  async function buildSimpleMempoolViewer(pendingBlocksArchivist: MemoryArchivist, pendingTransactionsArchivist: MemoryArchivist) {
+describe('SimpleMempoolViewer', () => {
+  async function buildSimpleMempoolViewer(
+    finalizedArchivist: MemoryArchivist,
+    pendingBlocksArchivist: MemoryArchivist,
+    pendingTransactionsArchivist: MemoryArchivist,
+  ) {
     const locator = buildSimpleProviderLocator()
-    locator.register(
+    locator.registerMany([
+      SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
+      SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
+      SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 1000, syncInterval: 10_000 }),
       SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingBlocksArchivist, pendingTransactionsArchivist }),
-    )
+    ])
     return await locator.getInstance<SimpleMempoolViewer>(SimpleMempoolViewer.defaultMoniker)
   }
 
-  let sut: SimpleMempoolViewer
+  let finalizedArchivist: MemoryArchivist
   let pendingBlocksArchivist: MemoryArchivist
   let pendingTransactionsArchivist: MemoryArchivist
+  let sut: SimpleMempoolViewer
 
   beforeAll(async () => {
+    finalizedArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingBlocksArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingTransactionsArchivist = await MemoryArchivist.create({ account: 'random' })
-    sut = await buildSimpleMempoolViewer(pendingBlocksArchivist, pendingTransactionsArchivist)
+    sut = await buildSimpleMempoolViewer(finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist)
   })
 
   beforeEach(async () => {
+    await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()
   })
