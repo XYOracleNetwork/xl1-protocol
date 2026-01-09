@@ -44,7 +44,8 @@
     "packages/*/packages/*/packages/*"
   ],
   "scripts": {
-    "publish": "yarn workspaces foreach -A --no-private npm publish"
+    "publish": "yarn workspaces foreach -A --no-private npm publish",
+    "test": "vitest run"
   },
   "dependencies": {
     "@xyo-network/xl1-network-model": "~1.18.11",
