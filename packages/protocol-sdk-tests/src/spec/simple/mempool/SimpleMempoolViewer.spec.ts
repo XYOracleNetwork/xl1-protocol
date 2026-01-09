@@ -5,11 +5,8 @@ import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import type { SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import type { ProviderFactoryLocator } from '@xyo-network/xl1-protocol-sdk'
 import {
-  buildRandomTransaction,
-  flattenHydratedBlock,
-  flattenHydratedTransaction,
-  SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner,
-  SimpleMempoolViewer, SimpleWindowedBlockViewer,
+  buildRandomTransaction, flattenHydratedBlock, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  SimpleWindowedBlockViewer,
 } from '@xyo-network/xl1-protocol-sdk'
 import { buildSimpleProviderLocator } from '@xyo-network/xl1-providers'
 import {
@@ -370,11 +367,11 @@ describe('SimpleMempoolViewer', () => {
     })
     describe('with pending transactions', () => {
       it('returns the pending transactions', async () => {
-        const [tx1, tx2] = [await buildRandomTransaction(chain), await buildRandomTransaction(chain)]
+        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain)]
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
-        await mempoolRunner.submitTransactions([tx1, tx2])
+        await mempoolRunner.submitTransactions(transactions)
         const pendingTransactions = await sut.pendingTransactions()
-        expect(pendingTransactions).toBeArrayOfSize(2)
+        expect(pendingTransactions).toBeArrayOfSize(transactions.length)
       })
     })
   })
