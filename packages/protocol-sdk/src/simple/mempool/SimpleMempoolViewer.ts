@@ -117,7 +117,8 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     )
 
     const inclusionCandidates = (await Promise.all(valid.map(x => x.tx).map(async (tx) => {
-      if (await this.isInclusionCandidate(tx, currentBlock)) return tx
+      // Check if it's a candidate for inclusion (skip deletable check as we've already done that)
+      if (await this.isInclusionCandidate(tx, currentBlock, false)) return tx
     }))).filter(exists)
 
     this.logger?.info(`Inclusion candidates: ${inclusionCandidates.length}`)
@@ -155,7 +156,11 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
    * @param tx The transaction to evaluate
    * @returns True if the transaction is valid for inclusion in the next block, false otherwise
    */
-  private async isInclusionCandidate(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
+  private async isInclusionCandidate(
+    tx: HydratedTransactionWithHashMeta,
+    currentBlock: SignedHydratedBlockWithHashMeta,
+    checkForDeletable: boolean = true,
+  ): Promise<boolean> {
     const currentBlockNumber = currentBlock[0].block
     const nextBlockNumber = currentBlockNumber + 1
     const { nbf } = tx[0]
@@ -164,7 +169,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     if (nextBlockNumber < nbf) return false
 
     // If it's deletable
-    if (await this.isDeletable(tx, currentBlock)) return false
+    if (checkForDeletable && await this.isDeletable(tx, currentBlock)) return false
 
     return true
   }
