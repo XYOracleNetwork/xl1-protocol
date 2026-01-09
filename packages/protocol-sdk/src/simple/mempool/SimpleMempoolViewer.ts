@@ -138,15 +138,13 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     const nextBlockNumber = currentBlockNumber + 1
     const { exp } = tx[0]
 
-    // If it's expired, purge it
-    if (nextBlockNumber > exp) {
-      return true
-    }
-    // If it's already included in a block, purge it
+    // If it's expired
+    if (nextBlockNumber > exp) return true
+
+    // If it's already included in a block
     const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
-    if (existingBlock) {
-      return true
-    }
+    if (existingBlock) return true
+
     return false
   }
 
@@ -160,20 +158,14 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
   private async isInclusionCandidate(tx: HydratedTransactionWithHashMeta, currentBlock: SignedHydratedBlockWithHashMeta): Promise<boolean> {
     const currentBlockNumber = currentBlock[0].block
     const nextBlockNumber = currentBlockNumber + 1
-    const { exp, nbf } = tx[0]
+    const { nbf } = tx[0]
+
     // If it's not time yet
-    if (nextBlockNumber < nbf) {
-      return false
-    }
-    // If it's expired
-    if (nextBlockNumber > exp) {
-      return false
-    }
-    // If it's already included in a block
-    const existingBlock = await this.windowedBlockViewer.blockByTransactionHash(tx[0]._hash)
-    if (existingBlock) {
-      return false
-    }
+    if (nextBlockNumber < nbf) return false
+
+    // If it's deletable
+    if (await this.isDeletable(tx, currentBlock)) return false
+
     return true
   }
 }
