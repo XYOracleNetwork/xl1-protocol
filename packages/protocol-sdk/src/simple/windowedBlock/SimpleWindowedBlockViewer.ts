@@ -1,15 +1,9 @@
 import {
-  assertEx,
-  exists,
-  type Hash,
-  isNull,
-  type Promisable,
+  assertEx, exists, type Hash, isNull, type Promisable,
 } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  ChainId,
-  HydratedBlockWithHashMeta,
-  SignedHydratedBlockWithHashMeta, XL1BlockNumber,
+  ChainId, HydratedBlockWithHashMeta, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
 import { Mutex } from 'async-mutex'
@@ -20,14 +14,8 @@ import {
 } from '../../CreatableProvider/index.ts'
 import { MemoryMap } from '../../driver/index.ts'
 import type { SyncMap } from '../../map/index.ts'
-import type {
-  BlockViewer,
-  WindowedBlockViewer,
-} from '../../viewers/index.ts'
-import {
-  BlockViewerMoniker,
-  WindowedBlockViewerMoniker,
-} from '../../viewers/index.ts'
+import type { BlockViewer, WindowedBlockViewer } from '../../viewers/index.ts'
+import { BlockViewerMoniker, WindowedBlockViewerMoniker } from '../../viewers/index.ts'
 
 export interface SimpleWindowedBlockViewerParams extends CreatableProviderParams {
   blockViewer?: BlockViewer
