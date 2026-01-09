@@ -359,13 +359,22 @@ describe('SimpleMempoolViewer', () => {
         expect(pendingTransactions).toBeArrayOfSize(0)
       })
     })
-    describe('with pending transactions', () => {
-      it('returns the pending transactions', async () => {
+    describe('with pending transaction', () => {
+      it('returns the pending transaction', async () => {
         const tx = await buildRandomTransaction(chain)
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
         await mempoolRunner.submitTransactions([tx])
         const pendingTransactions = await sut.pendingTransactions()
         expect(pendingTransactions).toBeArrayOfSize(1)
+      })
+    })
+    describe('with pending transactions', () => {
+      it('returns the pending transactions', async () => {
+        const [tx1, tx2] = [await buildRandomTransaction(chain), await buildRandomTransaction(chain)]
+        const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
+        await mempoolRunner.submitTransactions([tx1, tx2])
+        const pendingTransactions = await sut.pendingTransactions()
+        expect(pendingTransactions).toBeArrayOfSize(2)
       })
     })
   })
