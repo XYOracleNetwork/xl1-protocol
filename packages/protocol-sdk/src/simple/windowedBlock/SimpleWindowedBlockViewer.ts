@@ -122,8 +122,9 @@ export class SimpleWindowedBlockViewer extends AbstractCreatableProvider<SimpleW
     return assertEx(this._chain.at(-1)?.[0].block)
   }
 
-  payloadByHash(_hash: Hash): Promisable<WithHashMeta<Payload> | null> {
-    throw new Error('Method not implemented.')
+  async payloadByHash(hash: Hash): Promise<WithHashMeta<Payload> | null> {
+    const payloads = await this.payloadsByHash([hash])
+    return payloads.length > 0 ? payloads[0] : null
   }
 
   payloadsByHash(_hashes: Hash[]): Promisable<WithHashMeta<Payload>[]> {
