@@ -122,8 +122,9 @@ export class SimpleWindowedBlockViewer extends AbstractCreatableProvider<SimpleW
     return assertEx(this._chain.at(-1)?.[0].block)
   }
 
-  payloadByHash(_hash: Hash): Promisable<WithHashMeta<Payload> | null> {
-    throw new Error('Method not implemented.')
+  async payloadByHash(hash: Hash): Promise<WithHashMeta<Payload> | null> {
+    const payloads = await this.payloadsByHash([hash])
+    return payloads.length > 0 ? payloads[0] : null
   }
 
   payloadsByHash(_hashes: Hash[]): Promisable<WithHashMeta<Payload>[]> {
@@ -143,18 +144,26 @@ export class SimpleWindowedBlockViewer extends AbstractCreatableProvider<SimpleW
   }
 
   private addBlock(block: SignedHydratedBlockWithHashMeta) {
-    const removedBlock = this._chain.shift()
-    if (removedBlock) {
+    // Add the new block to the end of the window
+    this._chain.push(block)
+
+    // Index the new block
+    this._blockHashMap.set(block[0]._hash, block)
+    this._blockNumberMap.set(block[0].block, block)
+    for (const tx of transactionsFromHydratedBlock(block)) {
+      this._transactionHashMap.set(tx._hash, block)
+    }
+
+    // Purge only if the window size is exceeded
+    while (this._chain.length > this.maxWindowSize) {
+      const removedBlock = this._chain.shift()
+      if (!removedBlock) break
+
       this._blockHashMap.delete(removedBlock[0]._hash)
       this._blockNumberMap.delete(removedBlock[0].block)
       for (const tx of transactionsFromHydratedBlock(removedBlock)) {
         this._transactionHashMap.delete(tx._hash)
       }
-    }
-    this._chain.push(block)
-    this._blockHashMap.set(block[0]._hash, block)
-    for (const tx of transactionsFromHydratedBlock(block)) {
-      this._transactionHashMap.set(tx._hash, block)
     }
   }
 
