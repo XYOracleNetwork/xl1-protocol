@@ -2,7 +2,7 @@ import '@xylabs/vitest-extended'
 
 import { asHex } from '@xylabs/hex'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import type { SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import { asXL1BlockNumber, type SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import type { ProviderFactoryLocator } from '@xyo-network/xl1-protocol-sdk'
 import {
   buildRandomTransaction, flattenHydratedBlock, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
@@ -372,6 +372,28 @@ describe('SimpleMempoolViewer', () => {
         await mempoolRunner.submitTransactions(transactions)
         const pendingTransactions = await sut.pendingTransactions()
         expect(pendingTransactions).toBeArrayOfSize(transactions.length)
+      })
+    })
+    describe('with expired transactions', () => {
+      it('returns the non-expired pending transactions', async () => {
+        const nbf = asXL1BlockNumber(0, true)
+        const exp = asXL1BlockNumber(0, true)
+        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain, [], undefined, nbf, exp)]
+        const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
+        await mempoolRunner.submitTransactions(transactions)
+        const pendingTransactions = await sut.pendingTransactions()
+        expect(pendingTransactions).toBeArrayOfSize(1)
+      })
+    })
+    describe('with future transactions', () => {
+      it('returns the non-future pending transactions', async () => {
+        const nbf = asXL1BlockNumber(1000, true)
+        const exp = asXL1BlockNumber(2000, true)
+        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain, [], undefined, nbf, exp)]
+        const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
+        await mempoolRunner.submitTransactions(transactions)
+        const pendingTransactions = await sut.pendingTransactions()
+        expect(pendingTransactions).toBeArrayOfSize(1)
       })
     })
   })
