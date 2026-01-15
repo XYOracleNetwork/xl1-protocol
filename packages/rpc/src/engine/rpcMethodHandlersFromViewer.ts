@@ -1,8 +1,8 @@
-import type { XyoViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoViewer } from '@xyo-network/xl1-protocol-sdk'
 
 import type { XyoViewerRpcMethodHandlers } from '../types/index.ts'
 
-export const rpcMethodHandlersFromViewer = (viewer: XyoViewerMethods): XyoViewerRpcMethodHandlers => {
+export const rpcMethodHandlersFromViewer = (viewer: XyoViewer): XyoViewerRpcMethodHandlers => {
   return {
     xyoViewer_networkStakeStepRewardClaimedByAddress: params => viewer.networkStakeStepRewardClaimedByAddress(...(params ?? [])),
     xyoViewer_networkStakeStepRewardAddressReward: params => viewer.networkStakeStepRewardAddressReward(...(params ?? [])),
@@ -22,8 +22,8 @@ export const rpcMethodHandlersFromViewer = (viewer: XyoViewerMethods): XyoViewer
     xyoViewer_networkStakeStepRewardsForPosition: params => viewer.networkStakeStepRewardsForPosition?.(...(params ?? [])),
     xyoViewer_networkStakeStepRewardsForRange: params => viewer.networkStakeStepRewardsForRange?.(...(params ?? [])),
     xyoViewer_networkStakeStepRewardsForStepLevel: params => viewer.networkStakeStepRewardsForStepLevel?.(...(params ?? [])),
-    xyoViewer_accountBalance: params => viewer.accountBalance(...(params ?? [])),
-    xyoViewer_accountBalanceHistory: params => viewer.accountBalanceHistory(...(params ?? [])),
+    xyoViewer_accountBalance: params => viewer.account.balance.accountBalance(...(params ?? [])),
+    xyoViewer_accountBalanceHistory: params => viewer.account.balance.accountBalanceHistory(...(params ?? [])),
     xyoViewer_blocksByNumber: params => viewer.blocksByNumber(...(params ?? [])),
     xyoViewer_blocksByHash: params => viewer.blocksByHash(...(params ?? [])),
     xyoViewer_currentBlock: params => viewer.currentBlock(...(params ?? [])),
