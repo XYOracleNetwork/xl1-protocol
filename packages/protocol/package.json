@@ -57,23 +57,23 @@
     "zod": "~4.2.1"
   },
   "devDependencies": {
-    "@types/node": "~25.0.3",
-    "@typescript-eslint/types": "~8.50.1",
+    "@types/node": "~25.0.8",
+    "@typescript-eslint/types": "~8.53.0",
     "@xylabs/creatable": "~5.0.61",
     "@xylabs/eslint-config-flat": "~7.2.32",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
     "@xyo-network/account-model": "~5.2.22",
     "@xyo-network/payload-builder": "~5.2.22",
-    "dependency-cruiser": "~17.3.5",
+    "dependency-cruiser": "~17.3.6",
     "dotenv": "~17.2.3",
     "eslint": "~9.39.2",
     "eslint-import-resolver-typescript": "~4.4.4",
-    "knip": "~5.77.1",
+    "knip": "~5.77.4",
     "typescript": "~5.9.3",
-    "vite": "~7.3.0",
-    "vite-tsconfig-paths": "~6.0.3",
-    "vitest": "~4.0.16"
+    "vite": "~7.3.1",
+    "vite-tsconfig-paths": "~6.0.4",
+    "vitest": "~4.0.17"
   },
   "packageManager": "yarn@4.10.3",
   "engines": {

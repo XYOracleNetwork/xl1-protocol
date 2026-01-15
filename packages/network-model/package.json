@@ -59,7 +59,7 @@
     "@xyo-network/xl1-protocol": "~1.18.14"
   },
   "devDependencies": {
-    "@types/node": "~25.0.3",
+    "@types/node": "~25.0.8",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
     "@xylabs/vitest-extended": "~5.0.61",
@@ -67,7 +67,7 @@
     "dotenv": "~17.2.3",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.16"
+    "vitest": "~4.0.17"
   },
   "packageManager": "yarn@4.6.0",
   "engines": {

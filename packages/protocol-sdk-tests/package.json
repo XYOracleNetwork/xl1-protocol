@@ -33,7 +33,7 @@
     "deploy3": "echo Deploy3 not allowed!"
   },
   "devDependencies": {
-    "@types/node": "~25.0.3",
+    "@types/node": "~25.0.8",
     "@xylabs/hex": "~5.0.61",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
@@ -48,7 +48,7 @@
     "@xyo-network/xl1-rpc": "~1.18.14",
     "axios": "^1.13.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.16"
+    "vitest": "~4.0.17"
   },
   "engines": {
     "node": ">=22.3 <23"

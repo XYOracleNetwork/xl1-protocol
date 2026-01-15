@@ -49,13 +49,13 @@
     "@xyo-network/xl1-validation": "~1.18.14"
   },
   "devDependencies": {
-    "@types/node": "~25.0.3",
+    "@types/node": "~25.0.8",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
     "axios": "^1.13.2",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.16"
+    "vitest": "~4.0.17"
   },
   "peerDependencies": {
     "axios": "^1.13.2"
