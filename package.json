@@ -58,7 +58,7 @@
     "@xyo-network/xl1-wrappers": "~1.18.14"
   },
   "devDependencies": {
-    "@types/node": "~25.0.8",
+    "@types/node": "~25.0.9",
     "@typescript-eslint/types": "~8.53.0",
     "@xylabs/creatable": "~5.0.61",
     "@xylabs/eslint-config-flat": "~7.2.32",
