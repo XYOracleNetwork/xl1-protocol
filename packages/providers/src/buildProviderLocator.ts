@@ -1,35 +1,18 @@
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
 import type {
-  BalanceStepSummaryContext,
-  CreatableProviderContext, TransfersStepSummaryContext,
+  BalanceStepSummaryContext, CreatableProviderContext, TransfersStepSummaryContext,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
-  getDefaultConfig, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer,
-  SimpleFinalizationViewer,
-  SimpleMempoolRunner, SimpleMempoolViewer, SimpleStakeEventsViewer,
-  SimpleStakeViewer,
-  SimpleTimeSyncViewer,
-  SimpleWindowedBlockViewer,
-  SimpleXyoRunner,
+  getDefaultConfig, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
-  AccountBalanceViewerRpcSchemas,
-  BlockViewerRpcSchemas,
-  DataLakeViewerRpcSchemas,
-  JsonRpcAccountBalanceViewer, JsonRpcBlockViewer, JsonRpcDataLakeViewer, JsonRpcMempoolRunner, JsonRpcMempoolViewer,
-  JsonRpcNetworkStakeViewer, JsonRpcNetworkStakingStepRewardsViewer, JsonRpcStakeTotalsViewer,
-  JsonRpcTimeSyncViewer,
-  JsonRpcXyoRunner,
-  JsonRpcXyoViewer,
-  MempoolRunnerRpcSchemas,
-  MempoolViewerRpcSchemas,
-  NetworkStakeViewerRpcSchemas,
-  StakeTotalsViewerRpcSchemas,
-  TimeSyncViewerRpcSchemas,
-  XyoRunnerRpcSchemas,
-  XyoViewerRpcSchemas,
+  AccountBalanceViewerRpcSchemas, BlockViewerRpcSchemas, DataLakeViewerRpcSchemas, JsonRpcAccountBalanceViewer, JsonRpcBlockViewer, JsonRpcDataLakeViewer,
+  JsonRpcMempoolRunner, JsonRpcMempoolViewer, JsonRpcNetworkStakeViewer, JsonRpcNetworkStakingStepRewardsViewer, JsonRpcStakeTotalsViewer,
+  JsonRpcTimeSyncViewer, JsonRpcXyoRunner, JsonRpcXyoViewer, MempoolRunnerRpcSchemas, MempoolViewerRpcSchemas, NetworkStakeViewerRpcSchemas,
+  StakeTotalsViewerRpcSchemas, TimeSyncViewerRpcSchemas, XyoRunnerRpcSchemas, XyoViewerRpcSchemas,
 } from '@xyo-network/xl1-rpc'
 
 import { NodeXyoViewer } from './NodeXyoViewer.ts'
@@ -125,28 +108,16 @@ export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorPar
 }
 
 export function buildLocalProviderLocator({
-  balanceSummaryContext, finalizedArchivist, pendingBlocksArchivist,
-  pendingTransactionsArchivist,
-  transfersSummaryContext, node,
-  ...params
+  balanceSummaryContext, finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, transfersSummaryContext, node, ...params
 }: BuildLocalProviderLocatorParams) {
   const locator = buildSimpleProviderLocator(params)
   return locator.registerMany([
-    SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, {
-      pendingTransactionsArchivist,
-      pendingBlocksArchivist,
-    }),
-    SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, {
-      pendingTransactionsArchivist,
-      pendingBlocksArchivist,
-    }),
-    SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, {
-      balanceSummaryContext,
-      transfersSummaryContext,
-    }),
+    SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
+    SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
+    SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, { balanceSummaryContext, transfersSummaryContext }),
     SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
-    SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies, { pendingTransactionsArchivist }),
+    SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
     NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node }),
   ])
