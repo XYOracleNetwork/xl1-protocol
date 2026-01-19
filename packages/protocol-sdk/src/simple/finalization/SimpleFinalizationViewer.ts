@@ -71,7 +71,7 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
   }
 
   async head(): Promise<SignedHydratedBlockWithHashMeta> {
-    return await spanRootAsync('head', async () => {
+    return await this.spanAsync('head', async () => {
       const currentHead = assertEx(await this.getCurrentHead(), () => 'Could not find most recent block [currentBlock]')
       const cache = this.hydratedBlockCache
       const block = await cache.get(currentHead._hash)
@@ -79,7 +79,7 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
         console.log(`Could not find current block with hash ${currentHead!._hash}`)
       }
       return assertEx(block, () => 'Could not find current block')
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   async headBlock(): Promise<SignedBlockBoundWitnessWithHashMeta> {

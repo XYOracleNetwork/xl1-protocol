@@ -5,7 +5,6 @@ import type {
 } from '@xylabs/sdk-js'
 import {
   assertEx, exists,
-  spanRootAsync,
   toAddress,
 } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
@@ -185,13 +184,13 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
   async chainId(blockNumber: XL1BlockNumber): Promise<ChainId>
   async chainId(blockNumber: 'latest'): Promise<ChainId>
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
-    return await spanRootAsync('chainIdAtBlock', async () => {
+    return await this.spanAsync('chainIdAtBlock', async () => {
       const block = assertEx(
         blockNumber === 'latest' ? await this.currentBlock() : await this.blockByNumber(blockNumber),
         () => `Could not find block for chainId at block ${blockNumber}`,
       )
       return block[0].chain
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   override async createHandler() {
@@ -416,7 +415,7 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await spanRootAsync('transactionByBlockHashAndIndex', async () => {
+    return await this.spanAsync('transactionByBlockHashAndIndex', async () => {
       assertEx(transactionIndex >= 0, () => 'transactionIndex must be greater than or equal to 0')
       try {
         const block = await this.blockByHash(blockHash)
@@ -431,11 +430,11 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
       } catch {
         return null
       }
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   async transactionByBlockNumberAndIndex(blockNumber: XL1BlockNumber, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await spanRootAsync('transactionByBlockNumberAndIndex', async () => {
+    return await this.spanAsync('transactionByBlockNumberAndIndex', async () => {
       try {
         const block = await this.blockByNumber(blockNumber)
         if (!block) return null
@@ -443,11 +442,11 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
       } catch {
         return null
       }
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   async transactionByHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await spanRootAsync('transactionByHash', async () => {
+    return await this.spanAsync('transactionByHash', async () => {
       try {
         const cache = await this.getHydratedTransactionCache()
         const hydratedTransaction = await cache.get(transactionHash)
@@ -455,7 +454,7 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
       } catch {
         return null
       }
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   protected getArchivist = async (identifier: ModuleIdentifier) => {

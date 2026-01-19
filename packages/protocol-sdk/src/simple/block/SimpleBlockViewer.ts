@@ -81,11 +81,11 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     return await spanRootAsync('blockByHash', async () => {
       const cache = this.hydratedBlockCache
       return await cache.get(hash)
-    }, this.tracer)
+    }, { tracer: this.tracer })
   }
 
   async blockByNumber(blockNumber: XL1BlockNumber): Promise<SignedHydratedBlockWithHashMeta | null> {
-    return await spanRootAsync('blockByNumber', async () => {
+    return await this.spanAsync('blockByNumber', async () => {
       const [head] = await this.currentBlock()
       if (isUndefined(head)) {
         return null
@@ -98,11 +98,11 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         },
         store: this.store,
       } satisfies ChainContextRead, blockNumber)) ?? null
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   async blocksByHash(hash: Hash, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
-    return await spanRootAsync('blocksByHash', async () => {
+    return await this.spanAsync('blocksByHash', async () => {
       assertEx(limit > 0, () => 'limit must be greater than 0')
       assertEx(limit <= 100, () => 'limit must be less than 100')
       const blocks: SignedHydratedBlockWithHashMeta[] = []
@@ -114,11 +114,11 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         current = await this.blockByHash(previousHash)
       }
       return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   async blocksByNumber(blockNumber: XL1BlockNumber, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
-    return await spanRootAsync('blocksByHash', async () => {
+    return await this.spanAsync('blocksByNumber', async () => {
       assertEx(limit > 0, () => 'limit must be greater than 0')
       assertEx(limit <= 100, () => 'limit must be less than 100')
       const blocks: SignedHydratedBlockWithHashMeta[] = []
@@ -130,20 +130,20 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         current = await this.blockByNumber(previousNumber)
       }
       return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
-    }, this.tracer)
+    }, { timeBudgetLimit: 200 })
   }
 
   chainId(): Promise<ChainId>
   chainId(blockNumber: XL1BlockNumber): Promise<ChainId>
   chainId(blockNumber: 'latest'): Promise<ChainId>
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
-    return await spanRootAsync('chainId', async () => {
+    return await this.spanAsync('chainId', async () => {
       const block = assertEx(
         blockNumber === 'latest' ? await this.currentBlock() : await this.blockByNumber(blockNumber),
         () => `Could not find block for block number ${blockNumber}`,
       )
       return block[0].chain
-    })
+    }, { timeBudgetLimit: 200 })
   }
 
   override async createHandler() {

@@ -62,7 +62,7 @@
     "@types/node": "~25.0.9",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
-    "@xylabs/vitest-extended": "~5.0.61",
+    "@xylabs/vitest-extended": "~5.0.62",
     "copyfiles": "~2.4.1",
     "dotenv": "~17.2.3",
     "eslint": "^9.39.2",
