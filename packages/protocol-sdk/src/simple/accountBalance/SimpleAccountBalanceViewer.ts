@@ -79,31 +79,33 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
   }
 
   async accountBalanceHistory(address: Address, config?: AccountBalanceConfig) {
-    const range = isChainQualifiedRangeConfig(config) ? config.range : undefined
-    const startingRange = asXL1BlockRange(range ?? [0, await this.blockViewer.currentBlockNumber()], true)
-    const blockNumbers = await this.distillTransferHistory(address, startingRange)
-    const blocks = (await Promise.all(blockNumbers.map(async bn => await this.blockViewer.blockByNumber(bn)))).filter(exists)
-    const result: AccountBalanceHistoryItem[] = []
-    for (const block of blocks) {
-      const transferIndexes = block[0].payload_schemas.map((schema, index) => schema === TransferSchema ? index : undefined).filter(exists)
-      const transfers = transferIndexes.map((index) => {
-        const hash = block[0].payload_hashes[index]
-        return assertEx(
-          block[1].find(p => p._hash === hash) as WithStorageMeta<Transfer>,
-          () => `Error: Could not find Transfer with hash ${hash} in block ${block[0]._hash}`,
-        )
-      }).filter(exists).filter(t => ((t.from === address) || (isDefined(t.transfers[address]))))
-      if (transfers.length === 0) {
-        continue
+    return await this.spanAsync('accountBalanceHistory', async () => {
+      const range = isChainQualifiedRangeConfig(config) ? config.range : undefined
+      const startingRange = asXL1BlockRange(range ?? [0, await this.blockViewer.currentBlockNumber()], true)
+      const blockNumbers = await this.distillTransferHistory(address, startingRange)
+      const blocks = (await Promise.all(blockNumbers.map(async bn => await this.blockViewer.blockByNumber(bn)))).filter(exists)
+      const result: AccountBalanceHistoryItem[] = []
+      for (const block of blocks) {
+        const transferIndexes = block[0].payload_schemas.map((schema, index) => schema === TransferSchema ? index : undefined).filter(exists)
+        const transfers = transferIndexes.map((index) => {
+          const hash = block[0].payload_hashes[index]
+          return assertEx(
+            block[1].find(p => p._hash === hash) as WithStorageMeta<Transfer>,
+            () => `Error: Could not find Transfer with hash ${hash} in block ${block[0]._hash}`,
+          )
+        }).filter(exists).filter(t => ((t.from === address) || (isDefined(t.transfers[address]))))
+        if (transfers.length === 0) {
+          continue
+        }
+        const pairs: [SignedBlockBoundWitnessWithHashMeta, WithHashMeta<Transfer>][] = (transfers.map((transfer) => {
+          return [block[0], transfer]
+        }))
+        result.push(...pairs.map(([block, transfer]) => [block,
+          null,
+          transfer] satisfies AccountBalanceHistoryItem))
       }
-      const pairs: [SignedBlockBoundWitnessWithHashMeta, WithHashMeta<Transfer>][] = (transfers.map((transfer) => {
-        return [block[0], transfer]
-      }))
-      result.push(...pairs.map(([block, transfer]) => [block,
-        null,
-        transfer] satisfies AccountBalanceHistoryItem))
-    }
-    return result
+      return result
+    }, { timeBudgetLimit: 200 })
   }
 
   async accountBalances(address: Address[], config?: AccountBalanceConfig) {
@@ -184,75 +186,79 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
   }
 
   private async distillTransferHistory(address: Address, range: XL1BlockRange, max: number = 50): Promise<XL1BlockNumber[]> {
-    if ((range[1] - range[0]) <= StepSizes[0] || max <= 1) {
-      return Array.from({ length: range[1] - range[0] + 1 }, (_, i) => range[1] - i).slice(0, max).map(n => asXL1BlockNumber(n, true))
-    }
-    const frames = deepCalculateFramesFromRange(asXL1BlockRange(range, true))
-    const transferSummaryPairs = await Promise.all(frames.map(
-      async (frame) => {
-        return [frame, await transfersStepSummaryFromRange(this.transfersSummaryContext, frame)]
-      },
-    )) as [XL1BlockRange, WithStorageMeta<TransfersStepSummary>][]
+    return await this.spanAsync('distillTransferHistory', async () => {
+      if ((range[1] - range[0]) <= StepSizes[0] || max <= 1) {
+        return Array.from({ length: range[1] - range[0] + 1 }, (_, i) => range[1] - i).slice(0, max).map(n => asXL1BlockNumber(n, true))
+      }
+      const frames = deepCalculateFramesFromRange(asXL1BlockRange(range, true))
+      const transferSummaryPairs = await Promise.all(frames.map(
+        async (frame) => {
+          return [frame, await transfersStepSummaryFromRange(this.transfersSummaryContext, frame)]
+        },
+      )) as [XL1BlockRange, WithStorageMeta<TransfersStepSummary>][]
 
-    const filteredTransferSummaryPairs = transferSummaryPairs.filter(([_, summary]) => Object.keys(summary.transfers).includes(address))
+      const filteredTransferSummaryPairs = transferSummaryPairs.filter(([_, summary]) => Object.keys(summary.transfers).includes(address))
 
-    // sort it latest to earliest
-    const sortedTransferSummaryPairs = filteredTransferSummaryPairs.toSorted((a, b) => {
-      return b[0][1] - a[0][1]
-    })
+      // sort it latest to earliest
+      const sortedTransferSummaryPairs = filteredTransferSummaryPairs.toSorted((a, b) => {
+        return b[0][1] - a[0][1]
+      })
 
-    const resultBlockNumbers: Set<XL1BlockNumber> = new Set()
-    for (const [frame] of sortedTransferSummaryPairs) {
-      if ((frame[1] - frame[0] + 1) > StepSizes[0]) {
-        const values = await this.distillTransferHistory(address, asXL1BlockRange([frame[0], frame[1] - 1], true), max - resultBlockNumbers.size)
-        for (const value of values) {
-          resultBlockNumbers.add(value)
+      const resultBlockNumbers: Set<XL1BlockNumber> = new Set()
+      for (const [frame] of sortedTransferSummaryPairs) {
+        if ((frame[1] - frame[0] + 1) > StepSizes[0]) {
+          const values = await this.distillTransferHistory(address, asXL1BlockRange([frame[0], frame[1] - 1], true), max - resultBlockNumbers.size)
+          for (const value of values) {
+            resultBlockNumbers.add(value)
+          }
+          resultBlockNumbers.add(frame[1])
+        } else {
+          for (let i = frame[0]; i <= frame[1]; i++) {
+            resultBlockNumbers.add(i)
+          }
         }
-        resultBlockNumbers.add(frame[1])
-      } else {
-        for (let i = frame[0]; i <= frame[1]; i++) {
-          resultBlockNumbers.add(i)
+        if (resultBlockNumbers.size >= max) {
+          break
         }
       }
-      if (resultBlockNumbers.size >= max) {
-        break
-      }
-    }
-    return [...resultBlockNumbers].toSorted((a, b) => b - a).slice(0, max)
+      return [...resultBlockNumbers].toSorted((a, b) => b - a).slice(0, max)
+    }, { timeBudgetLimit: 200 })
   }
 
   private async qualifiedAccountBalanceHistory(
     address: Address,
     headOrRange?: Hash | XL1BlockRange,
   ): Promise<ChainQualified<AccountBalanceHistoryItem[]>> {
-    const range = asRange(headOrRange)
-    const headHash = asHash(headOrRange)
-    const [head] = assertEx(isDefined(headHash)
-      ? (await this.blockViewer.blockByHash(headHash))
-      : (await this.blockViewer.currentBlock()), () => 'Could not resolve head block')
-    const startingRange = asXL1BlockRange(range ?? [0, head.block], true)
-    const blockNumbers = await this.distillTransferHistory(address, startingRange)
-    const blocks = (await Promise.all(blockNumbers.map(async bn => await this.blockViewer.blockByNumber(bn)))).filter(exists)
-    const result: AccountBalanceHistoryItem[] = []
-    for (const block of blocks) {
-      const transferIndexes = block[0].payload_schemas.map((schema, index) => schema === TransferSchema ? index : undefined).filter(exists)
-      const transfers = transferIndexes.map((index) => {
-        const hash = block[0].payload_hashes[index]
-        return assertEx(
-          block[1].find(p => p._hash === hash) as WithStorageMeta<Transfer>,
-          () => `Error: Could not find Transfer with hash ${hash} in block ${block[0]._hash}`,
-        )
-      }).filter(exists).filter(t => ((t.from === address) || (isDefined(t.transfers[address]))))
-      if (transfers.length === 0) {
-        continue
+    return await this.spanAsync('qualifiedAccountBalanceHistory', async () => {
+      const range = asRange(headOrRange)
+      const headHash = asHash(headOrRange)
+      const [head] = assertEx(isDefined(headHash)
+        ? (await this.blockViewer.blockByHash(headHash))
+        : (await this.blockViewer.currentBlock()), () => 'Could not resolve head block')
+      const startingRange = asXL1BlockRange(range ?? [0, head.block], true)
+      const blockNumbers = await this.distillTransferHistory(address, startingRange)
+      const blocks = (await Promise.all(blockNumbers.map(async bn => await this.blockViewer.blockByNumber(bn)))).filter(exists)
+      const result: AccountBalanceHistoryItem[] = []
+      for (const block of blocks) {
+        const transferIndexes = block[0].payload_schemas.map((schema, index) => schema === TransferSchema ? index : undefined).filter(exists)
+        const transfers = transferIndexes.map((index) => {
+          const hash = block[0].payload_hashes[index]
+          return assertEx(
+            block[1].find(p => p._hash === hash) as WithStorageMeta<Transfer>,
+            () => `Error: Could not find Transfer with hash ${hash} in block ${block[0]._hash}`,
+          )
+        }).filter(exists).filter(t => ((t.from === address) || (isDefined(t.transfers[address]))))
+        if (transfers.length === 0) {
+          continue
+        }
+        const pairs: [SignedBlockBoundWitnessWithHashMeta, WithHashMeta<Transfer>][] = (transfers.map((transfer) => {
+          return [block[0], transfer]
+        }))
+        result.push(...pairs.map(([block, transfer]) => [block,
+          null,
+          transfer] satisfies AccountBalanceHistoryItem))
       }
-      const pairs: [SignedBlockBoundWitnessWithHashMeta, WithHashMeta<Transfer>][] = (transfers.map((transfer) => {
-        return [block[0], transfer]
-      }))
-      result.push(...pairs.map(([block, transfer]) => [block,
-        null,
-        transfer] satisfies AccountBalanceHistoryItem))
-    }
-    return [result, { range: startingRange, head: head._hash }]
+      return [result, { range: startingRange, head: head._hash }]
+    }, { timeBudgetLimit: 200 })
   }
 }
