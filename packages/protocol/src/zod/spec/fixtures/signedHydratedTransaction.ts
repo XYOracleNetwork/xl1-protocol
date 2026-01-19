@@ -1,0 +1,58 @@
+export const signedHydratedTransactionWithHashMeta = [
+  {
+    schema: 'network.xyo.boundwitness',
+    addresses: [
+      'ae2966ff28d3b82e91dbec3fb1e285152ba2e782',
+    ],
+    payload_hashes: [
+      '7c4deb6830f9c2f45d61691467825dd1ec08c22b1ac178d8b0737af714a4a636',
+      'b0a65744aac6d5a1cc79af5e51d6631618c2b6672f294b1972760019a9b4e174',
+    ],
+    payload_schemas: [
+      'network.xyo.boundwitness',
+      'network.xyo.stock.market.tzero.snapshot',
+    ],
+    previous_hashes: [
+      null,
+    ],
+    $signatures: [
+      'fa229bc173704cdbe226f44e15f1f7a7df44fdfe575ffc96ce6f24574b21065f02c3a4d8f84beb01dfd26d70128ca0cb2f69b4f9ec912c2310e4ee5f999619d3',
+    ],
+    nbf: 250_042,
+    exp: 250_052,
+    fees: {
+      base: 'e8d4a51000',
+      gasLimit: '038d7ea4c68000',
+      gasPrice: '02540be400',
+      priority: '00',
+    },
+    chain: 'dd381fbb392c85160d8b0453e446757b12384046',
+    from: 'ae2966ff28d3b82e91dbec3fb1e285152ba2e782',
+    _dataHash: 'c3afe940115d0bc2581567d59586f42e5be3f2fe6b42520834a0ec3920dee98b',
+    _hash: 'f8b6222c9361e60ddff5982b4e88d3746c2e072edaf58611368b0ad651ee67c2',
+    _sequence: '00000000000000000000000051ee67c2',
+  },
+  [{
+    askPrice: 0.28,
+    askPriceRate: null,
+    askQtyBookTotal: 140_619,
+    askQuantity: 716,
+    bidPrice: 0.18,
+    bidPriceRate: null,
+    bidQtyBookTotal: 7688,
+    bidQuantity: 2,
+    high: null,
+    lastPrice: null,
+    lastQuantity: null,
+    low: null,
+    open: null,
+    prevClosePx: 0.28,
+    schema: 'network.xyo.stock.market.tzero.snapshot',
+    symbol: 'XYLB',
+    timestamp: '2026-01-19T17:22:02.108746148-05:00',
+    volume: 0,
+    _dataHash: 'b0a65744aac6d5a1cc79af5e51d6631618c2b6672f294b1972760019a9b4e174',
+    _hash: 'b0a65744aac6d5a1cc79af5e51d6631618c2b6672f294b1972760019a9b4e174',
+    _sequence: '0000019bd859cdf500000001a9b4e174',
+  }],
+]
