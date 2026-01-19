@@ -23,7 +23,7 @@ export interface CreatableProviderContext extends CachingBaseContext {
 }
 
 export interface CreatableProviderParams<TContext extends CreatableProviderContext = CreatableProviderContext> extends CreatableParams {
-  context: Partial<TContext> & Pick<TContext, 'caches' | 'singletons'>
+  context: TContext
 }
 export interface CreatableProviderEventData extends EventData {}
 
