@@ -16,7 +16,7 @@ import { SkipRateSpecs } from './Config.ts'
 // and we can update the block ranges to something static for all time
 const endpoint = 'http://localhost:8080/rpc'
 
-describe.skipIf(SkipRateSpecs)('calculateBlocksRate', () => {
+describe.skipIf(SkipRateSpecs)('calculateBlockRate', () => {
   let viewer: BlockViewer
 
   beforeEach(async () => {
