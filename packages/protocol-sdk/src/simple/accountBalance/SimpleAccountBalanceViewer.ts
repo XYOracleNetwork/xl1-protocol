@@ -1,7 +1,7 @@
 import type { Address, Hash } from '@xylabs/sdk-js'
 import {
   asHash,
-  assertEx, exists, isDefined, spanRootAsync,
+  assertEx, exists, isDefined,
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'
 import type { WithHashMeta, WithStorageMeta } from '@xyo-network/payload-model'
@@ -120,46 +120,48 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
     addresses: Address[],
     config: AccountBalanceConfig,
   ) {
-    const head = isChainQualifiedHeadConfig(config) ? config.head : await this.blockViewer.currentBlockHash()
-    const range = isChainQualifiedRangeConfig(config)
-      ? config.range
-      : asXL1BlockRange([0,
-          assertEx(
-            await this.blockViewer.blockByHash(head),
-            () => `Error: Could not find block with hash ${head}`,
-          )[0].block])
-    const qualifiedEntries = await Promise.all(addresses.map(async address => ([
-      address,
-      await this.qualifiedAccountBalanceHistory(address, range),
-    ]))) satisfies [Address, ChainQualified<AccountBalanceHistoryItem[]>][]
+    return await this.spanAsync('qualifiedAccountBalanceHistories', async () => {
+      const head = isChainQualifiedHeadConfig(config) ? config.head : await this.blockViewer.currentBlockHash()
+      const range = isChainQualifiedRangeConfig(config)
+        ? config.range
+        : asXL1BlockRange([0,
+            assertEx(
+              await this.blockViewer.blockByHash(head),
+              () => `Error: Could not find block with hash ${head}`,
+            )[0].block])
+      const qualifiedEntries = await Promise.all(addresses.map(async address => ([
+        address,
+        await this.qualifiedAccountBalanceHistory(address, range),
+      ]))) satisfies [Address, ChainQualified<AccountBalanceHistoryItem[]>][]
 
-    const entries = qualifiedEntries.map(([address, [history]]) => {
-      return [address, history]
-    })
-    const qualifiedRange = qualifiedEntries[0][1][1].range
-    const qualifiedHeadHash = qualifiedEntries[0][1][1].head
+      const entries = qualifiedEntries.map(([address, [history]]) => {
+        return [address, history]
+      })
+      const qualifiedRange = qualifiedEntries[0][1][1].range
+      const qualifiedHeadHash = qualifiedEntries[0][1][1].head
 
-    // check for drift
-    for (const [_, [__, { range, head }]] of qualifiedEntries) {
-      assertEx(
-        range[0] === qualifiedRange[0] && range[1] === qualifiedRange[1],
-        () => 'Inconsistent ranges in qualifiedAccountBalanceHistories',
-      )
-      assertEx(
-        head === qualifiedHeadHash,
-        () => 'Inconsistent head hashes in qualifiedAccountBalanceHistories',
-      )
-    }
+      // check for drift
+      for (const [_, [__, { range, head }]] of qualifiedEntries) {
+        assertEx(
+          range[0] === qualifiedRange[0] && range[1] === qualifiedRange[1],
+          () => 'Inconsistent ranges in qualifiedAccountBalanceHistories',
+        )
+        assertEx(
+          head === qualifiedHeadHash,
+          () => 'Inconsistent head hashes in qualifiedAccountBalanceHistories',
+        )
+      }
 
-    return [Object.fromEntries(entries), { range: qualifiedRange, head: qualifiedHeadHash }] satisfies
+      return [Object.fromEntries(entries), { range: qualifiedRange, head: qualifiedHeadHash }] satisfies
       [Record<Address, AccountBalanceHistoryItem[]>, ChainQualification]
+    }, { timeBudgetLimit: 200 })
   }
 
   async qualifiedAccountBalances(
     address: Address[],
     config: AccountBalanceConfig,
   ): Promise<ChainQualified<Record<Address, AttoXL1>>> {
-    return await spanRootAsync('qualifiedAccountsBalances', async () => {
+    return await this.spanAsync('qualifiedAccountsBalances', async () => {
       const qualifiedSummary = await balancesSummary(
         { ...this.balanceSummaryContext },
         config,
@@ -170,7 +172,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
         result[addr] = AttoXL1(summaryBalance < 0n ? 0n : summaryBalance)
       }
       return [result, qualifiedSummary[1]]
-    })
+    }, { timeBudgetLimit: 200 })
   }
 
   override async startHandler() {

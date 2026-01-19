@@ -33,5 +33,5 @@ export async function balancesSummary(
       }
     }
     return [balances, { range, head: headHash }]
-  })
+  }, { timeBudgetLimit: 500 })
 }

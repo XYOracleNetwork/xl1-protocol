@@ -239,7 +239,7 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
   }
 
   async networkStakeStepRewardForPosition(position: number, range: XL1BlockRange): Promise<[bigint, bigint]> {
-    return await timeBudget('networkStakeStepRewardForPosition', this.logger, async () => {
+    return await this.spanAsync('networkStakeStepRewardForPosition', async () => {
       const externalRange = await externalBlockRangeFromXL1BlockRange(this.context, this.block, range)
       const positionCount = await this.stake.stakeEvents.positionCount(externalRange)
       if (positionCount === 0) {
@@ -250,7 +250,7 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
       const positionReward = rewards.reduce((a, b) => a + b[0], 0n)
       const totalReward = rewards.reduce((a, b) => a + b[1], 0n)
       return [positionReward, totalReward]
-    }, 100)
+    }, { timeBudgetLimit: 100 })
   }
 
   async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<bigint> {
@@ -340,13 +340,13 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
   }
 
   async networkStakeStepRewardsForRange(range: XL1BlockRange): Promise<bigint> {
-    return await timeBudget('networkStakeStepRewardsForRange', this.logger, async () => {
+    return await this.spanAsync('networkStakeStepRewardsForRange', async () => {
       const steps = blockRangeSteps(range, [3, 4, 5, 6, 7, 8])
       const rewards = await Promise.all(steps.map(async (step) => {
         return await this.networkStakeStepRewardForStep(step)
       }))
       return rewards.reduce((a, b) => a + b, 0n)
-    }, 100)
+    }, { timeBudgetLimit: 100 })
   }
 
   async networkStakeStepRewardsForStepLevel(stepLevel: number, range: XL1BlockRange): Promise<bigint> {

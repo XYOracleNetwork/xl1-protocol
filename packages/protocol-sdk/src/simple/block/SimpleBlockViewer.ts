@@ -1,6 +1,6 @@
 import type { Hash } from '@xylabs/sdk-js'
 import {
-  assertEx, exists, isDefined, isUndefined, spanRootAsync,
+  assertEx, exists, isDefined, isUndefined,
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
@@ -78,10 +78,10 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   }
 
   async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
-    return await spanRootAsync('blockByHash', async () => {
+    return await this.spanAsync('blockByHash', async () => {
       const cache = this.hydratedBlockCache
       return await cache.get(hash)
-    }, { tracer: this.tracer })
+    }, { timeBudgetLimit: 200 })
   }
 
   async blockByNumber(blockNumber: XL1BlockNumber): Promise<SignedHydratedBlockWithHashMeta | null> {

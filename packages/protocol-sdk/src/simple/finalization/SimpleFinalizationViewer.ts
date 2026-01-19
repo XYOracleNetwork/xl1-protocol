@@ -1,7 +1,6 @@
 import {
   assertEx,
   Hash,
-  spanRootAsync,
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
