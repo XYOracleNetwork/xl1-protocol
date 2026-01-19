@@ -1,4 +1,4 @@
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type { Semaphore } from 'async-mutex'
 
 import type { MapType, MapTypeRead } from '../../map/index.ts'
@@ -10,14 +10,14 @@ import type { SchemasStepSummary } from './SchemasStepSummary.ts'
 import type { TransfersStepSummary } from './TransfersSummary.ts'
 
 export interface ChainSummaryContextBase<TPayload extends Payload,
-  T extends (MapTypeRead<string, TPayload>)> extends CachingBaseContext {
+  T extends (MapTypeRead<string, WithHashMeta<TPayload>>)> extends CachingBaseContext {
   stepSemaphores: Semaphore[]
   summaryMap: T
 }
 
-export interface ChainSummaryContextRead<T extends Payload> extends ChainSummaryContextBase<T, MapTypeRead<string, T>>, ChainContextRead {}
+export interface ChainSummaryContextRead<T extends Payload> extends ChainSummaryContextBase<T, MapTypeRead<string, WithHashMeta<T>>>, ChainContextRead {}
 
-export interface ChainSummaryContextWrite<T extends Payload> extends ChainSummaryContextBase<T, MapType<string, T>>, ChainContext {}
+export interface ChainSummaryContextWrite<T extends Payload> extends ChainSummaryContextBase<T, MapType<string, WithHashMeta<T>>>, ChainContext {}
 
 export type ChainSummaryContext<T extends Payload> = ChainSummaryContextRead<T> & ChainSummaryContextWrite<T>
 

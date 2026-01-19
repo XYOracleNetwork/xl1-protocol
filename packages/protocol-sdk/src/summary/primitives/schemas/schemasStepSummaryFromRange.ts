@@ -1,9 +1,7 @@
 import { assertEx } from '@xylabs/sdk-js'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type {
-  Schema, WithHashMeta, WithStorageMeta,
-} from '@xyo-network/payload-model'
+import type { Schema, WithHashMeta } from '@xyo-network/payload-model'
 import { isAnyPayload, isHashMeta } from '@xyo-network/payload-model'
 import type { XL1BlockRange } from '@xyo-network/xl1-protocol'
 import { StepSizes } from '@xyo-network/xl1-protocol'
@@ -25,7 +23,7 @@ export async function schemasStepSummaryFromRange(
   const frameSize = range[1] - range[0] + 1
   const [headHash] = await context.head()
 
-  let result: SchemasStepSummary | undefined = undefined
+  let result: WithHashMeta<SchemasStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
     const hash = await hashFromBlockNumber(context, range[0])
@@ -38,9 +36,9 @@ export async function schemasStepSummaryFromRange(
         schemas[schema] = (schemas[schema] ?? 0) + 1
       }
     }
-    result = {
+    result = await PayloadBuilder.addHashMeta({
       schema: SchemasStepSummarySchema, hash: headHash, stepSize: -1, schemas,
-    }
+    })
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const step = (StepSizes as any).indexOf(frameSize)
@@ -48,7 +46,7 @@ export async function schemasStepSummaryFromRange(
 
     const summaryResult = await context.summaryMap.get(`${frameHeadHash}|${frameSize}`)
     if (isAnyPayload(summaryResult)) {
-      result = summaryResult as WithStorageMeta<SchemasStepSummary>
+      result = summaryResult as WithHashMeta<SchemasStepSummary>
     } else {
     // We do not have it, so lets build it
       await context.stepSemaphores[step].acquire()
@@ -68,9 +66,9 @@ export async function schemasStepSummaryFromRange(
           }
         }
 
-        result = {
+        result = await PayloadBuilder.addHashMeta({
           schema: SchemasStepSummarySchema, hash: frameHeadHash, stepSize: frameSize, schemas: schemas,
-        }
+        })
 
         await context.summaryMap.set(`${frameHeadHash}|${frameSize}`, result)
       } finally {

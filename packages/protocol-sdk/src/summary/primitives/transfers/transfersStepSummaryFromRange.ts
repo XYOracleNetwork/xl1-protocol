@@ -2,7 +2,7 @@
 import { type Address } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/payload-model'
 import { isAnyPayload } from '@xyo-network/payload-model'
 import type { XL1BlockRange } from '@xyo-network/xl1-protocol'
 import { StepSizes } from '@xyo-network/xl1-protocol'
@@ -22,13 +22,13 @@ import { transfersSummaryKey } from './transfersSummary.ts'
 export async function transfersStepSummaryFromRange(
   context: TransfersStepSummaryContext,
   range: XL1BlockRange,
-): Promise<WithStorageMeta<TransfersStepSummary>> {
+): Promise<WithHashMeta<TransfersStepSummary>> {
   // console.log(`transfersStepSummaryFromRange: head=${context.head}, range=${range[0]}-${range[1]}`)
   const frameHeadHash = await hashFromBlockNumber(context, range[1])
   const frameSize = range[1] - range[0] + 1
   const [headHash] = await context.head()
 
-  let result: TransfersStepSummary | undefined = undefined
+  let result: WithHashMeta<TransfersStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
     const hash = await hashFromBlockNumber(context, range[0])
@@ -40,9 +40,9 @@ export async function transfersStepSummaryFromRange(
         transfers[from as Address][to as Address] = toSignedBigInt(amount)
       }
     }
-    result = {
+    result = await PayloadBuilder.addHashMeta({
       schema: TransfersStepSummarySchema, hash: headHash, stepSize: -1, transfers,
-    }
+    })
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const step = (StepSizes as any).indexOf(frameSize)
@@ -52,7 +52,7 @@ export async function transfersStepSummaryFromRange(
 
     const summaryResult = await context.summaryMap.get(key)
     if (isAnyPayload(summaryResult)) {
-      result = summaryResult as WithStorageMeta<TransfersStepSummary>
+      result = summaryResult as WithHashMeta<TransfersStepSummary>
     } else {
       await context.stepSemaphores[step].acquire()
       // We do not have it, so lets build it
@@ -83,9 +83,9 @@ export async function transfersStepSummaryFromRange(
           }
         }
 
-        result = {
+        result = await PayloadBuilder.addHashMeta({
           schema: TransfersStepSummarySchema, hash: frameHeadHash, stepSize: frameSize, transfers,
-        }
+        })
 
         await context.summaryMap.set(key, result)
       } finally {
@@ -94,6 +94,5 @@ export async function transfersStepSummaryFromRange(
     }
   }
   // console.log(`transfersStepSummaryFromRange-result: head=${context.head}, range=${range[0]}-${range[1]}: ${toSafeJsonString(result, 10)}`)
-  const finalResult = await PayloadBuilder.addStorageMeta(result)
-  return finalResult
+  return result
 }
