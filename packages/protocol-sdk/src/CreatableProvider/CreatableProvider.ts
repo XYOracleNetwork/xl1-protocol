@@ -15,7 +15,7 @@ import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorIns
 
 export interface CreatableProviderContext extends CachingBaseContext {
   _id?: string
-  config?: Config
+  config: Config
   locator: ProviderFactoryLocatorInstance
   meterProvider?: MeterProvider
   statusReporter?: RuntimeStatusMonitor
