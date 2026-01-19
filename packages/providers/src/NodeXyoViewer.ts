@@ -511,6 +511,7 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     const stake = this.stake
     const store = { chainMap: await this.getFinalizedPayloadMap() } satisfies StakedChainContextRead['store']
     return {
+      caches: this.context.caches,
       singletons: this.context.singletons,
       head: function (): Promisable<[Hash, number]> {
         throw new Error('Function not implemented.')

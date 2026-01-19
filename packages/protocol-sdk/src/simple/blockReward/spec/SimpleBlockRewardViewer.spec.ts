@@ -6,6 +6,8 @@ import {
   beforeAll, describe, expect, it,
 } from 'vitest'
 
+import { getDefaultConfig } from '../../../config/index.ts'
+import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
 import { SimpleBlockRewardViewer } from '../SimpleBlockRewardViewer.ts'
 
 describe('MemoryBlockRewardService', () => {
@@ -19,6 +21,13 @@ describe('MemoryBlockRewardService', () => {
   const stepFactorDenominator = 100n
   const stepFactorNumerator = 95n
   const stepSize = asXL1BlockNumber(1_000_000, true)
+  const config = getDefaultConfig()
+  const locator = new ProviderFactoryLocator({
+    singletons: {}, caches: {}, config,
+  })
+  const context = {
+    caches: {}, singletons: {}, config, locator,
+  }
   beforeAll(async () => {
     sut = await SimpleBlockRewardViewer.create({
       stepFactorNumerator,
@@ -27,6 +36,7 @@ describe('MemoryBlockRewardService', () => {
       initialReward,
       minRewardPerBlock,
       creatorReward: genesisReward,
+      context,
     })
   })
 

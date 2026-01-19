@@ -4,8 +4,9 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import type { BaseContext } from '../../../../model/index.ts'
-import { SimpleBlockViewer } from '../../../../simple/index.ts'
+import { getDefaultConfig } from '../../../../config/index.ts'
+import { ProviderFactoryLocator } from '../../../../CreatableProvider/index.ts'
+import { SimpleBlockViewer, SimpleFinalizationViewer } from '../../../../simple/index.ts'
 import { externalBlockNumberFromXL1BlockNumber } from '../externalBlockNumberFromXL1BlockNumber.ts'
 
 describe('externalBlockNumberFromXL1BlockNumber', () => {
@@ -18,8 +19,18 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
       },
     })
 
-    const context: BaseContext = { singletons: {} }
-    const blockViewer = await SimpleBlockViewer.create({ finalizedArchivist: chainArchivist })
+    const config = getDefaultConfig()
+    const locator = new ProviderFactoryLocator({
+      singletons: {}, caches: {}, config,
+    })
+    locator.registerMany([
+      SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist: chainArchivist }),
+    ])
+    const context = {
+      caches: {}, singletons: {}, config, locator,
+    }
+
+    const blockViewer = await SimpleBlockViewer.create({ finalizedArchivist: chainArchivist, context })
 
     const stepNumber = 3
     const xl1BlockRange = asXL1BlockRange([StepSizes[3] * stepNumber, StepSizes[3] * (stepNumber + 1) - 1], { name: 'testRange' })

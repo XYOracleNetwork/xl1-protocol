@@ -31,10 +31,10 @@ export interface BuildProviderLocatorParams {
 
 export function buildProviderLocator({ context = {} }: BuildProviderLocatorParams = {}) {
   const {
-    config = getDefaultConfig(), locator, singletons = {}, ...restOfContext
+    config = getDefaultConfig(), locator, singletons = {}, caches = {}, ...restOfContext
   } = context
   return new ProviderFactoryLocator({
-    ...restOfContext, config, singletons,
+    ...restOfContext, config, singletons, caches,
   }, locator?.registry)
 }
 

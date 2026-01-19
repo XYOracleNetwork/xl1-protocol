@@ -16,12 +16,15 @@ describe('getWindowedChain', () => {
   beforeEach(async () => {
     const config = getDefaultConfig()
     const singletons = {}
-    const locator = new ProviderFactoryLocator({ config, singletons })
+    const caches = {}
+    const locator = new ProviderFactoryLocator({
+      config, singletons, caches,
+    })
     finalizedArchivist = await MemoryArchivist.create({ account: 'random', config: { name: 'FinalizedArchivist' } })
     blockViewer = await SimpleBlockViewer.create({
       finalizedArchivist,
       context: {
-        config, locator, singletons,
+        config, locator, singletons, caches,
       },
     })
   })

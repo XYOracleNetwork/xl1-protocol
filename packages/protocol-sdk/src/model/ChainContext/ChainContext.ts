@@ -1,5 +1,7 @@
 import type { Logger } from '@xylabs/sdk-js'
-import { isDefined, isUndefined } from '@xylabs/sdk-js'
+import {
+  isDefined, isObject, isUndefined,
+} from '@xylabs/sdk-js'
 
 import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
 import type { MapType } from '../../map/index.ts'
@@ -18,13 +20,17 @@ export interface BaseContext<TCacheValue = string | object | number | bigint> {
   singletons: Record<string, unknown>
 }
 
+export interface CachingBaseContext<TCacheValue = string | object | number | bigint> extends BaseContext<TCacheValue> {
+  caches: Record<string, MapType<string, TCacheValue>>
+}
+
 export function contextCache<TCacheValue>(
-  context: BaseContext<TCacheValue | unknown>,
+  context: CachingBaseContext<TCacheValue | unknown>,
   name: string,
   create?: () => MapType<string, TCacheValue>,
 ): MapType<string, TCacheValue> {
-  if (!context.caches) {
-    context.caches = {}
+  if (!isObject(context.caches)) {
+    throw new Error('Context does not have an appropriate caches property')
   }
   if (isUndefined(context.caches[name])) {
     context.caches[name] = create?.() ?? new MemoryMap<string, TCacheValue>()
@@ -38,7 +44,7 @@ export interface withContextCacheResponseOptions {
 }
 
 export async function withContextCacheResponse<T extends {} | string | number | bigint>(
-  context: BaseContext,
+  context: CachingBaseContext,
   name: string,
   key: string,
   func: () => Promise<T extends {} | string | number | bigint ? T : never>,
@@ -62,9 +68,9 @@ export interface ChainContextWrite extends BaseContext, ChainStateContextWrite, 
 
 export interface StakedChainContextWrite extends BaseContext, ChainContextWrite, ChainStakeContextWrite {}
 
-export interface ChainContextRead extends BaseContext, ChainStateContextRead, ChainStoreContextRead {}
+export interface ChainContextRead extends CachingBaseContext, ChainStateContextRead, ChainStoreContextRead {}
 
-export interface StakedChainContextRead extends BaseContext, ChainContextRead, ChainStakeContextRead {}
+export interface StakedChainContextRead extends CachingBaseContext, ChainContextRead, ChainStakeContextRead {}
 
 export type ChainContext = ChainContextRead & ChainContextWrite & ChainStoreContext
 

@@ -12,12 +12,11 @@ import { Semaphore } from 'async-mutex'
 
 import { Config, getDefaultConfig } from '../config/index.ts'
 import { ProviderFactoryLocator, ProviderFactoryLocatorInstance } from '../CreatableProvider/index.ts'
-import { BaseContext } from '../model/index.ts'
+import { CachingBaseContext } from '../model/index.ts'
 
-export type ActorContext = BaseContext & {
+export interface ActorContext extends CachingBaseContext {
   config: Config
   locator?: ProviderFactoryLocatorInstance
-  singletons: Record<string, unknown>
 }
 
 export type ActorParams<T extends EmptyObject | void = void> = CreatableParams & {
@@ -87,13 +86,14 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
 
     const context: ActorContext = {
       ...params?.context,
+      caches: params.context?.caches ?? {},
       config,
       logger,
       singletons,
     }
 
     const locator = params?.context?.locator ?? new ProviderFactoryLocator(context)
-    return locator.context
+    return { ...context, ...locator.context }
   }
 
   /**

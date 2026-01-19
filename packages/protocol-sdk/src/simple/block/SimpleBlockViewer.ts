@@ -91,12 +91,12 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         return null
       }
       return asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber({
+        ...this.context,
         chainId: head.chain,
         head: () => {
           return [head._hash, head.block]
         },
         store: this.store,
-        singletons: this.context.singletons,
       } satisfies ChainContextRead, blockNumber)) ?? null
     }, this.tracer)
   }

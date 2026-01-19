@@ -44,7 +44,7 @@
     "packages/*/packages/*/packages/*"
   ],
   "scripts": {
-    "publish": "yarn workspaces foreach -A --no-private npm publish",
+    "publish": "npm publish --workspaces",
     "test": "vitest run"
   },
   "dependencies": {

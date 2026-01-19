@@ -3,14 +3,14 @@ import type { Semaphore } from 'async-mutex'
 
 import type { MapType, MapTypeRead } from '../../map/index.ts'
 import type {
-  BaseContext, ChainContext, ChainContextRead,
+  CachingBaseContext, ChainContext, ChainContextRead,
 } from '../../model/index.ts'
 import type { BalancesStepSummary } from './BalancesStepSummary.ts'
 import type { SchemasStepSummary } from './SchemasStepSummary.ts'
 import type { TransfersStepSummary } from './TransfersSummary.ts'
 
 export interface ChainSummaryContextBase<TPayload extends Payload,
-  T extends (MapTypeRead<string, TPayload>)> extends BaseContext {
+  T extends (MapTypeRead<string, TPayload>)> extends CachingBaseContext {
   stepSemaphores: Semaphore[]
   summaryMap: T
 }

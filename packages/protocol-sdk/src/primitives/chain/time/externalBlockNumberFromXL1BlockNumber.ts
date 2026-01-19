@@ -4,13 +4,14 @@ import {
   asBlockNumber, asTimePayload, isTimePayload,
 } from '@xyo-network/xl1-protocol'
 
-import { type BaseContext, withContextCacheResponse } from '../../../model/index.ts'
+import type { CachingBaseContext } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../model/index.ts'
 import type { BlockViewer } from '../../../viewers/index.ts'
 
 const functionName = 'externalBlockNumberFromXL1BlockNumber' as const
 
 export async function externalBlockNumberFromXL1BlockNumber(
-  context: BaseContext,
+  context: CachingBaseContext,
   blockViewer: BlockViewer,
   xl1BlockNumber: XL1BlockNumber,
   externalTimeName: 'ethereum' | 'epoch',
