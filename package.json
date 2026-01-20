@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-sdk",
-  "version": "1.18.30",
+  "version": "1.18.31",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -44,17 +44,18 @@
     "packages/*/packages/*/packages/*"
   ],
   "scripts": {
+    "publish-all": "npm publish --workspaces --include-workspace-root",
     "test": "vitest run"
   },
   "dependencies": {
-    "@xyo-network/xl1-network-model": "~1.18.30",
-    "@xyo-network/xl1-protocol": "~1.18.30",
-    "@xyo-network/xl1-protocol-sdk": "~1.18.30",
-    "@xyo-network/xl1-providers": "~1.18.30",
-    "@xyo-network/xl1-rpc": "~1.18.30",
-    "@xyo-network/xl1-schema": "~1.18.30",
-    "@xyo-network/xl1-validation": "~1.18.30",
-    "@xyo-network/xl1-wrappers": "~1.18.30"
+    "@xyo-network/xl1-network-model": "~1.18.31",
+    "@xyo-network/xl1-protocol": "~1.18.31",
+    "@xyo-network/xl1-protocol-sdk": "~1.18.31",
+    "@xyo-network/xl1-providers": "~1.18.31",
+    "@xyo-network/xl1-rpc": "~1.18.31",
+    "@xyo-network/xl1-schema": "~1.18.31",
+    "@xyo-network/xl1-validation": "~1.18.31",
+    "@xyo-network/xl1-wrappers": "~1.18.31"
   },
   "devDependencies": {
     "@types/node": "~25.0.9",
