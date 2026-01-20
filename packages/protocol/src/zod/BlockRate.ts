@@ -2,7 +2,7 @@ import { zodAsFactory, zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
 import { StepSizes } from '../constants/index.ts'
-import type { XL1BlockNumber } from '../model/index.ts'
+import type { EthBlockNumber, XL1BlockNumber } from '../model/index.ts'
 import { XL1BlockRangeZod } from '../model/index.ts'
 
 export const TimeDurationsZod = z.object({
@@ -30,11 +30,12 @@ export const BlockRateZod = z.object({
 
 export type BlockRate = z.infer<typeof BlockRateZod>
 
-export type GenericBlockRate<TBlockNumber extends number> = BlockRate & {
+export type GenericBlockRate<TBlockNumber extends number> = Omit<BlockRate, 'range'> & {
   range: [TBlockNumber, TBlockNumber]
 }
 
 export interface XL1BlockRate extends GenericBlockRate<XL1BlockNumber> {}
+export interface EthBlockRate extends GenericBlockRate<EthBlockNumber> {}
 
 export const isBlockRate = zodIsFactory(BlockRateZod)
 export const asBlockRate = zodAsFactory(BlockRateZod, 'asBlockRate')
