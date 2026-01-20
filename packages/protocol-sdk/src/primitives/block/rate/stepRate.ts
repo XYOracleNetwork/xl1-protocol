@@ -1,5 +1,7 @@
 import { assertEx } from '@xylabs/sdk-js'
-import type { TimeDurations, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import type {
+  TimeDurations, XL1BlockNumber, XL1BlockRate,
+} from '@xyo-network/xl1-protocol'
 import {
   asXL1BlockRange, isValidStep, StepSizes,
 } from '@xyo-network/xl1-protocol'
@@ -13,7 +15,7 @@ export const stepRate = async (
   step: typeof StepSizes[number],
   count = 1,
   timeUnit?: keyof TimeDurations,
-) => {
+): Promise<XL1BlockRate> => {
   const end = start + step * count
   const range = asXL1BlockRange([start, end], true)
 

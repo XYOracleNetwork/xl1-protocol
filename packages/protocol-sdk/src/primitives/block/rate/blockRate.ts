@@ -1,6 +1,6 @@
 import { isDefined, isFalsy } from '@xylabs/sdk-js'
 import type {
-  BlockRate, HydratedBlock, TimeDurations, XL1BlockNumber, XL1BlockRange,
+  HydratedBlock, TimeDurations, XL1BlockNumber, XL1BlockRange, XL1BlockRate,
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
@@ -11,7 +11,7 @@ export const blockRate = (
   startBlock: HydratedBlock,
   endBlock: HydratedBlock,
   timeUnit?: keyof TimeDurations,
-): BlockRate => {
+): XL1BlockRate => {
   const startingBlock = startBlock[0]
   const endingBlock = endBlock[0]
 
@@ -54,7 +54,7 @@ export const calculateBlockRate = async (
   viewer: BlockViewer,
   range: XL1BlockRange,
   timeUnit?: keyof TimeDurations,
-): Promise<BlockRate> => {
+): Promise<XL1BlockRate> => {
   const [startBlockHeight, endBlockHeight] = range
   const { startingBlock, endingBlock } = await getBlockRateBlocks(
     viewer,

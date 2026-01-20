@@ -6,6 +6,7 @@ import type {
   SingleTimeConfig,
   TimeDurations,
   XL1BlockNumber,
+  XL1BlockRate,
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
@@ -25,7 +26,7 @@ export const calculateTimeRate = async (
   toleranceMs = DEFAULT_TOLERANCE_MS,
   // maximum recursive attempts to prevent infinite loops
   maxAttempts = DEFAULT_MAX_ATTEMPTS,
-) => {
+): Promise<XL1BlockRate> => {
   // check the time config has only one key
   assertEx(Object.keys(timeConfig ?? {}).length === 1, () => 'Only one time unit should be specified in timeConfig')
 
