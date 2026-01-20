@@ -44,7 +44,7 @@
     "packages/*/packages/*/packages/*"
   ],
   "scripts": {
-    "publish": "npm publish --workspaces",
+    "publish": "npm publish && npm publish --workspaces",
     "test": "vitest run"
   },
   "dependencies": {
