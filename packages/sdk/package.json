@@ -1,6 +1,6 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
-  "name": "@xyo-network/xl1-mono-repo",
+  "name": "@xyo-network/xl1-sdk",
   "version": "1.18.33",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
@@ -43,25 +43,26 @@
     "packages/*/packages/*",
     "packages/*/packages/*/packages/*"
   ],
-  "scripts": {
-    "publish-all": "npm publish --workspaces",
-    "test": "vitest run"
+  "dependencies": {
+    "@xyo-network/xl1-network-model": "~1.18.33",
+    "@xyo-network/xl1-protocol": "~1.18.33",
+    "@xyo-network/xl1-protocol-sdk": "~1.18.33",
+    "@xyo-network/xl1-providers": "~1.18.33",
+    "@xyo-network/xl1-rpc": "~1.18.33",
+    "@xyo-network/xl1-schema": "~1.18.33",
+    "@xyo-network/xl1-validation": "~1.18.33",
+    "@xyo-network/xl1-wrappers": "~1.18.33"
   },
   "devDependencies": {
-    "@types/node": "~25.0.9",
-    "@typescript-eslint/types": "~8.53.1",
-    "@xylabs/eslint-config-flat": "~7.2.32",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
-    "dependency-cruiser": "~17.3.6",
-    "dotenv": "~17.2.3",
-    "eslint": "~9.39.2",
-    "eslint-import-resolver-typescript": "~4.4.4",
-    "knip": "~5.82.1",
+    "axios": "^1.13.2",
     "typescript": "~5.9.3",
-    "vite": "~7.3.1",
-    "vite-tsconfig-paths": "~6.0.4",
-    "vitest": "~4.0.17"
+    "zod": "~4.3.5"
+  },
+  "peerDependencies": {
+    "axios": "^1",
+    "zod": "^4"
   },
   "packageManager": "yarn@4.12.0",
   "engines": {
@@ -72,8 +73,7 @@
     "node": "22.3.0",
     "yarn": "4.9.2"
   },
-  "private": true,
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   }
 }

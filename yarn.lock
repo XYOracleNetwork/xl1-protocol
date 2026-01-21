@@ -3377,6 +3377,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@xyo-network/xl1-mono-repo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@xyo-network/xl1-mono-repo@workspace:."
+  dependencies:
+    "@types/node": "npm:~25.0.9"
+    "@typescript-eslint/types": "npm:~8.53.1"
+    "@xylabs/eslint-config-flat": "npm:~7.2.32"
+    "@xylabs/ts-scripts-yarn3": "npm:~7.2.32"
+    "@xylabs/tsconfig": "npm:~7.2.32"
+    dependency-cruiser: "npm:~17.3.6"
+    dotenv: "npm:~17.2.3"
+    eslint: "npm:~9.39.2"
+    eslint-import-resolver-typescript: "npm:~4.4.4"
+    knip: "npm:~5.82.1"
+    typescript: "npm:~5.9.3"
+    vite: "npm:~7.3.1"
+    vite-tsconfig-paths: "npm:~6.0.4"
+    vitest: "npm:~4.0.17"
+  languageName: unknown
+  linkType: soft
+
 "@xyo-network/xl1-network-model@npm:~1.18.33, @xyo-network/xl1-network-model@workspace:packages/network-model":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-network-model@workspace:packages/network-model"
@@ -3608,14 +3629,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-sdk@workspace:.":
+"@xyo-network/xl1-sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
-  resolution: "@xyo-network/xl1-sdk@workspace:."
+  resolution: "@xyo-network/xl1-sdk@workspace:packages/sdk"
   dependencies:
-    "@types/node": "npm:~25.0.9"
-    "@typescript-eslint/types": "npm:~8.53.1"
-    "@xylabs/creatable": "npm:~5.0.63"
-    "@xylabs/eslint-config-flat": "npm:~7.2.32"
     "@xylabs/ts-scripts-yarn3": "npm:~7.2.32"
     "@xylabs/tsconfig": "npm:~7.2.32"
     "@xyo-network/xl1-network-model": "npm:~1.18.33"
@@ -3627,17 +3644,11 @@ __metadata:
     "@xyo-network/xl1-validation": "npm:~1.18.33"
     "@xyo-network/xl1-wrappers": "npm:~1.18.33"
     axios: "npm:^1.13.2"
-    dependency-cruiser: "npm:~17.3.6"
-    dotenv: "npm:~17.2.3"
-    eslint: "npm:~9.39.2"
-    eslint-import-resolver-typescript: "npm:~4.4.4"
-    knip: "npm:~5.82.1"
     typescript: "npm:~5.9.3"
-    vite: "npm:~7.3.1"
-    vite-tsconfig-paths: "npm:~6.0.4"
-    vitest: "npm:~4.0.17"
+    zod: "npm:~4.3.5"
   peerDependencies:
-    axios: ^1.13.2
+    axios: ^1
+    zod: ^4
   languageName: unknown
   linkType: soft
 

@@ -1,8 +1,1 @@
-export * from '@xyo-network/xl1-network-model'
-export * from '@xyo-network/xl1-protocol'
-export * from '@xyo-network/xl1-protocol-sdk'
-export * from '@xyo-network/xl1-providers'
-export * from '@xyo-network/xl1-rpc'
-export * from '@xyo-network/xl1-schema'
-export * from '@xyo-network/xl1-validation'
-export * from '@xyo-network/xl1-wrappers'
+export const x = 1
