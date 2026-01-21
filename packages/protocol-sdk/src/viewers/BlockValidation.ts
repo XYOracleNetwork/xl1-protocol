@@ -1,6 +1,8 @@
 import { type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
-import type { HydratedBlock, SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+import {
+  type HydratedBlock, HydratedBlockWithHashMetaZod, type SignedHydratedBlockWithHashMeta,
+} from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import {

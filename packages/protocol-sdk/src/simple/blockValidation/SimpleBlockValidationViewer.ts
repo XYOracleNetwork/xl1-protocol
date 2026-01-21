@@ -1,4 +1,4 @@
-import { exists } from '@xylabs/sdk-js'
+import { assertEx, exists } from '@xylabs/sdk-js'
 import {
   asXL1BlockRange,
   ChainId,
@@ -7,6 +7,7 @@ import {
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
+import { isChainQualifiedHeadConfig } from '../../model/ChainQualification.ts'
 import { findUncles, getWindowedChain } from '../../primitives/index.ts'
 import type {
   HydratedBlockStateValidationFunction, HydratedBlockValidationError, HydratedBlockValidationFunction,
@@ -72,10 +73,17 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     config?: BlockValidationConfig,
   ): Promise<[HydratedBlockValidationError[], BlockValidationQualification]> {
     const { value, state } = config ?? {
-      shape: true, links: true, state: true,
+      shape: true, links: true, state: true, head: undefined,
     }
 
-    const [headBlock] = await this.blockViewer.currentBlock()
+    const head = isChainQualifiedHeadConfig(config)
+      ? assertEx(
+          (await this.blockViewer.blockByHash(config.head))?.[0],
+          () => `Specified a head that is not in the chain [${config.head}]`,
+        )
+      : undefined
+
+    const headBlock = head ?? (await this.blockViewer.currentBlock())[0]
     const chainId = headBlock.chain
 
     const validateProtocol = value ? this.doValidateProtocol.bind(this) : undefined
