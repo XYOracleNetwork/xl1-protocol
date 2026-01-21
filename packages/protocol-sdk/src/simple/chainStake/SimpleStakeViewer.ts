@@ -27,24 +27,12 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStak
 
   private _chainStakeEventsViewer: StakeEventsViewer | undefined
 
-  get chainMap() {
-    return this.params.chainMap
-  }
-
-  get minWithdrawalBlocks(): number {
-    return this.params.minWithdrawalBlocks ?? 10
-  }
-
-  get rewardsContract(): Address {
-    return toAddress(toAddress(1n))
-  }
-
   get stakeEvents() {
     return assertEx(this._chainStakeEventsViewer, () => 'Stake events viewer not set')
   }
 
-  get stakingTokenAddress(): Address {
-    return toAddress('0x000000000000000000000000000011')
+  protected get chainMap() {
+    return this.params.chainMap
   }
 
   protected get positions() {
@@ -89,6 +77,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStak
     )
   }
 
+  minWithdrawalBlocks(): number {
+    return this.params.minWithdrawalBlocks ?? 10
+  }
+
   pending(): bigint {
     let pending = 0n
     for (const position of this.positions) {
@@ -109,6 +101,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStak
     return pending
   }
 
+  rewardsContract(): Address {
+    return toAddress(toAddress(1n))
+  }
+
   stakeById(id: number): Position {
     return assertEx(this.positions[id], () => new Error(`Stake with id ${id} not found`))
   }
@@ -125,6 +121,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStak
   stakesByStaker(staker: Address, range: [number, number | undefined] = [0, undefined]): Position[] {
     const endBlock = (range[1] ?? Number.MAX_SAFE_INTEGER)
     return this.positions.filter(s => asAddress(s.staker) === asAddress(staker) && s.addBlock <= endBlock && s.removeBlock <= endBlock)
+  }
+
+  stakingTokenAddress(): Address {
+    return toAddress('0x000000000000000000000000000011')
   }
 
   withdrawn(): bigint {

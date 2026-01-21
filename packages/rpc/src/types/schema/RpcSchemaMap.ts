@@ -1,7 +1,9 @@
 import type { ZodType } from 'zod'
 
 type SerializationTransform = {
+  /* fromJson */
   from: ZodType
+  /* toJson */
   to: ZodType
 }
 

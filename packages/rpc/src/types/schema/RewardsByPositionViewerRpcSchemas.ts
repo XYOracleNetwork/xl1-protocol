@@ -8,52 +8,52 @@ import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 export const NetworkStakingStepRewardsByPositionViewerRpcSchemas = {
   networkStakingStepRewardsByPositionViewer_bonus: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
       to: z.record(z.number(), BigIntToJsonZod),
+      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   networkStakingStepRewardsByPositionViewer_claimed: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: z.record(z.number(), BigIntToJsonZod.transform(val => asAttoXL1(val))),
-      to: z.record(z.number(), JsonToBigIntZod),
+      to: z.record(z.number(), BigIntToJsonZod),
+      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   networkStakingStepRewardsByPositionViewer_earned: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: z.record(z.number(), BigIntToJsonZod.transform(val => asAttoXL1(val))),
-      to: z.record(z.number(), JsonToBigIntZod),
+      to: z.record(z.number(), BigIntToJsonZod),
+      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   networkStakingStepRewardsByPositionViewer_total: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: z.record(z.number(), BigIntToJsonZod.transform(val => asAttoXL1(val))),
-      to: z.record(z.number(), JsonToBigIntZod),
+      to: z.record(z.number(), BigIntToJsonZod),
+      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   networkStakingStepRewardsByPositionViewer_unclaimed: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: z.record(z.number(), BigIntToJsonZod.transform(val => asAttoXL1(val))),
-      to: z.record(z.number(), JsonToBigIntZod),
+      to: z.record(z.number(), BigIntToJsonZod),
+      from: z.record(z.number(), JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
 } satisfies RpcSchemaMap<NetworkStakingStepRewardsByPositionViewerRpcMethodName>

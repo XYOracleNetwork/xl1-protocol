@@ -10,7 +10,6 @@ import type {
   SignedHydratedTransaction,
   SingleTimeConfig,
   StepIdentity,
-  StepIdentityString,
   TimeDurations,
   XL1BlockNumber,
   XL1BlockRange,
@@ -169,11 +168,11 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return (await this.transport.sendRequest('xyoViewer_forkHistory'))
   }
 
-  async networkStakeStepRewardAddressHistory(address: Address): Promise<Record<Address, bigint>> {
+  async networkStakeStepRewardAddressHistory(address: Address) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardAddressHistory', [address]))
   }
 
-  async networkStakeStepRewardAddressReward(context: StepIdentity, address: Address): Promise<Record<Address, bigint>> {
+  async networkStakeStepRewardAddressReward(context: StepIdentity, address: Address) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardAddressReward', [context, address]))
   }
 
@@ -181,23 +180,23 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardAddressShare', [context, address]))
   }
 
-  async networkStakeStepRewardClaimedByAddress(address: Address): Promise<bigint> {
+  async networkStakeStepRewardClaimedByAddress(address: Address) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardClaimedByAddress', [address]))
   }
 
-  async networkStakeStepRewardForPosition(position: number, range: [number, number]): Promise<[bigint, bigint]> {
+  async networkStakeStepRewardForPosition(position: number, range: [number, number]) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardForPosition', [position, range]))
   }
 
-  async networkStakeStepRewardForStep(context: StepIdentity): Promise<bigint> {
+  async networkStakeStepRewardForStep(context: StepIdentity) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardForStep', [context]))
   }
 
-  async networkStakeStepRewardForStepForPosition(context: StepIdentity, position: number): Promise<[bigint, bigint]> {
+  async networkStakeStepRewardForStepForPosition(context: StepIdentity, position: number) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardForStepForPosition', [context, position]))
   }
 
-  async networkStakeStepRewardPoolRewards(context: StepIdentity): Promise<Record<Address, bigint>> {
+  async networkStakeStepRewardPoolRewards(context: StepIdentity) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardPoolRewards', [context]))
   }
 
@@ -209,11 +208,11 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardPositionWeight', [context, position]))
   }
 
-  async networkStakeStepRewardPotentialPositionLoss(context: StepIdentity, position: number): Promise<bigint> {
+  async networkStakeStepRewardPotentialPositionLoss(context: StepIdentity, position: number) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardPotentialPositionLoss', [context, position]))
   }
 
-  async networkStakeStepRewardRandomizer(context: StepIdentity): Promise<bigint> {
+  async networkStakeStepRewardRandomizer(context: StepIdentity) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardRandomizer', [context]))
   }
 
@@ -221,7 +220,7 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardStakerCount', [context]))
   }
 
-  async networkStakeStepRewardUnclaimedByAddress(address: Address): Promise<bigint> {
+  async networkStakeStepRewardUnclaimedByAddress(address: Address) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardUnclaimedByAddress', [address]))
   }
 
@@ -229,15 +228,15 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardWeightForAddress', [context, address]))
   }
 
-  async networkStakeStepRewardsForPosition(position: number, range: [number, number]): Promise<Record<StepIdentityString, [bigint, bigint]>> {
+  async networkStakeStepRewardsForPosition(position: number, range: [number, number]) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardsForPosition', [position, range]))
   }
 
-  async networkStakeStepRewardsForRange(range: [number, number]): Promise<bigint> {
+  async networkStakeStepRewardsForRange(range: [number, number]) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardsForRange', [range]))
   }
 
-  async networkStakeStepRewardsForStepLevel(stepLevel: number, range: [number, number]): Promise<bigint> {
+  async networkStakeStepRewardsForStepLevel(stepLevel: number, range: [number, number]) {
     return (await this.transport.sendRequest('xyoViewer_networkStakeStepRewardsForStepLevel', [stepLevel, range]))
   }
 

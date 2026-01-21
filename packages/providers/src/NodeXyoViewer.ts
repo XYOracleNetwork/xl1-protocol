@@ -17,6 +17,7 @@ import type {
   Payload, WithHashMeta, WithStorageMeta,
 } from '@xyo-network/payload-model'
 import type {
+  AttoXL1,
   BlockRate,
   ChainId,
   Count,
@@ -29,6 +30,7 @@ import type {
   XL1BlockNumber, XL1BlockRange, XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import {
+  asAttoXL1,
   asSignedHydratedBlockWithHashMeta, asXL1BlockRange,
   isTransactionBoundWitnessWithStorageMeta, XYO_NETWORK_STAKING_ADDRESS,
   XYO_ZERO_ADDRESS,
@@ -222,11 +224,11 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     throw new Error('Method [forkHistory] not implemented.')
   }
 
-  networkStakeStepRewardAddressHistory(_address: Address): Promise<Record<Address, bigint>> {
+  networkStakeStepRewardAddressHistory(_address: Address): Promise<Record<Address, AttoXL1>> {
     throw new Error('Method [networkStakeStepRewardAddressHistory] not implemented.')
   }
 
-  networkStakeStepRewardAddressReward(_context: StepIdentity, _address: Address): Promise<Record<Address, bigint>> {
+  networkStakeStepRewardAddressReward(_context: StepIdentity, _address: Address): Promise<Record<Address, AttoXL1>> {
     throw new Error('Method [networkStakeStepRewardAddressReward] not implemented.')
   }
 
@@ -234,30 +236,30 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     throw new Error('Method [networkStakeStepRewardAddressShare] not implemented.')
   }
 
-  networkStakeStepRewardClaimedByAddress(_address: Address): Promise<bigint> {
+  networkStakeStepRewardClaimedByAddress(_address: Address): Promise<AttoXL1> {
     throw new Error('Method [networkStakeStepRewardClaimedByAddress] not implemented.')
   }
 
-  async networkStakeStepRewardForPosition(position: number, range: XL1BlockRange): Promise<[bigint, bigint]> {
+  async networkStakeStepRewardForPosition(position: number, range: XL1BlockRange): Promise<[AttoXL1, AttoXL1]> {
     return await this.spanAsync('networkStakeStepRewardForPosition', async () => {
       const externalRange = await externalBlockRangeFromXL1BlockRange(this.context, this.block, range)
       const positionCount = await this.stake.stakeEvents.positionCount(externalRange)
       if (positionCount === 0) {
-        return [0n, 0n]
+        return [asAttoXL1(0n), asAttoXL1(0n)]
       }
       const steps = blockRangeSteps(range, [3, 4, 5, 6, 7])
       const rewards = await Promise.all(steps.map(step => this.networkStakeStepRewardForStepForPosition(step, position)))
-      const positionReward = rewards.reduce((a, b) => a + b[0], 0n)
-      const totalReward = rewards.reduce((a, b) => a + b[1], 0n)
+      const positionReward = asAttoXL1(rewards.reduce((a, b) => a + b[0], 0n))
+      const totalReward = asAttoXL1(rewards.reduce((a, b) => a + b[1], 0n))
       return [positionReward, totalReward]
     }, { timeBudgetLimit: 100 })
   }
 
-  async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<bigint> {
+  async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<AttoXL1> {
     return await stepRewardTotal(await this.getStakedChainContext(), stepContext, this.rewardMultipliers)
   }
 
-  async networkStakeStepRewardForStepForPosition(stepIdentity: StepIdentity, position: number): Promise<[bigint, bigint]> {
+  async networkStakeStepRewardForStepForPosition(stepIdentity: StepIdentity, position: number): Promise<[AttoXL1, AttoXL1]> {
     const stepIdentityString = toStepIdentityString(stepIdentity)
     const cacheKey = `${stepIdentityString}|${position}`
     const stakedChainContext = await this.getStakedChainContext()
@@ -270,24 +272,24 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
 
       const denominator = await this.stepWeightedDenominator(stepIdentity)
       const totalReward = await this.networkStakeStepRewardForStep(stepIdentity)
-      const positionReward = denominator > 0n ? totalReward * numerator / denominator : 0n
-      const result: [bigint, bigint] = [positionReward, totalReward]
+      const positionReward = asAttoXL1(denominator > 0n ? totalReward * numerator / denominator : 0n)
+      const result: [AttoXL1, AttoXL1] = [positionReward, totalReward]
       return result
     })
   }
 
-  async networkStakeStepRewardPoolRewards(step: StepIdentity): Promise<Record<Address, bigint>> {
+  async networkStakeStepRewardPoolRewards(step: StepIdentity): Promise<Record<Address, AttoXL1>> {
     const stakes = await this.stake.stakesByStaked(XYO_NETWORK_STAKING_ADDRESS)
-    const rewards: [Address, [bigint, bigint]][] = []
+    const rewards: [Address, [AttoXL1, AttoXL1]][] = []
     for (const stake of stakes) {
       rewards.push([stake.staker, (await this.networkStakeStepRewardForStepForPosition(
         step,
         stake.id,
       ))])
     }
-    const result: Record<Address, bigint> = {}
+    const result: Record<Address, AttoXL1> = {}
     for (const [staker, reward] of rewards) {
-      result[staker] = (result[staker] ?? 0n) + reward[0]
+      result[staker] = asAttoXL1((result[staker] ?? 0n) + reward[0])
     }
     const filtered = Object.fromEntries(Object.entries(result).filter(([_, v]) => v > 0n))
     return filtered
@@ -301,11 +303,11 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     return await networkStakeStepRewardPositionWeight(await this.getStakedChainContext(), this.block, stepContext, position)
   }
 
-  networkStakeStepRewardPotentialPositionLoss(_context: StepIdentity, _position: number): Promise<bigint> {
+  networkStakeStepRewardPotentialPositionLoss(_context: StepIdentity, _position: number): Promise<AttoXL1> {
     throw new Error('Method [networkStakeStepRewardPotentialPositionLoss] not implemented.')
   }
 
-  networkStakeStepRewardRandomizer(_context: StepIdentity): Promise<bigint> {
+  networkStakeStepRewardRandomizer(_context: StepIdentity): Promise<AttoXL1> {
     throw new Error('Method [networkStakeStepRewardRandomizer] not implemented.')
   }
 
@@ -318,20 +320,20 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     )).length
   }
 
-  networkStakeStepRewardUnclaimedByAddress(_address: Address): Promise<bigint> {
+  networkStakeStepRewardUnclaimedByAddress(_address: Address): Promise<AttoXL1> {
     throw new Error('Method [networkStakeStepRewardUnclaimedByAddress] not implemented.')
   }
 
-  networkStakeStepRewardWeightForAddress(_context: StepIdentity, _address: Address): Promise<bigint> {
+  networkStakeStepRewardWeightForAddress(_context: StepIdentity, _address: Address): Promise<AttoXL1> {
     throw new Error('Method [networkStakeStepRewardWeightForAddress] not implemented.')
   }
 
-  async networkStakeStepRewardsForPosition(position: number, range: XL1BlockRange): Promise<Record<StepIdentityString, [bigint, bigint]>> {
+  async networkStakeStepRewardsForPosition(position: number, range: XL1BlockRange): Promise<Record<StepIdentityString, [AttoXL1, AttoXL1]>> {
     const steps = blockRangeSteps(range, [3, 4, 5, 6, 7, 8])
     const rewards = await Promise.all(steps.map(async (step) => {
-      return [toStepIdentityString(step), await this.networkStakeStepRewardForStepForPosition(step, position)] as [StepIdentityString, [bigint, bigint]]
+      return [toStepIdentityString(step), await this.networkStakeStepRewardForStepForPosition(step, position)] as [StepIdentityString, [AttoXL1, AttoXL1]]
     }))
-    const result: Record<StepIdentityString, [bigint, bigint]> = {}
+    const result: Record<StepIdentityString, [AttoXL1, AttoXL1]> = {}
     for (const [step, reward] of rewards) {
       result[step] = reward
     }
@@ -339,22 +341,22 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     return filtered
   }
 
-  async networkStakeStepRewardsForRange(range: XL1BlockRange): Promise<bigint> {
+  async networkStakeStepRewardsForRange(range: XL1BlockRange): Promise<AttoXL1> {
     return await this.spanAsync('networkStakeStepRewardsForRange', async () => {
       const steps = blockRangeSteps(range, [3, 4, 5, 6, 7, 8])
       const rewards = await Promise.all(steps.map(async (step) => {
         return await this.networkStakeStepRewardForStep(step)
       }))
-      return rewards.reduce((a, b) => a + b, 0n)
+      return asAttoXL1(rewards.reduce((a, b) => a + b, 0n))
     }, { timeBudgetLimit: 100 })
   }
 
-  async networkStakeStepRewardsForStepLevel(stepLevel: number, range: XL1BlockRange): Promise<bigint> {
+  async networkStakeStepRewardsForStepLevel(stepLevel: number, range: XL1BlockRange): Promise<AttoXL1> {
     const steps = blockRangeSteps(range, [stepLevel])
     const rewards = await Promise.all(steps.map(async (step) => {
       return await this.networkStakeStepRewardForStep(step)
     }))
-    return rewards.reduce((a, b) => a + b, 0n)
+    return asAttoXL1(rewards.reduce((a, b) => a + b, 0n))
   }
 
   payloadByHash(_hash: Hash): Promisable<WithHashMeta<Payload> | null> {

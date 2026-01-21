@@ -8,52 +8,52 @@ import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 export const NetworkStakingStepRewardsTotalViewerRpcSchemas = {
   networkStakingStepRewardsTotalViewer_bonus: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
       to: BigIntToJsonZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   networkStakingStepRewardsTotalViewer_claimed: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
       to: BigIntToJsonZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   networkStakingStepRewardsTotalViewer_earned: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
       to: BigIntToJsonZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   networkStakingStepRewardsTotalViewer_total: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
       to: BigIntToJsonZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   networkStakingStepRewardsTotalViewer_unclaimed: {
     params: {
-      from: z.tuple([RewardsRangeOptionsZod.optional()]),
       to: z.tuple([RewardsRangeOptionsZod.optional()]),
+      from: z.tuple([RewardsRangeOptionsZod.optional()]),
     },
     result: {
-      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
       to: BigIntToJsonZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
 } satisfies RpcSchemaMap<NetworkStakingStepRewardsTotalViewerRpcMethodName>

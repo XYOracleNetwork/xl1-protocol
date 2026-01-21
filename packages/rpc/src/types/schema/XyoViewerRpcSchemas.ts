@@ -4,6 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import {
+  asAttoXL1,
   BlockRangeZod,
   BlockRateZod,
   CountZod,
@@ -27,7 +28,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardAddressReward: {
@@ -37,7 +38,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.record(AddressZod, BigIntToJsonZod),
-      from: z.record(AddressZod, JsonToBigIntZod),
+      from: z.record(AddressZod, JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   xyoViewer_networkStakeStepRewardAddressHistory: {
@@ -47,7 +48,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.record(AddressZod, BigIntToJsonZod),
-      from: z.record(AddressZod, JsonToBigIntZod),
+      from: z.record(AddressZod, JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   xyoViewer_networkStakeStepRewardAddressShare: {
@@ -77,7 +78,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardPoolRewards: {
@@ -87,7 +88,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.record(AddressZod, BigIntToJsonZod),
-      from: z.record(AddressZod, JsonToBigIntZod),
+      from: z.record(AddressZod, JsonToBigIntZod.transform(val => asAttoXL1(val))),
     },
   },
   xyoViewer_networkStakeStepRewardPositionWeight: {
@@ -107,7 +108,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardForStep: {
@@ -117,7 +118,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardRandomizer: {
@@ -127,7 +128,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardStakerCount: {
@@ -157,7 +158,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.tuple([BigIntToJsonZod, BigIntToJsonZod]),
-      from: z.tuple([JsonToBigIntZod, JsonToBigIntZod]),
+      from: z.tuple([JsonToBigIntZod.transform(val => asAttoXL1(val)), JsonToBigIntZod.transform(val => asAttoXL1(val))]),
     },
   },
   xyoViewer_networkStakeStepRewardForPosition: {
@@ -167,7 +168,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.tuple([BigIntToJsonZod, BigIntToJsonZod]),
-      from: z.tuple([JsonToBigIntZod, JsonToBigIntZod]),
+      from: z.tuple([JsonToBigIntZod.transform(val => asAttoXL1(val)), JsonToBigIntZod.transform(val => asAttoXL1(val))]),
     },
   },
   xyoViewer_networkStakeStepRewardsForRange: {
@@ -177,7 +178,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardsForStepLevel: {
@@ -187,7 +188,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_networkStakeStepRewardsForPosition: {
@@ -197,7 +198,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: z.record(z.string(), z.tuple([BigIntToJsonZod, BigIntToJsonZod])),
-      from: z.record(z.string(), z.tuple([JsonToBigIntZod, JsonToBigIntZod])),
+      from: z.record(z.string(), z.tuple([JsonToBigIntZod.transform(val => asAttoXL1(val)), JsonToBigIntZod.transform(val => asAttoXL1(val))])),
     },
   },
   xyoViewer_accountBalance: {
@@ -207,7 +208,7 @@ export const XyoViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   xyoViewer_accountBalanceHistory: {

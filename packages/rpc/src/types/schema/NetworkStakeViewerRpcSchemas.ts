@@ -8,12 +8,12 @@ import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 export const NetworkStakeViewerRpcSchemas = {
   networkStakeViewer_active: {
     params: {
-      from: z.tuple([BlockNumberZod.optional()]),
       to: z.tuple([BlockNumberZod.optional()]),
+      from: z.tuple([BlockNumberZod.optional()]),
     },
     result: {
-      from: z.tuple([JsonToBigIntZod, z.number()]),
       to: z.tuple([BigIntToJsonZod, z.number()]),
+      from: z.tuple([JsonToBigIntZod, z.number()]),
     },
   },
 } satisfies RpcSchemaMap<NetworkStakeViewerRpcMethodName>

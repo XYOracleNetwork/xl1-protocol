@@ -1,6 +1,7 @@
 import {
   AddressZod, BigIntToJsonZod, JsonToBigIntZod,
 } from '@xylabs/sdk-js'
+import { asAttoXL1 } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import type { StakeTotalsViewerRpcMethodName } from '../StakeTotalsViewerRpc.ts'
@@ -14,7 +15,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_activeByStaked: {
@@ -24,7 +25,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_activeByStaker: {
@@ -34,7 +35,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_pending: {
@@ -44,7 +45,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_pendingByStaker: {
@@ -54,7 +55,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_withdrawn: {
@@ -64,7 +65,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
   stakeTotalsViewer_withdrawnByStaker: {
@@ -74,7 +75,7 @@ export const StakeTotalsViewerRpcSchemas = {
     },
     result: {
       to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
+      from: JsonToBigIntZod.transform(val => asAttoXL1(val)),
     },
   },
 } satisfies RpcSchemaMap<StakeTotalsViewerRpcMethodName>

@@ -10,6 +10,7 @@ import { NetworkStakingStepRewardsByStepViewerRpcSchemas } from './RewardsByStep
 import { NetworkStakingStepRewardsTotalViewerRpcSchemas } from './RewardsTotalViewerRpcSchemas.ts'
 import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 import { StakeTotalsViewerRpcSchemas } from './StakeTotalsViewerRpcSchemas.ts'
+import { StakeViewerRpcSchemas } from './StakeViewerRpcSchemas.ts'
 import { NetworkStakingStepRewardsViewerRpcSchemas } from './StepRewardsViewerRpcSchemas.ts'
 import { StepViewerRpcSchemas } from './StepViewerRpcSchemas.ts'
 import { TimeSyncViewerRpcSchemas } from './TimeSyncViewerRpcSchema.ts'
@@ -32,6 +33,7 @@ export const AllRpcSchemas = {
   ...StepViewerRpcSchemas,
   ...DataLakeViewerRpcSchemas,
   ...StakeTotalsViewerRpcSchemas,
+  ...StakeViewerRpcSchemas,
   ...NetworkStakingStepRewardsViewerRpcSchemas,
   ...NetworkStakingStepRewardsTotalViewerRpcSchemas,
   ...NetworkStakingStepRewardsByStepViewerRpcSchemas,

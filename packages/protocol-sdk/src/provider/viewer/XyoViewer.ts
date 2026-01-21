@@ -19,7 +19,10 @@ import type { NetworkStakeViewer } from './NetworkStake/index.ts'
 
 export interface XyoViewerMethods extends
   NetworkStakeStepRewardViewerMethods, BlockViewerMethods,
-  TransactionViewerMethods, StakeViewerMethods, ForkViewerMethods {
+  TransactionViewerMethods, Omit<
+    StakeViewerMethods, 'minWithdrawalBlocks' | 'rewardsContract' | 'stakingTokenAddress' | 'active'
+    | 'activeByAddressStaked' | 'activeByStaker' | 'pending' | 'pendingByStaker' | 'withdrawn' | 'withdrawnByStaker'
+  >, ForkViewerMethods {
   /** @deprecated Use .account.balance.accountBalance instead */
   accountBalance(address: Address, config?: ChainQualifiedConfig): Promisable<AttoXL1>
   /** @deprecated Use .account.balance.accountBalanceHistory instead */
@@ -30,7 +33,10 @@ export const XyoViewerMoniker = 'XyoViewer' as const
 export type XyoViewerMoniker = typeof XyoViewerMoniker
 
 export interface XyoViewer extends Omit<BlockViewer, 'moniker'>, XyoViewerMethods,
-  Omit<StakeViewerMethods, 'moniker'>, Provider<XyoViewerMoniker> {
+  Omit<
+    StakeViewerMethods, 'moniker' | 'minWithdrawalBlocks' | 'rewardsContract' | 'stakingTokenAddress' | 'active'
+    | 'activeByAddressStaked' | 'activeByStaker' | 'pending' | 'pendingByStaker' | 'withdrawn' | 'withdrawnByStaker'
+  >, Provider<XyoViewerMoniker> {
   account: {
     balance: AccountBalanceViewer
   }
