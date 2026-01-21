@@ -91,6 +91,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   private _accountBalanceViewer?: AccountBalanceViewer
   private _blockViewer?: BlockViewer
   private _finalizedArchivist!: ArchivistInstance
+  private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
   private _networkStepRewardsByPositionViewer?: NetworkStakeStepRewardsByPositionViewer
@@ -188,6 +189,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   override async createHandler() {
     await super.createHandler()
+    this._finalizedPayloadMap = readPayloadMapFromStore<WithStorageMeta<Payload>>(this.params.finalizedArchivist)
     this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
     this._mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
@@ -459,13 +461,9 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return this._finalizedArchivist
   }
 
-  protected getFinalizedPayloadMap(): PayloadMapRead<WithStorageMeta<Payload>> {
-    return readPayloadMapFromStore<WithStorageMeta<Payload>>(this._finalizedArchivist)
-  }
-
   protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {
     if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
-    const chainMap = this.getFinalizedPayloadMap()
+    const chainMap = this._finalizedPayloadMap
     this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithHashMeta>(chainMap, async (
       { chainMap }: ChainStoreRead,
       hash: Hash,
@@ -478,16 +476,16 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return this._signedHydratedBlockCache
   }
 
-  protected async getHydratedTransactionCache(): Promise<HydratedCache<SignedHydratedTransactionWithHashMeta>> {
+  protected getHydratedTransactionCache(): HydratedCache<SignedHydratedTransactionWithHashMeta> {
     if (this._signedHydratedTransactionCache) return this._signedHydratedTransactionCache
-    const chainMap = await this.getFinalizedPayloadMap()
+    const chainMap = this._finalizedPayloadMap
     this._signedHydratedTransactionCache = new HydratedCache<SignedHydratedTransactionWithHashMeta>(chainMap, tryHydrateTransaction, 200)
     return this._signedHydratedTransactionCache
   }
 
   protected async getStakedChainContext() {
     const stake = this.stake
-    const store = { chainMap: await this.getFinalizedPayloadMap() } satisfies StakedChainContextRead['store']
+    const store = { chainMap: this._finalizedPayloadMap } satisfies StakedChainContextRead['store']
     return {
       caches: this.context.caches,
       singletons: this.context.singletons,
