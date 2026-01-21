@@ -459,14 +459,13 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return this._finalizedArchivist
   }
 
-  protected getFinalizedPayloadMap = async (): Promise<PayloadMapRead<WithStorageMeta<Payload>>> => {
-    const archivist = this.getFinalizedArchivist()
-    return readPayloadMapFromStore<WithStorageMeta<Payload>>(await archivist)
+  protected getFinalizedPayloadMap(): PayloadMapRead<WithStorageMeta<Payload>> {
+    return readPayloadMapFromStore<WithStorageMeta<Payload>>(this._finalizedArchivist)
   }
 
-  protected async getHydratedBlockCache(): Promise<HydratedCache<SignedHydratedBlockWithHashMeta>> {
+  protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {
     if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
-    const chainMap = await this.getFinalizedPayloadMap()
+    const chainMap = this.getFinalizedPayloadMap()
     this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithHashMeta>(chainMap, async (
       { chainMap }: ChainStoreRead,
       hash: Hash,
