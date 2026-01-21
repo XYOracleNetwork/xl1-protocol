@@ -10,6 +10,7 @@ import type {
   ForkViewerMethods,
   MempoolViewer,
   NetworkStakeStepRewardViewerMethods,
+  StakeViewer,
   StakeViewerMethods,
   StepViewer,
   TimeSyncViewer,
@@ -43,6 +44,7 @@ export interface XyoViewer extends Omit<BlockViewer, 'moniker'>, XyoViewerMethod
   block: BlockViewer
   mempool: MempoolViewer
   networkStake: NetworkStakeViewer
+  stake: StakeViewer
   step: StepViewer
   time: TimeSyncViewer
 }

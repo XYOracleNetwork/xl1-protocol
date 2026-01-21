@@ -26,6 +26,7 @@ import type {
   ForkHistory,
   MempoolViewer,
   NetworkStakeViewer, Position,
+  StakeViewer,
   StepViewer,
   TimeSyncViewer,
   XyoViewer,
@@ -76,6 +77,7 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
   private _blockViewer?: BlockViewer
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
+  private _stakeViewer?: StakeViewer
   private _stepViewer?: StepViewer
   private _timeSyncViewer?: TimeSyncViewer
 
@@ -93,6 +95,10 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   get networkStake() {
     return this._networkStakeViewer!
+  }
+
+  get stake() {
+    return this._stakeViewer!
   }
 
   get step() {

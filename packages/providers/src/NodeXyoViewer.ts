@@ -122,6 +122,10 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
     return this._networkStakeViewer!
   }
 
+  get stake() {
+    return this._stakeViewer!
+  }
+
   get step() {
     return this._stepViewer!
   }
@@ -145,10 +149,6 @@ export class NodeXyoViewer extends AbstractCreatableProvider<NodeXyoViewerParams
   protected get rewardMultipliers() {
     this._rewardMultipliers = this._rewardMultipliers ?? this.params.rewardMultipliers ?? {}
     return this._rewardMultipliers
-  }
-
-  protected get stake() {
-    return this._stakeViewer!
   }
 
   static override async paramsHandler(params: Partial<NodeXyoViewerParams>): Promise<NodeXyoViewerParams> {
