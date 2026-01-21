@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/node": "~25.0.9",
     "@typescript-eslint/types": "~8.53.1",
-    "@xylabs/creatable": "~5.0.62",
+    "@xylabs/creatable": "~5.0.63",
     "@xylabs/eslint-config-flat": "~7.2.32",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",

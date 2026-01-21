@@ -39,11 +39,11 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xylabs/sdk-js": "~5.0.61",
-    "@xyo-network/boundwitness-model": "~5.2.24",
-    "@xyo-network/boundwitness-validator": "~5.2.24",
-    "@xyo-network/payload-builder": "~5.2.24",
-    "@xyo-network/payload-model": "~5.2.24",
+    "@xylabs/sdk-js": "~5.0.63",
+    "@xyo-network/boundwitness-model": "~5.2.25",
+    "@xyo-network/boundwitness-validator": "~5.2.25",
+    "@xyo-network/payload-builder": "~5.2.25",
+    "@xyo-network/payload-model": "~5.2.25",
     "@xyo-network/xl1-protocol": "~1.18.32",
     "@xyo-network/xl1-protocol-sdk": "~1.18.32",
     "@xyo-network/xl1-validation": "~1.18.32"
@@ -55,10 +55,12 @@
     "axios": "^1.13.2",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.17"
+    "vitest": "~4.0.17",
+    "zod": "~4.3.5"
   },
   "peerDependencies": {
-    "axios": "^1.13.2"
+    "axios": "^1.13.2",
+    "zod": "^4"
   },
   "engines": {
     "node": ">=22.3 <23"
