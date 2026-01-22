@@ -1,4 +1,6 @@
-import { assertEx, exists } from '@xylabs/sdk-js'
+import {
+  assertEx, exists, Promisable,
+} from '@xylabs/sdk-js'
 import {
   asXL1BlockRange,
   ChainId,
@@ -17,10 +19,12 @@ import type {
   BlockValidationConfig,
   BlockValidationQualification,
   BlockValidationViewer,
+  ChainContractViewer,
 } from '../../viewers/index.ts'
 import {
   AccountBalanceViewerMoniker,
   BlockValidationViewerMoniker, BlockViewer, BlockViewerMoniker,
+  ChainContractViewerMoniker,
 } from '../../viewers/index.ts'
 
 export interface SimpleBlockValidationViewerParams extends CreatableProviderParams {
@@ -32,16 +36,21 @@ export interface SimpleBlockValidationViewerParams extends CreatableProviderPara
 @creatableProvider()
 export class SimpleBlockValidationViewer extends AbstractCreatableProvider<SimpleBlockValidationViewerParams> implements BlockValidationViewer {
   static readonly defaultMoniker = BlockValidationViewerMoniker
-  static readonly dependencies = [AccountBalanceViewerMoniker, BlockViewerMoniker]
+  static readonly dependencies = [AccountBalanceViewerMoniker, BlockViewerMoniker, ChainContractViewerMoniker]
   static readonly monikers = [BlockValidationViewerMoniker]
   moniker = SimpleBlockValidationViewer.defaultMoniker
 
   private _accountBalanceViewer!: AccountBalanceViewer
   private _blockViewer!: BlockViewer
+  private _chainContractViewer!: ChainContractViewer
   private _uncleWindowedChainCache: SignedHydratedBlockWithHashMeta[] | null = null
 
   protected get blockViewer() {
     return this._blockViewer
+  }
+
+  protected get chainContractViewer() {
+    return this._chainContractViewer
   }
 
   protected get maxUncleWindowSize() {
@@ -51,6 +60,8 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
   static override async paramsHandler(params: Partial<SimpleBlockValidationViewerParams>): Promise<SimpleBlockValidationViewerParams> {
     return {
       ...await super.paramsHandler(params),
+      protocol: params.protocol,
+      state: params.state,
       maxUncleWindowSize: params.maxUncleWindowSize ?? 100,
     } satisfies SimpleBlockValidationViewerParams
   }
@@ -59,6 +70,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     await super.createHandler()
     this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
+    this._chainContractViewer = await this.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker)
   }
 
   async qualifiedValidateBlock(
@@ -84,13 +96,14 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
       : undefined
 
     const headBlock = head ?? (await this.blockViewer.currentBlock())[0]
-    const chainId = headBlock.chain
 
     const validateProtocol = value ? this.doValidateProtocol.bind(this) : undefined
     const validateState = state ? this.doValidateState.bind(this) : undefined
 
+    const chainIdAtBlockNumber = (blockNumber: number) => this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
+
     return [(await Promise.all([
-      validateProtocol?.(blocks, chainId), validateState?.(blocks, chainId),
+      validateProtocol?.(blocks, chainIdAtBlockNumber), validateState?.(blocks, chainIdAtBlockNumber),
     ].filter(exists))).flat(), { head: headBlock._hash, range: asXL1BlockRange([0, headBlock.block], true) }]
   }
 
@@ -102,16 +115,22 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     return (await this.qualifiedValidateBlocks(blocks, config))[0]
   }
 
-  private async doValidateProtocol(blocks: SignedHydratedBlockWithHashMeta[], chainId: ChainId): Promise<HydratedBlockValidationError[]> {
+  private async doValidateProtocol(
+    blocks: SignedHydratedBlockWithHashMeta[],
+    chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
+  ): Promise<HydratedBlockValidationError[]> {
     return (await Promise.all(blocks.map(async (block) => {
       return await this.params.protocol!(
         block,
-        chainId,
+        chainIdAtBlockNumber,
       )
     }))).flat()
   }
 
-  private async doValidateState(blocks: SignedHydratedBlockWithHashMeta[], chainId: ChainId): Promise<HydratedBlockValidationError[]> {
+  private async doValidateState(
+    blocks: SignedHydratedBlockWithHashMeta[],
+    chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
+  ): Promise<HydratedBlockValidationError[]> {
     const windowedUncleChain = await this.updateWindowedChainCache()
 
     const uncles = findUncles(this.context, windowedUncleChain, blocks)
@@ -124,7 +143,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     return (await Promise.all(uncles[0].map(async (block) => {
       return await this.params.state!(
         block,
-        chainId,
+        chainIdAtBlockNumber,
         { accountBalance: this._accountBalanceViewer },
       )
     }))).flat()

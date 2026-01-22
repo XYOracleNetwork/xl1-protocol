@@ -13,6 +13,6 @@ import type { HydratedBlockStateValidationError } from './error.ts'
  */
 export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlockWithHashMeta,
-  chainId: ChainId,
+  chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
   services: { accountBalance: AccountBalanceViewer },
 ) => Promisable<HydratedBlockStateValidationError[]>
