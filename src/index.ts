@@ -1,1 +1,2 @@
-export const x = 1
+// eslint-disable-next-line unicorn/require-module-specifiers
+export { }
