@@ -1,4 +1,4 @@
-import { toAddress, toHex } from '@xylabs/hex'
+import { toAddress, toHex } from '@xylabs/sdk-js'
 import {
   describe, expect, it,
 } from 'vitest'

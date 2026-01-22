@@ -1,4 +1,4 @@
-import type { Hash } from '@xylabs/hex'
+import type { Hash } from '@xylabs/sdk-js'
 import type {
   SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'

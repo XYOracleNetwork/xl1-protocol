@@ -1,5 +1,4 @@
-import { HexZod } from '@xylabs/hex'
-import { AsObjectFactory } from '@xylabs/object'
+import { AsObjectFactory, HexZod } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfZodType } from '@xyo-network/payload-model'
 import type { z } from 'zod'

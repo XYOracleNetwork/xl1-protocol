@@ -1,4 +1,4 @@
-import { type Brand, isUndefined } from '@xylabs/typeof'
+import { type Brand, isUndefined } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import { toXL1BlockNumber, XL1BlockNumberZod } from './BlockNumber/index.ts'

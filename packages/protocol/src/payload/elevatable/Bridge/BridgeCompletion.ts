@@ -1,4 +1,4 @@
-import type { Hash } from '@xylabs/hex'
+import type { Hash } from '@xylabs/sdk-js'
 
 /**
  * Final confirmation tying the intent and the observation together.

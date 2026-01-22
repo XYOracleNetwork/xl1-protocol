@@ -1,4 +1,4 @@
-import type { Promisable } from '@xylabs/promise'
+import type { Promisable } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 
 import type { HydratedBlockWithHashMeta } from '../../zod/index.ts'

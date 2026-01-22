@@ -1,6 +1,6 @@
 import '@xylabs/vitest-extended'
 
-import { asHex } from '@xylabs/hex'
+import { asHex } from '@xylabs/sdk-js'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import { asXL1BlockNumber, type SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import type { ProviderFactoryLocator } from '@xyo-network/xl1-protocol-sdk'

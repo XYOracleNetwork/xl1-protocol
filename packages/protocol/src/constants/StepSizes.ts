@@ -1,4 +1,4 @@
-import { AsTypeFactory } from '@xylabs/object'
+import { AsTypeFactory } from '@xylabs/sdk-js'
 
 import { asXL1BlockNumber, type XL1BlockNumber } from '../model/index.ts'
 

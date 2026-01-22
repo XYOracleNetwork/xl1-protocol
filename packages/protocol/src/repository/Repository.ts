@@ -1,5 +1,4 @@
-import type { Hash } from '@xylabs/hex'
-import type { Promisable } from '@xylabs/promise'
+import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { NextOptions } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 

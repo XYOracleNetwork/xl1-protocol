@@ -1,4 +1,4 @@
-import { AsObjectFactory } from '@xylabs/object'
+import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { HydratedBoundWitness, HydratedBoundWitnessWithStorageMeta } from '@xyo-network/archivist-model'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
 import { isAnyPayload, isStorageMeta } from '@xyo-network/payload-model'

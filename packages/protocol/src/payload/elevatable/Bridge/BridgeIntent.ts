@@ -1,4 +1,4 @@
-import { AsObjectFactory } from '@xylabs/object'
+import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
 import { isPayloadOfZodType } from '@xyo-network/payload-model'
 import { z } from 'zod'

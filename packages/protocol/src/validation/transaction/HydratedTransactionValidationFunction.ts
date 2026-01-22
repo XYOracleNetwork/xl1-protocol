@@ -1,4 +1,4 @@
-import type { Promisable } from '@xylabs/promise'
+import type { Promisable } from '@xylabs/sdk-js'
 
 import type { HydratedTransactionWithHashMeta } from '../../zod/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'

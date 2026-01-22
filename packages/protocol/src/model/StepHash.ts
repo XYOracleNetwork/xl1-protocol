@@ -1,5 +1,4 @@
-import type { Hash } from '@xylabs/hex'
-import type { Brand } from '@xylabs/typeof'
+import type { Brand, Hash } from '@xylabs/sdk-js'
 
 export interface StepHash {
   block: Hash

@@ -1,4 +1,4 @@
-import { type Brand } from '@xylabs/typeof'
+import { type Brand } from '@xylabs/sdk-js'
 import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import { z } from 'zod'
 

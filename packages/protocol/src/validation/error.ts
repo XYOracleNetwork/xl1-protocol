@@ -1,5 +1,5 @@
-import { type Hash, isHash } from '@xylabs/hex'
-import { isError } from '@xylabs/typeof'
+import { type Hash, isHash } from '@xylabs/sdk-js'
+import { isError } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
 
 export class ValidationError<TValue = Payload> extends Error {

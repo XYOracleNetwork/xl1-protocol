@@ -1,6 +1,8 @@
-import type { AssertConfig } from '@xylabs/error'
-import { assertError } from '@xylabs/error'
-import { type Brand, isDefined } from '@xylabs/typeof'
+import type { AssertConfig, Brand } from '@xylabs/sdk-js'
+import {
+  assertError,
+  isDefined,
+} from '@xylabs/sdk-js'
 import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import { z } from 'zod'
 

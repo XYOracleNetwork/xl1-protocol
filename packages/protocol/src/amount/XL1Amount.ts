@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { assertEx } from '@xylabs/assert'
+import { assertEx } from '@xylabs/sdk-js'
 
 import {
   AttoXL1, FemtoXL1, MicroXL1, MilliXL1, NanoXL1, PicoXL1, XL1,

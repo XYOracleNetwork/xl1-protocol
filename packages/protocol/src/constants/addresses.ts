@@ -1,4 +1,4 @@
-import type { Address, EthAddress } from '@xylabs/hex'
+import type { Address, EthAddress } from '@xylabs/sdk-js'
 
 /**
  * The Zero Address is used as a marker address for various protocol operations.

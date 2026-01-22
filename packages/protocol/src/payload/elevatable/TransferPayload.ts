@@ -1,8 +1,7 @@
 import {
   AddressZod,
-  HexZod,
-} from '@xylabs/hex'
-import { AsObjectFactory, JsonObjectZod } from '@xylabs/object'
+  AsObjectFactory, HexZod, JsonObjectZod,
+} from '@xylabs/sdk-js'
 import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
 import { z } from 'zod'
 

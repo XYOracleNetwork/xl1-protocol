@@ -1,6 +1,6 @@
 import {
   AddressZod, HexZod, toAddress, toHex,
-} from '@xylabs/hex'
+} from '@xylabs/sdk-js'
 import type { ChainId } from '@xyo-network/xl1-protocol'
 import { AttoXL1ConvertFactor, XL1 } from '@xyo-network/xl1-protocol'
 import { globalRegistry, z } from 'zod'

@@ -1,5 +1,4 @@
-import { HashZod } from '@xylabs/hex'
-import { AsObjectFactory } from '@xylabs/object'
+import { AsObjectFactory, HashZod } from '@xylabs/sdk-js'
 import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
 import { z } from 'zod'
 

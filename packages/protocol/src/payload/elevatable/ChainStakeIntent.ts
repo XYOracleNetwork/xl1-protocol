@@ -1,4 +1,4 @@
-import { AsObjectFactory } from '@xylabs/object'
+import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
 

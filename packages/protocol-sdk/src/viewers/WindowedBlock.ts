@@ -1,5 +1,4 @@
-import type { Hash } from '@xylabs/hex'
-import type { Promisable } from '@xylabs/sdk-js'
+import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { HydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 
 import type { Provider, ProviderMoniker } from '../model/index.ts'

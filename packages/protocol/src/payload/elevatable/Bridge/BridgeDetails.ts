@@ -1,4 +1,4 @@
-import { HexZod } from '@xylabs/hex'
+import { HexZod } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 /**

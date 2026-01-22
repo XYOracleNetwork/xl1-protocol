@@ -1,4 +1,4 @@
-import { HashZod } from '@xylabs/hex'
+import { HashZod } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
 import { XL1BlockRangeZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
