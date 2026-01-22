@@ -3267,7 +3267,6 @@ __metadata:
   resolution: "@xyo-network/xl1-protocol-sdk-tests@workspace:packages/protocol-sdk-tests"
   dependencies:
     "@types/node": "npm:~25.0.9"
-    "@xylabs/hex": "npm:~5.0.64"
     "@xylabs/sdk-js": "npm:~5.0.64"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.1"
     "@xylabs/tsconfig": "npm:~7.3.1"
