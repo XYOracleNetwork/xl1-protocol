@@ -17,7 +17,7 @@ import { MemoryRpcTransport } from '../../../transport/index.ts'
 import {
   createRequestSchema, JsonRpcErrorCodes, XyoSignerRpcSchemas,
 } from '../../../types/index.ts'
-import { RpcXyoSigner } from '../JsonRpcXyoSigner.ts'
+import { JsonRpcXyoSigner } from '../JsonRpcXyoSigner.ts'
 
 describe('RpcEngine - XyoSigner', () => {
   let sut: XyoSigner
@@ -77,7 +77,7 @@ describe('RpcEngine - XyoSigner', () => {
       }),
     )
     const transport = new MemoryRpcTransport(engine, XyoSignerRpcSchemas)
-    sut = new RpcXyoSigner(transport)
+    sut = await JsonRpcXyoSigner.create({ context, transport })
   })
   describe('address', () => {
     it('should return signer addresses', async () => {
