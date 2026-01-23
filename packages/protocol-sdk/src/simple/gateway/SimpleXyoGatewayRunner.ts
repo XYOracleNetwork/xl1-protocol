@@ -1,5 +1,5 @@
 import type {
-  Address, Hash, Hex, Promisable,
+  Address, Hash, Hex,
 } from '@xylabs/sdk-js'
 import {
   assertEx, BigIntToJsonZod, isDefined,
@@ -18,41 +18,46 @@ import {
   TransferSchema,
 } from '@xyo-network/xl1-protocol'
 
+import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
+import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
 import type {
   DataLakeRunner,
+  DataLakesRunner,
   TransactionOptions,
-  XyoConnection, XyoGatewayRunner,
+  XyoConnection,
+  XyoGatewayRunner,
   XyoSigner,
+} from '../../provider/index.ts'
+import {
+  XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
 } from '../../provider/index.ts'
 import type { ConfirmSubmittedTransactionOptions } from '../../transaction/index.ts'
 import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
 
-export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
-  private readonly _connection: XyoConnection
-  private _dataLakes: (DataLakeRunner | null)[]
-  private readonly _signer: XyoSigner
+export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {
+  dataLakes?: DataLakeRunner[]
+}
 
-  constructor(connection: XyoConnection, signer: XyoSigner, dataLakes: DataLakeRunner[] = []) {
-    this._connection = connection
-    this._dataLakes = [...dataLakes]
-    this._signer = signer
-  }
+export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoGatewayRunnerParams> implements XyoGatewayRunner {
+  static readonly defaultMoniker = XyoGatewayRunnerMoniker
+  static readonly dependencies = [XyoConnectionMoniker, XyoSignerMoniker]
+  static readonly monikers = [XyoGatewayRunnerMoniker, XyoGatewayMoniker]
+  moniker = SimpleXyoGatewayRunner.defaultMoniker
 
-  get connectionInstance(): XyoConnection {
+  private _connection!: XyoConnection
+  private _dataLakes?: DataLakesRunner
+  private _signer!: XyoSigner
+
+  get connection(): XyoConnection {
     return this._connection
   }
 
-  get dataLakes(): DataLakeRunner[] {
+  get dataLakes(): DataLakesRunner {
     throw new Error('Method [dataLakes] not implemented.')
   }
 
-  get signerInstance(): XyoSigner {
+  get signer(): XyoSigner {
     return this._signer
-  }
-
-  addDataLake(dataLake: DataLakeRunner): number {
-    this._dataLakes.push(dataLake)
-    return this._dataLakes.length - 1
   }
 
   async addPayloadsToChain(
@@ -61,7 +66,7 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
     options?: TransactionOptions,
   ): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
     // Get chain providers
-    const viewer = assertEx(this.connectionInstance.viewer, () => 'No viewer available on connection')
+    const viewer = assertEx(this.connection.viewer, () => 'No viewer available on connection')
 
     // Resolve transaction options
     const {
@@ -72,14 +77,14 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
     const resolvedExp = asXL1BlockNumber(isDefined(exp) ? exp : resolvedNbf + 10, true)
 
     // Build, sign, and broadcast the transaction
-    const tx = await buildUnsignedTransaction(resolvedChainId, onChain, offChain, resolvedNbf, resolvedExp, await (await this.signer()).address(), fees)
+    const tx = await buildUnsignedTransaction(resolvedChainId, onChain, offChain, resolvedNbf, resolvedExp, await this.signer.address(), fees)
     return await this.addTransactionToChain(tx)
   }
 
   async addTransactionToChain(tx: UnsignedHydratedTransaction): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
-    const connection = this.connectionInstance
+    const connection = this.connection
 
-    const signer = this.signerInstance
+    const signer = this.signer
     const runner = assertEx(connection.runner, () => 'No runner available on connection')
     const signedTx = await signer.signTransaction(tx)
     await this.addPayloadsToDataLakes(signedTx[1])
@@ -90,19 +95,15 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
 
   async confirmSubmittedTransaction(txHash: Hash, options?: ConfirmSubmittedTransactionOptions): Promise<SignedHydratedTransaction> {
     return await confirmSubmittedTransaction(
-      assertEx(this.connectionInstance.viewer, () => 'Connection viewer is undefined'),
+      assertEx(this.connection.viewer, () => 'Connection viewer is undefined'),
       txHash,
       options,
     )
   }
 
-  /** @deprecated use connectionInstance instead */
-  connection(): Promisable<XyoConnection> {
-    return this.connectionInstance
-  }
-
-  removeDataLake(index: number): void {
-    this._dataLakes[index] = null
+  override async createHandler() {
+    await super.createHandler()
+    this._signer = await this.locator.getInstance<XyoSigner>(XyoSignerMoniker)
   }
 
   async send(to: Address, amount: AttoXL1, options?: TransactionOptions): Promise<Hash> {
@@ -110,7 +111,7 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
   }
 
   async sendMany(transfers: Record<Address, AttoXL1>, options?: TransactionOptions): Promise<Hash> {
-    const from = await (await this.signer()).address()
+    const from = await this.signer.address()
     const hexTransfers: Record<Address, Hex> = Object.fromEntries(
       Object.entries(transfers).map(([address, amount]) => ([
         address, BigIntToJsonZod.parse(amount),
@@ -125,13 +126,9 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
     return hash
   }
 
-  /** @deprecated use signerInstance instead */
-  signer(): Promisable<XyoSigner> {
-    return this.signerInstance
-  }
-
   protected async addPayloadsToDataLakes(payloads: WithHashMeta<Payload>[]): Promise<void> {
-    await Promise.all(this._dataLakes.map(async (dataLake) => {
+    const dataLakes = this._dataLakes?.dataLakes ?? []
+    await Promise.all(dataLakes.map(async (dataLake) => {
       await Promise.all(payloads.map(async (payload) => {
         await dataLake?.set(payload._hash, payload)
       }))

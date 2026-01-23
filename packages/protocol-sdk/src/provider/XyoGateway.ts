@@ -1,21 +1,29 @@
-import type { Promisable } from '@xylabs/sdk-js'
-
-import type { XyoSigner } from './signer/index.ts'
+import type { Provider, ProviderMoniker } from '../model/index.ts'
+import type { DataLakesViewer } from './DataLakes.ts'
 import type { XyoConnection } from './XyoConnection.ts'
 
-export interface XyoGateway {
+export const XyoGatewayMoniker = 'XyoGateway' as const
+export type XyoGatewayMoniker = typeof XyoGatewayMoniker
+
+export interface XyoGatewayMethods {}
+
+export interface XyoGatewayProvider<
+  TMoniker extends ProviderMoniker = ProviderMoniker,
+  TDataLakesProvider extends DataLakesViewer = DataLakesViewer> extends XyoGatewayMethods, Provider<TMoniker> {
   /**
    * Returns the connection provider for this gateway.
    */
-  connectionInstance: XyoConnection
+  connection: XyoConnection
+
+  dataLakes?: TDataLakesProvider
+}
+
+export interface XyoGateway<
+  TDataLakesProvider extends DataLakesViewer = DataLakesViewer> extends XyoGatewayProvider<XyoGatewayMoniker, TDataLakesProvider>, Provider<XyoGatewayMoniker> {
   /**
-   * Returns the signer for this gateway.
+   * Returns the connection provider for this gateway.
    */
-  signerInstance: XyoSigner
+  connection: XyoConnection
 
-  /** @deprecated use connectionInstance */
-  connection(): Promisable<XyoConnection>
-
-  /** @deprecated use signerInstance */
-  signer(): Promisable<XyoSigner>
+  dataLakes?: TDataLakesProvider
 }

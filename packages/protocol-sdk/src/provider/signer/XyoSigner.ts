@@ -7,16 +7,20 @@ import type {
   TransactionFeesBigInt,
 } from '@xyo-network/xl1-protocol'
 
+import type { Provider } from '../../model/index.ts'
+
 export const XyoSignerMoniker = 'XyoSigner' as const
 export type XyoSignerMoniker = typeof XyoSignerMoniker
 
-export interface XyoSigner {
+export interface XyoSignerMethods {
   address(): Promisable<Address>
   // The tx passed in must have all the payloads (on and off chain) in the payloads array
   // Returns the signed transaction and the payloads array excluding the off-chain payloads.
   // The return value is ready to be broadcast to block producers
   signTransaction(tx: [TransactionBoundWitness, Payload[]]): Promisable<SignedHydratedTransactionWithHashMeta>
 }
+
+export interface XyoSigner extends XyoSignerMethods, Provider<XyoSignerMoniker> {}
 
 export interface XyoSignerDeprecated {
   /** @deprecated use signTransaction instead */

@@ -9,8 +9,9 @@ import type {
 } from '@xyo-network/xl1-protocol'
 
 import type { ConfirmSubmittedTransactionOptions } from '../transaction/index.ts'
-import type { DataLakeRunner } from './DataLake.ts'
-import type { XyoGateway } from './XyoGateway.ts'
+import type { DataLakesRunner } from './DataLakes.ts'
+import type { XyoSigner } from './signer/index.ts'
+import type { XyoGatewayProvider } from './XyoGateway.ts'
 
 export interface TransactionOptions {
   chain?: ChainId
@@ -19,6 +20,9 @@ export interface TransactionOptions {
   from?: Address
   nbf?: XL1BlockNumber
 }
+
+export const XyoGatewayRunnerMoniker = 'XyoGatewayRunner' as const
+export type XyoGatewayRunnerMoniker = typeof XyoGatewayRunnerMoniker
 
 export interface XyoGatewayRunnerMethods {
 
@@ -38,8 +42,9 @@ export interface XyoGatewayRunnerMethods {
   sendMany(transfers: Record<Address, AttoXL1>, options?: TransactionOptions): Promisable<Hash>
 }
 
-export interface XyoGatewayRunner extends XyoGatewayRunnerMethods, XyoGateway {
-  dataLakes: DataLakeRunner[]
-  addDataLake(dataLake: DataLakeRunner): number
-  removeDataLake(index: number): void
+export interface XyoGatewayRunner extends XyoGatewayRunnerMethods, XyoGatewayProvider<XyoGatewayRunnerMoniker, DataLakesRunner> {
+  /**
+   * Returns the signer for this gateway.
+   */
+  signer: XyoSigner
 }

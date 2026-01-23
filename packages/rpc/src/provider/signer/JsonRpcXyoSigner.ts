@@ -3,12 +3,17 @@ import type {
   SignedHydratedTransactionWithHashMeta,
   UnsignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
-import type { XyoSigner } from '@xyo-network/xl1-protocol-sdk'
+import { type XyoSigner, XyoSignerMoniker } from '@xyo-network/xl1-protocol-sdk'
 
 import type { RpcTransport } from '../../transport/index.ts'
 import type { XyoSignerRpcSchemas } from '../../types/index.ts'
 
 export class RpcXyoSigner implements XyoSigner {
+  static readonly defaultMoniker = XyoSignerMoniker
+  static readonly dependencies = []
+  static readonly monikers = [XyoSignerMoniker]
+  moniker = RpcXyoSigner.defaultMoniker
+
   protected readonly transport: RpcTransport<typeof XyoSignerRpcSchemas>
 
   constructor(transport: RpcTransport<typeof XyoSignerRpcSchemas>) {

@@ -1,31 +1,36 @@
-import type { Promisable } from '@xylabs/sdk-js'
-
+import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
+import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
 import type {
-  XyoConnection, XyoGateway, XyoSigner,
+  DataLakesViewer,
+  XyoConnection,
+  XyoGateway,
+} from '../../provider/index.ts'
+import {
+  XyoConnectionMoniker, XyoGatewayMoniker,
+  XyoSignerMoniker,
 } from '../../provider/index.ts'
 
-export class SimpleXyoGateway implements XyoGateway {
-  private readonly _connection: XyoConnection
-  private readonly _signer: XyoSigner
+export interface SimpleXyoGatewayParams extends CreatableProviderParams {}
 
-  constructor(signer: XyoSigner, connection: XyoConnection) {
-    this._signer = signer
-    this._connection = connection
-  }
+export class SimpleXyoGateway extends AbstractCreatableProvider<SimpleXyoGatewayParams> implements XyoGateway {
+  static readonly defaultMoniker = XyoGatewayMoniker
+  static readonly dependencies = [XyoConnectionMoniker, XyoSignerMoniker]
+  static readonly monikers = [XyoGatewayMoniker]
+  moniker = SimpleXyoGateway.defaultMoniker
 
-  get connectionInstance(): XyoConnection {
+  private _connection!: XyoConnection
+  private _dataLakes?: DataLakesViewer
+
+  get connection(): XyoConnection {
     return this._connection
   }
 
-  get signerInstance(): XyoSigner {
-    return this._signer
+  get dataLakes() {
+    return this._dataLakes
   }
 
-  connection(): Promisable<XyoConnection> {
-    return this._connection
-  }
-
-  signer(): Promisable<XyoSigner> {
-    return this._signer
+  override async createHandler() {
+    await super.createHandler()
+    this._connection = await this.locator.getInstance<XyoConnection>(XyoConnectionMoniker)
   }
 }

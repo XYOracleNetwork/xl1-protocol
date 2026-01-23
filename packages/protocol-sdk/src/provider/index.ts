@@ -1,4 +1,5 @@
 export * from './DataLake.ts'
+export * from './DataLakes.ts'
 export * from './permissions/index.ts'
 export * from './signer/index.ts'
 export * from './TransactionSubmitter.ts'
