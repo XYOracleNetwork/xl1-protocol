@@ -22,7 +22,6 @@ export interface TransactionSubmitter {
   submitTransaction(
     elevatedPayloads: AllowedBlockPayload[],
     additionalPayloads: Payload[],
-    // eslint-disable-next-line sonarjs/deprecation
     options?: TransactionSubmitterOptions
   ): Promisable<SignedHydratedTransaction>
 }

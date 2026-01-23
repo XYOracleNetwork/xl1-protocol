@@ -15,7 +15,6 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
   const factory = {
     monikers: provider.monikers,
     // Copy static methods
-    // eslint-disable-next-line sonarjs/deprecation
     create: provider.create.bind(provider) as LabeledCreatableProviderFactory<TProvider>['create'],
 
     // Merge module & supplied labels

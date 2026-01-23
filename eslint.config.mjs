@@ -3,7 +3,6 @@ import {
   unicornConfig,
   workspacesConfig,
   rulesConfig,
-  sonarConfig,
   importConfig,
 } from '@xylabs/eslint-config-flat'
 
@@ -13,7 +12,6 @@ export default [
   workspacesConfig,
   rulesConfig,
   typescriptConfig,
-  sonarConfig,
   {
     ...importConfig,
     rules: {

@@ -72,7 +72,6 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
     const resolvedExp = asXL1BlockNumber(isDefined(exp) ? exp : resolvedNbf + 10, true)
 
     // Build, sign, and broadcast the transaction
-    // eslint-disable-next-line sonarjs/deprecation
     const tx = await buildUnsignedTransaction(resolvedChainId, onChain, offChain, resolvedNbf, resolvedExp, await (await this.signer()).address(), fees)
     return await this.addTransactionToChain(tx)
   }
@@ -111,7 +110,6 @@ export class SimpleXyoGatewayRunner implements XyoGatewayRunner {
   }
 
   async sendMany(transfers: Record<Address, AttoXL1>, options?: TransactionOptions): Promise<Hash> {
-    // eslint-disable-next-line sonarjs/deprecation
     const from = await (await this.signer()).address()
     const hexTransfers: Record<Address, Hex> = Object.fromEntries(
       Object.entries(transfers).map(([address, amount]) => ([
