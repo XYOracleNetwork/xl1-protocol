@@ -7,9 +7,8 @@ import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import {
-  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, WindowedBlockViewerMoniker,
+  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, MempoolRunner, MempoolRunnerMoniker, WindowedBlockViewerMoniker,
 } from '../../model/index.ts'
-import { type MempoolRunner, MempoolRunnerMoniker } from '../../runners/index.ts'
 
 export interface SimpleMempoolRunnerParams extends CreatableProviderParams {
   pendingBlocksArchivist: ArchivistInstance

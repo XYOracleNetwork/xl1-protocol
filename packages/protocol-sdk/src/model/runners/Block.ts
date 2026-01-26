@@ -3,7 +3,7 @@ import type {
   BlockBoundWitness, SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta,
 } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export interface BlockRunnerMethods {
   produceNextBlock(head: SignedBlockBoundWitnessWithHashMeta, force: true): Promise<SignedHydratedBlockWithHashMeta>

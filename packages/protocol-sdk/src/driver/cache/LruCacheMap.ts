@@ -1,6 +1,6 @@
 import { LRUCache } from 'lru-cache'
 
-import type { SyncMap } from '../../map/index.ts'
+import type { SyncMap } from '../../model/index.ts'
 
 export class LruCacheMap<K extends {}, V extends {} | string | number | bigint, FC = () => void> implements SyncMap<K, V> {
   private lruCache: LRUCache<K, V, FC>

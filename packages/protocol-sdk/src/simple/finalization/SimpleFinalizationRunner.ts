@@ -6,9 +6,10 @@ import { type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { ChainStoreWrite } from '../../model/index.ts'
+import {
+  ChainStoreWrite, FinalizationRunner, FinalizationRunnerMoniker,
+} from '../../model/index.ts'
 import { payloadMapFromStore } from '../../primitives/index.ts'
-import { type FinalizationRunner, FinalizationRunnerMoniker } from '../../runners/index.ts'
 
 export interface SimpleFinalizationRunnerParams extends CreatableProviderParams {
   finalizedArchivist: ArchivistInstance

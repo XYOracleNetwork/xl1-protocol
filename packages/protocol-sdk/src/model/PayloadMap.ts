@@ -3,7 +3,7 @@ import type { Payload } from '@xyo-network/payload-model'
 
 import type {
   MapType, MapTypeRead, MapTypeWrite,
-} from '../map/index.ts'
+} from './map/index.ts'
 
 export type PayloadMapWrite<T extends Payload = Payload> = MapTypeWrite<Hash, T>
 export type PayloadMapRead<T extends Payload = Payload> = MapTypeRead<Hash, T>

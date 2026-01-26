@@ -4,8 +4,8 @@ import {
 } from '@xylabs/sdk-js'
 
 import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
-import type { MapType } from '../../map/index.ts'
 import { timeBudget } from '../../primitives/index.ts'
+import type { MapType } from '../map/index.ts'
 import type {
   ChainStakeContext, ChainStakeContextRead, ChainStakeContextWrite,
 } from './ChainStakeContext.ts'

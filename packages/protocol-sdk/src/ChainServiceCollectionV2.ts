@@ -1,9 +1,9 @@
 import type { WalletInstance } from '@xyo-network/wallet-model'
 
 import type {
-  AccountBalanceViewer, BlockRewardViewer, BlockViewer, ChainContractViewer, ChainStakeViewer, MempoolViewer,
+  AccountBalanceViewer, BlockRewardViewer, BlockViewer, ChainContractViewer, ChainStakeViewer, MempoolRunner,
+  MempoolViewer,
 } from './model/index.ts'
-import type { MempoolRunner } from './runners/index.ts'
 import type { BlockProducerService } from './services/index.ts'
 
 export interface ChainServiceCollectionV2 {

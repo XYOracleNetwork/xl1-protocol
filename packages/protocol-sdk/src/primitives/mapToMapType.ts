@@ -1,6 +1,6 @@
 import { isDefined } from '@xylabs/sdk-js'
 
-import type { SyncIterableMap } from '../map/index.ts'
+import type { SyncIterableMap } from '../model/index.ts'
 
 export function mapToMapType<K extends {}, V extends {}>(map: Map<K, V> | SyncIterableMap<K, V>): SyncIterableMap<K, V> {
   return {

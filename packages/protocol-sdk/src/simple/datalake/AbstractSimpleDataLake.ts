@@ -2,8 +2,7 @@ import type { Hash } from '@xylabs/sdk-js'
 import { isAnyPayload, type Schema } from '@xyo-network/payload-model'
 
 import { AbstractCreatableProvider, type CreatableProviderParams } from '../../CreatableProvider/index.ts'
-import type { MapTypeRead } from '../../map/index.ts'
-import { type DataLakeData } from '../../model/index.ts'
+import type { DataLakeData, MapTypeRead } from '../../model/index.ts'
 
 export interface AbstractSimpleDataLakeParams<TMap extends
 MapTypeRead<Hash, DataLakeData> = MapTypeRead<Hash, DataLakeData>> extends
