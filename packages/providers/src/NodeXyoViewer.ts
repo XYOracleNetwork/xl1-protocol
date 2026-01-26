@@ -22,7 +22,7 @@ export class NodeXyoViewer extends SimpleXyoViewer<NodeXyoViewerParams> implemen
 
   static override async paramsHandler(params: Partial<NodeXyoViewerParams>): Promise<NodeXyoViewerParams> {
     const node = assertEx(params.node, () => 'NodeXyoViewer requires a node')
-    const finalizedArchivist = await this.getFinalizedArchivistFromNode(node)
+    const finalizedArchivist = assertEx(await this.getFinalizedArchivistFromNode(node), () => 'Could not resolve finalized archivist from node')
     return {
       ...await super.paramsHandler({ ...params, finalizedArchivist }),
       node,
