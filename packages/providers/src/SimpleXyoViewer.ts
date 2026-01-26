@@ -90,7 +90,6 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   private _accountBalanceViewer?: AccountBalanceViewer
   private _blockViewer?: BlockViewer
-  private _finalizedArchivist!: ArchivistInstance
   private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
@@ -128,6 +127,10 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   get time() {
     return this._timeSyncViewer!
+  }
+
+  protected get finalizedArchivist() {
+    return this.params.finalizedArchivist
   }
 
   protected get initRewardsCache() {
@@ -453,12 +456,8 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   }
 
   protected async getCurrentHead() {
-    const chainArchivist = this.getFinalizedArchivist()
+    const chainArchivist = this.finalizedArchivist
     return await findMostRecentBlock(chainArchivist)
-  }
-
-  protected getFinalizedArchivist() {
-    return this._finalizedArchivist
   }
 
   protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {
