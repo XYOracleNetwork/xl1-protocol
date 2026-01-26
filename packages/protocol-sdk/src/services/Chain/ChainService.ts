@@ -1,4 +1,4 @@
-import type { ChainContractViewer, ChainStakeViewer } from '../../viewers/index.ts'
+import type { ChainContractViewer, ChainStakeViewer } from '../../model/index.ts'
 import type { BaseChainService } from './BaseChainService.ts'
 
 /** @deprecated use ChainContractViewer, StakeTotalsViewer, StakeRunner instead */

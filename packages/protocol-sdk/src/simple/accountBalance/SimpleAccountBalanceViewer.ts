@@ -18,6 +18,10 @@ import { deepCalculateFramesFromRange } from '../../block/index.ts'
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
 import {
+  AccountBalanceConfig,
+  type AccountBalanceHistoryItem, type AccountBalanceViewer, AccountBalanceViewerMoniker,
+  type BlockViewer,
+  BlockViewerMoniker,
   ChainQualification, type ChainQualified, isChainQualifiedHeadConfig, isChainQualifiedRangeConfig,
 } from '../../model/index.ts'
 import type {
@@ -29,12 +33,6 @@ import {
   balancesSummary,
   transfersStepSummaryFromRange,
 } from '../../summary/index.ts'
-import {
-  AccountBalanceConfig,
-  type AccountBalanceHistoryItem, type AccountBalanceViewer, AccountBalanceViewerMoniker,
-  type BlockViewer,
-  BlockViewerMoniker,
-} from '../../viewers/index.ts'
 
 export interface SimpleAccountBalanceViewerParams extends CreatableProviderParams {
   balanceSummaryContext: BalanceStepSummaryContext
@@ -115,7 +113,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
 
   override async createHandler() {
     await super.createHandler()
-    this._blockViewer = await this.locator.getInstance(BlockViewerMoniker)
+    this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
   }
 
   async qualifiedAccountBalanceHistories(

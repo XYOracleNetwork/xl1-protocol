@@ -15,7 +15,7 @@ import {
 import { bundledPayloadToHydratedBlock, bundledPayloadToHydratedTransaction } from '../../model/index.ts'
 import {
   type MempoolViewer, MempoolViewerMoniker, type PendingTransactionsOptions, WindowedBlockViewer, WindowedBlockViewerMoniker,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 
 type PayloadBundleWithHashMeta = PayloadBundle & HashMeta
 

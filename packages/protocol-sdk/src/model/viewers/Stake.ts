@@ -1,6 +1,7 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 
-import type { Position, Provider } from '../model/index.ts'
+import type { Position } from '../Position.ts'
+import type { Provider } from '../Provider.ts'
 import type { StakeEventsViewer } from './StakeEvents.ts'
 
 export interface StakeViewerProperties {

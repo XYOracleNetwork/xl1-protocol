@@ -6,8 +6,8 @@ import {
 
 import { getDefaultConfig } from '../../../config/index.ts'
 import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
+import type { BlockViewer } from '../../../model/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
-import type { BlockViewer } from '../../../viewers/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'
 describe('getWindowedChain', () => {
   let finalizedArchivist: ArchivistInstance

@@ -14,12 +14,12 @@ import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import { ChainStoreRead } from '../../model/index.ts'
-import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/index.ts'
-import { HydratedCache } from '../../utils/index.ts'
 import {
   type FinalizationViewer,
   FinalizationViewerMoniker,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
+import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/index.ts'
+import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleFinalizationViewerParams extends CreatableProviderParams {
   finalizedArchivist: ReadArchivist

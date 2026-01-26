@@ -2,8 +2,8 @@ import type { Address } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
 import { asBlockNumber, type BlockRange } from '@xyo-network/xl1-protocol'
 
-import { type StakedChainContextRead, withContextCacheResponse } from '../../model/index.ts'
-import type { BlockViewer } from '../../viewers/index.ts'
+import type { BlockViewer, StakedChainContextRead } from '../../model/index.ts'
+import { withContextCacheResponse } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByPosition } from './mergedAddRemoveStakeEventsByPosition.ts'
 
 export async function weightedStakeForRangeByPosition(

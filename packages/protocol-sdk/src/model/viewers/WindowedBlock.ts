@@ -1,7 +1,7 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { HydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 
-import type { Provider, ProviderMoniker } from '../model/index.ts'
+import type { Provider, ProviderMoniker } from '../Provider.ts'
 import type { BlockViewerMethods } from './Block.ts'
 
 type ExtendableBlockViewerMethods = Omit<BlockViewerMethods, 'rate' | 'stepSizeRate' | 'timeDurationRate'>

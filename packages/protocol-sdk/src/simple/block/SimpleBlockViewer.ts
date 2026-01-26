@@ -13,17 +13,15 @@ import { hydrateBlock } from '../../block/index.ts'
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
 import { LruCacheMap } from '../../driver/index.ts'
-import type {
-  ChainContextRead,
-  ChainStoreRead, PayloadMap,
+import {
+  BlockViewer, BlockViewerMoniker, ChainContextRead,
+  ChainStoreRead, FinalizationViewer, FinalizationViewerMoniker,
+  PayloadMap,
 } from '../../model/index.ts'
 import {
   calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber, readPayloadMapFromStore,
 } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
-import {
-  type BlockViewer, BlockViewerMoniker, FinalizationViewer, FinalizationViewerMoniker,
-} from '../../viewers/index.ts'
 
 export interface SimpleBlockViewerParams extends CreatableProviderParams {
   finalizedArchivist: ReadArchivist

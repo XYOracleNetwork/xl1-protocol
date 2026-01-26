@@ -12,7 +12,7 @@ import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
 import {
   type BlockViewer, BlockViewerMoniker, type TimeSyncViewer, TimeSyncViewerMoniker,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 
 export interface SimpleTimeSyncViewerParams extends CreatableProviderParams {
   ethProvider?: Provider

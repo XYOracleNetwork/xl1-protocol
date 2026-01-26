@@ -10,7 +10,7 @@ import type {
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../../viewers/index.ts'
+import type { BlockViewer } from '../../../model/index.ts'
 import { calculateBlockRate } from './blockRate.ts'
 import { getTimeConfigInMilliseconds } from './timeHelpers.ts'
 

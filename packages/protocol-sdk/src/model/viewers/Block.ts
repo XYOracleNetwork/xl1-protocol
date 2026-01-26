@@ -6,7 +6,7 @@ import type {
   XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
-import type { Provider, ProviderMoniker } from '../model/index.ts'
+import type { Provider, ProviderMoniker } from '../Provider.ts'
 
 export interface BlockViewerMethods {
   blocksByHash(hash: Hash, limit?: number): Promisable<SignedHydratedBlockWithHashMeta[]>

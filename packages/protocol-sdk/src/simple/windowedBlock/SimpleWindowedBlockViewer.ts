@@ -14,8 +14,8 @@ import {
 } from '../../CreatableProvider/index.ts'
 import { MemoryMap } from '../../driver/index.ts'
 import type { SyncMap } from '../../map/index.ts'
-import type { BlockViewer, WindowedBlockViewer } from '../../viewers/index.ts'
-import { BlockViewerMoniker, WindowedBlockViewerMoniker } from '../../viewers/index.ts'
+import type { BlockViewer, WindowedBlockViewer } from '../../model/index.ts'
+import { BlockViewerMoniker, WindowedBlockViewerMoniker } from '../../model/index.ts'
 
 export interface SimpleWindowedBlockViewerParams extends CreatableProviderParams {
   blockViewer?: BlockViewer

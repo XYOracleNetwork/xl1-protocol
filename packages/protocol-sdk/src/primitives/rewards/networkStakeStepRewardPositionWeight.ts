@@ -1,7 +1,6 @@
 import { type StepIdentity, XYO_NETWORK_STAKING_ADDRESS } from '@xyo-network/xl1-protocol'
 
-import type { StakedChainContextRead } from '../../model/index.ts'
-import type { BlockViewer } from '../../viewers/index.ts'
+import type { BlockViewer, StakedChainContextRead } from '../../model/index.ts'
 import { externalBlockRangeFromStep } from '../chain/index.ts'
 import { weightedStakeForRangeByPosition } from '../stake/index.ts'
 

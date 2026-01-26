@@ -1,7 +1,6 @@
 import type { BlockRange, XL1BlockRange } from '@xyo-network/xl1-protocol'
 
-import type { CachingBaseContext } from '../../../model/index.ts'
-import type { BlockViewer } from '../../../viewers/index.ts'
+import type { BlockViewer, CachingBaseContext } from '../../../model/index.ts'
 import { externalBlockNumberFromXL1BlockNumber } from './externalBlockNumberFromXL1BlockNumber.ts'
 
 export async function externalBlockRangeFromXL1BlockRange(

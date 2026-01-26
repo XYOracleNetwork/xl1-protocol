@@ -4,9 +4,8 @@ import {
   asBlockNumber, asTimePayload, isTimePayload,
 } from '@xyo-network/xl1-protocol'
 
-import type { CachingBaseContext } from '../../../model/index.ts'
+import type { BlockViewer, CachingBaseContext } from '../../../model/index.ts'
 import { withContextCacheResponse } from '../../../model/index.ts'
-import type { BlockViewer } from '../../../viewers/index.ts'
 
 const functionName = 'externalBlockNumberFromXL1BlockNumber' as const
 

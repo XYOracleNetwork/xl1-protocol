@@ -4,7 +4,7 @@ import type {
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../../viewers/index.ts'
+import type { BlockViewer } from '../../../model/index.ts'
 import { rateMultipliers, timeDurations } from './timeHelpers.ts'
 
 export const blockRate = (

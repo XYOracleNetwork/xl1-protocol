@@ -1,4 +1,4 @@
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 import type { ChainContractViewer } from './ChainContract.ts'
 import type { StakeTotalsViewer } from './StakeTotals.ts'
 

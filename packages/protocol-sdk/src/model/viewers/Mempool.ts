@@ -3,7 +3,7 @@ import type { SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHash
 import { XL1BlockRangeZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export const PendingTransactionsOptionsZod = z.object({
   cursor: HashZod.optional(),

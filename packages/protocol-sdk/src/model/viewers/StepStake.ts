@@ -1,7 +1,7 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { StepIdentity } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export interface StepStakeViewerMethods {
   // this is the prorated stake for all addresses in the step

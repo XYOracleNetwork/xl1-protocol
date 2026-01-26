@@ -6,10 +6,10 @@ import { assertEx } from '@xylabs/sdk-js'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { PayloadMap, Position } from '../../model/index.ts'
 import {
+  PayloadMap, Position,
   StakeEventsViewer, StakeEventsViewerMoniker, StakeViewer, StakeViewerMoniker,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 
 export interface SimpleChainStakeParams extends CreatableProviderParams {
   chainId?: Address

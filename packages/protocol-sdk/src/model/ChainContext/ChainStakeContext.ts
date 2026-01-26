@@ -1,5 +1,5 @@
-import type { StakeRunner, StakeViewer } from '../../viewers/index.ts'
 import type { ChainIdentity } from '../ChainIdentity.ts'
+import type { StakeRunner, StakeViewer } from '../viewers/index.ts'
 
 export interface ChainStakeContextWrite extends ChainIdentity {
   stake: StakeRunner

@@ -3,9 +3,8 @@ import { zodIsFactory } from '@xylabs/zod'
 import { type HydratedTransaction, type ValidationError } from '@xyo-network/xl1-protocol'
 import type { z } from 'zod'
 
-import {
-  ChainQualificationZod, ChainQualifiedConfigZod, type Provider,
-} from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
+import { ChainQualificationZod, ChainQualifiedConfigZod } from '../zod/index.ts'
 
 export const TransactionValidationQualificationZod = ChainQualificationZod
 export type TransactionValidationQualification = z.infer<typeof TransactionValidationQualificationZod>

@@ -1,4 +1,4 @@
-import type { StakeEvent, StakeEventsViewer } from '../../viewers/index.ts'
+import type { StakeEvent, StakeEventsViewer } from '../../model/index.ts'
 
 export async function mergedAddRemoveStakeEventsByPosition(
   chainEvents: StakeEventsViewer,

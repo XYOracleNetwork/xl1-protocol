@@ -6,9 +6,10 @@ import { type SignedHydratedBlock, type SignedHydratedTransaction } from '@xyo-n
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle } from '../../model/index.ts'
+import {
+  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, WindowedBlockViewerMoniker,
+} from '../../model/index.ts'
 import { type MempoolRunner, MempoolRunnerMoniker } from '../../runners/index.ts'
-import { WindowedBlockViewerMoniker } from '../../viewers/index.ts'
 
 export interface SimpleMempoolRunnerParams extends CreatableProviderParams {
   pendingBlocksArchivist: ArchivistInstance

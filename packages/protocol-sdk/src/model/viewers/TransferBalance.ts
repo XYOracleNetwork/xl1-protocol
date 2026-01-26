@@ -6,7 +6,7 @@ import type {
   XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export type TransferBalanceHistoryItem = [
   Signed<BlockBoundWitness> /* block */,

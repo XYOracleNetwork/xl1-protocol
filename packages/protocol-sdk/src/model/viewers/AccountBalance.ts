@@ -8,12 +8,9 @@ import {
 import { BlockBoundWitnessZod, TransactionBoundWitnessZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
-import {
-  ChainQualificationZod,
-  type ChainQualified,
-  ChainQualifiedConfigZod,
-  type Provider,
-} from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
+import type { ChainQualified } from '../zod/index.ts'
+import { ChainQualificationZod, ChainQualifiedConfigZod } from '../zod/index.ts'
 
 export const AccountBalanceHistoryItemZod = z.tuple([
   WithHashMetaZod(BlockBoundWitnessZod),

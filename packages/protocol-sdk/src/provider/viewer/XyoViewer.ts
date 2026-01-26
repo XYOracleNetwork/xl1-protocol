@@ -1,21 +1,21 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { AttoXL1 } from '@xyo-network/xl1-protocol'
 
-import type { ChainQualifiedConfig, Provider } from '../../model/index.ts'
 import type {
   AccountBalanceHistoryItem,
   AccountBalanceViewer,
   BlockViewer,
   BlockViewerMethods,
-  ForkViewerMethods,
+  ChainQualifiedConfig, ForkViewerMethods,
   MempoolViewer,
   NetworkStakeStepRewardViewerMethods,
+  Provider,
   StakeViewer,
   StakeViewerMethods,
   StepViewer,
   TimeSyncViewer,
   TransactionViewerMethods,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 import type { NetworkStakeViewer } from './NetworkStake/index.ts'
 
 export interface XyoViewerMethods extends

@@ -3,10 +3,11 @@ import { zodIsFactory } from '@xylabs/zod'
 import { type HydratedBlock, type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
+import type { HydratedBlockValidationError } from '../../validation/index.ts'
+import type { Provider } from '../Provider.ts'
 import {
-  ChainQualificationZod, ChainQualifiedHeadConfigZod, ChainQualifiedRangeConfigZod, type Provider,
-} from '../model/index.ts'
-import type { HydratedBlockValidationError } from '../validation/index.ts'
+  ChainQualificationZod, ChainQualifiedHeadConfigZod, ChainQualifiedRangeConfigZod,
+} from '../zod/index.ts'
 
 export const BlockValidationQualificationZod = ChainQualificationZod
 export type BlockValidationQualification = z.infer<typeof BlockValidationQualificationZod>

@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
 
-import type { StakeEventsViewer } from '../../viewers/index.ts'
+import type { StakeEventsViewer } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByStaker } from './mergedAddRemoveStakeEventsByStaker.ts'
 
 export async function activeStakeAtTimeByAddress(

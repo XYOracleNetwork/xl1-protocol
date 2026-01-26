@@ -3,11 +3,11 @@ import { isDefined } from '@xylabs/sdk-js'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { Position } from '../../model/index.ts'
 import {
+  Position,
   StakeEvent, StakeEventFilter, StakeEventName, StakeEventsViewer,
   StakeEventsViewerMoniker,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 
 export interface SimpleStakeEventsParams extends CreatableProviderParams {
   positions: Position[]

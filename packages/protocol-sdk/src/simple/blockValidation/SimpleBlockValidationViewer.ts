@@ -9,23 +9,22 @@ import {
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import { isChainQualifiedHeadConfig } from '../../model/index.ts'
-import { findUncles, getWindowedChain } from '../../primitives/index.ts'
-import type {
-  HydratedBlockStateValidationFunction, HydratedBlockValidationError, HydratedBlockValidationFunction,
-} from '../../validation/index.ts'
 import type {
   AccountBalanceViewer,
   BlockValidationConfig,
   BlockValidationQualification,
   BlockValidationViewer,
   ChainContractViewer,
-} from '../../viewers/index.ts'
+} from '../../model/index.ts'
 import {
   AccountBalanceViewerMoniker,
   BlockValidationViewerMoniker, BlockViewer, BlockViewerMoniker,
-  ChainContractViewerMoniker,
-} from '../../viewers/index.ts'
+  ChainContractViewerMoniker, isChainQualifiedHeadConfig,
+} from '../../model/index.ts'
+import { findUncles, getWindowedChain } from '../../primitives/index.ts'
+import type {
+  HydratedBlockStateValidationFunction, HydratedBlockValidationError, HydratedBlockValidationFunction,
+} from '../../validation/index.ts'
 
 export interface SimpleBlockValidationViewerParams extends CreatableProviderParams {
   maxUncleWindowSize: number

@@ -1,3 +1,3 @@
-import type { NetworkStakeStepRewardViewer } from '../viewers/index.ts'
+import type { NetworkStakeStepRewardViewer } from '../model/index.ts'
 
 export interface NetworkStakeStepRewardService extends NetworkStakeStepRewardViewer {}

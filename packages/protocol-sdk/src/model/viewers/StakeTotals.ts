@@ -1,6 +1,6 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export interface StakeTotalsViewerMethods {
   active(): Promisable<bigint>

@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/sdk-js'
 import type { AttoXL1, XL1BlockNumber } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export interface BlockRewardViewerMethods {
   // The amount of xl1 to send to the producer from the block reward

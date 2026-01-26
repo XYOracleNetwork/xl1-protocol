@@ -3,7 +3,7 @@ import type {
   AttoXL1, StepIdentity, StepIdentityString,
 } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
 
 export interface NetworkStakeStepAddressRewardViewerMethods {
   // the step rewards for a specific network stakers for all of history

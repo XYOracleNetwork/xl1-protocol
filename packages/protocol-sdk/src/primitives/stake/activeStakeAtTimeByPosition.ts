@@ -1,6 +1,6 @@
 import { isUndefined } from '@xylabs/sdk-js'
 
-import type { StakeEventsViewer } from '../../viewers/index.ts'
+import type { StakeEventsViewer } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByPosition } from './mergedAddRemoveStakeEventsByPosition.ts'
 
 export async function activeStakeAtTimeByPosition(

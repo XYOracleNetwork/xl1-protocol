@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import type { SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../viewers/index.ts'
+import type { BlockViewer } from '../../model/index.ts'
 
 /**
  * Constructs a bounded, contiguous canonical chain ending at the current head.
