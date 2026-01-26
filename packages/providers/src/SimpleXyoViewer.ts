@@ -486,12 +486,11 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected async getStakedChainContext() {
     const stake = this.stake
     const store = { chainMap: this._finalizedPayloadMap } satisfies StakedChainContextRead['store']
+    const head = assertEx(await this.getCurrentHead(), () => 'No current head')
     return {
       caches: this.context.caches,
       singletons: this.context.singletons,
-      head: function (): Promisable<[Hash, number]> {
-        throw new Error('Function not implemented.')
-      },
+      head: () => { return [head._hash, head.block] },
       store,
       chainId: await this.chainId(),
       stake,
