@@ -27,10 +27,10 @@ import type {
   XyoConnection,
   XyoGatewayRunner,
   XyoSigner,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import {
   XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import type { ConfirmSubmittedTransactionOptions } from '../../transaction/index.ts'
 import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
 

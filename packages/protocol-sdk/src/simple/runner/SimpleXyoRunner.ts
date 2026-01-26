@@ -4,7 +4,7 @@ import type { SignedHydratedTransactionWithStorageMeta } from '@xyo-network/xl1-
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import { type XyoRunner, XyoRunnerMoniker } from '../../provider/index.ts'
+import { type XyoRunner, XyoRunnerMoniker } from '../../model/index.ts'
 import { type MempoolRunner, MempoolRunnerMoniker } from '../../runners/index.ts'
 
 export interface SimpleXyoRunnerParams extends CreatableProviderParams {

@@ -1,4 +1,4 @@
-import type { InvokerPermission, PermissionsGetHandler } from '../../../provider/index.ts'
+import type { InvokerPermission, PermissionsGetHandler } from '../../../model/index.ts'
 
 export type Invoker = string
 export type ParentCapability = string

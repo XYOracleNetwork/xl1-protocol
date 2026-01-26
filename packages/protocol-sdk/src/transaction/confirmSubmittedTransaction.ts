@@ -2,7 +2,7 @@ import type { Hash, Logger } from '@xylabs/sdk-js'
 import { delay, isDefined } from '@xylabs/sdk-js'
 import type { SignedHydratedTransaction } from '@xyo-network/xl1-protocol'
 
-import type { XyoViewer } from '../provider/index.ts'
+import type { XyoViewer } from '../model/index.ts'
 
 const DEFAULT_CONFIRMATION_ATTEMPTS = 20
 const DEFAULT_DELAY_BETWEEN_ATTEMPTS = 1000 // milliseconds

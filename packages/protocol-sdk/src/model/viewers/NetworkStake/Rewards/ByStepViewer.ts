@@ -1,6 +1,6 @@
 import type { StepIdentityString } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../../../../model/index.ts'
+import type { Provider } from '../../../Provider.ts'
 import type { NetworkStakeStepRewardsByStepViewerOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsByIndexViewerMethodsTemplate } from './templates/index.ts'
 

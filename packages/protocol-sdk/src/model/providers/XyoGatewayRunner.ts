@@ -8,7 +8,7 @@ import type {
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
-import type { ConfirmSubmittedTransactionOptions } from '../transaction/index.ts'
+import type { ConfirmSubmittedTransactionOptions } from '../../transaction/index.ts'
 import type { DataLakesRunner } from './DataLakes.ts'
 import type { XyoSigner } from './signer/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'

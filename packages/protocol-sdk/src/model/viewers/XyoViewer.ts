@@ -1,22 +1,18 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { AttoXL1 } from '@xyo-network/xl1-protocol'
 
-import type {
-  AccountBalanceHistoryItem,
-  AccountBalanceViewer,
-  BlockViewer,
-  BlockViewerMethods,
-  ChainQualifiedConfig, ForkViewerMethods,
-  MempoolViewer,
-  NetworkStakeStepRewardViewerMethods,
-  Provider,
-  StakeViewer,
-  StakeViewerMethods,
-  StepViewer,
-  TimeSyncViewer,
-  TransactionViewerMethods,
-} from '../../model/index.ts'
+import type { Provider } from '../Provider.ts'
+import type { ChainQualifiedConfig } from '../zod/index.ts'
+import type { AccountBalanceHistoryItem, AccountBalanceViewer } from './AccountBalance.ts'
+import type { BlockViewer, BlockViewerMethods } from './Block.ts'
+import type { ForkViewerMethods } from './Fork.ts'
+import type { MempoolViewer } from './Mempool.ts'
 import type { NetworkStakeViewer } from './NetworkStake/index.ts'
+import type { NetworkStakeStepRewardViewerMethods } from './NetworkStakeStepReward.ts'
+import type { StakeViewer, StakeViewerMethods } from './Stake.ts'
+import type { StepViewer } from './StepViewer.ts'
+import type { TimeSyncViewer } from './TimeSync.ts'
+import type { TransactionViewerMethods } from './Transaction.ts'
 
 export interface XyoViewerMethods extends
   NetworkStakeStepRewardViewerMethods, BlockViewerMethods,

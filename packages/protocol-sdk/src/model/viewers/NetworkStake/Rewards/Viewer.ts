@@ -1,4 +1,4 @@
-import type { Provider } from '../../../../model/index.ts'
+import type { Provider } from '../../../Provider.ts'
 import type { NetworkStakeStepRewardsByPositionViewer } from './ByPositionViewer.ts'
 import type { NetworkStakeStepRewardsByStakerViewer } from './ByStakerViewer.ts'
 import type { NetworkStakeStepRewardsByStepViewer } from './ByStepViewer.ts'

@@ -1,9 +1,9 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { PositionId, StepIdentity } from '@xyo-network/xl1-protocol'
 
-import type { NetworkStakeStepRewardsViewer } from '../../provider/index.ts'
 import type { Position } from '../Position.ts'
 import type { Provider } from '../Provider.ts'
+import type { NetworkStakeStepRewardsViewer } from './NetworkStake/index.ts'
 
 export interface PagedPositionsOptions {
   cursor?: PositionId

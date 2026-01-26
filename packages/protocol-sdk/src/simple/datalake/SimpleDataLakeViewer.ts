@@ -6,7 +6,7 @@ import {
   type DataLakeData,
   type DataLakeViewer,
   DataLakeViewerMoniker,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import { AbstractSimpleDataLake, AbstractSimpleDataLakeParams } from './AbstractSimpleDataLake.ts'
 
 export interface DataLakeViewerParams<TMap extends MapTypeRead<Hash, DataLakeData> = MapTypeRead<Hash, DataLakeData>> extends

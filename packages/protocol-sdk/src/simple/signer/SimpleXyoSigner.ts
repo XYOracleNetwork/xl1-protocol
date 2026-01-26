@@ -13,7 +13,7 @@ import { SignedHydratedTransactionWithHashMetaZod } from '@xyo-network/xl1-proto
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import { type XyoSigner, XyoSignerMoniker } from '../../provider/index.ts'
+import { type XyoSigner, XyoSignerMoniker } from '../../model/index.ts'
 import { buildTransaction, signTransaction } from '../../transaction/index.ts'
 
 export interface SimpleXyoSignerParams extends CreatableProviderParams {

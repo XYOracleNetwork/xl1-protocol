@@ -3,7 +3,7 @@ import { assertEx } from '@xylabs/sdk-js'
 import type {
   CaveatTypes,
   InvokerPermission, PermissionRequest, RequestedPermission, XyoPermissions,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import type { Invoker, PermissionsStore } from './store/index.ts'
 
 /**

@@ -2,7 +2,7 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import type { PermissionRequest } from '../../../provider/index.ts'
+import type { PermissionRequest } from '../../../model/index.ts'
 import { SimpleXyoPermissions } from '../SimpleXyoPermissions.ts'
 import { MemoryPermissionsStore } from '../store/index.ts'
 

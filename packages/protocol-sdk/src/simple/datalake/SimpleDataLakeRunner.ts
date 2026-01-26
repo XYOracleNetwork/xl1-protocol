@@ -6,7 +6,7 @@ import {
   type DataLakeData,
   type DataLakeRunner,
   DataLakeRunnerMoniker,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import { AbstractSimpleDataLake } from './AbstractSimpleDataLake.ts'
 import { DataLakeViewerParams } from './SimpleDataLakeViewer.ts'
 

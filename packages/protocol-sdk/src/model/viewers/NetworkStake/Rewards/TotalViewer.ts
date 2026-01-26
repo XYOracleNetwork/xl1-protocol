@@ -1,6 +1,6 @@
 import type { AttoXL1 } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../../../../model/index.ts'
+import type { Provider } from '../../../Provider.ts'
 import type { NetworkStakeStepRewardsRangeOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsViewerMethodsTemplate } from './templates/index.ts'
 

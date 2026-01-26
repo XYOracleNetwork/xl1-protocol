@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
 
-import type { Provider } from '../../../../model/index.ts'
+import type { Provider } from '../../../Provider.ts'
 import type { NetworkStakeStepRewardsByStakerViewerOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsByIndexViewerMethodsTemplate } from './templates/index.ts'
 

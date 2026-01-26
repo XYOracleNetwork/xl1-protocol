@@ -6,7 +6,7 @@ import type {
 import { isNetworkStatus } from '@xyo-network/xl1-protocol'
 import axios from 'axios'
 
-import type { XyoNetwork } from '../../provider/index.ts'
+import type { XyoNetwork } from '../../model/index.ts'
 import {
   errorStatus, StatusNetworks, unknownStatus,
 } from './lib/index.ts'

@@ -7,7 +7,7 @@ import type {
   TransactionFeesBigInt,
 } from '@xyo-network/xl1-protocol'
 
-import type { Provider } from '../../model/index.ts'
+import type { Provider } from '../../Provider.ts'
 
 export const XyoSignerMoniker = 'XyoSigner' as const
 export type XyoSignerMoniker = typeof XyoSignerMoniker

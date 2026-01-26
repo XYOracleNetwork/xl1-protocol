@@ -4,11 +4,11 @@ import type {
   DataLakesViewer,
   XyoConnection,
   XyoGateway,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 import {
   XyoConnectionMoniker, XyoGatewayMoniker,
   XyoSignerMoniker,
-} from '../../provider/index.ts'
+} from '../../model/index.ts'
 
 export interface SimpleXyoGatewayParams extends CreatableProviderParams {}
 

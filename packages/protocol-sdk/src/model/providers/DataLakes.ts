@@ -1,4 +1,4 @@
-import type { Provider, ProviderMoniker } from '../model/index.ts'
+import type { Provider, ProviderMoniker } from '../Provider.ts'
 import type { DataLakeProvider, DataLakeRunner } from './DataLake.ts'
 
 export interface DataLakesProvider<
