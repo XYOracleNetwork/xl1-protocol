@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import { jsonrpc } from '../JsonRpc.ts'
 
-export const createRequestSchema = <TParams extends z.ZodTypeAny, TMethodName extends string = string>(
+export const createRequestSchema = <TParams extends z.ZodType, TMethodName extends string = string>(
   methodName: TMethodName,
   paramsSchema: TParams | ZodUndefined = z.undefined(),
 ) =>

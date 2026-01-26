@@ -1,7 +1,6 @@
 export * from './AccountTransfersService.ts'
 export * from './BlockProducerService.ts'
 export * from './Chain/index.ts'
-export * from './ChainIterator/index.ts'
 export * from './Election.ts'
 export * from './NetworkStakeService.ts'
 export * from './PendingTransactionsService.ts'

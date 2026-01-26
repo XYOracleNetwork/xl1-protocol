@@ -51,20 +51,20 @@
     "ajv": "~8.17.1"
   },
   "devDependencies": {
-    "@types/node": "~25.0.9",
+    "@types/node": "~25.0.10",
     "@xylabs/sdk-js": "~5.0.64",
-    "@xylabs/ts-scripts-yarn3": "~7.3.1",
-    "@xylabs/tsconfig": "~7.3.1",
+    "@xylabs/ts-scripts-yarn3": "~7.3.2",
+    "@xylabs/tsconfig": "~7.3.2",
     "@xyo-network/account": "~5.2.25",
     "@xyo-network/account-model": "~5.2.25",
     "@xyo-network/archivist-memory": "~5.2.25",
     "@xyo-network/archivist-model": "~5.2.25",
     "@xyo-network/wallet": "~5.2.25",
-    "axios": "^1.13.2",
+    "axios": "^1.13.3",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.17",
-    "zod": "~4.3.5"
+    "vitest": "~4.0.18",
+    "zod": "~4.3.6"
   },
   "peerDependencies": {
     "axios": "^1.13.2",

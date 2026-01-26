@@ -59,16 +59,16 @@
     "@xyo-network/xl1-protocol": "~1.19.4"
   },
   "devDependencies": {
-    "@types/node": "~25.0.9",
-    "@xylabs/ts-scripts-yarn3": "~7.3.1",
-    "@xylabs/tsconfig": "~7.3.1",
+    "@types/node": "~25.0.10",
+    "@xylabs/ts-scripts-yarn3": "~7.3.2",
+    "@xylabs/tsconfig": "~7.3.2",
     "@xylabs/vitest-extended": "~5.0.64",
     "copyfiles": "~2.4.1",
     "dotenv": "~17.2.3",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
-    "vitest": "~4.0.17",
-    "zod": "~4.3.5"
+    "vitest": "~4.0.18",
+    "zod": "~4.3.6"
   },
   "peerDependencies": {
     "zod": "^4"

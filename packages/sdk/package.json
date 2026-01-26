@@ -54,11 +54,11 @@
     "@xyo-network/xl1-wrappers": "~1.19.4"
   },
   "devDependencies": {
-    "@xylabs/ts-scripts-yarn3": "~7.3.1",
-    "@xylabs/tsconfig": "~7.3.1",
-    "axios": "^1.13.2",
+    "@xylabs/ts-scripts-yarn3": "~7.3.2",
+    "@xylabs/tsconfig": "~7.3.2",
+    "axios": "^1.13.3",
     "typescript": "~5.9.3",
-    "zod": "~4.3.5"
+    "zod": "~4.3.6"
   },
   "peerDependencies": {
     "axios": "^1",

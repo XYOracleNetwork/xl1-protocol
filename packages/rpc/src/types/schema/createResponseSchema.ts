@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import { jsonrpc } from '../JsonRpc.ts'
 
-export const createResponseSchema = <TParams extends z.ZodTypeAny>(
+export const createResponseSchema = <TParams extends z.ZodType>(
   resultSchema: TParams | ZodUndefined = z.undefined(),
 ) =>
   z.object({

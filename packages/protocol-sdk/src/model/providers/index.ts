@@ -1,7 +1,6 @@
 export * from './DataLake.ts'
 export * from './DataLakes.ts'
 export * from './signer/index.ts'
-export * from './TransactionSubmitter.ts'
 export * from './XyoClient.ts'
 export * from './XyoConnection.ts'
 export * from './XyoGateway.ts'

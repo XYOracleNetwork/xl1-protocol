@@ -502,7 +502,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     try {
       const currentBlockNumber = await this.currentBlockNumber()
       // initialize functions that have slow initial call
-      await this.accountBalance(XYO_ZERO_ADDRESS)
+      await this.account.balance.accountBalance(XYO_ZERO_ADDRESS)
       if (this.initRewardsCache) {
         const externalRange = await externalBlockRangeFromXL1BlockRange(
           await this.getStakedChainContext(),
