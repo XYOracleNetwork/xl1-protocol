@@ -17,11 +17,9 @@ import {
 
 import { NodeXyoViewer } from './NodeXyoViewer.ts'
 import { SimpleNetworkStakeViewer } from './SimpleNetworkStakeViewer.ts'
-import { SimpleStepRewardsByPositionViewer } from './SimpleStepRewardsByPositionViewer.ts'
-import { SimpleStepRewardsByStakerViewer } from './SimpleStepRewardsByStakerViewer.ts'
-import { SimpleStepRewardsByStepViewer } from './SimpleStepRewardsByStepViewer.ts'
-import { SimpleStepRewardsTotalViewer } from './SimpleStepRewardsTotalViewer.ts'
-import { SimpleStepRewardsViewer } from './SimpleStepRewardsViewer.ts'
+import {
+  SimpleStepRewardsByPositionViewer, SimpleStepRewardsByStakerViewer, SimpleStepRewardsByStepViewer, SimpleStepRewardsTotalViewer, SimpleStepRewardsViewer,
+} from './SimpleStepRewards/index.ts'
 import { SimpleStepViewer } from './SimpleStepViewer.ts'
 import { SimpleXyoConnection } from './SimpleXyoConnection.ts'
 
