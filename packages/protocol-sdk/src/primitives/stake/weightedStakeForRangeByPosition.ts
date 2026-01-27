@@ -26,7 +26,7 @@ export async function weightedStakeForRangeByPosition(
       let currentStake = 0n // await activeStakeAtTimeByPosition(chainEvents, pos.staked, currentTime - 1, position)
 
       // if not staking the desired address, return 0n
-      if (isDefined(staked) && mergedEvents[0].args.staked !== staked) {
+      if (isDefined(staked) && mergedEvents.at(0)?.args.staked !== staked) {
         return 0n
       }
 
