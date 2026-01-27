@@ -13,7 +13,9 @@ import { hydrateBlock } from '../../block/index.ts'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { ChainStoreRead } from '../../model/index.ts'
+import {
+  ChainContractViewer, ChainContractViewerMoniker, ChainStoreRead,
+} from '../../model/index.ts'
 import {
   type FinalizationViewer,
   FinalizationViewerMoniker,
@@ -22,23 +24,28 @@ import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/i
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleFinalizationViewerParams extends CreatableProviderParams {
-  chainId: ChainId
   finalizedArchivist: ReadArchivist
 }
 
 @creatableProvider()
 export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFinalizationViewerParams> implements FinalizationViewer {
   static readonly defaultMoniker = FinalizationViewerMoniker
-  static readonly dependencies = []
+  static readonly dependencies = [ChainContractViewerMoniker]
   static readonly monikers = [FinalizationViewerMoniker]
   moniker = SimpleFinalizationViewer.defaultMoniker
 
+  protected _chainContractViewer!: ChainContractViewer
+  protected _chainId!: ChainId
   protected _store: ChainStoreRead | undefined
 
   private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
 
+  protected get chainContractViewer() {
+    return this._chainContractViewer
+  }
+
   protected get chainId() {
-    return this.params.chainId
+    return this._chainId
   }
 
   protected get finalizedArchivist() {
@@ -68,12 +75,13 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
     return {
       ...await super.paramsHandler(params),
       finalizedArchivist: assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required'),
-      chainId: assertEx(params.chainId, () => 'chainId is required'),
     } satisfies SimpleFinalizationViewerParams
   }
 
   override async createHandler() {
     await super.createHandler()
+    this._chainContractViewer = await this.locateAndCreate<ChainContractViewer>(ChainContractViewerMoniker)
+    this._chainId = await this.chainContractViewer.chainId()
     this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
   }
 

@@ -1,3 +1,4 @@
+import { asHex, ZERO_ADDRESS } from '@xylabs/sdk-js'
 import { MongoDBArchivistV2 } from '@xyo-network/archivist-mongodb'
 import { asXL1BlockRange, StepSizes } from '@xyo-network/xl1-protocol'
 import {
@@ -6,7 +7,9 @@ import {
 
 import { getDefaultConfig } from '../../../../config/index.ts'
 import { ProviderFactoryLocator } from '../../../../CreatableProvider/index.ts'
-import { SimpleBlockViewer, SimpleFinalizationViewer } from '../../../../simple/index.ts'
+import {
+  SimpleBlockViewer, SimpleChainContractViewer, SimpleFinalizationViewer,
+} from '../../../../simple/index.ts'
 import { externalBlockNumberFromXL1BlockNumber } from '../externalBlockNumberFromXL1BlockNumber.ts'
 
 describe('externalBlockNumberFromXL1BlockNumber', () => {
@@ -23,7 +26,14 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
     const locator = new ProviderFactoryLocator({
       singletons: {}, caches: {}, config,
     })
+    const chainId = asHex('0101', true)
     locator.registerMany([
+      SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, {
+        chainId,
+        minWithdrawalBlocks: 10,
+        rewardsContract: ZERO_ADDRESS,
+        stakingTokenAddress: ZERO_ADDRESS,
+      }),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist: chainArchivist }),
     ])
     const context = {
