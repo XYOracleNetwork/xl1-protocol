@@ -5,6 +5,7 @@ import {
   asXL1BlockRange,
   ChainId,
   type SignedHydratedBlockWithHashMeta,
+  XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
@@ -99,7 +100,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     const validateProtocol = value ? this.doValidateProtocol.bind(this) : undefined
     const validateState = state ? this.doValidateState.bind(this) : undefined
 
-    const chainIdAtBlockNumber = (blockNumber: number) => this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
+    const chainIdAtBlockNumber = (blockNumber: XL1BlockNumber) => this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
 
     return [(await Promise.all([
       validateProtocol?.(blocks, chainIdAtBlockNumber), validateState?.(blocks, chainIdAtBlockNumber),
@@ -116,7 +117,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
 
   private async doValidateProtocol(
     blocks: SignedHydratedBlockWithHashMeta[],
-    chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
+    chainIdAtBlockNumber: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
   ): Promise<HydratedBlockValidationError[]> {
     return (await Promise.all(blocks.map(async (block) => {
       return await this.params.protocol!(
@@ -128,7 +129,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
 
   private async doValidateState(
     blocks: SignedHydratedBlockWithHashMeta[],
-    chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
+    chainIdAtBlockNumber: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
   ): Promise<HydratedBlockValidationError[]> {
     const windowedUncleChain = await this.updateWindowedChainCache()
 

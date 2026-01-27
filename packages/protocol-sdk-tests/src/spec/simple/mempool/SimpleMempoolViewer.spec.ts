@@ -1,11 +1,17 @@
 import '@xylabs/vitest-extended'
 
-import { asHex } from '@xylabs/sdk-js'
+import {
+  asAddress,
+  asHex,
+  ZERO_ADDRESS,
+} from '@xylabs/sdk-js'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import { asXL1BlockNumber, type SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
-import type { ProviderFactoryLocator } from '@xyo-network/xl1-protocol-sdk'
+import type { ProviderFactoryLocator, SimpleChainContractViewerParams } from '@xyo-network/xl1-protocol-sdk'
 import {
-  buildRandomTransaction, flattenHydratedBlock, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  buildRandomTransaction,
+  flattenHydratedBlock, SimpleBlockViewer, SimpleChainContractViewer,
+  SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleWindowedBlockViewer,
 } from '@xyo-network/xl1-protocol-sdk'
 import { buildSimpleProviderLocator } from '@xyo-network/xl1-providers'
@@ -314,6 +320,7 @@ describe('SimpleMempoolViewer', () => {
     finalizedArchivist: MemoryArchivist,
     pendingBlocksArchivist: MemoryArchivist,
     pendingTransactionsArchivist: MemoryArchivist,
+    contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
     const locator = buildSimpleProviderLocator()
     await finalizedArchivist.clear()
@@ -323,6 +330,7 @@ describe('SimpleMempoolViewer', () => {
     locator.registerMany([
       SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
+      SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, contractViewerParams),
       SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 1000, syncInterval: 10_000 }),
       SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingBlocksArchivist, pendingTransactionsArchivist }),
       SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingBlocksArchivist, pendingTransactionsArchivist }),
@@ -340,7 +348,12 @@ describe('SimpleMempoolViewer', () => {
     finalizedArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingBlocksArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingTransactionsArchivist = await MemoryArchivist.create({ account: 'random' })
-    locator = await buildTestLocator(finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist)
+    locator = await buildTestLocator(finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, {
+      chainId: asHex('01', true),
+      minWithdrawalBlocks: 10,
+      rewardsContract: ZERO_ADDRESS,
+      stakingTokenAddress: ZERO_ADDRESS,
+    })
     sut = await locator.getInstance<SimpleMempoolViewer>(SimpleMempoolViewer.defaultMoniker)
   })
 

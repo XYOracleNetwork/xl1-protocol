@@ -1,5 +1,7 @@
 import type { Promisable } from '@xylabs/sdk-js'
-import type { ChainId, HydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+import type {
+  ChainId, HydratedBlockWithHashMeta, XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 
 import type { AccountBalanceViewer } from '../../model/index.ts'
 import type { HydratedBlockStateValidationError } from './error.ts'
@@ -13,6 +15,6 @@ import type { HydratedBlockStateValidationError } from './error.ts'
  */
 export type HydratedBlockStateValidationFunction = (
   hydratedBlock: HydratedBlockWithHashMeta,
-  chainIdAtBlockNumber: (blockNumber: number) => Promisable<ChainId>,
+  chainIdAtBlockNumber: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
   services: { accountBalance: AccountBalanceViewer },
 ) => Promisable<HydratedBlockStateValidationError[]>

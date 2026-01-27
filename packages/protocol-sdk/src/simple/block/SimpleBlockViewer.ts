@@ -15,6 +15,8 @@ import { AbstractCreatableProvider, creatableProvider } from '../../CreatablePro
 import { LruCacheMap } from '../../driver/index.ts'
 import {
   BlockViewer, BlockViewerMoniker, ChainContextRead,
+  ChainContractViewer,
+  ChainContractViewerMoniker,
   ChainStoreRead, FinalizationViewer, FinalizationViewerMoniker,
   PayloadMap,
 } from '../../model/index.ts'
@@ -24,13 +26,14 @@ import {
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleBlockViewerParams extends CreatableProviderParams {
+  chainContractViewer: ChainContractViewer
   finalizedArchivist: ReadArchivist
 }
 
 @creatableProvider()
 export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockViewerParams> implements BlockViewer {
   static readonly defaultMoniker = BlockViewerMoniker
-  static readonly dependencies = [FinalizationViewerMoniker]
+  static readonly dependencies = [FinalizationViewerMoniker, ChainContractViewerMoniker]
   static readonly monikers = [BlockViewerMoniker]
   moniker = SimpleBlockViewer.defaultMoniker
 
@@ -40,8 +43,12 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   private _payloadCache: PayloadMap<WithStorageMeta<Payload>> | undefined
   private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
 
+  get chainContractViewer(): ChainContractViewer {
+    return this.params.chainContractViewer
+  }
+
   get finalizedArchivist(): ReadArchivist {
-    return this.params.finalizedArchivist!
+    return this.params.finalizedArchivist
   }
 
   protected get hydratedBlockCache(): HydratedCache<SignedHydratedBlockWithStorageMeta> {
@@ -70,9 +77,14 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   }
 
   static override async paramsHandler(params: Partial<SimpleBlockViewerParams>) {
-    assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required')
-
-    return { ...await super.paramsHandler(params) }
+    return {
+      ...await super.paramsHandler(params),
+      chainContractViewer: assertEx(
+        params.chainContractViewer ?? await params.context?.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker),
+        () => 'chainContractViewer is required',
+      ),
+      finalizedArchivist: assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required'),
+    } satisfies SimpleBlockViewerParams
   }
 
   async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
@@ -136,11 +148,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   chainId(blockNumber: 'latest'): Promise<ChainId>
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
     return await this.spanAsync('chainId', async () => {
-      const block = assertEx(
-        blockNumber === 'latest' ? await this.currentBlock() : await this.blockByNumber(blockNumber),
-        () => `Could not find block for block number ${blockNumber}`,
-      )
-      return block[0].chain
+      return blockNumber === 'latest' ? await this.chainContractViewer.chainId() : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
     }, { timeBudgetLimit: 200 })
   }
 
