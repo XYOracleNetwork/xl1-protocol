@@ -26,7 +26,7 @@ import {
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleBlockViewerParams extends CreatableProviderParams {
-  chainContractViewer: ChainContractViewer
+  chainContractViewer?: ChainContractViewer
   finalizedArchivist: ReadArchivist
 }
 
@@ -38,14 +38,11 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   moniker = SimpleBlockViewer.defaultMoniker
 
   protected _store: ChainStoreRead | undefined
+  protected chainContractViewer!: ChainContractViewer
   protected finalizationViewer!: FinalizationViewer
 
   private _payloadCache: PayloadMap<WithStorageMeta<Payload>> | undefined
   private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
-
-  get chainContractViewer(): ChainContractViewer {
-    return this.params.chainContractViewer
-  }
 
   get finalizedArchivist(): ReadArchivist {
     return this.params.finalizedArchivist
@@ -79,10 +76,6 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   static override async paramsHandler(params: Partial<SimpleBlockViewerParams>) {
     return {
       ...await super.paramsHandler(params),
-      chainContractViewer: assertEx(
-        params.chainContractViewer ?? await params.context?.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker),
-        () => 'chainContractViewer is required',
-      ),
       finalizedArchivist: assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required'),
     } satisfies SimpleBlockViewerParams
   }
@@ -154,6 +147,10 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   override async createHandler() {
     await super.createHandler()
+    this.chainContractViewer = this.params.chainContractViewer ?? assertEx(
+      await this.locateAndCreate<ChainContractViewer>(ChainContractViewerMoniker),
+      () => 'chainContractViewer is required',
+    )
     this.finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
     this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
   }
