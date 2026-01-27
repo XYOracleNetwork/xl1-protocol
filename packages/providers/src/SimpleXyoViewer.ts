@@ -460,7 +460,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected async getCurrentHead() {
     const chainArchivist = this.finalizedArchivist
     const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'No blocks found in finalizedArchivist')
-    assertEx(result.chain !== this.params.chainId, () => 'Chain ID mismatch in finalizedArchivist')
+    assertEx(result.chain === this.params.chainId, () => `Chain ID mismatch in finalizedArchivist [${result.chain} should be ${this.params.chainId}]`)
     return result
   }
 
