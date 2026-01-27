@@ -7,26 +7,14 @@ import {
 import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  AllowedBlockPayload,
-  AttoXL1,
-  SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta,
-  Transfer,
-  UnsignedHydratedTransaction,
+  AllowedBlockPayload, AttoXL1, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, Transfer, UnsignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
-import {
-  asXL1BlockNumber,
-  TransferSchema,
-} from '@xyo-network/xl1-protocol'
+import { asXL1BlockNumber, TransferSchema } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
 import type {
-  DataLakeRunner,
-  DataLakesRunner,
-  TransactionOptions,
-  XyoConnection,
-  XyoGatewayRunner,
-  XyoSigner,
+  DataLakeRunner, DataLakesRunner, TransactionOptions, XyoConnection, XyoGatewayRunner, XyoSigner,
 } from '../../model/index.ts'
 import {
   XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
@@ -103,6 +91,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
   override async createHandler() {
     await super.createHandler()
+    this._connection = await this.locator.getInstance<XyoConnection>(XyoConnectionMoniker)
     this._signer = await this.locator.getInstance<XyoSigner>(XyoSignerMoniker)
   }
 
