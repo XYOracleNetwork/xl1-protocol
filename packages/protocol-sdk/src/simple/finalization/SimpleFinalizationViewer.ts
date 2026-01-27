@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
-  asSignedHydratedBlockWithStorageMeta, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,
+  asSignedHydratedBlockWithStorageMeta, ChainId, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta,
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
@@ -22,6 +22,7 @@ import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/i
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleFinalizationViewerParams extends CreatableProviderParams {
+  chainId: ChainId
   finalizedArchivist: ReadArchivist
 }
 
@@ -35,6 +36,10 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
   protected _store: ChainStoreRead | undefined
 
   private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
+
+  protected get chainId() {
+    return this.params.chainId
+  }
 
   protected get finalizedArchivist() {
     return this.params.finalizedArchivist
@@ -60,8 +65,11 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
   }
 
   static override async paramsHandler(params: Partial<SimpleFinalizationViewerParams>) {
-    assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required')
-    return { ...await super.paramsHandler(params) }
+    return {
+      ...await super.paramsHandler(params),
+      finalizedArchivist: assertEx(params.finalizedArchivist, () => 'finalizedArchivist is required'),
+      chainId: assertEx(params.chainId, () => 'chainId is required'),
+    } satisfies SimpleFinalizationViewerParams
   }
 
   override async createHandler() {
@@ -95,6 +103,8 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
 
   protected async getCurrentHead() {
     const chainArchivist = this.finalizedArchivist
-    return await findMostRecentBlock(chainArchivist)
+    const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'Could not find most recent block [getCurrentHead]')
+    assertEx(result?.chain === this.chainId, () => 'Chain ID does not match head block chain ID')
+    return result
   }
 }

@@ -1,7 +1,6 @@
 import '@xylabs/vitest-extended'
 
 import {
-  asAddress,
   asHex,
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'

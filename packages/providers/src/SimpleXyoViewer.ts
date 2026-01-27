@@ -63,6 +63,7 @@ import {
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleXyoViewerParams extends CreatableProviderParams {
+  chainId: ChainId
   finalizedArchivist: ArchivistInstance
   initRewardsCache?: boolean
   rewardMultipliers?: XL1RangeMultipliers
@@ -150,6 +151,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return {
       ...await super.paramsHandler(params),
       finalizedArchivist: assertEx(params.finalizedArchivist, () => 'SimpleXyoViewer requires a finalizedArchivist'),
+      chainId: assertEx(params.chainId, () => 'SimpleXyoViewer requires a chainId'),
     } satisfies SimpleXyoViewerParams
   }
 
@@ -446,7 +448,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   async transactionByHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
     return await this.spanAsync('transactionByHash', async () => {
       try {
-        const cache = await this.getHydratedTransactionCache()
+        const cache = this.getHydratedTransactionCache()
         const hydratedTransaction = await cache.get(transactionHash)
         return hydratedTransaction ?? null
       } catch {
@@ -457,7 +459,9 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   protected async getCurrentHead() {
     const chainArchivist = this.finalizedArchivist
-    return await findMostRecentBlock(chainArchivist)
+    const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'No blocks found in finalizedArchivist')
+    assertEx(result.chain !== this.params.chainId, () => 'Chain ID mismatch in finalizedArchivist')
+    return result
   }
 
   protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {

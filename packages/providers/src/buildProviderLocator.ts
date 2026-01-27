@@ -1,5 +1,6 @@
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
+import type { ChainId } from '@xyo-network/xl1-protocol'
 import type {
   BalanceStepSummaryContext, CreatableProviderContext, TransfersStepSummaryContext,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -98,6 +99,7 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
 
 export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams {
   balanceSummaryContext: BalanceStepSummaryContext
+  chainId: ChainId
   finalizedArchivist: ArchivistInstance
   node: NodeInstance
   pendingBlocksArchivist: ArchivistInstance
@@ -106,17 +108,17 @@ export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorPar
 }
 
 export function buildLocalProviderLocator({
-  balanceSummaryContext, finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, transfersSummaryContext, node, ...params
+  chainId, balanceSummaryContext, finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, transfersSummaryContext, node, ...params
 }: BuildLocalProviderLocatorParams) {
   const locator = buildSimpleProviderLocator(params)
   return locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, { balanceSummaryContext, transfersSummaryContext }),
-    SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
+    SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist, chainId }),
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
-    NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node }),
+    NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
   ])
 }
