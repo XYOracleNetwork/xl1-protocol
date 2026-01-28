@@ -246,7 +246,8 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   }
 
   async networkStakeStepRewardForPosition(position: number, range: XL1BlockRange): Promise<[AttoXL1, AttoXL1]> {
-    return await this.spanAsync('networkStakeStepRewardForPosition', async () => {
+    const cacheKey = `${position}|${range[0]}-${range[1]}`
+    return await withContextCacheResponse(this.context, 'SimpleXyoViewer:networkStakeStepRewardForPosition', cacheKey, async () => {
       const externalRange = await externalBlockRangeFromXL1BlockRange(this.context, this.block, range)
       const positionCount = await this.stake.stakeEvents.positionCount(externalRange)
       if (positionCount === 0) {
@@ -257,7 +258,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       const positionReward = asAttoXL1(rewards.reduce((a, b) => a + b[0], 0n))
       const totalReward = asAttoXL1(rewards.reduce((a, b) => a + b[1], 0n))
       return [positionReward, totalReward]
-    }, this.context)
+    })
   }
 
   async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<AttoXL1> {
@@ -268,7 +269,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     const stepIdentityString = toStepIdentityString(stepIdentity)
     const cacheKey = `${stepIdentityString}|${position}`
     const stakedChainContext = await this.getStakedChainContext()
-    return await withContextCacheResponse(stakedChainContext, 'NodeXyoViewer-networkStakeStepRewardForStepForPosition', cacheKey, async () => {
+    return await withContextCacheResponse(stakedChainContext, 'SimpleXyoViewer:networkStakeStepRewardForStepForPosition', cacheKey, async () => {
       const range = await externalBlockRangeFromStep(stakedChainContext, this.block, stepIdentity)
       const stake = await this.stakeById(position)
       const numerator = stake.staked === XYO_NETWORK_STAKING_ADDRESS
@@ -504,6 +505,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       store,
       chainId: await this.chainId(),
       stake,
+      timeBudgetLimit: this.context.timeBudgetLimit,
     } satisfies StakedChainContextRead
   }
 
