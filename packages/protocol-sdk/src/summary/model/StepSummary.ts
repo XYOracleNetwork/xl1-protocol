@@ -1,7 +1,9 @@
 import type { EmptyObject, Hash } from '@xylabs/sdk-js'
-import type { Payload, Schema } from '@xyo-network/payload-model'
+import {
+  asSchema, type Payload, type Schema,
+} from '@xyo-network/payload-model'
 
-export const StepSummarySchema: Schema = 'network.xyo.step.summary'
+export const StepSummarySchema = asSchema('network.xyo.step.summary', true)
 export type StepSummarySchema = typeof StepSummarySchema
 
 export interface StepSummaryFields {

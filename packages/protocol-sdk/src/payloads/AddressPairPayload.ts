@@ -1,8 +1,10 @@
 import type { Address } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import { isPayloadOfSchemaType, type Payload } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, type Payload,
+} from '@xyo-network/payload-model'
 
-export const AddressPairSchema = 'network.xyo.address.pair' as const
+export const AddressPairSchema = asSchema('network.xyo.address.pair', true)
 export type AddressPairSchema = typeof AddressPairSchema
 
 export interface AddressFields {

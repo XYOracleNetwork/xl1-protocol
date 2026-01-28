@@ -1,5 +1,7 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import { isPayloadOfZodType, type Payload } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfZodType, type Payload,
+} from '@xyo-network/payload-model'
 import { z } from 'zod'
 
 import {
@@ -13,7 +15,7 @@ export const EIP712DataPayloadFieldsZod = z.object({
 })
 export type EIP712DataPayloadFields = z.infer<typeof EIP712DataPayloadFieldsZod>
 
-export const EIP712DataPayloadSchema = 'network.xyo.chains.ethereum.eip712.data' as const
+export const EIP712DataPayloadSchema = asSchema('network.xyo.chains.ethereum.eip712.data', true)
 export type EIP712DataPayloadSchema = typeof EIP712DataPayloadSchema
 
 export type EIP712DataPayload = Payload<EIP712DataPayloadFields, EIP712DataPayloadSchema>

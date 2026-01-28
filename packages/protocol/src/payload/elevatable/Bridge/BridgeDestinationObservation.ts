@@ -1,11 +1,11 @@
 import { AsObjectFactory, HexZod } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfZodType } from '@xyo-network/payload-model'
+import { asSchema, isPayloadOfZodType } from '@xyo-network/payload-model'
 import type { z } from 'zod'
 
 import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'
 
-export const BridgeDestinationObservationSchema = 'network.xyo.chain.bridge.observation.destination' as const
+export const BridgeDestinationObservationSchema = asSchema('network.xyo.chain.bridge.observation.destination', true)
 export type BridgeDestinationObservationSchema = typeof BridgeDestinationObservationSchema
 
 /**

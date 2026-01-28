@@ -1,5 +1,7 @@
 import { AsObjectFactory, HashZod } from '@xylabs/sdk-js'
-import { isPayloadOfZodType, type Payload } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfZodType, type Payload,
+} from '@xyo-network/payload-model'
 import { z } from 'zod'
 
 export const EIP712SignaturePayloadFieldsZod = z.object({
@@ -10,7 +12,7 @@ export const EIP712SignaturePayloadFieldsZod = z.object({
 
 export type EIP712SignaturePayloadFields = z.infer<typeof EIP712SignaturePayloadFieldsZod>
 
-export const EIP712SignaturePayloadSchema = 'network.xyo.chains.ethereum.eip712.signature' as const
+export const EIP712SignaturePayloadSchema = asSchema('network.xyo.chains.ethereum.eip712.signature', true)
 export type EIP712SignaturePayloadSchema = typeof EIP712SignaturePayloadSchema
 
 export type EIP712SignaturePayload = Payload<EIP712SignaturePayloadFields, EIP712SignaturePayloadSchema>

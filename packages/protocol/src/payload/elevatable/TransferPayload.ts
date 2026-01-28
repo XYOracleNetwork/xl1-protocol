@@ -2,10 +2,12 @@ import {
   AddressZod,
   AsObjectFactory, HexZod, JsonObjectZod,
 } from '@xylabs/sdk-js'
-import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, PayloadZodOfSchema,
+} from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-export const TransferSchema = 'network.xyo.transfer' as const
+export const TransferSchema = asSchema('network.xyo.transfer', true)
 export type TransferSchema = typeof TransferSchema
 
 export const TransferFieldsZod = z.object({

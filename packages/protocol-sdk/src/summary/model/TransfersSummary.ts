@@ -1,12 +1,14 @@
 import type { Address } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
+import type { WithStorageMeta } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, isStorageMeta,
+} from '@xyo-network/payload-model'
 
 import type { SignedBigInt } from '../../SignedBigInt.ts'
 import type { StepSummary } from './StepSummary.ts'
 
-export const TransfersStepSummarySchema: Schema = 'network.xyo.step.summary.transfer'
+export const TransfersStepSummarySchema = asSchema('network.xyo.step.summary.transfer', true)
 export type TransfersStepSummarySchema = typeof TransfersStepSummarySchema
 
 export type TransfersStepSummary = StepSummary<{

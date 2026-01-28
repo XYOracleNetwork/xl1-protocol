@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { asSchema, isPayloadOfSchemaType } from '@xyo-network/payload-model'
 import type { ChainId, NetworkId } from '@xyo-network/xl1-protocol'
 
 export interface ChainConnection {
@@ -13,7 +13,7 @@ export interface ChainConnection {
   url: string
 }
 
-export const NetworkBootstrapSchema = 'network.xyo.network.bootstrap' as const
+export const NetworkBootstrapSchema = asSchema('network.xyo.network.bootstrap', true)
 export type NetworkBootstrapSchema = typeof NetworkBootstrapSchema
 
 export interface ChainForkFields {

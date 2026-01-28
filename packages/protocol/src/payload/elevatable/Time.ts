@@ -1,11 +1,13 @@
 import { AsObjectFactory, HashZod } from '@xylabs/sdk-js'
-import { isPayloadOfSchemaType, PayloadZodOfSchema } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, PayloadZodOfSchema,
+} from '@xyo-network/payload-model'
 import { z } from 'zod'
 
 // xl1 = xl1 block number, epoch = epoch number, ethereum = ethereum block number
 export type TimeDomain = 'xl1' | 'epoch' | 'ethereum'
 
-export const TimeSchema = 'network.xyo.time' as const
+export const TimeSchema = asSchema('network.xyo.time', true)
 export type TimeSchema = typeof TimeSchema
 
 export const XL1TimeFieldsZod = z.object({

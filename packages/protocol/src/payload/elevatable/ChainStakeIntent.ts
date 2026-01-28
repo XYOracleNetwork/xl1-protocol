@@ -1,11 +1,13 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, isStorageMeta,
+} from '@xyo-network/payload-model'
 
 import type { BlockDuration } from '../../fields/index.ts'
 import type { FromFields } from './Executable.ts'
 
-export const ChainStakeIntentSchema = 'network.xyo.chain.stake.intent' as const
+export const ChainStakeIntentSchema = asSchema('network.xyo.chain.stake.intent', true)
 export type ChainStakeIntentSchema = typeof ChainStakeIntentSchema
 
 export type Intent = 'producer' // | 'bank'

@@ -27,7 +27,8 @@ export async function schemasSummary(
     const results: Record<Schema, number> = {}
     for (let summary of summaries) {
       for (const [schema, count] of Object.entries(summary.schemas)) {
-        results[schema] = (results[schema] ?? 0) + count
+        const typedSchema = schema as Schema
+        results[typedSchema] = (results[typedSchema] ?? 0) + count
       }
     }
     return [results, { range, head: headHash }]

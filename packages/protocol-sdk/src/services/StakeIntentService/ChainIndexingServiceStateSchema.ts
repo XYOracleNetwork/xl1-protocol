@@ -1,7 +1,9 @@
 import type { Hash, JsonValue } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, isStorageMeta,
+} from '@xyo-network/payload-model'
 
 export interface ChainIndexingServiceStateFields<T extends JsonValue = JsonValue> {
   /**
@@ -18,7 +20,7 @@ export interface ChainIndexingServiceStateFields<T extends JsonValue = JsonValue
    */
   state: T
 }
-export const ChainIndexingServiceStateSchema = 'network.xyo.chain.indexing.service.state' as const
+export const ChainIndexingServiceStateSchema = asSchema('network.xyo.chain.indexing.service.state', true)
 export type ChainIndexingServiceStateSchema = typeof ChainIndexingServiceStateSchema
 
 /**

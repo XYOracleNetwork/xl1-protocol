@@ -1,13 +1,14 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload, WithSources } from '@xyo-network/payload-model'
 import {
+  asSchema,
   isPayloadOfSchemaType,
   isPayloadOfSchemaTypeWithSources,
 } from '@xyo-network/payload-model'
 
 import type { XL1BlockNumber } from '../model/index.ts'
 
-export const BlockNumberSchema = 'network.xyo.chain.block.number' as const
+export const BlockNumberSchema = asSchema('network.xyo.chain.block.number', true)
 export type BlockNumberSchema = typeof BlockNumberSchema
 
 export interface BlockNumberFields {

@@ -5,4 +5,4 @@ import node from './network.json' with { type: 'json' }
 /**
  * Root Node Manifest
  */
-export const NetworkNodeManifest = node as PackageManifestPayload
+export const NetworkNodeManifest = node as unknown as PackageManifestPayload

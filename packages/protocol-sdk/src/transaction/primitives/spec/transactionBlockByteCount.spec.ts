@@ -2,7 +2,7 @@ import type {
   Address, Hash, Hex,
 } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { Sequence } from '@xyo-network/payload-model'
+import { asSchema, type Sequence } from '@xyo-network/payload-model'
 import type { HydratedTransactionWithStorageMeta } from '@xyo-network/xl1-protocol'
 import {
   asHydratedTransactionWithStorageMeta,
@@ -113,7 +113,7 @@ describe('transactionBlockByteCount', () => {
   it('correctly handles payloads with complex nested structures', async () => {
     // Arrange
     const complexPayload = await PayloadBuilder.addStorageMeta({
-      schema: 'network.xyo.complex',
+      schema: asSchema('network.xyo.complex', true),
       data: {
         nested: {
           array: [1, 2, 3, 4, 5],
@@ -148,7 +148,7 @@ describe('transactionBlockByteCount', () => {
   it('returns correct byte count for transaction with multiple large payloads', async () => {
     // Arrange
     const largePayloads = await PayloadBuilder.addStorageMeta(Array.from({ length: 5 }, (_, i) => ({
-      schema: `network.xyo.test.${i}`,
+      schema: asSchema(`network.xyo.test.${i}`, true),
       data: Array.from({ length: 100 }, (_, j) => `data-item-${j}`),
       metadata: {
         timestamp: Date.now(),
@@ -183,7 +183,7 @@ describe('transactionBlockByteCount', () => {
   it('handles transactions with special characters in payloads', async () => {
     // Arrange
     const specialCharPayload = await PayloadBuilder.addStorageMeta({
-      schema: 'network.xyo.special',
+      schema: asSchema('network.xyo.special', true),
       text: 'Special characters: 你好, ñáéíóú, 🚀 💻 🔗, \u0000\u0001\u0002',
       escapes: '\\n\\t\\r\\"\\\'\\\\',
       _hash: 'special-hash',
@@ -217,7 +217,7 @@ describe('transactionBlockByteCount', () => {
     })
 
     const payloadWithExtraMeta = await PayloadBuilder.addStorageMeta({
-      schema: 'network.xyo.test',
+      schema: asSchema('network.xyo.test', true),
       data: 'test data',
       _extraMeta1: 'should be omitted',
       _extraMeta2: 'should be omitted as well',

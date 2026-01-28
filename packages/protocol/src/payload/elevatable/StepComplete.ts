@@ -1,11 +1,11 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { asSchema, isPayloadOfSchemaType } from '@xyo-network/payload-model'
 
 import type { FromFields } from './Executable.ts'
 
-export const StepCompleteSchema = 'network.xyo.chain.step.complete' as const
+export const StepCompleteSchema = asSchema('network.xyo.chain.step.complete', true)
 export type StepCompleteSchema = typeof StepCompleteSchema
 
 /* This records the completion of a step in the network - needed for network staking rewards */

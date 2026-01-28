@@ -1,10 +1,12 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType, isStorageMeta } from '@xyo-network/payload-model'
+import {
+  asSchema, isPayloadOfSchemaType, isStorageMeta,
+} from '@xyo-network/payload-model'
 
 import type { StepSummary } from './StepSummary.ts'
 
-export const SchemasStepSummarySchema: Schema = 'network.xyo.step.summary.schemas'
+export const SchemasStepSummarySchema = asSchema('network.xyo.step.summary.schemas', true)
 export type SchemasStepSummarySchema = typeof SchemasStepSummarySchema
 
 export type SchemasStepSummary = StepSummary<{

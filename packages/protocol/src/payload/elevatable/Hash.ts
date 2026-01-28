@@ -1,9 +1,9 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
-import { isPayloadOfSchemaType } from '@xyo-network/payload-model'
+import { asSchema, isPayloadOfSchemaType } from '@xyo-network/payload-model'
 
-export const HashSchema = 'network.xyo.hash' as const
+export const HashSchema = asSchema('network.xyo.hash', true)
 export type HashSchema = typeof HashSchema
 
 export interface HashFields {

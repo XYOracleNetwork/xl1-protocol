@@ -14,6 +14,7 @@ import {
   type SchemasStepSummary, type SchemasStepSummaryContext, SchemasStepSummarySchema,
 } from '../../model/index.ts'
 
+// eslint-disable-next-line max-statements
 export async function schemasStepSummaryFromRange(
   context: SchemasStepSummaryContext,
   range: XL1BlockRange,
@@ -62,7 +63,8 @@ export async function schemasStepSummaryFromRange(
         const schemas: Record<Schema, number> = {}
         for (const subResult of subResults) {
           for (const [schema, count] of Object.entries(subResult.schemas)) {
-            schemas[schema] = (schemas[schema] ?? 0) + count
+            const typedSchema = schema as Schema
+            schemas[typedSchema] = (schemas[typedSchema] ?? 0) + count
           }
         }
 

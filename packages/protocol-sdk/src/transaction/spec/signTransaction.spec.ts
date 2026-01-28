@@ -2,6 +2,7 @@ import { asHash, asHex } from '@xylabs/sdk-js'
 import { Account } from '@xyo-network/account'
 import type { Unsigned } from '@xyo-network/boundwitness-model'
 import { BoundWitnessValidator } from '@xyo-network/boundwitness-validator'
+import { asSchema } from '@xyo-network/payload-model'
 import { asXL1BlockNumber, type TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 import {
   describe, expect, it,
@@ -30,11 +31,11 @@ describe('signTransaction', () => {
         asHash('eb28b0213854d3b5f255806c2261e568fabcef8afa8b7d7f504bee35d9bce917', true),
       ],
       payload_schemas: [
-        'network.xyo.hash',
-        'network.xyo.id',
+        asSchema('network.xyo.hash', true),
+        asSchema('network.xyo.id', true),
       ],
       previous_hashes: [],
-      schema: 'network.xyo.boundwitness',
+      schema: asSchema('network.xyo.boundwitness', true),
       script: [
         'elevate|34e5eadb2ccfc7005e224bfa6c3d10c32087d63238005efeaef9c67a85ed6fa2',
       ],
