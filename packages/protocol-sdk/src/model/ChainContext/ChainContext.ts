@@ -52,17 +52,17 @@ export async function withContextCacheResponse<T extends {} | string | number | 
   func: () => Promise<T extends {} | string | number | bigint ? T : never>,
   { max = 10_000 }: withContextCacheResponseOptions = {},
 ): Promise<T> {
-  const cache = contextCache<T>(
+  const cache = contextCache<Promise<T>>(
     context,
     name,
-    () => new LruCacheMap<string, T>({ max }),
+    () => new LruCacheMap<string, Promise<T>>({ max }),
   )
   const { timeBudgetLimit = 0 } = context
   const cacheResult = await cache.get(key)
   if (isDefined(cacheResult)) {
     return cacheResult
   }
-  const result = timeBudgetLimit > 0 ? await timeBudget(name, context.logger, func, timeBudgetLimit) : await func()
+  const result = timeBudgetLimit > 0 ? timeBudget(name, context.logger, func, timeBudgetLimit) : func()
   await cache.set(key, result)
   return result
 }
