@@ -5,7 +5,8 @@ import {
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import { asXL1BlockNumber, type SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import type { SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
 import type { ProviderFactoryLocator, SimpleChainContractViewerParams } from '@xyo-network/xl1-protocol-sdk'
 import {
   buildRandomTransaction,
@@ -19,14 +20,14 @@ import {
 } from 'vitest'
 
 describe('SimpleMempoolViewer', () => {
-  const chain = asHex('c5fe2e6f6841cbab12d8c0618be2df8c6156cc44', true)
+  const chainId = asHex('c5fe2e6f6841cbab12d8c0618be2df8c6156cc44', true)
   const genesisBlock = [
     {
       $epoch: 1_767_992_356_662,
       $signatures: [
         '8cb2b51ed4e9ab0e460854b961e2913a236505b6c93159f805b0caaa8417a35f35c1a5bf79257c2024cab6df4d53745c903b03daa0780922bfd28b296b2e8931'],
       block: 0,
-      chain,
+      chain: chainId,
       previous: null,
       step_hashes: [],
       protocol: 1_002_000,
@@ -348,7 +349,7 @@ describe('SimpleMempoolViewer', () => {
     pendingBlocksArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingTransactionsArchivist = await MemoryArchivist.create({ account: 'random' })
     locator = await buildTestLocator(finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, {
-      chainId: asHex('0101', true),
+      chainId,
       minWithdrawalBlocks: 10,
       rewardsContract: ZERO_ADDRESS,
       stakingTokenAddress: ZERO_ADDRESS,
@@ -370,7 +371,7 @@ describe('SimpleMempoolViewer', () => {
     })
     describe('with pending transaction', () => {
       it('returns the pending transaction', async () => {
-        const tx = await buildRandomTransaction(chain)
+        const tx = await buildRandomTransaction(chainId)
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
         await mempoolRunner.submitTransactions([tx])
         const pendingTransactions = await sut.pendingTransactions()
@@ -379,7 +380,7 @@ describe('SimpleMempoolViewer', () => {
     })
     describe('with pending transactions', () => {
       it('returns the pending transactions', async () => {
-        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain)]
+        const transactions = [await buildRandomTransaction(chainId), await buildRandomTransaction(chainId)]
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
         await mempoolRunner.submitTransactions(transactions)
         const pendingTransactions = await sut.pendingTransactions()
@@ -390,7 +391,7 @@ describe('SimpleMempoolViewer', () => {
       it('returns the non-expired pending transactions', async () => {
         const nbf = asXL1BlockNumber(0, true)
         const exp = asXL1BlockNumber(0, true)
-        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain, [], undefined, nbf, exp)]
+        const transactions = [await buildRandomTransaction(chainId), await buildRandomTransaction(chainId, [], undefined, nbf, exp)]
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
         await mempoolRunner.submitTransactions(transactions)
         const pendingTransactions = await sut.pendingTransactions()
@@ -401,7 +402,7 @@ describe('SimpleMempoolViewer', () => {
       it('returns the non-future pending transactions', async () => {
         const nbf = asXL1BlockNumber(1000, true)
         const exp = asXL1BlockNumber(2000, true)
-        const transactions = [await buildRandomTransaction(chain), await buildRandomTransaction(chain, [], undefined, nbf, exp)]
+        const transactions = [await buildRandomTransaction(chainId), await buildRandomTransaction(chainId, [], undefined, nbf, exp)]
         const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
         await mempoolRunner.submitTransactions(transactions)
         const pendingTransactions = await sut.pendingTransactions()
