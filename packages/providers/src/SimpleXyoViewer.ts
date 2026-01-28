@@ -521,15 +521,15 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
           asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' }),
         )
         const positionCount = await this.stake.stakeEvents.positionCount(externalRange)
-        this.logger?.log(`NodeXyoViewer: Precomputing networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
-        for (let position = 0; position < positionCount; position++) {
-          this.logger?.log(`NodeXyoViewer: Precomputing networkStakeStepRewardForPosition for position ${position}`)
-          await this.networkStakeStepRewardForPosition(position, asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' }))
-        }
-        this.logger?.log(`NodeXyoViewer: Precomputed networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
+        this.logger?.log(`SimpleXyoViewer: Precomputing networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
+        await Promise.all(Array.from(
+          { length: positionCount },
+          async (_, position) => await this.networkStakeStepRewardForPosition(position, asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' })),
+        ))
+        this.logger?.log(`SimpleXyoViewer: Precomputed networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
       }
     } catch (ex) {
-      this.logger?.error(`NodeXyoViewer: Error during startHandler initialization: ${(ex as Error).message}`)
+      this.logger?.error(`SimpleXyoViewer: Error during startHandler initialization: ${(ex as Error).message}`)
       this.logger?.error((ex as Error).stack ?? '<No Stack>')
       throw ex
     }
