@@ -121,6 +121,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
   ): Promise<HydratedBlockValidationError[]> {
     return (await Promise.all(blocks.map(async (block) => {
       return await this.params.protocol!(
+        this.context,
         block,
         chainIdAtBlockNumber,
       )
@@ -142,6 +143,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     }
     return (await Promise.all(uncles[0].map(async (block) => {
       return await this.params.state!(
+        this.context,
         block,
         chainIdAtBlockNumber,
         { accountBalance: this._accountBalanceViewer },

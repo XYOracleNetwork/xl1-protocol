@@ -3,7 +3,7 @@ import type {
   ChainId, HydratedBlockWithHashMeta, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
-import type { AccountBalanceViewer } from '../../model/index.ts'
+import type { AccountBalanceViewer, BaseContext } from '../../model/index.ts'
 import type { HydratedBlockStateValidationError } from './error.ts'
 
 /**
@@ -14,6 +14,7 @@ import type { HydratedBlockStateValidationError } from './error.ts'
  * @returns An array of errors if the block is invalid, or an empty array if it is valid.
  */
 export type HydratedBlockStateValidationFunction = (
+  context: BaseContext,
   hydratedBlock: HydratedBlockWithHashMeta,
   chainIdAtBlockNumber: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
   services: { accountBalance: AccountBalanceViewer },
