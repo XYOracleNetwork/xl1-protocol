@@ -189,7 +189,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
         () => `Could not find block for chainId at block ${blockNumber}`,
       )
       return block[0].chain
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   override async createHandler() {
@@ -250,7 +250,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       const positionReward = asAttoXL1(rewards.reduce((a, b) => a + b[0], 0n))
       const totalReward = asAttoXL1(rewards.reduce((a, b) => a + b[1], 0n))
       return [positionReward, totalReward]
-    }, { timeBudgetLimit: 100 })
+    }, this.context)
   }
 
   async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<AttoXL1> {
@@ -346,7 +346,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
         return await this.networkStakeStepRewardForStep(step)
       }))
       return asAttoXL1(rewards.reduce((a, b) => a + b, 0n))
-    }, { timeBudgetLimit: 100 })
+    }, this.context)
   }
 
   async networkStakeStepRewardsForStepLevel(stepLevel: number, range: XL1BlockRange): Promise<AttoXL1> {
@@ -430,7 +430,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       } catch {
         return null
       }
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async transactionByBlockNumberAndIndex(blockNumber: XL1BlockNumber, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
@@ -442,7 +442,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       } catch {
         return null
       }
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async transactionByHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
@@ -454,7 +454,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       } catch {
         return null
       }
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   protected async getCurrentHead() {

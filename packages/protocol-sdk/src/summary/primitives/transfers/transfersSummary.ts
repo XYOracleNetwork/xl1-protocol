@@ -36,7 +36,7 @@ export async function transfersSummary(
       }
     }
     return [transfers, { range, head: headHash }]
-  }, { timeBudgetLimit: 500 })
+  }, context)
 }
 
 export function transfersSummaryKey(frameHeadHash: Hash, frameSize: number) {

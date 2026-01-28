@@ -43,7 +43,7 @@ export async function balancesStepSummaryFromRange(
             return await PayloadBuilder.addHashMeta({
               schema: BalancesStepSummarySchema, hash: headHash, stepSize: -1, balances,
             })
-          }, { timeBudgetLimit: 100 })
+          }, context)
         : await spanRootAsync(`balancesStepSummaryFromRange.frameSize>1[${key}]`, async () => {
             const step = StepSizes.indexOf(asXL1BlockNumber(frameSize, true))
             assertEx(step !== -1, () => `Invalid step size: ${frameSize}. Must be one of ${StepSizes.join(', ')}`)
@@ -85,7 +85,7 @@ export async function balancesStepSummaryFromRange(
                 context.stepSemaphores[step].release()
               }
             }
-          }, { timeBudgetLimit: 100 })
-    }, { timeBudgetLimit: 200 })
-  }, { max: 100_000, timeBudgetMs: 200 })
+          }, context)
+    }, context)
+  }, { max: 100_000 })
 }

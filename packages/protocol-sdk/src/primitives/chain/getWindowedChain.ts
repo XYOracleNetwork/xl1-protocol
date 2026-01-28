@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import type { SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../model/index.ts'
+import type { BaseContext, BlockViewer } from '../../model/index.ts'
 
 /**
  * Constructs a bounded, contiguous canonical chain ending at the current head.
@@ -13,7 +13,12 @@ import type { BlockViewer } from '../../model/index.ts'
  * @param previousChain An optional previous chain to build upon
  * @returns A promise that resolves to the windowed chain of blocks
  */
-export async function getWindowedChain(blockViewer: BlockViewer, maxWindowSize: number, previousChain: SignedHydratedBlockWithHashMeta[] = []):
+export async function getWindowedChain(
+  context: BaseContext,
+  blockViewer: BlockViewer,
+  maxWindowSize: number,
+  previousChain: SignedHydratedBlockWithHashMeta[] = [],
+):
 Promise<SignedHydratedBlockWithHashMeta[]> {
   return await spanRootAsync('getWindowedChain', async () => {
     const newChain: SignedHydratedBlockWithHashMeta[] = []
@@ -41,5 +46,5 @@ Promise<SignedHydratedBlockWithHashMeta[]> {
       currentBlock = previousChainByHash.get(previousBlockHash) ?? await blockViewer.blockByHash(previousBlockHash)
     }
     return newChain
-  }, { timeBudgetLimit: 100 })
+  }, context)
 }

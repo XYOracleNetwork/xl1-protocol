@@ -32,5 +32,5 @@ export async function schemasSummary(
       }
     }
     return [results, { range, head: headHash }]
-  }, { timeBudgetLimit: 500 })
+  }, context)
 }

@@ -15,7 +15,6 @@ export async function externalBlockNumberFromXL1BlockNumber(
   xl1BlockNumber: XL1BlockNumber,
   externalTimeName: 'ethereum' | 'epoch',
   externalGenesisTime?: BlockNumber,
-  timeBudgetMs = 2000,
 ): Promise<BlockNumber> {
   const cacheKey = `${xl1BlockNumber}-${externalTimeName}-${externalGenesisTime ?? 'default'}`
   return await withContextCacheResponse(context, functionName, cacheKey, async () => {
@@ -27,5 +26,5 @@ export async function externalBlockNumberFromXL1BlockNumber(
       timePayload?.[externalTimeName] ?? externalGenesisTime ?? 23_372_716,
       { name: functionName },
     ) // default is xl1 mainnet genesis time
-  }, { timeBudgetMs })
+  })
 }

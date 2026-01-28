@@ -15,5 +15,5 @@ export async function externalBlockRangeFromStep(
   return await withContextCacheResponse(context, 'externalBlockRangeFromStep', cacheKey, async () => {
     const xl1BlockRange = stepBlockRange(stepIdentity)
     return await externalBlockRangeFromXL1BlockRange(context, blockViewer, xl1BlockRange)
-  }, { timeBudgetMs: 1000 })
+  })
 }

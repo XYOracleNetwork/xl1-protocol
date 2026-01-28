@@ -1,3 +1,4 @@
+import type { Tracer } from '@opentelemetry/api'
 import type { Logger } from '@xylabs/sdk-js'
 import {
   isDefined, isObject, isUndefined,
@@ -18,6 +19,8 @@ export interface BaseContext<TCacheValue = string | object | number | bigint> {
   caches?: Record<string, MapType<string, TCacheValue>>
   logger?: Logger
   singletons: Record<string, unknown>
+  timeBudgetLimit?: number
+  tracer?: Tracer
 }
 
 export interface CachingBaseContext<TCacheValue = string | object | number | bigint> extends BaseContext<TCacheValue> {
@@ -40,7 +43,6 @@ export function contextCache<TCacheValue>(
 
 export interface withContextCacheResponseOptions {
   max?: number
-  timeBudgetMs?: number
 }
 
 export async function withContextCacheResponse<T extends {} | string | number | bigint>(
@@ -48,18 +50,19 @@ export async function withContextCacheResponse<T extends {} | string | number | 
   name: string,
   key: string,
   func: () => Promise<T extends {} | string | number | bigint ? T : never>,
-  { max = 10_000, timeBudgetMs = 0 }: withContextCacheResponseOptions = {},
+  { max = 10_000 }: withContextCacheResponseOptions = {},
 ): Promise<T> {
   const cache = contextCache<T>(
     context,
     name,
     () => new LruCacheMap<string, T>({ max }),
   )
+  const { timeBudgetLimit = 0 } = context
   const cacheResult = await cache.get(key)
   if (isDefined(cacheResult)) {
     return cacheResult
   }
-  const result = timeBudgetMs > 0 ? await timeBudget(name, context.logger, func, timeBudgetMs) : await func()
+  const result = timeBudgetLimit > 0 ? await timeBudget(name, context.logger, func, timeBudgetLimit) : await func()
   await cache.set(key, result)
   return result
 }

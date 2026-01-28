@@ -150,7 +150,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
   }
 
   private async updateWindowedChainCache() {
-    this._uncleWindowedChainCache = await getWindowedChain(this.blockViewer, this.maxUncleWindowSize, this._uncleWindowedChainCache ?? [])
+    this._uncleWindowedChainCache = await getWindowedChain(this.context, this.blockViewer, this.maxUncleWindowSize, this._uncleWindowedChainCache ?? [])
     return [...this._uncleWindowedChainCache]
   }
 }

@@ -103,7 +103,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
           transfer] satisfies AccountBalanceHistoryItem))
       }
       return result
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async accountBalances(address: Address[], config?: AccountBalanceConfig) {
@@ -154,7 +154,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
 
       return [Object.fromEntries(entries), { range: qualifiedRange, head: qualifiedHeadHash }] satisfies
       [Record<Address, AccountBalanceHistoryItem[]>, ChainQualification]
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async qualifiedAccountBalances(
@@ -172,7 +172,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
         result[addr] = AttoXL1(summaryBalance < 0n ? 0n : summaryBalance)
       }
       return [result, qualifiedSummary[1]]
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   override async startHandler() {
@@ -220,7 +220,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
         }
       }
       return [...resultBlockNumbers].toSorted((a, b) => b - a).slice(0, max)
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   private async qualifiedAccountBalanceHistory(
@@ -257,6 +257,6 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
           transfer] satisfies AccountBalanceHistoryItem))
       }
       return [result, { range: startingRange, head: head._hash }]
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 }

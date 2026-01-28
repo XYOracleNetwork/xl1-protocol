@@ -84,7 +84,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     return await this.spanAsync('blockByHash', async () => {
       const cache = this.hydratedBlockCache
       return await cache.get(hash)
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async blockByNumber(blockNumber: XL1BlockNumber): Promise<SignedHydratedBlockWithHashMeta | null> {
@@ -101,7 +101,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         },
         store: this.store,
       } satisfies ChainContextRead, blockNumber)) ?? null
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async blocksByHash(hash: Hash, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
@@ -117,7 +117,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         current = await this.blockByHash(previousHash)
       }
       return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async blocksByNumber(blockNumber: XL1BlockNumber, limit = 50): Promise<SignedHydratedBlockWithHashMeta[]> {
@@ -133,7 +133,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         current = await this.blockByNumber(previousNumber)
       }
       return blocks.map(b => asSignedHydratedBlockWithHashMeta(b, true))
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   chainId(): Promise<ChainId>
@@ -142,7 +142,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
     return await this.spanAsync('chainId', async () => {
       return blockNumber === 'latest' ? await this.chainContractViewer.chainId() : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   override async createHandler() {

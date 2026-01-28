@@ -94,7 +94,7 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
         console.log(`Could not find current block with hash ${currentHead!._hash}`)
       }
       return assertEx(block, () => 'Could not find current block')
-    }, { timeBudgetLimit: 200 })
+    }, this.context)
   }
 
   async headBlock(): Promise<SignedBlockBoundWitnessWithHashMeta> {
