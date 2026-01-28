@@ -522,10 +522,17 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
         )
         const positionCount = await this.stake.stakeEvents.positionCount(externalRange)
         this.logger?.log(`SimpleXyoViewer: Precomputing networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
-        await Promise.all(Array.from(
+        const positions = Array.from(
           { length: positionCount },
-          async (_, position) => await this.networkStakeStepRewardForPosition(position, asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' })),
-        ))
+          (_, i) => i,
+        )
+        while (positions.length > 0) {
+          const batch = positions.splice(0, 10)
+          await Promise.all(batch.map(async (_, position) => await this.networkStakeStepRewardForPosition(
+            position,
+            asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' }),
+          )))
+        }
         this.logger?.log(`SimpleXyoViewer: Precomputed networkStakeStepRewardForPosition up to position ${positionCount - 1}`)
       }
     } catch (ex) {
