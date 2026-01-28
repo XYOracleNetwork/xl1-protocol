@@ -33,7 +33,7 @@ import {
 } from '@xyo-network/xl1-protocol'
 import type {
   AccountBalanceViewer,
-  BlockViewer, ChainQualifiedConfig, ChainStoreRead, CreatableProviderParams, ForkHistory,
+  BlockViewer, ChainContractViewer, ChainQualifiedConfig, ChainStoreRead, CreatableProviderParams, ForkHistory,
   MempoolViewer, NetworkStakeStepRewardsByPositionViewer, NetworkStakeViewer, PayloadMapRead, Position,
   StakedChainContextRead,
   StakeViewer,
@@ -47,6 +47,7 @@ import {
   allStakersForStep,
   blockRangeSteps,
   BlockViewerMoniker,
+  ChainContractViewerMoniker,
   creatableProvider,
   externalBlockRangeFromStep,
   externalBlockRangeFromXL1BlockRange,
@@ -91,6 +92,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   private _accountBalanceViewer?: AccountBalanceViewer
   private _blockViewer?: BlockViewer
+  private _chainContractViewer?: ChainContractViewer
   private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
@@ -108,6 +110,10 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   get block() {
     return this._blockViewer!
+  }
+
+  get chainContractViewer() {
+    return this._chainContractViewer!
   }
 
   get mempool() {
@@ -183,12 +189,12 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   async chainId(blockNumber: XL1BlockNumber): Promise<ChainId>
   async chainId(blockNumber: 'latest'): Promise<ChainId>
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
-    return await this.spanAsync('chainIdAtBlock', async () => {
-      const block = assertEx(
-        blockNumber === 'latest' ? await this.currentBlock() : await this.blockByNumber(blockNumber),
+    return await this.spanAsync('SimpleXyoViewer:chainId', async () => {
+      const chainId = assertEx(
+        blockNumber === 'latest' ? await this.chainContractViewer.chainId() : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber),
         () => `Could not find block for chainId at block ${blockNumber}`,
       )
-      return block[0].chain
+      return chainId
     }, this.context)
   }
 
@@ -197,6 +203,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     this._finalizedPayloadMap = readPayloadMapFromStore<WithStorageMeta<Payload>>(this.params.finalizedArchivist)
     this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
+    this._chainContractViewer = await this.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker)
     this._mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
     this._networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
     this._networkStepRewardsByPositionViewer
