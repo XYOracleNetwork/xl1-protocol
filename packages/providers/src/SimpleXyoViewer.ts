@@ -528,6 +528,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
         )
         while (positions.length > 0) {
           const batch = positions.splice(0, 10)
+          this.logger?.log(`SimpleXyoViewer: Precomputing networkStakeStepRewardForPosition for positions ${batch.at(0)} - ${batch.at(-1)}`)
           await Promise.all(batch.map(async (_, position) => await this.networkStakeStepRewardForPosition(
             position,
             asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' }),
