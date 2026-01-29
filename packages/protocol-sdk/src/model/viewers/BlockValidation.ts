@@ -1,6 +1,6 @@
 import { type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
-import { type HydratedBlock, type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+import type { SignedHydratedBlock, SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import type { HydratedBlockValidationError } from '../../validation/index.ts'
@@ -30,9 +30,14 @@ export const isBlockValidationConfig = zodIsFactory(BlockValidationConfigZod)
 
 export interface BlockValidationViewerMethods {
   qualifiedValidateBlocks(
-    blocks: HydratedBlock[],
+    blocks: SignedHydratedBlock[],
     config?: BlockValidationConfig
-  ): Promisable<[HydratedBlockValidationError[], BlockValidationQualification]>
+  ): Promisable<[(HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta)[], BlockValidationQualification]>
+
+  qualifiedValidateUncle(
+    blocks: SignedHydratedBlock[],
+    config?: BlockValidationConfig
+  ): Promisable<[(HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta)[], BlockValidationQualification]>
 }
 
 export const BlockValidationViewerMoniker = 'BlockValidationViewer' as const
@@ -40,9 +45,22 @@ export type BlockValidationViewerMoniker = typeof BlockValidationViewerMoniker
 
 export interface BlockValidationViewer extends BlockValidationViewerMethods, Provider<BlockValidationViewerMoniker> {
   qualifiedValidateBlock(
-    block: SignedHydratedBlockWithHashMeta,
+    block: SignedHydratedBlock,
     config?: BlockValidationConfig
-  ): Promisable<[HydratedBlockValidationError[], BlockValidationQualification]>
-  validateBlock(block: SignedHydratedBlockWithHashMeta, config?: BlockValidationConfig): Promisable<HydratedBlockValidationError[]>
-  validateBlocks(blocks: SignedHydratedBlockWithHashMeta[], config?: BlockValidationConfig): Promisable<HydratedBlockValidationError[]>
+  ): Promisable<[HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta, BlockValidationQualification]>
+
+  validateBlock(
+    block: SignedHydratedBlock,
+    config?: BlockValidationConfig
+  ): Promisable<HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta>
+
+  validateBlocks(
+    blocks: SignedHydratedBlock[],
+    config?: BlockValidationConfig
+  ): Promisable<(HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta)[]>
+
+  validateUncle(
+    blocks: SignedHydratedBlock[],
+    config?: BlockValidationConfig
+  ): Promisable<(HydratedBlockValidationError[] | SignedHydratedBlockWithHashMeta)[]>
 }

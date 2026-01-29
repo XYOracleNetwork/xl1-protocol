@@ -1,8 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type {
-  HydratedBlock,
-  HydratedTransaction, SignedHydratedBlock, SignedHydratedTransaction,
-} from '@xyo-network/xl1-protocol'
+import type { SignedHydratedBlock, SignedHydratedTransaction } from '@xyo-network/xl1-protocol'
 
 import type { Provider } from '../Provider.ts'
 
@@ -14,7 +11,13 @@ export interface MempoolRunnerMethods {
 export const MempoolRunnerMoniker = 'MempoolRunner' as const
 export type MempoolRunnerMoniker = typeof MempoolRunnerMoniker
 
+export interface MempoolPruneOptions {
+  batchSize?: number
+  maxCheck?: number
+  maxPrune?: number
+}
+
 export interface MempoolRunner extends MempoolRunnerMethods, Provider<MempoolRunnerMoniker> {
-  prunePendingBlocks(): Promise<HydratedBlock[]>
-  prunePendingTransactions(): Promise<HydratedTransaction[]>
+  prunePendingBlocks(options?: MempoolPruneOptions): Promise<[number, number]>
+  prunePendingTransactions(options?: MempoolPruneOptions): Promise<[number, number]>
 }

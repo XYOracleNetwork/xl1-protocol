@@ -1,6 +1,5 @@
-import { HydratedBlock, HydratedTransaction } from '@xyo-network/xl1-protocol'
 import {
-  creatableProvider, type MempoolRunner, MempoolRunnerMoniker,
+  creatableProvider, MempoolPruneOptions, type MempoolRunner, MempoolRunnerMoniker,
 } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcMempoolRunnerMethods } from './JsonRpcMempoolRunnerMethods.ts'
@@ -11,11 +10,11 @@ export class JsonRpcMempoolRunner extends JsonRpcMempoolRunnerMethods implements
   static readonly dependencies = []
   static readonly monikers = [MempoolRunnerMoniker]
 
-  prunePendingBlocks(): Promise<HydratedBlock[]> {
+  prunePendingBlocks(options?: MempoolPruneOptions): Promise<[number, number]> {
     throw new Error('Method not implemented.')
   }
 
-  prunePendingTransactions(): Promise<HydratedTransaction[]> {
+  prunePendingTransactions(options?: MempoolPruneOptions): Promise<[number, number]> {
     throw new Error('Method not implemented.')
   }
 }
