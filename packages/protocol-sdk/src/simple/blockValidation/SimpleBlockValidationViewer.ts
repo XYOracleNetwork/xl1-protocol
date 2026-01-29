@@ -107,15 +107,15 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
     const chainIdAtBlockNumber = (blockNumber: XL1BlockNumber) => this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
 
     const qualification = { head: headBlock._hash, range: asXL1BlockRange([0, headBlock.block], true) }
-    const [protocolResults = [], stateResults = []] = await Promise.all([
+    const [protocolResults, stateResults] = await Promise.all([
       validateProtocol?.(blocksWithMeta, chainIdAtBlockNumber), validateState?.(blocksWithMeta, chainIdAtBlockNumber),
     ])
-    const blockResults = protocolResults.map((r, i) => {
+    const blockResults = blocksWithMeta.map((r, i) => {
       const errors = []
-      if (!isHydratedBlock(r)) {
-        errors.push(...(r))
+      if (protocolResults && !isHydratedBlock(protocolResults[i])) {
+        errors.push(...(protocolResults[i]))
       }
-      if (!isHydratedBlock(stateResults[i])) {
+      if (stateResults && !isHydratedBlock(stateResults[i])) {
         errors.push(...(stateResults[i]))
       }
       return errors.length === 0 ? r : errors
