@@ -5,6 +5,7 @@ import type {
   CreatableProviderContext, CreatableProviderFactory, CreatableProviderInstance,
 } from './CreatableProvider.ts'
 import type { CreatableProviderRegistry } from './CreatableProviderRegistry.ts'
+import type { ProviderFactoryGetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
 
 export interface ProviderFactoryLocatorInstance<T extends CreatableProviderContext = CreatableProviderContext> {
@@ -16,21 +17,13 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
    */
   registry: Readonly<CreatableProviderRegistry>
 
-  /** @deprecated use getInstance instead */
-  create<TProvider extends Provider<ProviderMoniker>,
-    TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(
-    moniker: TProvider['moniker'],
-    params?: TParams,
-    labels?: Labels,
-  ): Promise<CreatableProviderInstance<TProvider>>
-
   freeze(): void
 
   getInstance<TProvider extends Provider<ProviderMoniker>,
     TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(
     moniker: TProvider['moniker'],
     params?: Partial<TParams>,
-    labels?: Labels,
+    options?: ProviderFactoryGetInstanceOptions,
   ): Promise<CreatableProviderInstance<TProvider>>
 
   /**
@@ -61,7 +54,7 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
     TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(
     moniker: TProvider['moniker'],
     params?: Partial<TParams>,
-    labels?: Labels,
+    options?: ProviderFactoryGetInstanceOptions,
   ): Promise<CreatableProviderInstance<TProvider> | undefined>
 
   /**

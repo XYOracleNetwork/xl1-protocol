@@ -10,6 +10,7 @@ import type {
   CachingBaseContext, Provider, ProviderMoniker,
 } from '../model/index.ts'
 import type { RuntimeStatusMonitor } from '../status/index.ts'
+import type { GetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
 import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorInstance.ts'
 
@@ -50,18 +51,15 @@ export interface CreatableProviderFactory<T extends CreatableProviderInstance = 
   resolvedMoniker: string
   scope: ProviderFactoryScope
 
-  /** @deprecated use getInstance instead */
-  create(
-    this: CreatableProviderFactory<T>,
-    params?: Partial<T['params'] & CreatableProviderParams>, start?: boolean): Promise<T>
-
   getInstance(
     this: CreatableProviderFactory<T>,
-    params: T['params'] & CreatableProviderParams, start?: boolean): Promise<T>
+    params: T['params'] & CreatableProviderParams,
+    options?: GetInstanceOptions): Promise<T>
 
   tryGetInstance(
     this: CreatableProviderFactory<T>,
-    params: T['params'] & CreatableProviderParams, start?: boolean): Promise<T | undefined>
+    params: T['params'] & CreatableProviderParams,
+    options?: GetInstanceOptions): Promise<T | undefined>
 
 }
 

@@ -14,8 +14,6 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
 ): LabeledCreatableProviderFactory<TProvider> => {
   const factory = {
     monikers: provider.monikers,
-    // Copy static methods
-    create: provider.create.bind(provider) as LabeledCreatableProviderFactory<TProvider>['create'],
 
     // Merge module & supplied labels
     labels: { ...(provider as LabeledCreatableProviderFactory).labels, ...labels },

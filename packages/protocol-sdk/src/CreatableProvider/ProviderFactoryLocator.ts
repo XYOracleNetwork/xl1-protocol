@@ -6,6 +6,7 @@ import type {
   CreatableProviderContext, CreatableProviderFactory, CreatableProviderInstance,
 } from './CreatableProvider.ts'
 import { type CreatableProviderRegistry, registerCreatableProviderFactory } from './CreatableProviderRegistry.ts'
+import type { ProviderFactoryGetInstanceOptions } from './GetInstanceOptions.ts'
 import { hasLabels, type LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
 import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorInstance.ts'
 
@@ -59,7 +60,7 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
   async getInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
     params?: Partial<CreatableProviderInstance<TProvider>['params']>,
-    labels?: Labels,
+    { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
     const resolvedParams = {
       ...params,
@@ -69,7 +70,7 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
       } as CreatableProviderInstance<TProvider>['params']['context'],
     } as CreatableProviderInstance<TProvider>['params']
     const factory = this.locate<TProvider>(moniker, labels)
-    const result = await factory.getInstance(resolvedParams)
+    const result = await factory.getInstance(resolvedParams, { start })
     return result
   }
 

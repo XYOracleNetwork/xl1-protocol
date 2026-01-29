@@ -6,6 +6,7 @@ import type {
   CreatableProvider, CreatableProviderFactory, CreatableProviderInstance,
   ProviderFactoryScope,
 } from './CreatableProvider.ts'
+import type { GetInstanceOptions } from './GetInstanceOptions.ts'
 
 declare global {
   var xyoServiceSingletons: Record<string, unknown>
@@ -59,11 +60,6 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     return new ProviderFactory<TInstance, TDependencies>(creatableProvider, dependencies, params, labels)
   }
 
-  /** @deprecated use getInstance instead */
-  async create(this: CreatableProviderFactory<TProvider>, params?: Partial<TProvider['params']>, start = true): Promise<TProvider> {
-    return await this.getInstance(params as TProvider['params'], start)
-  }
-
   factory<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[]>(
     this: CreatableProviderFactory<TInstance, TDependencies>,
     dependencies: TDependencies,
@@ -73,7 +69,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     return new ProviderFactory<TInstance, TDependencies>(this.creatableProvider, dependencies, params, labels)
   }
 
-  async getInstance(this: CreatableProviderFactory<TProvider>, params: TProvider['params'], start = true): Promise<TProvider> {
+  async getInstance(this: CreatableProviderFactory<TProvider>, params: TProvider['params'], { start = true }: GetInstanceOptions): Promise<TProvider> {
     let scopeObject: Record<string, unknown> = {}
     switch (this.scope) {
       case 'global': {
@@ -120,9 +116,13 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     return result
   }
 
-  async tryGetInstance(this: CreatableProviderFactory<TProvider>, params: TProvider['params'], start = true): Promise<TProvider | undefined> {
+  async tryGetInstance(
+    this: CreatableProviderFactory<TProvider>,
+    params: TProvider['params'],
+    options: GetInstanceOptions = {},
+  ): Promise<TProvider | undefined> {
     try {
-      return await this.getInstance(params, start)
+      return await this.getInstance(params, options)
     } catch {
       return
     }
