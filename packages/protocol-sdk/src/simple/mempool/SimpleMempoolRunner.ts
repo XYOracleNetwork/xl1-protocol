@@ -7,7 +7,6 @@ import { isPayloadBundle, Sequence } from '@xyo-network/payload-model'
 import {
   isHydratedBlockWithHashMeta, type SignedHydratedBlock, type SignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
-import { is } from 'zod/locales'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
@@ -16,6 +15,8 @@ import {
   BlockValidationViewer,
   BlockValidationViewerMoniker,
   bundledPayloadToHydratedBlock,
+  ChainContractViewer,
+  ChainContractViewerMoniker,
   FinalizationViewer,
   FinalizationViewerMoniker,
   hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, MempoolPruneOptions, MempoolRunner, MempoolRunnerMoniker, WindowedBlockViewerMoniker,
@@ -29,15 +30,20 @@ export interface SimpleMempoolRunnerParams extends CreatableProviderParams {
 @creatableProvider()
 export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempoolRunnerParams> implements MempoolRunner {
   static readonly defaultMoniker = MempoolRunnerMoniker
-  static readonly dependencies = [WindowedBlockViewerMoniker, FinalizationViewerMoniker, BlockValidationViewerMoniker]
+  static readonly dependencies = [FinalizationViewerMoniker, BlockValidationViewerMoniker, ChainContractViewerMoniker]
   static readonly monikers = [MempoolRunnerMoniker]
   moniker = SimpleMempoolRunner.defaultMoniker
 
   protected _blockValidationViewer!: BlockValidationViewer
+  protected _chainContractViewer!: ChainContractViewer
   protected _finalizationViewer!: FinalizationViewer
 
   protected get blockValidationViewer() {
     return this._blockValidationViewer!
+  }
+
+  protected get chainContractViewer() {
+    return this._chainContractViewer!
   }
 
   protected get finalizationViewer() {
@@ -63,6 +69,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
   override async createHandler() {
     await super.createHandler()
     this._blockValidationViewer = await this.locator.getInstance<BlockValidationViewer>(BlockValidationViewerMoniker)
+    this._chainContractViewer = await this.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker)
     this._finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
   }
 
@@ -70,6 +77,8 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     batchSize = 10, maxPrune = 1000, maxCheck = 1000,
   }: MempoolPruneOptions = {}): Promise<[number, number]> {
     const headNumber = await this.finalizationViewer.headNumber()
+    const chainId = await this.chainContractViewer.chainId()
+
     let total = 0
     let pruned = 0
     let cursor: Sequence | undefined
@@ -83,7 +92,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       const blocks = await Promise.all(bundles.map(async (bundle) => {
         return bundle ? await bundledPayloadToHydratedBlock(bundle) : null
       }))
-      let valid = blocks.map(b => isHydratedBlockWithHashMeta(b) ? b[0].block > headNumber : false)
+      let valid = blocks.map(b => isHydratedBlockWithHashMeta(b) && b[0].block > headNumber && b[0].chain === chainId)
       let remainingBlockMap: number[] = []
       let remainingBlocks = blocks.map((b, i) => {
         if (isHydratedBlockWithHashMeta(b)) {
@@ -91,6 +100,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
           return b
         }
       }).filter(exists)
+
       assertEx(
         remainingBlockMap.length === remainingBlocks.length,
         () => `remainingBlockMap length should match remainingBlocks length [${remainingBlockMap.length}/${remainingBlocks.length}]`,
@@ -105,6 +115,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
           return p._hash
         }
       }).filter(exists)
+
       pruned += pruneHashes.length
       total += batch.length
       await this.pendingBlocksArchivist.delete(pruneHashes)
