@@ -7,6 +7,7 @@ import { isPayloadBundle, Sequence } from '@xyo-network/payload-model'
 import {
   isHydratedBlockWithHashMeta, type SignedHydratedBlock, type SignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
+import { is } from 'zod/locales'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
@@ -28,7 +29,7 @@ export interface SimpleMempoolRunnerParams extends CreatableProviderParams {
 @creatableProvider()
 export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempoolRunnerParams> implements MempoolRunner {
   static readonly defaultMoniker = MempoolRunnerMoniker
-  static readonly dependencies = [WindowedBlockViewerMoniker, FinalizationViewerMoniker]
+  static readonly dependencies = [WindowedBlockViewerMoniker, FinalizationViewerMoniker, BlockValidationViewerMoniker]
   static readonly monikers = [MempoolRunnerMoniker]
   moniker = SimpleMempoolRunner.defaultMoniker
 
@@ -37,6 +38,10 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
 
   protected get blockValidationViewer() {
     return this._blockValidationViewer!
+  }
+
+  protected get finalizationViewer() {
+    return this._finalizationViewer!
   }
 
   protected get pendingBlocksArchivist() {
@@ -64,6 +69,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
   async prunePendingBlocks({
     batchSize = 10, maxPrune = 1000, maxCheck = 1000,
   }: MempoolPruneOptions = {}): Promise<[number, number]> {
+    const headNumber = await this.finalizationViewer.headNumber()
     let total = 0
     let pruned = 0
     let cursor: Sequence | undefined
@@ -77,7 +83,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       const blocks = await Promise.all(bundles.map(async (bundle) => {
         return bundle ? await bundledPayloadToHydratedBlock(bundle) : null
       }))
-      let valid = blocks.map(b => !!b)
+      let valid = blocks.map(b => isHydratedBlockWithHashMeta(b) ? b[0].block > headNumber : false)
       let remainingBlockMap: number[] = []
       let remainingBlocks = blocks.map((b, i) => {
         if (isHydratedBlockWithHashMeta(b)) {
@@ -89,7 +95,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
         remainingBlockMap.length === remainingBlocks.length,
         () => `remainingBlockMap length should match remainingBlocks length [${remainingBlockMap.length}/${remainingBlocks.length}]`,
       )
-      const validationResults = await this.blockValidationViewer.validateBlocks(remainingBlocks)
+      const validationResults = await this.blockValidationViewer.validateBlocks(remainingBlocks, { value: true, state: false })
       for (const [i, r] of validationResults.entries()) {
         const validated = isHydratedBlockWithHashMeta(r)
         valid[remainingBlockMap[i]] = validated
@@ -112,7 +118,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     return [pruned, total]
   }
 
-  prunePendingTransactions(): Promise<[number, number]> {
+  prunePendingTransactions(_options?: MempoolPruneOptions): Promise<[number, number]> {
     throw new Error('Method not implemented.')
   }
 
