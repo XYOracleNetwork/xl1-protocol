@@ -81,11 +81,14 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       let remainingBlockMap: number[] = []
       let remainingBlocks = blocks.map((b, i) => {
         if (isHydratedBlockWithHashMeta(b)) {
+          remainingBlockMap.push(i)
           return b
         }
-        remainingBlockMap.push(i)
       }).filter(exists)
-      assertEx(remainingBlockMap.length === remainingBlocks.length, () => 'remainingBlockMap length should match remainingBlocks length')
+      assertEx(
+        remainingBlockMap.length === remainingBlocks.length,
+        () => `remainingBlockMap length should match remainingBlocks length [${remainingBlockMap.length}/${remainingBlocks.length}]`,
+      )
       const validationResults = await this.blockValidationViewer.validateBlocks(remainingBlocks)
       for (const [i, r] of validationResults.entries()) {
         const validated = isHydratedBlockWithHashMeta(r)
