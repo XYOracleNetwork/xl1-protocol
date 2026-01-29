@@ -1,20 +1,32 @@
 import '@xylabs/vitest-extended'
 
+import type { Hash } from '@xylabs/sdk-js'
 import {
   asHex,
+  assertEx,
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import type { SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
-import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
-import type { ProviderFactoryLocator, SimpleChainContractViewerParams } from '@xyo-network/xl1-protocol-sdk'
+import type { ArchivistInstance } from '@xyo-network/archivist-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { ChainId, SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import { asXL1BlockNumber, StepSizes } from '@xyo-network/xl1-protocol'
+import type {
+  BalancesStepSummary,
+  BalanceStepSummaryContext,
+  CachingBaseContext, ProviderFactoryLocator, SimpleChainContractViewerParams,
+  TransfersStepSummary,
+  TransfersStepSummaryContext,
+} from '@xyo-network/xl1-protocol-sdk'
 import {
   buildRandomTransaction,
-  flattenHydratedBlock, SimpleBlockViewer, SimpleChainContractViewer,
+  findMostRecentBlock,
+  flattenHydratedBlock, MemoryMap, payloadMapFromStore, SimpleAccountBalanceViewer, SimpleBlockValidationViewer, SimpleBlockViewer, SimpleChainContractViewer,
   SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleWindowedBlockViewer,
 } from '@xyo-network/xl1-protocol-sdk'
 import { buildSimpleProviderLocator } from '@xyo-network/xl1-providers'
+import { Semaphore } from 'async-mutex'
 import {
   beforeAll, beforeEach, describe, expect, it,
 } from 'vitest'
@@ -316,6 +328,42 @@ describe('SimpleMempoolViewer', () => {
       }],
   ] as unknown as SignedHydratedBlockWithStorageMeta
 
+  function initTransfersSummaryContext(context: CachingBaseContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): TransfersStepSummaryContext {
+    const transfersSummaryMap = new MemoryMap<string, WithStorageMeta<TransfersStepSummary>>()
+    const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
+
+    const transfersSummaryContext = {
+      ...context,
+      stepSemaphores: StepSizes.map(() => new Semaphore(20)),
+      summaryMap: transfersSummaryMap,
+      head: async function (): Promise<[Hash, number]> {
+        const head = assertEx(await findMostRecentBlock(finalizedArchivist))
+        return [head._hash, head.block]
+      },
+      store: { chainMap },
+      chainId,
+    } satisfies TransfersStepSummaryContext
+    return transfersSummaryContext
+  }
+
+  function initBalanceSummaryContext(context: CachingBaseContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): BalanceStepSummaryContext {
+    const balancesSummaryMap = new MemoryMap<string, WithStorageMeta<BalancesStepSummary>>()
+    const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
+
+    const balanceSummaryContext = {
+      ...context,
+      stepSemaphores: StepSizes.map(() => new Semaphore(20)),
+      summaryMap: balancesSummaryMap,
+      head: async function (): Promise<[Hash, number]> {
+        const head = assertEx(await findMostRecentBlock(finalizedArchivist))
+        return [head._hash, head.block]
+      },
+      store: { chainMap },
+      chainId,
+    } satisfies BalanceStepSummaryContext
+    return balanceSummaryContext
+  }
+
   async function buildTestLocator(
     finalizedArchivist: MemoryArchivist,
     pendingBlocksArchivist: MemoryArchivist,
@@ -323,12 +371,19 @@ describe('SimpleMempoolViewer', () => {
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
     const locator = buildSimpleProviderLocator()
+    const transfersSummaryContext = initTransfersSummaryContext(locator.context, finalizedArchivist, chainId)
+    const balanceSummaryContext = initBalanceSummaryContext(locator.context, finalizedArchivist, chainId)
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()
     await finalizedArchivist.insert(flattenHydratedBlock(genesisBlock))
     locator.registerMany([
       SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
+      SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(
+        SimpleAccountBalanceViewer.dependencies,
+        { transfersSummaryContext, balanceSummaryContext },
+      ),
+      SimpleBlockValidationViewer.factory<SimpleBlockValidationViewer>(SimpleBlockValidationViewer.dependencies),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
       SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, contractViewerParams),
       SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 1000, syncInterval: 10_000 }),
