@@ -109,11 +109,13 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       total += batch.length
       await this.pendingBlocksArchivist.delete(pruneHashes)
 
-      cursor = batch[0]._sequence
+      cursor = batch.at(-1)?._sequence
 
-      batch = await this.pendingBlocksArchivist.next({
-        limit: batchSize, cursor, order: 'desc',
-      })
+      batch = cursor
+        ? await this.pendingBlocksArchivist.next({
+            limit: batchSize, cursor, order: 'desc',
+          })
+        : []
     }
     return [pruned, total]
   }
