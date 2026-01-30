@@ -49,7 +49,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@types/node": "~25.0.10",
+    "@types/node": "~25.1.0",
     "@typescript-eslint/types": "~8.54.0",
     "@xylabs/eslint-config-flat": "~7.3.2",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",

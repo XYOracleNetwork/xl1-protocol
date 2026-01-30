@@ -43,6 +43,10 @@ export interface BlockValidationViewerMethods {
 export const BlockValidationViewerMoniker = 'BlockValidationViewer' as const
 export type BlockValidationViewerMoniker = typeof BlockValidationViewerMoniker
 
+/**
+ * Checks if blocks are valid (currently valid) according to protocol rules.  In the case that they are not valid, they may still become valid in the future.
+ */
+
 export interface BlockValidationViewer extends BlockValidationViewerMethods, Provider<BlockValidationViewerMoniker> {
   qualifiedValidateBlock(
     block: SignedHydratedBlock,

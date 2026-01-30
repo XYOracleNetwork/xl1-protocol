@@ -40,8 +40,8 @@
   ],
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@xylabs/sdk-js": "~5.0.64",
-    "@xylabs/zod": "~5.0.64",
+    "@xylabs/sdk-js": "~5.0.65",
+    "@xylabs/zod": "~5.0.65",
     "@xyo-network/archivist-model": "~5.3.2",
     "@xyo-network/boundwitness-model": "~5.3.2",
     "@xyo-network/payload-builder": "~5.3.2",
@@ -49,9 +49,9 @@
     "@xyo-network/schema-payload-plugin": "~5.3.2"
   },
   "devDependencies": {
-    "@types/node": "~25.0.10",
+    "@types/node": "~25.1.0",
     "@typescript-eslint/types": "~8.54.0",
-    "@xylabs/creatable": "~5.0.64",
+    "@xylabs/creatable": "~5.0.65",
     "@xylabs/eslint-config-flat": "~7.3.2",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",

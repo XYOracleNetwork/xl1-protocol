@@ -1,11 +1,12 @@
 import type { LogLevelKey } from '@xylabs/sdk-js'
 import { LogLevel } from '@xylabs/sdk-js'
 import { globalRegistry, z } from 'zod'
-const LogLevels = Object.keys(LogLevel) as [LogLevelKey, ...LogLevelKey[]]
+
+const LogLevelNames = Object.keys(LogLevel) as [LogLevelKey]
 
 export const LogConfigZod = z.object({
-  logLevel: z.enum(LogLevels).default('info').register(globalRegistry, {
-    choices: LogLevels,
+  logLevel: z.enum(LogLevelNames).default('info').register(globalRegistry, {
+    choices: LogLevelNames,
     default: 'info',
     description: 'Desired process verbosity',
     title: 'logLevel',
