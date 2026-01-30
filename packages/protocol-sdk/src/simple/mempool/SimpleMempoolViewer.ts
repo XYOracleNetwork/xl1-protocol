@@ -85,7 +85,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     this.logger?.info(`Fetched pending transactions: ${bundles.length} bundles`)
 
     const filteredBundles: PayloadBundleWithHashMeta[] = bundles.filter(isPayloadBundle).filter(isHashMeta)
-    this.logger?.info(`Filtered pending transactions: ${JSON.stringify(filteredBundles, null, 2)} filteredBundles`)
+    // this.logger?.info(`Filtered pending transactions: ${JSON.stringify(filteredBundles, null, 2)} filteredBundles`)
 
     const hydratedWithBundle: HydratedTxWithBundle[] = (await Promise.all(
       filteredBundles.map(async (bundle) => {
@@ -93,7 +93,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
         return isDefined(tx) ? { bundle, tx } : undefined
       }),
     )).filter(exists)
-    this.logger?.info(`Converted pending transactions: ${JSON.stringify(hydratedWithBundle.map(x => x.tx), null, 2)} results`)
+    // this.logger?.info(`Converted pending transactions: ${JSON.stringify(hydratedWithBundle.map(x => x.tx), null, 2)} results`)
 
     const currentBlock = await this.windowedBlockViewer.currentBlock()
     const evaluated = await Promise.all(
