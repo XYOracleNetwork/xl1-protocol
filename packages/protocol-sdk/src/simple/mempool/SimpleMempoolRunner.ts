@@ -170,21 +170,20 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     }))
 
     return blockBundles.map(([block, bundle]) => {
-      const result: [(SignedHydratedBlockWithHashMeta | undefined), WithHashMeta<Payload>] = [block
-        ? block[0].chain === chainId
-        && block[0].block > headNumber
-        && isSignedHydratedBlockWithHashMeta(block)
-          ? block
-          : undefined
-        : undefined, bundle]
-      if (result[0] === undefined) {
+      const blockCheckPassed = !!block
+      const chainIdPassed = blockCheckPassed ? block[0].chain === chainId : false
+      const blockNumberPassed = blockCheckPassed ? block[0].block > headNumber : false
+      const typeCheckPassed = blockCheckPassed ? isSignedHydratedBlockWithHashMeta(block) : false
+      const validationPassed = blockCheckPassed && chainIdPassed && blockNumberPassed && typeCheckPassed
+      const validatedBlock = validationPassed ? block : undefined
+      if (!validationPassed) {
         this.logger?.info(`Pruning block bundle ${bundle._hash} during simpleValidationCheck`)
-        this.logger?.info(`  - chainId match: ${block ? block[0].chain === chainId : 'n/a'}`)
-        this.logger?.info(`  - headNumber check: ${block ? block[0].block > headNumber : 'n/a'}`)
-        this.logger?.info(`  - isSignedHydratedBlockWithHashMeta: ${block ? isSignedHydratedBlockWithHashMeta(block) : 'n/a'}`)
-        this.logger?.info(`  - block value: ${block ? JSON.stringify(block, null, 2) : 'n/a'}`)
+        this.logger?.info(`  - chainId match: ${chainIdPassed}`)
+        this.logger?.info(`  - blockNumber check: ${blockNumberPassed}`)
+        this.logger?.info(`  - typeCheck: ${typeCheckPassed}`)
+        this.logger?.info(`  - bundle hash: ${bundle._hash}`)
       }
-      return result
+      return [validatedBlock, bundle]
     })
   }
 }
