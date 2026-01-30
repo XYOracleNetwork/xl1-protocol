@@ -10,11 +10,11 @@ export class JsonRpcMempoolRunner extends JsonRpcMempoolRunnerMethods implements
   static readonly dependencies = []
   static readonly monikers = [MempoolRunnerMoniker]
 
-  prunePendingBlocks(options?: MempoolPruneOptions): Promise<[number, number]> {
+  prunePendingBlocks(_options?: MempoolPruneOptions): Promise<[number, number]> {
     throw new Error('Method not implemented.')
   }
 
-  prunePendingTransactions(options?: MempoolPruneOptions): Promise<[number, number]> {
+  prunePendingTransactions(_options?: MempoolPruneOptions): Promise<[number, number]> {
     throw new Error('Method not implemented.')
   }
 }

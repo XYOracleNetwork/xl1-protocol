@@ -75,6 +75,11 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
 
   async locateAndCreate<TProvider extends Provider<ProviderMoniker>,
     TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(moniker: TProvider['moniker']) {
-    return await this.locator?.getInstance<TProvider, TParams>(moniker)
+    return await this.locator.getInstance<TProvider, TParams>(moniker)
+  }
+
+  async tryLocateAndCreate<TProvider extends Provider<ProviderMoniker>,
+    TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(moniker: TProvider['moniker']) {
+    return await this.locator.tryGetInstance<TProvider, TParams>(moniker)
   }
 }

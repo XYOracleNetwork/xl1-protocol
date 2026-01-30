@@ -119,7 +119,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
   async tryGetInstance(
     this: CreatableProviderFactory<TProvider>,
     params: TProvider['params'],
-    options: GetInstanceOptions = {},
+    options?: GetInstanceOptions,
   ): Promise<TProvider | undefined> {
     try {
       return await this.getInstance(params, options)

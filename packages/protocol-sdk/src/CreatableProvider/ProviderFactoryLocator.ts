@@ -44,15 +44,6 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     return new ProviderFactoryLocator(context, {})
   }
 
-  /** @deprecated use getInstance instead */
-  async create<TProvider extends Provider<ProviderMoniker>>(
-    moniker: TProvider['moniker'],
-    params?: Partial<CreatableProviderInstance<TProvider>['params']>,
-    labels?: Labels,
-  ) {
-    return await this.getInstance<TProvider>(moniker, params, labels)
-  }
-
   freeze() {
     this._frozen = true
   }
@@ -126,10 +117,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
   async tryGetInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
     params?: Partial<CreatableProviderInstance<TProvider>['params']>,
-    labels?: Labels,
+    options?: ProviderFactoryGetInstanceOptions,
   ) {
     try {
-      return await this.getInstance<TProvider>(moniker, params, labels)
+      return await this.getInstance<TProvider>(moniker, params, options)
     } catch {
       return
     }

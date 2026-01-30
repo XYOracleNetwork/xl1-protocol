@@ -3,9 +3,12 @@ import {
 } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { isPayloadBundle, Sequence } from '@xyo-network/payload-model'
 import {
-  isHydratedBlockWithHashMeta, type SignedHydratedBlock, type SignedHydratedTransaction,
+  isPayloadBundle, Payload, Sequence,
+  WithHashMeta,
+} from '@xyo-network/payload-model'
+import {
+  isHydratedBlockWithHashMeta, isSignedHydratedBlockWithHashMeta, type SignedHydratedBlock, SignedHydratedBlockWithHashMeta, type SignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
 
 import {
@@ -19,7 +22,7 @@ import {
   ChainContractViewerMoniker,
   FinalizationViewer,
   FinalizationViewerMoniker,
-  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, MempoolPruneOptions, MempoolRunner, MempoolRunnerMoniker, WindowedBlockViewerMoniker,
+  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, MempoolPruneOptions, MempoolRunner, MempoolRunnerMoniker,
 } from '../../model/index.ts'
 
 export interface SimpleMempoolRunnerParams extends CreatableProviderParams {
@@ -76,9 +79,6 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
   async prunePendingBlocks({
     batchSize = 10, maxPrune = 1000, maxCheck = 1000,
   }: MempoolPruneOptions = {}): Promise<[number, number]> {
-    const headNumber = await this.finalizationViewer.headNumber()
-    const chainId = await this.chainContractViewer.chainId()
-
     let total = 0
     let pruned = 0
     let cursor: Sequence | undefined
@@ -86,20 +86,12 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       limit: batchSize, cursor, order: 'desc',
     })
     while (batch.length > 0 && pruned < maxPrune && total < maxCheck) {
-      const bundles = batch.map((p) => {
-        return isPayloadBundle(p) ? p : null
-      })
-      const blocks = await Promise.all(bundles.map(async (bundle) => {
-        return bundle ? await bundledPayloadToHydratedBlock(bundle) : null
-      }))
-      let valid = blocks.map(b => isHydratedBlockWithHashMeta(b) && b[0].block > headNumber && b[0].chain === chainId)
+      const blocksAndBundles = await this.simpleValidationCheck(batch)
+      const blocks = blocksAndBundles.map(([b]) => b)
+      const bundles = blocksAndBundles.map(([_, p]) => p)
+      let valid = blocks.map(b => !!b)
       let remainingBlockMap: number[] = []
-      let remainingBlocks = blocks.map((b, i) => {
-        if (isHydratedBlockWithHashMeta(b)) {
-          remainingBlockMap.push(i)
-          return b
-        }
-      }).filter(exists)
+      let remainingBlocks = blocks.filter(exists)
 
       assertEx(
         remainingBlockMap.length === remainingBlocks.length,
@@ -111,7 +103,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
         valid[remainingBlockMap[i]] = validated
       }
       const pruneHashes = bundles.map((p, i) => {
-        if (p && !valid[i]) {
+        if (!valid[i]) {
           return p._hash
         }
       }).filter(exists)
@@ -155,5 +147,24 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     }))
     const inserted = await this.pendingTransactionsArchivist.insert(bundles)
     return inserted.map(p => p._hash)
+  }
+
+  private async simpleValidationCheck(payloads: WithHashMeta<Payload>[]): Promise<[(SignedHydratedBlockWithHashMeta | undefined), WithHashMeta<Payload>][]> {
+    const headNumber = await this.finalizationViewer.headNumber()
+    const chainId = await this.chainContractViewer.chainId()
+
+    const blockBundles: [SignedHydratedBlockWithHashMeta | undefined, WithHashMeta<Payload>][] = await Promise.all(payloads.map(async (p) => {
+      return [isPayloadBundle(p) ? await bundledPayloadToHydratedBlock(p) : undefined, p]
+    }))
+
+    return blockBundles.map(([block, bundle]) => {
+      return [block
+        ? block[0].chain === chainId
+        && block[0].block > headNumber
+        && isSignedHydratedBlockWithHashMeta(block)
+          ? block
+          : undefined
+        : undefined, bundle]
+    })
   }
 }

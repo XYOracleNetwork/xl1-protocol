@@ -1,10 +1,10 @@
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { PayloadBundle, WithHashMeta } from '@xyo-network/payload-model'
+import type { PayloadBundle } from '@xyo-network/payload-model'
 import type { SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { asSignedBlockBoundWitnessWithHashMeta } from '@xyo-network/xl1-protocol'
 
 export const bundledPayloadToHydratedBlock = async (
-  payload: WithHashMeta<PayloadBundle>,
+  payload: PayloadBundle,
 ): Promise<SignedHydratedBlockWithHashMeta | undefined> => {
   const withHashMeta = await PayloadBuilder.addHashMeta(payload.payloads)
   const tx = asSignedBlockBoundWitnessWithHashMeta(withHashMeta.find(p => p._hash === payload.root))
