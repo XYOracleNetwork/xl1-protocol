@@ -85,6 +85,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     let batch = await this.pendingBlocksArchivist.next({
       limit: batchSize, cursor, order: 'desc',
     })
+    this.logger?.info(`Starting prunePendingBlocks with batchSize=${batchSize}, maxPrune=${maxPrune}, maxCheck=${maxCheck}`)
     while (batch.length > 0 && pruned < maxPrune && total < maxCheck) {
       const blocksAndBundles = await this.simpleValidationCheck(batch)
       const blocks = blocksAndBundles.map(([b]) => b)
@@ -125,6 +126,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
           })
         : []
     }
+    this.logger?.info(`prunePendingBlocks completed: pruned=${pruned}, totalChecked=${total}`)
     return [pruned, total]
   }
 
@@ -163,13 +165,20 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     }))
 
     return blockBundles.map(([block, bundle]) => {
-      return [block
+      const result: [(SignedHydratedBlockWithHashMeta | undefined), WithHashMeta<Payload>] = [block
         ? block[0].chain === chainId
         && block[0].block > headNumber
         && isSignedHydratedBlockWithHashMeta(block)
           ? block
           : undefined
         : undefined, bundle]
+      if (result[0] === undefined) {
+        this.logger?.info(`Pruning block bundle ${bundle._hash} during simpleValidationCheck`)
+        this.logger?.info(`  - chainId match: ${block ? block[0].chain === chainId : 'n/a'}`)
+        this.logger?.info(`  - headNumber check: ${block ? block[0].block > headNumber : 'n/a'}`)
+        this.logger?.info(`  - isSignedHydratedBlockWithHashMeta: ${block ? isSignedHydratedBlockWithHashMeta(block) : 'n/a'}`)
+      }
+      return result
     })
   }
 }
