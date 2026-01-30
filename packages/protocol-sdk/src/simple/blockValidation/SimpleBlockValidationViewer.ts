@@ -158,7 +158,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
         block,
         chainIdAtBlockNumber,
       )
-      return errors.length === 0 ? block : errors
+      return (errors.length === 0) ? block : errors
     })))
   }
 
@@ -182,7 +182,7 @@ export class SimpleBlockValidationViewer extends AbstractCreatableProvider<Simpl
         chainIdAtBlockNumber,
         { accountBalance: this._accountBalanceViewer },
       )
-      return errors.length === 0 ? block : errors
+      return (errors.length === 0) ? block : errors
     })))
   }
 
