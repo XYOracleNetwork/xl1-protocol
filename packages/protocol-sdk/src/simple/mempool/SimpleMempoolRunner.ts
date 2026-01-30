@@ -91,7 +91,12 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       const bundles = blocksAndBundles.map(([_, p]) => p)
       let valid = blocks.map(b => !!b)
       let remainingBlockMap: number[] = []
-      let remainingBlocks = blocks.filter(exists)
+      let remainingBlocks = blocks.map((b, i) => {
+        if (b) {
+          remainingBlockMap.push(i)
+          return b
+        }
+      }).filter(exists)
 
       assertEx(
         remainingBlockMap.length === remainingBlocks.length,
