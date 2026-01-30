@@ -106,6 +106,10 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       const validationResults = await this.blockValidationViewer.validateBlocks(remainingBlocks, { value: true, state: false })
       for (const [i, r] of validationResults.entries()) {
         const validated = isHydratedBlockWithHashMeta(r)
+        if (!validated) {
+          this.logger?.info(`Pruning block ${bundles[remainingBlockMap[i]]._hash} during block validation`)
+          this.logger?.info(`  - validation result: ${JSON.stringify(r, null, 2)}`)
+        }
         valid[remainingBlockMap[i]] = validated
       }
       const pruneHashes = bundles.map((p, i) => {
@@ -177,6 +181,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
         this.logger?.info(`  - chainId match: ${block ? block[0].chain === chainId : 'n/a'}`)
         this.logger?.info(`  - headNumber check: ${block ? block[0].block > headNumber : 'n/a'}`)
         this.logger?.info(`  - isSignedHydratedBlockWithHashMeta: ${block ? isSignedHydratedBlockWithHashMeta(block) : 'n/a'}`)
+        this.logger?.info(`  - block value: ${block ? JSON.stringify(block, null, 2) : 'n/a'}`)
       }
       return result
     })
