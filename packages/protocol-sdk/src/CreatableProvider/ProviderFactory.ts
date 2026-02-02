@@ -111,7 +111,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     scopeObject[this.resolvedMoniker] = resultPromise
     const result = await resultPromise
     if (start) {
-      assertEx(await result.start(), () => 'Failed to start provider instance')
+      assertEx(await result.start(), () => `Failed to start provider instance [${this.resolvedMoniker}]`)
     }
     return result
   }
