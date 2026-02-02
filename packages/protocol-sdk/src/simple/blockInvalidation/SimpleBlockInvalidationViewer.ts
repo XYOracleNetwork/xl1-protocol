@@ -179,10 +179,10 @@ export class SimpleBlockInvalidationViewer extends AbstractCreatableProvider<Sim
     }
     return (await Promise.all(uncles[0].map(async (block) => {
       const errors = await this.params.state!(
-        this.context,
+        {
+          ...this.context, chainIdAtBlockNumber, accountBalance: this._accountBalanceViewer,
+        },
         block,
-        chainIdAtBlockNumber,
-        { accountBalance: this._accountBalanceViewer },
       )
       return (errors.length === 0) ? block : errors
     })))

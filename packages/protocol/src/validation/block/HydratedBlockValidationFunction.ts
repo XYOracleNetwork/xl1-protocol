@@ -6,6 +6,8 @@ import type {
 import type { HydratedBlockWithHashMeta } from '../../zod/index.ts'
 import type { HydratedBlockValidationError } from './error.ts'
 
+export interface HydratedBlockValidationFunctionContext extends BaseContext {}
+
 /**
  * A function that validates a hydrated block.
  * @param hydratedBlock The hydrated block to validate.
@@ -13,7 +15,7 @@ import type { HydratedBlockValidationError } from './error.ts'
  * @returns An array of errors if the block is invalid, or an empty array if it is valid.
  */
 export type HydratedBlockValidationFunction = (
-  context: BaseContext,
+  context: HydratedBlockValidationFunctionContext,
   hydratedBlock: HydratedBlockWithHashMeta,
   chainIdAtBlockNumber?: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
 ) => Promisable<HydratedBlockValidationError[]>

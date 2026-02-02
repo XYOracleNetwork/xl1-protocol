@@ -7,6 +7,13 @@ import type { AccountBalanceViewer } from '../../viewers/index.ts'
 import type { HydratedBlockWithHashMeta } from '../../zod/index.ts'
 import type { HydratedBlockStateValidationError } from './error.ts'
 
+export type ChainAtBlockNumberFunction = (blockNumber: XL1BlockNumber) => Promisable<ChainId>
+
+export interface HydratedBlockStateValidationFunctionContext extends BaseContext {
+  accountBalance: AccountBalanceViewer
+  chainIdAtBlockNumber: ChainAtBlockNumberFunction
+}
+
 /**
  * A function that validates a hydrated block against chain state.
  * @param hydratedBlock The hydrated block to validate.
@@ -15,8 +22,6 @@ import type { HydratedBlockStateValidationError } from './error.ts'
  * @returns An array of errors if the block is invalid, or an empty array if it is valid.
  */
 export type HydratedBlockStateValidationFunction = (
-  context: BaseContext,
+  context: HydratedBlockStateValidationFunctionContext,
   hydratedBlock: HydratedBlockWithHashMeta,
-  chainIdAtBlockNumber: (blockNumber: XL1BlockNumber) => Promisable<ChainId>,
-  services: { accountBalance: AccountBalanceViewer },
 ) => Promisable<HydratedBlockStateValidationError[]>
