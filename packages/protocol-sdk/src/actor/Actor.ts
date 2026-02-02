@@ -11,7 +11,9 @@ import { AccountInstance } from '@xyo-network/account-model'
 import { Semaphore } from 'async-mutex'
 
 import { Config, getDefaultConfig } from '../config/index.ts'
-import { ProviderFactoryLocator, ProviderFactoryLocatorInstance } from '../CreatableProvider/index.ts'
+import {
+  CreatableProviderFactory, ProviderFactoryLocator, ProviderFactoryLocatorInstance,
+} from '../CreatableProvider/index.ts'
 import { CachingBaseContext } from '../model/index.ts'
 
 export interface ActorContext extends CachingBaseContext {
@@ -63,6 +65,10 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     return `[${this.displayName} (${this.id})] `
   }
 
+  static defaultFactories(): CreatableProviderFactory[] {
+    return []
+  }
+
   static override async paramsHandler<T extends ActorInstance>(params?: Partial<T['params']>) {
     const baseParams = await super.paramsHandler(params)
     const id = params?.id ?? baseParams.name ?? 'UnnamedActor'
@@ -92,8 +98,9 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
       singletons,
     }
 
-    const locator = params?.context?.locator ?? new ProviderFactoryLocator(context)
-    return { ...context, ...locator.context }
+    const locator = new ProviderFactoryLocator(context)
+    locator.registerMany(this.defaultFactories())
+    return locator.context
   }
 
   /**
