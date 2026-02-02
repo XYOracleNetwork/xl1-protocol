@@ -43,8 +43,8 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
 
   private _signatureCache: SignatureInstance[] = []
 
-  protected constructor(context: HydratedTransactionWrapperContext, data: T) {
-    this.context = context
+  protected constructor(data: T, context?: HydratedTransactionWrapperContext) {
+    this.context = context ?? { singletons: {} }
     this.data = data
     this.fees = new FeesWrapper(
       this.boundWitness.fees,
@@ -114,10 +114,9 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
     return [...this._signatureCache]
   }
 
-  static async parse<T extends HydratedTransactionWithHashMeta>(context: HydratedTransactionWrapperContext, transaction: T, validate = false): Promise<HydratedTransactionInstance<[T[0],
+  static async parse<T extends HydratedTransactionWithHashMeta>(transaction: T, validate = false): Promise<HydratedTransactionInstance<[T[0],
     T[1][number][]]>> {
     const wrapper = new HydratedTransactionWrapper<T>(
-      context,
       transaction,
     )
     const parsed = await wrapper.parse()
