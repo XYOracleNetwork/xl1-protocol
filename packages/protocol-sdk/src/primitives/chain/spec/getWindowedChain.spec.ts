@@ -5,21 +5,10 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import { getDefaultConfig } from '../../../config/index.ts'
+import { getEmptyContext } from '../../../context/index.ts'
 import type { CreatableProviderContext } from '../../../CreatableProvider/index.ts'
-import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'
-
-function getTestContext(): CreatableProviderContext {
-  const config = getDefaultConfig()
-  const singletons = {}
-  const caches = {}
-  const locator = new ProviderFactoryLocator({
-    config, singletons, caches,
-  })
-  return locator.context
-}
 
 describe('getWindowedChain', () => {
   let finalizedArchivist: ArchivistInstance
@@ -27,7 +16,7 @@ describe('getWindowedChain', () => {
   let context: CreatableProviderContext
 
   beforeEach(async () => {
-    context = getTestContext()
+    context = getEmptyContext()
     finalizedArchivist = await MemoryArchivist.create({ account: 'random', config: { name: 'FinalizedArchivist' } })
     blockViewer = await SimpleBlockViewer.create({
       finalizedArchivist,
