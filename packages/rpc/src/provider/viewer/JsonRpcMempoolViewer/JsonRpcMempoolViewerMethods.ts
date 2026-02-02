@@ -1,8 +1,7 @@
-import type { SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
-import {
-  type MempoolViewerMethods, MempoolViewerMoniker,
-  type PendingBlocksOptions, type PendingTransactionsOptions,
-} from '@xyo-network/xl1-protocol-sdk'
+import type {
+  MempoolViewerMethods, PendingBlocksOptions, PendingTransactionsOptions, SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta,
+} from '@xyo-network/xl1-protocol'
+import { MempoolViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { MempoolViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

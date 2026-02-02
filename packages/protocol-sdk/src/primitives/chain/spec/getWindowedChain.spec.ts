@@ -1,5 +1,6 @@
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
+import type { BlockViewer } from '@xyo-network/xl1-protocol'
 import {
   beforeEach, describe, expect, it,
 } from 'vitest'
@@ -7,7 +8,6 @@ import {
 import { getDefaultConfig } from '../../../config/index.ts'
 import type { CreatableProviderContext } from '../../../CreatableProvider/index.ts'
 import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
-import type { BlockViewer } from '../../../model/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'
 

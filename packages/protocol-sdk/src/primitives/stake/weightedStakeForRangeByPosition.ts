@@ -1,8 +1,12 @@
 import type { Address } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
-import { asBlockNumber, type BlockRange } from '@xyo-network/xl1-protocol'
+import type {
+  BlockRange,
+  BlockViewer,
+} from '@xyo-network/xl1-protocol'
+import { asBlockNumber } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer, StakedChainContextRead } from '../../model/index.ts'
+import type { StakedChainContextRead } from '../../model/index.ts'
 import { withContextCacheResponse } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByPosition } from './mergedAddRemoveStakeEventsByPosition.ts'
 

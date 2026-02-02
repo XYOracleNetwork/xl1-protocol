@@ -10,29 +10,34 @@ import {
 import { TransactionElevationValidator } from '../TransactionElevationValidator.ts'
 
 describe('TransactionDurationValidator', () => {
-  const chain = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const chainId = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const context = {
+    chainId,
+    singletons: {},
+    caches: {},
+  }
   let signer: AccountInstance
   beforeAll(async () => {
     signer = await Account.random()
   })
   describe('should return no errors', () => {
     it('if all script hash payloads are supplied', async () => {
-      const tx = await buildRandomTransaction(chain, [], signer)
-      const result = await TransactionElevationValidator(tx, chain)
+      const tx = await buildRandomTransaction(chainId, [], signer)
+      const result = await TransactionElevationValidator(context, tx)
       expect(result.length).toBe(0)
     })
     it('when no payloads referenced in script hash', async () => {
-      const sample = await buildRandomTransaction(chain, [], signer)
-      const tx = await buildTransaction(chain, [], sample[1], signer, asXL1BlockNumber(1, true), asXL1BlockNumber(2, true))
-      const result = await TransactionElevationValidator(tx, chain)
+      const sample = await buildRandomTransaction(chainId, [], signer)
+      const tx = await buildTransaction(chainId, [], sample[1], signer, asXL1BlockNumber(1, true), asXL1BlockNumber(2, true))
+      const result = await TransactionElevationValidator(context, tx)
       expect(result.length).toBe(0)
     })
   })
   describe('should return errors', () => {
     it('if not all script hash payloads are supplied', async () => {
-      const [bw] = await buildRandomTransaction(chain, [], signer)
+      const [bw] = await buildRandomTransaction(chainId, [], signer)
       const tx = [bw, []] as SignedHydratedTransactionWithHashMeta
-      const result = await TransactionElevationValidator(tx, chain)
+      const result = await TransactionElevationValidator(context, tx)
       expect(result.length).toBe(1)
     })
   })

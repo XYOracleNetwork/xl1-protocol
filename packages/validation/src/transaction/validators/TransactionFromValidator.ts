@@ -1,10 +1,11 @@
 import { asAddress, ZERO_HASH } from '@xylabs/sdk-js'
 import { addressesContains } from '@xyo-network/boundwitness-validator'
-import type { HydratedTransactionValidationFunction, HydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
+import type { HydratedTransactionValidationFunction } from '@xyo-network/xl1-protocol'
 import { HydratedTransactionValidationError } from '@xyo-network/xl1-protocol'
 
 export const TransactionFromValidator: HydratedTransactionValidationFunction = (
-  tx: HydratedTransactionWithHashMeta,
+  context,
+  tx,
 ) => {
   const errors: HydratedTransactionValidationError[] = []
   try {

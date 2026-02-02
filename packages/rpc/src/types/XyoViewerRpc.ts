@@ -1,4 +1,4 @@
-import type { XyoViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type XyoViewerMethodName = keyof XyoViewerMethods
 

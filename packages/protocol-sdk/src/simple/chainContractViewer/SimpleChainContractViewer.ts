@@ -2,14 +2,14 @@ import {
   type Address, assertEx,
   type Hash,
 } from '@xylabs/sdk-js'
-import { ChainId, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import {
+  ChainContractViewer, ChainContractViewerMoniker, ChainId, XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import {
-  ChainContractViewer, ChainContractViewerMoniker, withContextCacheResponse,
-} from '../../model/index.ts'
+import { withContextCacheResponse } from '../../model/index.ts'
 
 export interface SimpleChainContractViewerParams extends CreatableProviderParams {
   chainId: ChainId

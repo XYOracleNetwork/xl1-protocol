@@ -1,6 +1,5 @@
-import {
-  creatableProvider, type TimeSyncViewer, TimeSyncViewerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+import { type TimeSyncViewer, TimeSyncViewerMoniker } from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcTimeSyncViewerMethods } from './JsonRpcTimeSyncViewerMethods.ts'
 

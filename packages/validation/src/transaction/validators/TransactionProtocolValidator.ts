@@ -2,13 +2,12 @@ import { ZERO_HASH } from '@xylabs/sdk-js'
 import type {
   ChainId,
   HydratedTransactionValidationFunction,
-  HydratedTransactionWithHashMeta,
 } from '@xyo-network/xl1-protocol'
 import { HydratedTransactionValidationError } from '@xyo-network/xl1-protocol'
 
 export const TransactionProtocolValidator: HydratedTransactionValidationFunction = async (
-  tx: HydratedTransactionWithHashMeta,
-  context?: { chainId?: ChainId },
+  context: { chainId?: ChainId },
+  tx,
 ) => {
   const errors: HydratedTransactionValidationError[] = []
   try {

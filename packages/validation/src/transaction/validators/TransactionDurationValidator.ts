@@ -1,9 +1,10 @@
 import { ZERO_HASH } from '@xylabs/sdk-js'
-import type { HydratedTransactionValidationFunction, HydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
+import type { HydratedTransactionValidationFunction } from '@xyo-network/xl1-protocol'
 import { HydratedTransactionValidationError } from '@xyo-network/xl1-protocol'
 
 export const TransactionDurationValidator: HydratedTransactionValidationFunction = (
-  tx: HydratedTransactionWithHashMeta,
+  context,
+  tx,
 // eslint-disable-next-line complexity
 ) => {
   const errors: HydratedTransactionValidationError[] = []

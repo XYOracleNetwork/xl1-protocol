@@ -1,4 +1,4 @@
-import type { XyoViewer } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoViewer } from '@xyo-network/xl1-protocol'
 
 import type { XyoViewerRpcMethodHandlers } from '../types/index.ts'
 

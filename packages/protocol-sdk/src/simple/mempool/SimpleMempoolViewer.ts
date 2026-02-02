@@ -5,17 +5,18 @@ import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import {
   HashMeta, isHashMeta, isPayloadBundle, PayloadBundle, type Sequence,
 } from '@xyo-network/payload-model'
-import type {
-  HydratedTransactionWithHashMeta, SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta,
+import {
+  type HydratedTransactionWithHashMeta, type MempoolViewer, MempoolViewerMoniker,
+  PendingTransactionsOptions,
+  type SignedHydratedBlockWithHashMeta, type SignedHydratedTransactionWithHashMeta,
+  WindowedBlockViewer,
+  WindowedBlockViewerMoniker,
 } from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import { bundledPayloadToHydratedBlock, bundledPayloadToHydratedTransaction } from '../../model/index.ts'
-import {
-  type MempoolViewer, MempoolViewerMoniker, type PendingTransactionsOptions, WindowedBlockViewer, WindowedBlockViewerMoniker,
-} from '../../model/index.ts'
 
 type PayloadBundleWithHashMeta = PayloadBundle & HashMeta
 

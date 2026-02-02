@@ -1,8 +1,9 @@
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { MapType, MapTypeRead } from '@xyo-network/xl1-protocol'
 import type { Semaphore } from 'async-mutex'
 
 import type {
-  CachingBaseContext, ChainContext, ChainContextRead, MapType, MapTypeRead,
+  CachingBaseContext, ChainContext, ChainContextRead,
 } from '../../model/index.ts'
 import type { BalancesStepSummary } from './BalancesStepSummary.ts'
 import type { SchemasStepSummary } from './SchemasStepSummary.ts'

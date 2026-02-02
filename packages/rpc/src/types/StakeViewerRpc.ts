@@ -1,4 +1,4 @@
-import type { StakeViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { StakeViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type StakeViewerMethodName = keyof StakeViewerMethods
 

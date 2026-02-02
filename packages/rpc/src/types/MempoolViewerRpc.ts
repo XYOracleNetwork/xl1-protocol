@@ -1,4 +1,4 @@
-import type { MempoolViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { MempoolViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type MempoolViewerMethodName = keyof MempoolViewerMethods
 

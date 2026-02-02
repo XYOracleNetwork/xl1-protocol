@@ -48,8 +48,9 @@ export const DerivedReceiveAddressValidatorFactory = (allowedSigners: Address[],
 
 export function TransactionTransfersValidatorFactory(
   signerValidators: SignerValidator[] = [SelfSignerValidator],
-): HydratedTransactionValidationFunction<{ step?: StepIdentity }> {
+): HydratedTransactionValidationFunction {
   return async (
+    context,
     hydratedTx,
   ) => {
     const errors: HydratedTransactionValidationError[] = []

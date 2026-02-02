@@ -2,9 +2,8 @@ import {
   assertEx,
   exists, type Hash,
 } from '@xylabs/sdk-js'
-import { isTransactionBoundWitness, type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
-
-import type { BaseContext } from '../../model/index.ts'
+import type { BaseContext, SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+import { isTransactionBoundWitness } from '@xyo-network/xl1-protocol'
 
 function blocksToChains(blocks: SignedHydratedBlockWithHashMeta[]) {
   const chains: SignedHydratedBlockWithHashMeta[][] = []

@@ -1,10 +1,12 @@
 import type { Address, Hash } from '@xylabs/sdk-js'
 import { asAddress, spanRootAsync } from '@xylabs/sdk-js'
-import { asBlockBoundWitnessWithStorageMeta, asXL1BlockRange } from '@xyo-network/xl1-protocol'
+import type { ChainQualified, ChainQualifiedConfig } from '@xyo-network/xl1-protocol'
+import {
+  asBlockBoundWitnessWithStorageMeta, asXL1BlockRange, isChainQualifiedHeadConfig,
+  isChainQualifiedRangeConfig,
+} from '@xyo-network/xl1-protocol'
 
 import { deepCalculateFramesFromRange } from '../../../block/index.ts'
-import type { ChainQualified, ChainQualifiedConfig } from '../../../model/index.ts'
-import { isChainQualifiedHeadConfig, isChainQualifiedRangeConfig } from '../../../model/index.ts'
 import { parseSignedBigInt } from '../../../SignedBigInt.ts'
 import type { TransfersStepSummaryContext } from '../../model/index.ts'
 import { transfersStepSummaryFromRange } from './transfersStepSummaryFromRange.ts'

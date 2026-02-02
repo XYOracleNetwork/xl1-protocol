@@ -17,7 +17,12 @@ import {
 import { TransactionFromValidator } from '../TransactionFromValidator.ts'
 
 describe('TransactionFromValidator', () => {
-  const chain = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const chainId = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const context = {
+    chainId,
+    singletons: {},
+    caches: {},
+  }
   let signer: AccountInstance
   beforeAll(async () => {
     signer = await Account.random()
@@ -25,12 +30,12 @@ describe('TransactionFromValidator', () => {
   describe('with from empty', () => {
     let hydratedTransaction: SignedHydratedTransactionWithHashMeta
     beforeEach(async () => {
-      const transaction = await buildTransaction(chain, [], [], signer, asXL1BlockNumber(0, true), asXL1BlockNumber(Number.MAX_SAFE_INTEGER, true))
+      const transaction = await buildTransaction(chainId, [], [], signer, asXL1BlockNumber(0, true), asXL1BlockNumber(Number.MAX_SAFE_INTEGER, true))
       const { from, ...tx } = transaction[0]
       hydratedTransaction = [tx as Signed<TransactionBoundWitnessWithHashMeta>, transaction[1]]
     })
     it('should return error', async () => {
-      const errors = await TransactionFromValidator(hydratedTransaction, chain)
+      const errors = await TransactionFromValidator(context, hydratedTransaction)
       expect(errors.length).toBeGreaterThan(0)
     })
   })
@@ -39,7 +44,7 @@ describe('TransactionFromValidator', () => {
     beforeEach(async () => {
       const from = await Account.random()
       hydratedTransaction = await buildTransaction(
-        chain,
+        chainId,
         [],
         [],
         signer,
@@ -49,7 +54,7 @@ describe('TransactionFromValidator', () => {
       )
     })
     it('should return error', async () => {
-      const errors = await TransactionFromValidator(hydratedTransaction, chain)
+      const errors = await TransactionFromValidator(context, hydratedTransaction)
       expect(errors.length).toBeGreaterThan(0)
     })
   })

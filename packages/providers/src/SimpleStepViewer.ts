@@ -2,25 +2,21 @@ import {
   type Address,
   type Promisable,
 } from '@xylabs/sdk-js'
-import type { PositionId, StepIdentity } from '@xyo-network/xl1-protocol'
 import {
-  AbstractCreatableProvider,
   BlockViewer,
   BlockViewerMoniker,
+  NetworkStakeStepRewardsViewer,
+  NetworkStakeStepRewardsViewerMoniker,
+  PagedPositionsOptions,
+  PagedStakersOptions,
+  Position,
+  type PositionId, StakeEventsViewer, StakeEventsViewerMoniker, StakeViewer, StakeViewerMoniker, type StepIdentity, StepViewer, StepViewerMoniker,
+} from '@xyo-network/xl1-protocol'
+import {
+  AbstractCreatableProvider,
   creatableProvider,
   CreatableProviderParams,
   externalBlockRangeFromStep,
-  NetworkStakeStepRewardsViewer,
-  NetworkStakeStepRewardsViewerMoniker,
-  type PagedPositionsOptions,
-  type PagedStakersOptions,
-  type Position,
-  StakeEventsViewer,
-  StakeEventsViewerMoniker,
-  StakeViewer,
-  StakeViewerMoniker,
-  type StepViewer,
-  StepViewerMoniker,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleStepViewerParams extends CreatableProviderParams {

@@ -4,9 +4,10 @@ import {
   asHashMeta, type Payload, type WithHashMeta,
 } from '@xyo-network/payload-model'
 import type {
-  BlockRate, Count, SignedHydratedBlockWithHashMeta, StepIndex, TimeDurations, XL1BlockNumber, XL1BlockRange,
+  BlockRate, BlockViewerMethods,
+  Count, SignedHydratedBlockWithHashMeta, StepIndex, TimeDurations, XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
-import { type BlockViewerMethods, BlockViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { BlockViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { BlockViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

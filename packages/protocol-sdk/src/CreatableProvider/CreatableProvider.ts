@@ -4,11 +4,10 @@ import type {
   Creatable, CreatableInstance, CreatableParams,
   Labels, WithOptionalLabels,
 } from '@xylabs/sdk-js'
+import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
 
 import type { Config } from '../config/index.ts'
-import type {
-  CachingBaseContext, Provider, ProviderMoniker,
-} from '../model/index.ts'
+import type { CachingBaseContext } from '../model/index.ts'
 import type { RuntimeStatusMonitor } from '../status/index.ts'
 import type { GetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'

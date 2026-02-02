@@ -2,19 +2,19 @@ import type { Promisable } from '@xylabs/sdk-js'
 import { isArray } from '@xylabs/sdk-js'
 import type {
   AttoXL1,
+  BlockViewer,
+  NetworkStakeStepRewardsByPositionViewer,
+  NetworkStakeStepRewardsByPositionViewerOptions,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
-import { asAttoXL1, asXL1BlockRange } from '@xyo-network/xl1-protocol'
+import {
+  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
+} from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider,
   blockRangeSteps,
-  BlockViewer,
-  BlockViewerMoniker,
   creatableProvider,
   CreatableProviderParams,
-  type NetworkStakeStepRewardsByPositionViewer,
-  NetworkStakeStepRewardsByPositionViewerMoniker,
-  type NetworkStakeStepRewardsByPositionViewerOptions,
   type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 

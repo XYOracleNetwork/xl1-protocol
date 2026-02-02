@@ -1,7 +1,6 @@
 import { hexToBigInt, ZERO_HASH } from '@xylabs/sdk-js'
 import type {
   HydratedTransactionValidationFunction,
-  HydratedTransactionWithHashMeta,
   TransactionFeesBigInt, TransactionFeesHex,
 } from '@xyo-network/xl1-protocol'
 import {
@@ -11,7 +10,8 @@ import {
 } from '@xyo-network/xl1-protocol'
 
 export const TransactionGasValidator: HydratedTransactionValidationFunction = (
-  tx: HydratedTransactionWithHashMeta,
+  context,
+  tx,
 // eslint-disable-next-line complexity
 ) => {
   const errors: HydratedTransactionValidationError[] = []

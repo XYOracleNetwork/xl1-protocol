@@ -1,5 +1,6 @@
-import { SignedHydratedBlockWithHashMetaZod, SignedHydratedTransactionWithHashMetaZod } from '@xyo-network/xl1-protocol'
-import { PendingBlocksOptionsZod, PendingTransactionsOptionsZod } from '@xyo-network/xl1-protocol-sdk'
+import {
+  PendingBlocksOptionsZod, PendingTransactionsOptionsZod, SignedHydratedBlockWithHashMetaZod, SignedHydratedTransactionWithHashMetaZod,
+} from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import type { MempoolViewerRpcMethodName } from '../MempoolViewerRpc.ts'

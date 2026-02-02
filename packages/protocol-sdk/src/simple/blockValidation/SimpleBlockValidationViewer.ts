@@ -1,8 +1,22 @@
 import { assertEx, Promisable } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
 import {
+  AccountBalanceViewer,
+  AccountBalanceViewerMoniker,
   asXL1BlockRange,
+  BlockValidationConfig,
+  BlockValidationQualification,
+  BlockValidationViewer,
+  BlockValidationViewerMoniker,
+  BlockViewer,
+  BlockViewerMoniker,
+  ChainContractViewer,
+  ChainContractViewerMoniker,
   ChainId,
+  HydratedBlockStateValidationFunction,
+  HydratedBlockValidationError,
+  HydratedBlockValidationFunction,
+  isChainQualifiedHeadConfig,
   isHydratedBlock,
   SignedHydratedBlock,
   type SignedHydratedBlockWithHashMeta,
@@ -11,22 +25,7 @@ import {
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import type {
-  AccountBalanceViewer,
-  BlockValidationConfig,
-  BlockValidationQualification,
-  BlockValidationViewer,
-  ChainContractViewer,
-} from '../../model/index.ts'
-import {
-  AccountBalanceViewerMoniker,
-  BlockValidationViewerMoniker, BlockViewer, BlockViewerMoniker,
-  ChainContractViewerMoniker, isChainQualifiedHeadConfig,
-} from '../../model/index.ts'
 import { findUncles, getWindowedChain } from '../../primitives/index.ts'
-import type {
-  HydratedBlockStateValidationFunction, HydratedBlockValidationError, HydratedBlockValidationFunction,
-} from '../../validation/index.ts'
 
 export interface SimpleBlockValidationViewerParams extends CreatableProviderParams {
   maxUncleWindowSize: number

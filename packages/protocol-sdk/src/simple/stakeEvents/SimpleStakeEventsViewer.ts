@@ -1,13 +1,11 @@
 import { isDefined } from '@xylabs/sdk-js'
+import {
+  Position, StakeEvent, StakeEventFilter, StakeEventName, StakeEventsViewer, StakeEventsViewerMoniker,
+} from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import {
-  Position,
-  StakeEvent, StakeEventFilter, StakeEventName, StakeEventsViewer,
-  StakeEventsViewerMoniker,
-} from '../../model/index.ts'
 
 export interface SimpleStakeEventsParams extends CreatableProviderParams {
   positions: Position[]

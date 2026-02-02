@@ -7,7 +7,7 @@ import type {
   WithStorageMeta,
 } from '@xyo-network/payload-model'
 import type {
-  AllowedBlockPayload, HydratedTransactionWithHashMeta, Transfer,
+  AllowedBlockPayload, BaseContext, ChainId, HydratedTransactionWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'
 import { isTransfer, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 import type {
@@ -30,15 +30,21 @@ const sumTransfers = (payload: Transfer) => {
   return total
 }
 
+export interface HydratedTransactionWrapperContext extends BaseContext {
+  chainId: ChainId
+}
+
 export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMeta> implements HydratedTransactionInstance<T> {
   data: T
   fees: TransactionFeesInstance
 
+  protected context: HydratedTransactionWrapperContext
   protected payloadsCache: WithStorageMeta<Payload>[] = []
 
   private _signatureCache: SignatureInstance[] = []
 
-  protected constructor(data: T) {
+  protected constructor(context: HydratedTransactionWrapperContext, data: T) {
+    this.context = context
     this.data = data
     this.fees = new FeesWrapper(
       this.boundWitness.fees,
@@ -108,9 +114,10 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
     return [...this._signatureCache]
   }
 
-  static async parse<T extends HydratedTransactionWithHashMeta>(transaction: T, validate = false): Promise<HydratedTransactionInstance<[T[0],
+  static async parse<T extends HydratedTransactionWithHashMeta>(context: HydratedTransactionWrapperContext, transaction: T, validate = false): Promise<HydratedTransactionInstance<[T[0],
     T[1][number][]]>> {
     const wrapper = new HydratedTransactionWrapper<T>(
+      context,
       transaction,
     )
     const parsed = await wrapper.parse()
@@ -150,7 +157,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
 
   async validate(): Promise<Error[]> {
     const errors: Error[] = [...(await Promise.all(this._signatureCache.map(signature => signature.validate()))).flat(),
-      ...(await validateTransaction(this.data))]
+      ...(await validateTransaction(this.context, this.data))]
     return errors
   }
 

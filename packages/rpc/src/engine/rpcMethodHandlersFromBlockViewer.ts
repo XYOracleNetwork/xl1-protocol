@@ -1,4 +1,4 @@
-import type { BlockViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { BlockViewerMethods } from '@xyo-network/xl1-protocol'
 
 import type { BlockViewerRpcMethodHandlers } from '../types/index.ts'
 

@@ -1,7 +1,6 @@
-import type { SingleTimeConfig } from '@xyo-network/xl1-protocol'
-import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
+import type { BlockViewer, SingleTimeConfig } from '@xyo-network/xl1-protocol'
+import { asXL1BlockNumber, BlockViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
-  type BlockViewer, BlockViewerMoniker,
   calculateTimeRate, DEFAULT_TOLERANCE_MS, rateMultipliers,
 } from '@xyo-network/xl1-protocol-sdk'
 import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'

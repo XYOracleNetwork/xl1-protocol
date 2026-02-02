@@ -1,13 +1,13 @@
 import type { Hash } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
-import type {
-  ChainId,
-  SignedHydratedBlockWithHashMeta,
-  XL1BlockNumber,
-} from '@xyo-network/xl1-protocol'
 import {
-  type BlockViewer, BlockViewerMoniker, creatableProvider,
-} from '@xyo-network/xl1-protocol-sdk'
+  type BlockViewer,
+  BlockViewerMoniker,
+  type ChainId,
+  type SignedHydratedBlockWithHashMeta,
+  type XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcBlockViewerMethods } from './JsonRpcBlockViewerMethods.ts'
 

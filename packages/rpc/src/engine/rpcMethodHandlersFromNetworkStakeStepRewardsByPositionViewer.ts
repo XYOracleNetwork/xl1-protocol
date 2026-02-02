@@ -1,4 +1,4 @@
-import type { NetworkStakeStepRewardsByPositionViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { NetworkStakeStepRewardsByPositionViewerMethods } from '@xyo-network/xl1-protocol'
 
 import type { NetworkStakingStepRewardsByPositionViewerRpcMethodHandlers } from '../types/index.ts'
 

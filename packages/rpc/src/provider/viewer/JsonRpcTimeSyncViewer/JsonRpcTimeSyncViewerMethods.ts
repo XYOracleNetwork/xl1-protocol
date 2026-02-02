@@ -1,8 +1,8 @@
 import type {
   TimeDomain,
-  TimePayload,
+  TimePayload, TimeSyncViewerMethods,
 } from '@xyo-network/xl1-protocol'
-import { type TimeSyncViewerMethods, TimeSyncViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { TimeSyncViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { TimeSyncViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

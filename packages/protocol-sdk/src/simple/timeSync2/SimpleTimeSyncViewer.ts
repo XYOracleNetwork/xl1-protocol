@@ -2,17 +2,18 @@ import type { Hash } from '@xylabs/sdk-js'
 import {
   asHash, assertEx, isDefined,
 } from '@xylabs/sdk-js'
-import type { TimeDomain, TimePayload } from '@xyo-network/xl1-protocol'
+import type {
+  BlockViewer,
+  TimeDomain, TimePayload, TimeSyncViewer,
+} from '@xyo-network/xl1-protocol'
 import {
-  asTimePayload, asXL1BlockNumber, TimeSchema,
+  asTimePayload, asXL1BlockNumber, BlockViewerMoniker, TimeSchema,
+  TimeSyncViewerMoniker,
 } from '@xyo-network/xl1-protocol'
 import type { Provider } from 'ethers'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import {
-  type BlockViewer, BlockViewerMoniker, type TimeSyncViewer, TimeSyncViewerMoniker,
-} from '../../model/index.ts'
 
 export interface SimpleTimeSyncViewerParams extends CreatableProviderParams {
   ethProvider?: Provider

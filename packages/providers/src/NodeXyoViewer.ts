@@ -3,7 +3,7 @@ import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import { asAttachableArchivistInstance } from '@xyo-network/archivist-model'
 import type { ModuleIdentifier } from '@xyo-network/module-model'
 import type { NodeInstance } from '@xyo-network/node-model'
-import type { XyoViewer } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoViewer } from '@xyo-network/xl1-protocol'
 import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { SimpleXyoViewer, SimpleXyoViewerParams } from './SimpleXyoViewer.ts'

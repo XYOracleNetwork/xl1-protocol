@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
-import type { StakeViewerMethods } from '@xyo-network/xl1-protocol-sdk'
-import { StakeViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import type { StakeViewerMethods } from '@xyo-network/xl1-protocol'
+import { StakeViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { StakeViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

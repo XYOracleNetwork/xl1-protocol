@@ -1,4 +1,4 @@
-import type { NetworkStakeViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { NetworkStakeViewerMethods } from '@xyo-network/xl1-protocol'
 
 import type { NetworkStakeViewerRpcMethodHandlers } from '../types/index.ts'
 

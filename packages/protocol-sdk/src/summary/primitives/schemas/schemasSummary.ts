@@ -1,12 +1,12 @@
 import { spanRootAsync } from '@xylabs/sdk-js'
 import type { Schema } from '@xyo-network/payload-model'
-import { asBlockBoundWitnessWithStorageMeta, asXL1BlockRange } from '@xyo-network/xl1-protocol'
+import type { ChainQualified, ChainQualifiedConfig } from '@xyo-network/xl1-protocol'
+import {
+  asBlockBoundWitnessWithStorageMeta, asXL1BlockRange, isChainQualifiedHeadConfig,
+  isChainQualifiedRangeConfig,
+} from '@xyo-network/xl1-protocol'
 
 import { deepCalculateFramesFromRange } from '../../../block/index.ts'
-import {
-  type ChainQualified, type ChainQualifiedConfig, isChainQualifiedHeadConfig,
-  isChainQualifiedRangeConfig,
-} from '../../../model/index.ts'
 import type { SchemasStepSummaryContext } from '../../model/index.ts'
 import { schemasStepSummaryFromRange } from './schemasStepSummaryFromRange.ts'
 

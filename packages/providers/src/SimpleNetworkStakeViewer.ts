@@ -1,13 +1,13 @@
 import { assertEx } from '@xylabs/sdk-js'
-import type { XL1RangeMultipliers } from '@xyo-network/xl1-protocol'
+import {
+  NetworkStakeStepRewardsViewer,
+  NetworkStakeStepRewardsViewerMoniker,
+  NetworkStakeViewer, NetworkStakeViewerMoniker,
+  XL1RangeMultipliers,
+} from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider,
-  creatableProvider,
-  CreatableProviderParams,
-  type NetworkStakeStepRewardsViewer,
-  NetworkStakeStepRewardsViewerMoniker,
-  type NetworkStakeViewer, NetworkStakeViewerMoniker,
-  type StakedChainContextRead,
+  creatableProvider, CreatableProviderParams, StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleNetworkStakeViewerParams extends CreatableProviderParams {

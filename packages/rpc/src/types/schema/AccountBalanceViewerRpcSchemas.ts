@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import {
   AccountBalanceHistoryItemZod, ChainQualifiedConfigZod, ChainQualifiedZod,
-} from '@xyo-network/xl1-protocol-sdk'
+} from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
 import type { AccountBalanceViewerRpcMethodName } from '../AccountBalanceViewerRpc.ts'

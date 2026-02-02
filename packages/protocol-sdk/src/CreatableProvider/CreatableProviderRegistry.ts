@@ -1,7 +1,7 @@
 import type { Labels } from '@xylabs/sdk-js'
 import { isTruthy } from '@xylabs/sdk-js'
+import type { ProviderMoniker } from '@xyo-network/xl1-protocol'
 
-import type { ProviderMoniker } from '../model/index.ts'
 import type { CreatableProviderFactory, CreatableProviderInstance } from './CreatableProvider.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
 

@@ -3,9 +3,12 @@ import {
 } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  ChainId, HydratedBlockWithHashMeta, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
+  BlockViewer,
+  ChainId, HydratedBlockWithHashMeta, SignedHydratedBlockWithHashMeta, SyncMap, WindowedBlockViewer, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
-import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
+import {
+  asXL1BlockNumber, BlockViewerMoniker, WindowedBlockViewerMoniker,
+} from '@xyo-network/xl1-protocol'
 import { Mutex } from 'async-mutex'
 
 import { transactionsFromHydratedBlock } from '../../block/index.ts'
@@ -13,10 +16,6 @@ import {
   AbstractCreatableProvider, creatableProvider, type CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import { MemoryMap } from '../../driver/index.ts'
-import type {
-  BlockViewer, SyncMap, WindowedBlockViewer,
-} from '../../model/index.ts'
-import { BlockViewerMoniker, WindowedBlockViewerMoniker } from '../../model/index.ts'
 
 export interface SimpleWindowedBlockViewerParams extends CreatableProviderParams {
   blockViewer?: BlockViewer

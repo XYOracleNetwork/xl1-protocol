@@ -1,7 +1,9 @@
-import {
-  type StepIdentity, type XL1RangeMultipliers, XYO_NETWORK_STAKING_ADDRESS,
+import type {
+  BlockViewer,
+  StepIdentity, XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
-import type { BlockViewer, StakedChainContextRead } from '@xyo-network/xl1-protocol-sdk'
+import { XYO_NETWORK_STAKING_ADDRESS } from '@xyo-network/xl1-protocol'
+import type { StakedChainContextRead } from '@xyo-network/xl1-protocol-sdk'
 import { withContextCacheResponse } from '@xyo-network/xl1-protocol-sdk'
 
 import { networkStakeStepRewardEarnedForPosition } from './networkStakeStepRewardEarnedForPosition.ts'

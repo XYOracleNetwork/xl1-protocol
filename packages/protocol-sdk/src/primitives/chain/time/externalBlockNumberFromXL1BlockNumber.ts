@@ -1,10 +1,12 @@
 import { assertEx, isArray } from '@xylabs/sdk-js'
-import type { BlockNumber, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import type {
+  BlockNumber, BlockViewer, XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 import {
   asBlockNumber, asTimePayload, isTimePayload,
 } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer, CachingBaseContext } from '../../../model/index.ts'
+import type { CachingBaseContext } from '../../../model/index.ts'
 import { withContextCacheResponse } from '../../../model/index.ts'
 
 const functionName = 'externalBlockNumberFromXL1BlockNumber' as const

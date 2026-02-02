@@ -1,7 +1,8 @@
-import { asXL1BlockNumber, StepSizes } from '@xyo-network/xl1-protocol'
+import type { BlockViewer } from '@xyo-network/xl1-protocol'
 import {
-  type BlockViewer, BlockViewerMoniker, calculateStepSizeRate,
-} from '@xyo-network/xl1-protocol-sdk'
+  asXL1BlockNumber, BlockViewerMoniker, StepSizes,
+} from '@xyo-network/xl1-protocol'
+import { calculateStepSizeRate } from '@xyo-network/xl1-protocol-sdk'
 import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'
 import type { RpcSchemaMap, TransportFactory } from '@xyo-network/xl1-rpc'
 import { HttpRpcTransport } from '@xyo-network/xl1-rpc'

@@ -1,4 +1,4 @@
-import type { TimeSyncViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { TimeSyncViewerMethods } from '@xyo-network/xl1-protocol'
 
 import type { TimeSyncViewerRpcMethodHandlers } from '../types/index.ts'
 

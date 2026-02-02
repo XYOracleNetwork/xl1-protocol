@@ -1,9 +1,9 @@
 import type { Address } from '@xylabs/sdk-js'
-import { type AttoXL1 } from '@xyo-network/xl1-protocol'
-import {
-  type AccountBalanceHistoryItem, type AccountBalanceViewerMethods, AccountBalanceViewerMoniker,
-  type ChainQualified, type ChainQualifiedConfig,
-} from '@xyo-network/xl1-protocol-sdk'
+import type {
+  AccountBalanceHistoryItem,
+  AccountBalanceViewerMethods, AttoXL1, ChainQualified, ChainQualifiedConfig,
+} from '@xyo-network/xl1-protocol'
+import { AccountBalanceViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { AccountBalanceViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

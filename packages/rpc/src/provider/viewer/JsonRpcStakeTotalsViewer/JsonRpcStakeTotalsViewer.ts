@@ -1,6 +1,5 @@
-import {
-  creatableProvider, type StakeTotalsViewer, StakeTotalsViewerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+import { type StakeTotalsViewer, StakeTotalsViewerMoniker } from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcStakeTotalsViewerMethods } from './JsonRpcStakeTotalsViewerMethods.ts'
 

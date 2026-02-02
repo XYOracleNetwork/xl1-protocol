@@ -1,14 +1,15 @@
 import type { Promisable } from '@xylabs/sdk-js'
 import type {
   AttoXL1,
+  NetworkStakeStepRewardsRangeOptions,
+  NetworkStakeStepRewardsTotalViewer,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
-import { asAttoXL1 } from '@xyo-network/xl1-protocol'
+import { asAttoXL1, NetworkStakeStepRewardsTotalViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider,
   creatableProvider,
   CreatableProviderParams,
-  type NetworkStakeStepRewardsRangeOptions, type NetworkStakeStepRewardsTotalViewer, NetworkStakeStepRewardsTotalViewerMoniker,
   type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 

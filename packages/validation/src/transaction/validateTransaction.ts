@@ -1,7 +1,7 @@
 import type {
-  ChainId, HydratedTransactionValidationFunction,
+  HydratedTransactionValidationFunction,
+  HydratedTransactionValidationFunctionContext,
   HydratedTransactionWithHashMeta,
-  StepIdentity,
 } from '@xyo-network/xl1-protocol'
 import { isTransactionBoundWitness } from '@xyo-network/xl1-protocol'
 
@@ -10,30 +10,25 @@ import {
   TransactionElevationValidator, TransactionFromValidator, TransactionGasValidator, TransactionProtocolValidator,
 } from './validators/index.ts'
 
-export type ValidateTransactionContext = {
-  chainId?: ChainId
-  step?: StepIdentity
-}
-
 export async function validateTransaction(
+  context: HydratedTransactionValidationFunctionContext,
   tx: HydratedTransactionWithHashMeta,
-  context?: ValidateTransactionContext,
-  additionalValidators: HydratedTransactionValidationFunction[] = [],
+  additionalValidators?: HydratedTransactionValidationFunction[],
 ) {
   try {
     if (!isTransactionBoundWitness(tx[0])) {
       return [new Error('failed isTransactionBoundWitness identity check')]
     }
 
-    const validators: HydratedTransactionValidationFunction<ValidateTransactionContext>[] = [
+    const validators: HydratedTransactionValidationFunction<HydratedTransactionValidationFunctionContext>[] = [
       TransactionProtocolValidator,
       TransactionDurationValidator,
       TransactionFromValidator,
       TransactionGasValidator,
       TransactionElevationValidator,
-      ...additionalValidators,
+      ...(additionalValidators ?? []),
     ]
-    return (await Promise.all(validators.map(v => v(tx, context)))).flat()
+    return (await Promise.all(validators.map(v => v(context, tx)))).flat()
   } catch (ex) {
     return [(new Error(`Failed TransactionGasValidator: ${ex}`))]
   }

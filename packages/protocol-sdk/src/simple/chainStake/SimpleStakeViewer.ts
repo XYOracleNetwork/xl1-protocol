@@ -2,14 +2,14 @@ import {
   type Address, asAddress, toAddress,
 } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
+import {
+  Position, StakeEventsViewer, StakeEventsViewerMoniker, StakeViewer, StakeViewerMoniker,
+} from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import {
-  PayloadMap, Position,
-  StakeEventsViewer, StakeEventsViewerMoniker, StakeViewer, StakeViewerMoniker,
-} from '../../model/index.ts'
+import { PayloadMap } from '../../model/index.ts'
 
 export interface SimpleChainStakeParams extends CreatableProviderParams {
   chainId?: Address

@@ -4,7 +4,8 @@ import {
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
-  asSignedHydratedBlockWithStorageMeta, ChainId, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,
+  asSignedHydratedBlockWithStorageMeta, ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer,
+  FinalizationViewerMoniker, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta,
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
@@ -13,13 +14,7 @@ import { hydrateBlock } from '../../block/index.ts'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import {
-  ChainContractViewer, ChainContractViewerMoniker, ChainStoreRead,
-} from '../../model/index.ts'
-import {
-  type FinalizationViewer,
-  FinalizationViewerMoniker,
-} from '../../model/index.ts'
+import { ChainStoreRead } from '../../model/index.ts'
 import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 

@@ -3,11 +3,10 @@ import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
 import type {
   AllowedBlockPayload, ChainId,
+  Provider,
   SignedHydratedTransactionWithHashMeta, TransactionBoundWitness,
   TransactionFeesBigInt,
 } from '@xyo-network/xl1-protocol'
-
-import type { Provider } from '../../Provider.ts'
 
 export const XyoSignerMoniker = 'XyoSigner' as const
 export type XyoSignerMoniker = typeof XyoSignerMoniker

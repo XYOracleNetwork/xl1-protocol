@@ -11,6 +11,7 @@ const ajv = new Ajv({ allErrors: true, strict: true })
 let validate: ValidateFunction<TransactionBoundWitness> | undefined
 
 export const TransactionJsonSchemaValidator: HydratedTransactionValidationFunction = (
+  context,
   tx,
 ) => {
   const errors: HydratedTransactionValidationError[] = []

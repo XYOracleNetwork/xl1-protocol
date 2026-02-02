@@ -1,4 +1,4 @@
-import type { StakeTotalsViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { StakeTotalsViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type StakeTotalsViewerMethodName = keyof StakeTotalsViewerMethods
 

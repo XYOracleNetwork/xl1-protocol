@@ -1,6 +1,6 @@
 import { AbstractCreatable, assertEx } from '@xylabs/sdk-js'
+import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
 
-import type { Provider, ProviderMoniker } from '../model/index.ts'
 import type {
   CreatableProvider,
   CreatableProviderEventData, CreatableProviderInstance, CreatableProviderParams,

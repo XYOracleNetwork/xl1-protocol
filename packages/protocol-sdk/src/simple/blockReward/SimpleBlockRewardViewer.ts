@@ -1,10 +1,11 @@
 import { Promisable } from '@xylabs/sdk-js'
-import { AttoXL1, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import {
+  AttoXL1, BlockRewardViewer, BlockRewardViewerMoniker, XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { BlockRewardViewer, BlockRewardViewerMoniker } from '../../model/index.ts'
 import { rewardFromBlockNumber } from '../../primitives/index.ts'
 
 export interface SimpleBlockRewardViewerParams extends CreatableProviderParams {

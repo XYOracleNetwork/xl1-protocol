@@ -26,6 +26,7 @@ export default [
   },
   {
     rules: {
+      '@stylistic/max-len': ['warn', { code: 200 }],
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

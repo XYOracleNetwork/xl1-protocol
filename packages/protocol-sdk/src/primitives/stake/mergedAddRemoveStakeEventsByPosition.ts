@@ -1,4 +1,4 @@
-import type { StakeEvent, StakeEventsViewer } from '../../model/index.ts'
+import type { StakeEvent, StakeEventsViewer } from '@xyo-network/xl1-protocol'
 
 export async function mergedAddRemoveStakeEventsByPosition(
   chainEvents: StakeEventsViewer,

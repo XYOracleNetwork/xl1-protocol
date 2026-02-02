@@ -1,7 +1,8 @@
-import type { AttoXL1 } from '@xyo-network/xl1-protocol'
-import {
-  type NetworkStakeStepRewardsByPositionViewerMethods, type NetworkStakeStepRewardsByPositionViewerOptions, NetworkStakeStepRewardsByStakerViewerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+import type {
+  AttoXL1,
+  NetworkStakeStepRewardsByPositionViewerMethods, NetworkStakeStepRewardsByPositionViewerOptions,
+} from '@xyo-network/xl1-protocol'
+import { NetworkStakeStepRewardsByStakerViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { NetworkStakingStepRewardsByStakerViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

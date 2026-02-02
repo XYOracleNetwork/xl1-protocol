@@ -1,4 +1,4 @@
-import { type NetworkStakeViewerMethods, NetworkStakeViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { type NetworkStakeViewerMethods, NetworkStakeViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { NetworkStakeViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

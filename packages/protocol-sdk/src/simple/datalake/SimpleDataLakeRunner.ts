@@ -1,10 +1,11 @@
 import type { Hash } from '@xylabs/sdk-js'
+import { MapType } from '@xyo-network/xl1-protocol'
 
 import { creatableProvider } from '../../CreatableProvider/index.ts'
 import {
   DataLakeData,
   DataLakeRunner,
-  DataLakeRunnerMoniker, MapType,
+  DataLakeRunnerMoniker,
 } from '../../model/index.ts'
 import { AbstractSimpleDataLake } from './AbstractSimpleDataLake.ts'
 import { DataLakeViewerParams } from './SimpleDataLakeViewer.ts'

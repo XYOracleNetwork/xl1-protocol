@@ -1,6 +1,5 @@
 import { isDefined } from '@xylabs/sdk-js'
-
-import type { SyncMap } from '../../model/index.ts'
+import type { SyncMap } from '@xyo-network/xl1-protocol'
 
 export class MemoryMap<K extends {}, V = {}> implements SyncMap<K, V> {
   private map: Map<K, V>

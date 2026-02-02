@@ -1,4 +1,4 @@
-import type { BlockViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { BlockViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type BlockViewerMethodName = keyof BlockViewerMethods
 

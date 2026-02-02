@@ -1,7 +1,7 @@
 import {
-  creatableProvider,
   type NetworkStakeStepRewardsViewer, NetworkStakeStepRewardsViewerMoniker, type NetworkStakeViewer, NetworkStakeViewerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+} from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import type { JsonRpcNetworkStakingStepRewardsViewer } from '../JsonRpcNetworkStakeStepRewardsViewer/index.ts'
 import { JsonRpcNetworkStakeViewerMethods } from './JsonRpcNetworkStakeViewerMethods.ts'

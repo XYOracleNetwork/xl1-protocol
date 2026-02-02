@@ -2,9 +2,9 @@ import {
   assertEx, type Hash, isDefined, isNull,
   spanRootAsync,
 } from '@xylabs/sdk-js'
-import type { SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
-
-import type { BaseContext, BlockViewer } from '../../model/index.ts'
+import type {
+  BaseContext, BlockViewer, SignedHydratedBlockWithHashMeta,
+} from '@xyo-network/xl1-protocol'
 
 /**
  * Constructs a bounded, contiguous canonical chain ending at the current head.

@@ -1,4 +1,5 @@
-import type { Provider, ProviderMoniker } from '../Provider.ts'
+import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
+
 import type { DataLakeProvider, DataLakeRunner } from './DataLake.ts'
 
 export interface DataLakesProvider<

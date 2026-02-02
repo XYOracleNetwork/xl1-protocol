@@ -1,8 +1,9 @@
 import {
-  creatableProvider, StakeEventsViewer, StakeEventsViewerMoniker, StakeTotalsViewerMoniker,
+  StakeEventsViewer, StakeEventsViewerMoniker, StakeTotalsViewerMoniker,
   StakeViewer,
   StakeViewerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+} from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcStakeViewerMethods } from './JsonRpcStakeViewerMethods.ts'
 

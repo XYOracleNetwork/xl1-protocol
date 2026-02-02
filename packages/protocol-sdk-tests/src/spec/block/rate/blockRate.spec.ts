@@ -1,7 +1,6 @@
-import { asXL1BlockRange } from '@xyo-network/xl1-protocol'
-import {
-  type BlockViewer, BlockViewerMoniker, calculateBlockRate,
-} from '@xyo-network/xl1-protocol-sdk'
+import type { BlockViewer } from '@xyo-network/xl1-protocol'
+import { asXL1BlockRange, BlockViewerMoniker } from '@xyo-network/xl1-protocol'
+import { calculateBlockRate } from '@xyo-network/xl1-protocol-sdk'
 import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'
 import type { RpcSchemaMap, TransportFactory } from '@xyo-network/xl1-rpc'
 import { HttpRpcTransport } from '@xyo-network/xl1-rpc'

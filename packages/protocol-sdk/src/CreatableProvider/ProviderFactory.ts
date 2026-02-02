@@ -1,7 +1,7 @@
 import type { Labels, WithOptionalLabels } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
+import type { ProviderMoniker } from '@xyo-network/xl1-protocol'
 
-import type { ProviderMoniker } from '../model/index.ts'
 import type {
   CreatableProvider, CreatableProviderFactory, CreatableProviderInstance,
   ProviderFactoryScope,

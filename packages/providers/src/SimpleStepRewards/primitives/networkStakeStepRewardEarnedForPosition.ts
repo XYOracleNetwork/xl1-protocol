@@ -1,13 +1,11 @@
 import type {
+  BlockViewer,
+  Position,
   StepIdentity,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import { XYO_NETWORK_STAKING_ADDRESS } from '@xyo-network/xl1-protocol'
-import type {
-  BlockViewer,
-  Position,
-  StakedChainContextRead,
-} from '@xyo-network/xl1-protocol-sdk'
+import type { StakedChainContextRead } from '@xyo-network/xl1-protocol-sdk'
 import {
   externalBlockRangeFromStep, stepRewardTotal, weightedStakeForRangeByPosition, withContextCacheResponse,
 } from '@xyo-network/xl1-protocol-sdk'

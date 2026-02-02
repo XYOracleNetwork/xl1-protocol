@@ -4,6 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import {
+  AccountBalanceHistoryItemZod,
   asAttoXL1,
   BlockRangeZod,
   BlockRateZod,
@@ -14,7 +15,6 @@ import {
   TimeDurationsZod,
   XL1BlockNumberZod, XL1BlockRangeZod,
 } from '@xyo-network/xl1-protocol'
-import { AccountBalanceHistoryItemZod } from '@xyo-network/xl1-protocol-sdk'
 import { z } from 'zod'
 
 import type { XyoViewerRpcMethodName } from '../XyoViewerRpc.ts'

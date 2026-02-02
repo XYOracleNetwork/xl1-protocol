@@ -1,12 +1,10 @@
-import type { Tracer } from '@opentelemetry/api'
-import type { Logger } from '@xylabs/sdk-js'
 import {
   isDefined, isObject, isUndefined,
 } from '@xylabs/sdk-js'
+import type { BaseContext, MapType } from '@xyo-network/xl1-protocol'
 
 import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
 import { timeBudget } from '../../primitives/index.ts'
-import type { MapType } from '../map/index.ts'
 import type {
   ChainStakeContext, ChainStakeContextRead, ChainStakeContextWrite,
 } from './ChainStakeContext.ts'
@@ -14,14 +12,6 @@ import type { ChainStateContextRead, ChainStateContextWrite } from './ChainState
 import type {
   ChainStoreContext, ChainStoreContextRead, ChainStoreContextWrite,
 } from './ChainStoreContext.ts'
-
-export interface BaseContext<TCacheValue = string | object | number | bigint> {
-  caches?: Record<string, MapType<string, TCacheValue>>
-  logger?: Logger
-  singletons: Record<string, unknown>
-  timeBudgetLimit?: number
-  tracer?: Tracer
-}
 
 export interface CachingBaseContext<TCacheValue = string | object | number | bigint> extends BaseContext<TCacheValue> {
   caches: Record<string, MapType<string, TCacheValue>>
@@ -67,9 +57,9 @@ export async function withContextCacheResponse<T extends {} | string | number | 
   return result
 }
 
-export interface ChainContextWrite extends BaseContext, ChainStateContextWrite, ChainStoreContextWrite {}
+export interface ChainContextWrite extends CachingBaseContext, ChainStateContextWrite, ChainStoreContextWrite {}
 
-export interface StakedChainContextWrite extends BaseContext, ChainContextWrite, ChainStakeContextWrite {}
+export interface StakedChainContextWrite extends CachingBaseContext, ChainContextWrite, ChainStakeContextWrite {}
 
 export interface ChainContextRead extends CachingBaseContext, ChainStateContextRead, ChainStoreContextRead {}
 

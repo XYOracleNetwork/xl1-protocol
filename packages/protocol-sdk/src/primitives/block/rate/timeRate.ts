@@ -3,6 +3,7 @@ import {
 } from '@xylabs/sdk-js'
 import type {
   BlockBoundWitness,
+  BlockViewer,
   SingleTimeConfig,
   TimeDurations,
   XL1BlockNumber,
@@ -10,7 +11,6 @@ import type {
 } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, asXL1BlockRange } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../../model/index.ts'
 import { calculateBlockRate } from './blockRate.ts'
 import { getTimeConfigInMilliseconds } from './timeHelpers.ts'
 

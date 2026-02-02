@@ -1,4 +1,5 @@
-import type { ChainContractViewer, ChainStakeViewer } from '../../model/index.ts'
+import type { ChainContractViewer, ChainStakeViewer } from '@xyo-network/xl1-protocol'
+
 import type { BaseChainService } from './BaseChainService.ts'
 
 /** @deprecated use ChainContractViewer, StakeTotalsViewer, StakeRunner instead */

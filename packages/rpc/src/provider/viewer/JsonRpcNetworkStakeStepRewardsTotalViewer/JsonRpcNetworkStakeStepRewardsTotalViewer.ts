@@ -1,4 +1,4 @@
-import { type NetworkStakeStepRewardsTotalViewer, NetworkStakeStepRewardsTotalViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { type NetworkStakeStepRewardsTotalViewer, NetworkStakeStepRewardsTotalViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { JsonRpcNetworkStakeStepRewardsTotalViewerMethods } from './JsonRpcNetworkStakeStepRewardsTotalViewerMethods.ts'
 

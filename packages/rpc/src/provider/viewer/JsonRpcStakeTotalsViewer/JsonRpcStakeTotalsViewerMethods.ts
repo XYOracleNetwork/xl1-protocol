@@ -1,5 +1,5 @@
 import type { Address } from '@xylabs/sdk-js'
-import { type StakeTotalsViewerMethods, StakeTotalsViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { type StakeTotalsViewerMethods, StakeTotalsViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { StakeTotalsViewerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'

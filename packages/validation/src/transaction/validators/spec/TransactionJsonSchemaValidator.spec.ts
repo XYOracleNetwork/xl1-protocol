@@ -8,26 +8,31 @@ import {
 import { TransactionJsonSchemaValidator } from '../TransactionJsonSchemaValidator.ts'
 
 describe('TransactionJsonSchemaValidator', () => {
-  const chain = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const chainId = 'a82920051db4fcbb804463440dd45e03f72442fd' as Address
+  const context = {
+    chainId,
+    singletons: {},
+    caches: {},
+  }
 
   describe('with valid transaction', () => {
     let hydratedTransaction: SignedHydratedTransactionWithHashMeta
     beforeEach(async () => {
-      hydratedTransaction = await buildRandomTransaction(chain)
+      hydratedTransaction = await buildRandomTransaction(chainId)
     })
     it('should return no errors', async () => {
-      const errors = await TransactionJsonSchemaValidator(hydratedTransaction, chain)
+      const errors = await TransactionJsonSchemaValidator(context, hydratedTransaction)
       expect(errors).toEqual([])
     })
   })
   describe('with invalid transaction', () => {
     let hydratedTransaction: SignedHydratedTransactionWithHashMeta
     beforeEach(async () => {
-      hydratedTransaction = await buildRandomTransaction(chain)
+      hydratedTransaction = await buildRandomTransaction(chainId)
       hydratedTransaction[0].chain = 'invalid' as Address // intentionally invalid chain
     })
     it('should return error', async () => {
-      const errors = await TransactionJsonSchemaValidator(hydratedTransaction, chain)
+      const errors = await TransactionJsonSchemaValidator(context, hydratedTransaction)
       expect(errors.length).toBeGreaterThan(0)
     })
   })

@@ -2,18 +2,20 @@ import type { Address, Promisable } from '@xylabs/sdk-js'
 import { isArray } from '@xylabs/sdk-js'
 import type {
   AttoXL1,
+  BlockViewer,
+  NetworkStakeStepRewardsByStakerViewer,
+  NetworkStakeStepRewardsByStakerViewerOptions,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
-import { asAttoXL1, asXL1BlockRange } from '@xyo-network/xl1-protocol'
+import {
+  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, NetworkStakeStepRewardsByStakerViewerMoniker,
+} from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider,
   blockRangeSteps,
-  BlockViewer,
-  BlockViewerMoniker,
   creatableProvider,
   CreatableProviderParams,
-  type NetworkStakeStepRewardsByStakerViewer, NetworkStakeStepRewardsByStakerViewerMoniker,
-  type NetworkStakeStepRewardsByStakerViewerOptions, type StakedChainContextRead,
+  type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 
 import { networkStakeStepRewardEarnedForStaker } from './primitives/index.ts'

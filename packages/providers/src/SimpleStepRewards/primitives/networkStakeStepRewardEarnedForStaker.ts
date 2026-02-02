@@ -1,13 +1,11 @@
 import type { Address } from '@xylabs/sdk-js'
 import type {
+  BlockViewer,
   StepIdentity,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import { XYO_NETWORK_STAKING_ADDRESS } from '@xyo-network/xl1-protocol'
-import type {
-  BlockViewer,
-  StakedChainContextRead,
-} from '@xyo-network/xl1-protocol-sdk'
+import type { StakedChainContextRead } from '@xyo-network/xl1-protocol-sdk'
 import {
   toStepIdentityString,
   withContextCacheResponse,

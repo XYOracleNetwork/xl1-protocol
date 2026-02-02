@@ -1,6 +1,5 @@
 export * from './actor/index.ts'
 export * from './block/index.ts'
-export * from './ChainServiceCollectionV2.ts'
 export * from './config/index.ts'
 export * from './constants.ts'
 export * from './CreatableProvider/index.ts'

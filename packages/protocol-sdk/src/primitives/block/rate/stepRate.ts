@@ -1,12 +1,12 @@
 import { assertEx } from '@xylabs/sdk-js'
 import type {
+  BlockViewer,
   TimeDurations, XL1BlockNumber, XL1BlockRate,
 } from '@xyo-network/xl1-protocol'
 import {
   asXL1BlockRange, isValidStep, StepSizes,
 } from '@xyo-network/xl1-protocol'
 
-import type { BlockViewer } from '../../../model/index.ts'
 import { calculateBlockRate } from './blockRate.ts'
 
 export const stepRate = async (

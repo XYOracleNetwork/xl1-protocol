@@ -2,8 +2,8 @@ import {
   type Address,
   toAddress,
 } from '@xylabs/sdk-js'
+import type { StakeEventsViewer } from '@xyo-network/xl1-protocol'
 
-import type { StakeEventsViewer } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByStaker } from './mergedAddRemoveStakeEventsByStaker.ts'
 
 export async function allStakersForRange(
