@@ -17,6 +17,18 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
 
   abstract readonly moniker: ProviderMoniker
 
+  override get logger() {
+    return this.context.logger ?? super.logger
+  }
+
+  override get meter() {
+    return this.context.meterProvider?.getMeter(this.name) ?? super.meter
+  }
+
+  override get tracer() {
+    return this.context.traceProvider?.getTracer(this.name) ?? super.tracer
+  }
+
   protected get config() {
     return this.context.config!
   }
