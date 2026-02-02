@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol-sdk",
-  "version": "1.22.4",
+  "version": "1.22.5",
   "description": "XYO Layer One SDK Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -49,7 +49,7 @@
     "@xyo-network/payload-builder": "~5.3.2",
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
-    "@xyo-network/xl1-protocol": "~1.22.4",
+    "@xyo-network/xl1-protocol": "~1.22.5",
     "async-mutex": "~0.5.0",
     "ethers": "^6.16.0",
     "lru-cache": "^11.2.5"
