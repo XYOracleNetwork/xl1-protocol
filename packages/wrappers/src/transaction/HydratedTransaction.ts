@@ -7,7 +7,7 @@ import type {
   WithStorageMeta,
 } from '@xyo-network/payload-model'
 import type {
-  AllowedBlockPayload, BaseContext, ChainId, HydratedTransactionWithHashMeta, Transfer,
+  AllowedBlockPayload, BaseContext, HydratedTransactionWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'
 import { isTransfer, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 import type {
@@ -31,7 +31,7 @@ const sumTransfers = (payload: Transfer) => {
 }
 
 export interface HydratedTransactionWrapperContext extends BaseContext {
-  chainId: ChainId
+
 }
 
 export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMeta> implements HydratedTransactionInstance<T> {
@@ -157,7 +157,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
 
   async validate(): Promise<Error[]> {
     const errors: Error[] = [...(await Promise.all(this._signatureCache.map(signature => signature.validate()))).flat(),
-      ...(await validateTransaction(this.context, this.data))]
+      ...(await validateTransaction({ ...this.context, chainId: this.data[0].chain }, this.data))]
     return errors
   }
 
