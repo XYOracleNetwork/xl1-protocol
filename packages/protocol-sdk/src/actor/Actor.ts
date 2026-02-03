@@ -18,7 +18,7 @@ import { CachingBaseContext } from '../model/index.ts'
 
 export interface ActorContext extends CachingBaseContext {
   config: Config
-  locator?: ProviderFactoryLocatorInstance
+  locator: ProviderFactoryLocatorInstance
 }
 
 export type ActorParams<T extends EmptyObject | void = void> = CreatableParams & {
@@ -90,15 +90,13 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     const config: Config = params?.context?.config ?? getDefaultConfig()
     const singletons = params?.context?.singletons ?? {}
 
-    const context: ActorContext = {
+    const locator = params.context?.locator ?? new ProviderFactoryLocator({
       ...params?.context,
       caches: params.context?.caches ?? {},
       config,
       logger,
       singletons,
-    }
-
-    const locator = new ProviderFactoryLocator(context)
+    })
     locator.registerMany(this.defaultFactories())
     return locator.context
   }
