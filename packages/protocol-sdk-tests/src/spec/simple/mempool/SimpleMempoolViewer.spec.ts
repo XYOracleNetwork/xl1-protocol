@@ -9,12 +9,14 @@ import {
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
-import type { ChainId, SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import type {
+  CachingContext, ChainId, SignedHydratedBlockWithStorageMeta,
+} from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, StepSizes } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary,
   BalanceStepSummaryContext,
-  CachingBaseContext, ProviderFactoryLocator, SimpleChainContractViewerParams,
+  ProviderFactoryLocator, SimpleChainContractViewerParams,
   TransfersStepSummary,
   TransfersStepSummaryContext,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -328,7 +330,7 @@ describe('SimpleMempoolViewer', () => {
       }],
   ] as unknown as SignedHydratedBlockWithStorageMeta
 
-  function initTransfersSummaryContext(context: CachingBaseContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): TransfersStepSummaryContext {
+  function initTransfersSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): TransfersStepSummaryContext {
     const transfersSummaryMap = new MemoryMap<string, WithStorageMeta<TransfersStepSummary>>()
     const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
 
@@ -346,7 +348,7 @@ describe('SimpleMempoolViewer', () => {
     return transfersSummaryContext
   }
 
-  function initBalanceSummaryContext(context: CachingBaseContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): BalanceStepSummaryContext {
+  function initBalanceSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): BalanceStepSummaryContext {
     const balancesSummaryMap = new MemoryMap<string, WithStorageMeta<BalancesStepSummary>>()
     const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
 

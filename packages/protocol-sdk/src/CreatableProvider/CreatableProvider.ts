@@ -1,4 +1,3 @@
-import type { MeterProvider, TracerProvider } from '@opentelemetry/api'
 import type { EventData } from '@xylabs/events'
 import type {
   Creatable, CreatableInstance, CreatableParams,
@@ -6,21 +5,9 @@ import type {
 } from '@xylabs/sdk-js'
 import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
 
-import type { Config } from '../config/index.ts'
-import type { CachingBaseContext } from '../model/index.ts'
-import type { RuntimeStatusMonitor } from '../status/index.ts'
+import type { CreatableProviderContext } from './CreatableProviderContext.ts'
 import type { GetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
-import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorInstance.ts'
-
-export interface CreatableProviderContext extends CachingBaseContext {
-  _id?: string
-  config: Config
-  locator: ProviderFactoryLocatorInstance
-  meterProvider?: MeterProvider
-  statusReporter?: RuntimeStatusMonitor
-  traceProvider?: TracerProvider
-}
 
 export interface CreatableProviderParams<TContext extends CreatableProviderContext = CreatableProviderContext> extends CreatableParams {
   context: TContext

@@ -1,18 +1,17 @@
 import { assertEx, isArray } from '@xylabs/sdk-js'
 import type {
-  BlockNumber, BlockViewer, XL1BlockNumber,
+  BlockNumber, BlockViewer, CachingContext, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import {
   asBlockNumber, asTimePayload, isTimePayload,
 } from '@xyo-network/xl1-protocol'
 
-import type { CachingBaseContext } from '../../../model/index.ts'
 import { withContextCacheResponse } from '../../../model/index.ts'
 
 const functionName = 'externalBlockNumberFromXL1BlockNumber' as const
 
 export async function externalBlockNumberFromXL1BlockNumber(
-  context: CachingBaseContext,
+  context: CachingContext,
   blockViewer: BlockViewer,
   xl1BlockNumber: XL1BlockNumber,
   externalTimeName: 'ethereum' | 'epoch',

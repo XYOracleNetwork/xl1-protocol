@@ -1,7 +1,7 @@
 import {
   isDefined, isObject, isUndefined,
 } from '@xylabs/sdk-js'
-import type { BaseContext, MapType } from '@xyo-network/xl1-protocol'
+import type { CachingContext, MapType } from '@xyo-network/xl1-protocol'
 
 import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
 import { timeBudget } from '../../primitives/index.ts'
@@ -13,12 +13,8 @@ import type {
   ChainStoreContext, ChainStoreContextRead, ChainStoreContextWrite,
 } from './ChainStoreContext.ts'
 
-export interface CachingBaseContext<TCacheValue = string | object | number | bigint> extends BaseContext<TCacheValue> {
-  caches: Record<string, MapType<string, TCacheValue>>
-}
-
 export function contextCache<TCacheValue>(
-  context: CachingBaseContext<TCacheValue | unknown>,
+  context: CachingContext,
   name: string,
   create?: () => MapType<string, TCacheValue>,
 ): MapType<string, TCacheValue> {
@@ -36,7 +32,7 @@ export interface withContextCacheResponseOptions {
 }
 
 export async function withContextCacheResponse<T extends {} | string | number | bigint>(
-  context: CachingBaseContext,
+  context: CachingContext,
   name: string,
   key: string,
   func: () => Promise<T extends {} | string | number | bigint ? T : never>,
@@ -57,13 +53,13 @@ export async function withContextCacheResponse<T extends {} | string | number | 
   return result
 }
 
-export interface ChainContextWrite extends CachingBaseContext, ChainStateContextWrite, ChainStoreContextWrite {}
+export interface ChainContextWrite extends CachingContext, ChainStateContextWrite, ChainStoreContextWrite {}
 
-export interface StakedChainContextWrite extends CachingBaseContext, ChainContextWrite, ChainStakeContextWrite {}
+export interface StakedChainContextWrite extends CachingContext, ChainContextWrite, ChainStakeContextWrite {}
 
-export interface ChainContextRead extends CachingBaseContext, ChainStateContextRead, ChainStoreContextRead {}
+export interface ChainContextRead extends CachingContext, ChainStateContextRead, ChainStoreContextRead {}
 
-export interface StakedChainContextRead extends CachingBaseContext, ChainContextRead, ChainStakeContextRead {}
+export interface StakedChainContextRead extends CachingContext, ChainContextRead, ChainStakeContextRead {}
 
 export type ChainContext = ChainContextRead & ChainContextWrite & ChainStoreContext
 

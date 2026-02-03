@@ -8,15 +8,15 @@ import {
   Base, creatable, delay, IdLogger,
 } from '@xylabs/sdk-js'
 import { AccountInstance } from '@xyo-network/account-model'
+import { CachingContext } from '@xyo-network/xl1-protocol'
 import { Semaphore } from 'async-mutex'
 
 import { Config, getDefaultConfig } from '../config/index.ts'
 import {
   CreatableProviderFactory, ProviderFactoryLocator, ProviderFactoryLocatorInstance,
 } from '../CreatableProvider/index.ts'
-import { CachingBaseContext } from '../model/index.ts'
 
-export interface ActorContext extends CachingBaseContext {
+export interface ActorContext extends CachingContext {
   config: Config
   locator: ProviderFactoryLocatorInstance
 }
