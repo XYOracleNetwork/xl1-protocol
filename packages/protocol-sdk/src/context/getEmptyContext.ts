@@ -7,7 +7,7 @@ export function getEmptyContext(config?: Config): CreatableProviderContext {
   const singletons = {}
   const caches = {}
   const locator = new ProviderFactoryLocator({
-    config: resolvedConfig, singletons, caches,
+    config: resolvedConfig, singletons, caches, logger: console,
   })
   return locator.context
 }

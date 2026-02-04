@@ -4,35 +4,35 @@ import { assertEx } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { WithHashMeta } from '@xyo-network/payload-model'
 import { isAnyPayload } from '@xyo-network/payload-model'
-import type { XL1BlockRange } from '@xyo-network/xl1-protocol'
+import type {
+  BlockViewer, CachingContext, MapType, XL1BlockRange,
+} from '@xyo-network/xl1-protocol'
 import { StepSizes } from '@xyo-network/xl1-protocol'
+import type { Semaphore } from 'async-mutex'
 
-import {
-  deepCalculateFramesFromRange, hashFromBlockNumber, hydrateBlock,
-} from '../../../block/index.ts'
+import { deepCalculateFramesFromRange } from '../../../block/index.ts'
 import { netTransfersForPayloads } from '../../../payloads/index.ts'
 import {
   parseSignedBigInt, type SignedBigInt, toSignedBigInt,
 } from '../../../SignedBigInt.ts'
-import {
-  type TransfersStepSummary, type TransfersStepSummaryContext, TransfersStepSummarySchema,
-} from '../../model/index.ts'
+import { type TransfersStepSummary, TransfersStepSummarySchema } from '../../model/index.ts'
 import { transfersSummaryKey } from './transfersSummary.ts'
 
 export async function transfersStepSummaryFromRange(
-  context: TransfersStepSummaryContext,
+  context: CachingContext,
+  semaphores: Semaphore[],
+  blockViewer: BlockViewer,
+  summaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>,
   range: XL1BlockRange,
 ): Promise<WithHashMeta<TransfersStepSummary>> {
   // console.log(`transfersStepSummaryFromRange: head=${context.head}, range=${range[0]}-${range[1]}`)
-  const frameHeadHash = await hashFromBlockNumber(context, range[1])
+  const [frameHead] = assertEx(await blockViewer.blockByNumber(range[1]), () => `Block not found for number: ${range[1]}`)
   const frameSize = range[1] - range[0] + 1
-  const headHash = context.head._hash
 
   let result: WithHashMeta<TransfersStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
-    const hash = await hashFromBlockNumber(context, range[0])
-    const [, payloads] = await hydrateBlock(context, hash)
+    const [, payloads] = assertEx(await blockViewer.blockByNumber(range[0]), () => `Block not found for number: ${range[0]}`)
     const transfers: Record<Address, Record<Address, SignedBigInt>> = {}
     for (const [from, toMap] of Object.entries(netTransfersForPayloads(payloads))) {
       transfers[from as Address] = transfers[from as Address] ?? {}
@@ -41,25 +41,28 @@ export async function transfersStepSummaryFromRange(
       }
     }
     result = await PayloadBuilder.addHashMeta({
-      schema: TransfersStepSummarySchema, hash: headHash, stepSize: -1, transfers,
+      schema: TransfersStepSummarySchema, hash: frameHead._hash, stepSize: -1, transfers,
     })
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const step = (StepSizes as any).indexOf(frameSize)
     assertEx(step !== -1, () => `Invalid step size: ${frameSize}. Must be one of ${StepSizes.join(', ')}`)
 
-    const key = transfersSummaryKey(frameHeadHash, frameSize)
+    const key = transfersSummaryKey(frameHead._hash, frameSize)
 
-    const summaryResult = await context.summaryMap.get(key)
+    const summaryResult = await summaryMap.get(key)
     if (isAnyPayload(summaryResult)) {
       result = summaryResult as WithHashMeta<TransfersStepSummary>
     } else {
-      await context.stepSemaphores[step].acquire()
+      await semaphores[step].acquire()
       // We do not have it, so lets build it
       try {
         const subRanges = deepCalculateFramesFromRange(range, step - 1)
         const promises = subRanges.map(subRange => transfersStepSummaryFromRange(
           context,
+          semaphores,
+          blockViewer,
+          summaryMap,
           subRange,
         ))
         const subResults = await Promise.all(promises)
@@ -84,12 +87,12 @@ export async function transfersStepSummaryFromRange(
         }
 
         result = await PayloadBuilder.addHashMeta({
-          schema: TransfersStepSummarySchema, hash: frameHeadHash, stepSize: frameSize, transfers,
+          schema: TransfersStepSummarySchema, hash: frameHead._hash, stepSize: frameSize, transfers,
         })
 
-        await context.summaryMap.set(key, result)
+        await summaryMap.set(key, result)
       } finally {
-        context.stepSemaphores[step].release()
+        semaphores[step].release()
       }
     }
   }

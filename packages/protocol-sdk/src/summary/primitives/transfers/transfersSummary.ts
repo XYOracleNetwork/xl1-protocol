@@ -1,31 +1,41 @@
 import type { Address, Hash } from '@xylabs/sdk-js'
-import { asAddress, spanRootAsync } from '@xylabs/sdk-js'
-import type { ChainQualified, ChainQualifiedConfig } from '@xyo-network/xl1-protocol'
+import {
+  asAddress, assertEx, spanRootAsync,
+} from '@xylabs/sdk-js'
+import type { WithHashMeta } from '@xyo-network/payload-model'
+import type {
+  BlockViewer, CachingContext, ChainQualified, ChainQualifiedConfig,
+  MapType,
+} from '@xyo-network/xl1-protocol'
 import {
   asBlockBoundWitnessWithStorageMeta, asXL1BlockRange, isChainQualifiedHeadConfig,
   isChainQualifiedRangeConfig,
 } from '@xyo-network/xl1-protocol'
+import type { Semaphore } from 'async-mutex'
 
 import { deepCalculateFramesFromRange } from '../../../block/index.ts'
 import { parseSignedBigInt } from '../../../SignedBigInt.ts'
-import type { TransfersStepSummaryContext } from '../../model/index.ts'
+import type { TransfersStepSummary } from '../../model/index.ts'
 import { transfersStepSummaryFromRange } from './transfersStepSummaryFromRange.ts'
 
 // the summary of amount of rewards claimed from the step reward pool by addresses
 export async function transfersSummary(
-  context: TransfersStepSummaryContext,
+  context: CachingContext,
+  semaphores: Semaphore[],
+  blockViewer: BlockViewer,
+  summaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>,
   config?: ChainQualifiedConfig,
 ): Promise<ChainQualified<Record<Address, Record<Address, bigint>>>> {
   return await spanRootAsync('transferSummary', async () => {
-    const [headHash] = isChainQualifiedHeadConfig(config) ? [config.head] : [context.head._hash]
-    const headResult = await context.chainMap.get(headHash)
-    const headBoundWitness = asBlockBoundWitnessWithStorageMeta(headResult, () => `Head block not found for hash: ${headHash}`)
+    const headHash = isChainQualifiedHeadConfig(config) ? config.head : await blockViewer.currentBlockHash()
+    const [head] = assertEx(await blockViewer.blockByHash(headHash), () => `Block not found for hash: ${headHash}`)
+    const headBoundWitness = asBlockBoundWitnessWithStorageMeta(head, () => `Found Block not a BlockWithHashMeta: ${headHash}`)
     const range = isChainQualifiedRangeConfig(config) ? config.range : asXL1BlockRange([0, headBoundWitness.block], true)
     const ranges = deepCalculateFramesFromRange(asXL1BlockRange(
       range,
       { name: 'transfersSummary' },
     ))
-    const summaries = await Promise.all(ranges.map(range => transfersStepSummaryFromRange(context, range)))
+    const summaries = await Promise.all(ranges.map(range => transfersStepSummaryFromRange(context, semaphores, blockViewer, summaryMap, range)))
     const transfers: Record<Address, Record<Address, bigint>> = {}
     for (let summary of summaries) {
       for (const [from, toMap] of Object.entries(summary.transfers)) {

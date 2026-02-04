@@ -12,6 +12,7 @@ import type {
   BlockViewer,
   ChainQualification,
   ChainQualified,
+  MapType,
   SignedBlockBoundWitnessWithHashMeta, Transfer, XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 import {
@@ -23,23 +24,20 @@ import {
   StepSizes,
   TransferSchema,
 } from '@xyo-network/xl1-protocol'
+import { Semaphore } from 'async-mutex'
 
 import { deepCalculateFramesFromRange } from '../../block/index.ts'
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import type {
-  BalanceStepSummaryContext,
-  TransfersStepSummary,
-  TransfersStepSummaryContext,
-} from '../../summary/index.ts'
+import type { BalancesStepSummary, TransfersStepSummary } from '../../summary/index.ts'
 import {
   balancesSummary,
   transfersStepSummaryFromRange,
 } from '../../summary/index.ts'
 
 export interface SimpleAccountBalanceViewerParams extends CreatableProviderParams {
-  balanceSummaryContext: BalanceStepSummaryContext
-  transfersSummaryContext: TransfersStepSummaryContext
+  balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
+  transfersSummaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>
 }
 
 @creatableProvider()
@@ -49,25 +47,28 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
   static readonly monikers = [AccountBalanceViewerMoniker]
   moniker = SimpleAccountBalanceViewer.defaultMoniker
 
-  private _blockViewer?: BlockViewer
+  private _balanceStepSemaphores = StepSizes.map(() => new Semaphore(20))
+  private _blockViewer!: BlockViewer
+  private _transferStepSemaphores = StepSizes.map(() => new Semaphore(20))
 
-  get balanceSummaryContext() {
-    return this.params.balanceSummaryContext!
+  get balancesSummaryMap() {
+    return this.params.balancesSummaryMap
   }
 
   get blockViewer() {
-    return this._blockViewer!
+    return this._blockViewer
   }
 
-  get transfersSummaryContext() {
-    return this.params.transfersSummaryContext!
+  get transfersSummaryMap() {
+    return this.params.transfersSummaryMap
   }
 
   static override async paramsHandler(params: Partial<SimpleAccountBalanceViewerParams> = {}) {
-    assertEx(params.transfersSummaryContext, () => 'transfersSummaryContext is required')
-    assertEx(params.balanceSummaryContext, () => 'balanceSummaryContext is required')
-
-    return await super.paramsHandler({ ...params })
+    return {
+      ...await super.paramsHandler(params),
+      balancesSummaryMap: assertEx(params.balancesSummaryMap, () => 'balancesSummaryMap is required'),
+      transfersSummaryMap: assertEx(params.transfersSummaryMap, () => 'transfersSummaryMap is required'),
+    }
   }
 
   async accountBalance(address: Address, config?: AccountBalanceConfig) {
@@ -166,7 +167,10 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
   ): Promise<ChainQualified<Record<Address, AttoXL1>>> {
     return await this.spanAsync('qualifiedAccountsBalances', async () => {
       const qualifiedSummary = await balancesSummary(
-        { ...this.balanceSummaryContext },
+        this.context,
+        this._balanceStepSemaphores,
+        this.blockViewer,
+        this.balancesSummaryMap,
         config,
       )
       const result: Record<Address, AttoXL1> = {}
@@ -194,7 +198,7 @@ export class SimpleAccountBalanceViewer extends AbstractCreatableProvider<Simple
       const frames = deepCalculateFramesFromRange(asXL1BlockRange(range, true))
       const transferSummaryPairs = await Promise.all(frames.map(
         async (frame) => {
-          return [frame, await transfersStepSummaryFromRange(this.transfersSummaryContext, frame)]
+          return [frame, await transfersStepSummaryFromRange(this.context, this._transferStepSemaphores, this.blockViewer, this.transfersSummaryMap, frame)]
         },
       )) as [XL1BlockRange, WithStorageMeta<TransfersStepSummary>][]
 

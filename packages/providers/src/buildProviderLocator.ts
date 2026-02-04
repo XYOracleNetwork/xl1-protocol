@@ -1,11 +1,14 @@
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
-import type { ChainId, Position } from '@xyo-network/xl1-protocol'
+import type { WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  BalanceStepSummaryContext, CreatableProviderContext, TransfersStepSummaryContext,
+  ChainId, MapType, Position,
+} from '@xyo-network/xl1-protocol'
+import type {
+  BalancesStepSummary, CreatableProviderContext, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
-  getDefaultConfig, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  getDefaultConfig, getEmptyContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
@@ -25,10 +28,10 @@ import { SimpleStepViewer } from './SimpleStepViewer.ts'
 import { SimpleXyoConnection } from './SimpleXyoConnection.ts'
 
 export interface BuildProviderLocatorParams {
-  context?: Partial<CreatableProviderContext>
+  context?: CreatableProviderContext
 }
 
-export function buildProviderLocator({ context = {} }: BuildProviderLocatorParams = {}) {
+export function buildProviderLocator({ context = getEmptyContext() }: BuildProviderLocatorParams = {}) {
   const {
     config = getDefaultConfig(), locator, singletons = {}, caches = {}, ...restOfContext
   } = context
@@ -100,24 +103,24 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
 }
 
 export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams {
-  balanceSummaryContext: BalanceStepSummaryContext
+  balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
   chainId: ChainId
   finalizedArchivist: ArchivistInstance
   node: NodeInstance
   pendingBlocksArchivist: ArchivistInstance
   pendingTransactionsArchivist: ArchivistInstance
-  transfersSummaryContext: TransfersStepSummaryContext
+  transfersSummaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>
 }
 
 export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParams) {
   const locator = buildSimpleProviderLocator(params)
   const {
-    pendingTransactionsArchivist, pendingBlocksArchivist, balanceSummaryContext, transfersSummaryContext, finalizedArchivist, node, chainId,
+    pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node, chainId,
   } = params
   return locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
-    SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, { balanceSummaryContext, transfersSummaryContext }),
+    SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, { balancesSummaryMap, transfersSummaryMap }),
     SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies, {}),

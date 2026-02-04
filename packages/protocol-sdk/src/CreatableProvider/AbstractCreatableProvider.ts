@@ -71,6 +71,7 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
         ...context, config, locator,
       },
       name: params.name ?? (this as unknown as CreatableProvider<T>).defaultMoniker,
+      logger: params.logger ?? context.logger,
     })
   }
 

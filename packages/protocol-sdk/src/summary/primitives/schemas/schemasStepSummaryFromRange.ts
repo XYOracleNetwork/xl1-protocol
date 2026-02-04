@@ -3,32 +3,30 @@ import { isBoundWitness } from '@xyo-network/boundwitness-model'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { Schema, WithHashMeta } from '@xyo-network/payload-model'
 import { isAnyPayload, isHashMeta } from '@xyo-network/payload-model'
-import type { XL1BlockRange } from '@xyo-network/xl1-protocol'
+import type {
+  BlockViewer, CachingContext, MapType, XL1BlockRange,
+} from '@xyo-network/xl1-protocol'
 import { StepSizes } from '@xyo-network/xl1-protocol'
+import type { Semaphore } from 'async-mutex'
 
-import {
-  deepCalculateFramesFromRange, hashFromBlockNumber,
-  hydrateBlock,
-} from '../../../block/index.ts'
-import {
-  type SchemasStepSummary, type SchemasStepSummaryContext, SchemasStepSummarySchema,
-} from '../../model/index.ts'
+import { deepCalculateFramesFromRange } from '../../../block/index.ts'
+import { type SchemasStepSummary, SchemasStepSummarySchema } from '../../model/index.ts'
 
-// eslint-disable-next-line max-statements
 export async function schemasStepSummaryFromRange(
-  context: SchemasStepSummaryContext,
+  context: CachingContext,
+  semaphores: Semaphore[],
+  blockViewer: BlockViewer,
+  summaryMap: MapType<string, WithHashMeta<SchemasStepSummary>>,
   range: XL1BlockRange,
 ): Promise<WithHashMeta<SchemasStepSummary>> {
   // console.log(`balanceStepSummaryFromRange: head=${head}, range=${range[0]}-${range[1]}`)
-  const frameHeadHash = await hashFromBlockNumber(context, range[1])
+  const [frameHead] = assertEx(await blockViewer.blockByNumber(range[1]), () => `Block not found for number: ${range[1]}`)
   const frameSize = range[1] - range[0] + 1
-  const headHash = context.head._hash
 
   let result: WithHashMeta<SchemasStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
-    const hash = await hashFromBlockNumber(context, range[0])
-    const [block, payloads] = await hydrateBlock(context, hash)
+    const [block, payloads] = assertEx(await blockViewer.blockByNumber(range[0]), () => `Block not found for number: ${range[0]}`)
     const boundWitnesses = [block, ...payloads.filter(x => isBoundWitness(x) && isHashMeta(x))]
     const schemas: Record<Schema, number> = {}
     for (const bw of boundWitnesses) {
@@ -38,23 +36,26 @@ export async function schemasStepSummaryFromRange(
       }
     }
     result = await PayloadBuilder.addHashMeta({
-      schema: SchemasStepSummarySchema, hash: headHash, stepSize: -1, schemas,
+      schema: SchemasStepSummarySchema, hash: frameHead._hash, stepSize: -1, schemas,
     })
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const step = (StepSizes as any).indexOf(frameSize)
     assertEx(step !== -1, () => `Invalid step size: ${frameSize}. Must be one of ${StepSizes.join(', ')}`)
 
-    const summaryResult = await context.summaryMap.get(`${frameHeadHash}|${frameSize}`)
+    const summaryResult = await summaryMap.get(`${frameHead._hash}|${frameSize}`)
     if (isAnyPayload(summaryResult)) {
       result = summaryResult as WithHashMeta<SchemasStepSummary>
     } else {
     // We do not have it, so lets build it
-      await context.stepSemaphores[step].acquire()
+      await semaphores[step].acquire()
       try {
         const subRanges = deepCalculateFramesFromRange(range, step - 1)
         const promises = subRanges.map(subRange => schemasStepSummaryFromRange(
           context,
+          semaphores,
+          blockViewer,
+          summaryMap,
           subRange,
         ))
         const subResults = await Promise.all(promises)
@@ -69,12 +70,12 @@ export async function schemasStepSummaryFromRange(
         }
 
         result = await PayloadBuilder.addHashMeta({
-          schema: SchemasStepSummarySchema, hash: frameHeadHash, stepSize: frameSize, schemas: schemas,
+          schema: SchemasStepSummarySchema, hash: frameHead._hash, stepSize: frameSize, schemas: schemas,
         })
 
-        await context.summaryMap.set(`${frameHeadHash}|${frameSize}`, result)
+        await summaryMap.set(`${frameHead._hash}|${frameSize}`, result)
       } finally {
-        context.stepSemaphores[step].release()
+        semaphores[step].release()
       }
     }
   }
