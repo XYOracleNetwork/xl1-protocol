@@ -28,7 +28,7 @@ import { AbstractCreatableProvider, creatableProvider } from '../../CreatablePro
 import { findUncles, getWindowedChain } from '../../primitives/index.ts'
 
 export interface SimpleBlockInvalidationViewerParams extends CreatableProviderParams {
-  maxUncleWindowSize: number
+  maxUncleWindowSize?: number
   state?: HydratedBlockStateValidationFunction
   value?: HydratedBlockValidationFunction
 }
@@ -54,7 +54,7 @@ export class SimpleBlockInvalidationViewer extends AbstractCreatableProvider<Sim
   }
 
   protected get maxUncleWindowSize() {
-    return this.params.maxUncleWindowSize
+    return this.params.maxUncleWindowSize!
   }
 
   static override async paramsHandler(params: Partial<SimpleBlockInvalidationViewerParams>): Promise<SimpleBlockInvalidationViewerParams> {
