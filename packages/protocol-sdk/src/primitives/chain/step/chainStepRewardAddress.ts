@@ -3,7 +3,7 @@ import {
   assertEx, exists, toAddress,
 } from '@xylabs/sdk-js'
 import type {
-  BlockViewer, ChainContext, StepIdentity,
+  BlockViewer, CachingContext, StepIdentity,
 } from '@xyo-network/xl1-protocol'
 import {
   asTransfer, isTransfer, XYO_STEP_REWARD_ADDRESS,
@@ -13,7 +13,7 @@ import { mergeTransfers } from '../../payload/index.ts'
 import { stepTransferIndex } from '../../step/index.ts'
 import { stepRewardBlock } from './stepRewardBlock.ts'
 
-export async function chainStepRewardAddress(context: ChainContext, blockViewer: BlockViewer, { block, step }: StepIdentity): Promise<Address> {
+export async function chainStepRewardAddress(context: CachingContext, blockViewer: BlockViewer, { block, step }: StepIdentity): Promise<Address> {
   const hydratedBlock = await stepRewardBlock(context, blockViewer, { block, step })
   const [transferIndex, transferCount] = stepTransferIndex(block, step)
   const [blockBw, payloads] = hydratedBlock
