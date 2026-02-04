@@ -1,3 +1,4 @@
+import type { AccountInstance } from '@xyo-network/account-model'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
@@ -5,11 +6,12 @@ import type {
   ChainId, MapType, Position,
 } from '@xyo-network/xl1-protocol'
 import type {
-  BalancesStepSummary, CreatableProviderContext, TransfersStepSummary,
+  BalancesStepSummary, CreatableProviderContext, CreatableProviderContextType, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
   getDefaultConfig, getEmptyContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
-  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
+  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoGatewayRunner, SimpleXyoRunner,
+  SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
@@ -31,6 +33,13 @@ export interface BuildProviderLocatorParams {
   context?: Omit<CreatableProviderContext, 'locator'> & Partial<{ locator: CreatableProviderContext['locator'] }>
 }
 
+export interface GatewayRunnerLocatorParams {
+  /**
+   * The account instance to be used to register a SimpleXyoSigner with the locator
+   */
+  signerAccount?: AccountInstance
+}
+
 export function buildProviderLocator({ context = getEmptyContext() }: BuildProviderLocatorParams = {}) {
   const {
     config = getDefaultConfig(), locator, singletons = {}, caches = {}, ...restOfContext
@@ -40,14 +49,13 @@ export function buildProviderLocator({ context = getEmptyContext() }: BuildProvi
   }, locator?.registry)
 }
 
-export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams {
-
+export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
 }
 
 export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorParams) {
   const locator = buildProviderLocator(params)
   const positions: Position[] = []
-  return locator.registerMany([
+  locator.registerMany([
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
     SimpleNetworkStakeViewer.factory<SimpleNetworkStakeViewer>(SimpleNetworkStakeViewer.dependencies, {}),
@@ -61,9 +69,11 @@ export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorPa
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
+  return locator
 }
 
-export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams {
+export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
   transportFactory: TransportFactory
 }
 
@@ -71,7 +81,7 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
   const locator = buildProviderLocator(params)
   const transportFactory = params.transportFactory
   const positions: Position[] = []
-  return locator.registerMany([
+  locator.registerMany([
     JsonRpcStakeTotalsViewer.factory<JsonRpcStakeTotalsViewer>(
       JsonRpcStakeTotalsViewer.dependencies,
       { transport: await transportFactory(StakeTotalsViewerRpcSchemas) },
@@ -100,9 +110,11 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
+  return locator
 }
 
-export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams {
+export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
   chainId: ChainId
   finalizedArchivist: ArchivistInstance
@@ -117,7 +129,7 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
   const {
     pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node, chainId,
   } = params
-  return locator.registerMany([
+  locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(SimpleAccountBalanceViewer.dependencies, { balancesSummaryMap, transfersSummaryMap }),
@@ -127,4 +139,26 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
     NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
   ])
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
+  return locator
+}
+
+/**
+ * Registers a SimpleXyoGatewayRunner with the locator if a signerAccount is provided in params
+ * @param locator The ProviderFactoryLocator to register the signer with
+ * @param params The SignerLocatorParams containing the optional signerAccount
+ * @returns The updated ProviderFactoryLocator
+ */
+const registerGatewayRunnerWithLocatorIfProvided = (
+  locator: ProviderFactoryLocator<CreatableProviderContextType, string[]>,
+  params?: GatewayRunnerLocatorParams,
+) => {
+  const account = params?.signerAccount
+  if (account) {
+    locator.registerMany([
+      SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }),
+      SimpleXyoGatewayRunner.factory<SimpleXyoGatewayRunner>(SimpleXyoGatewayRunner.dependencies, {}),
+    ])
+  }
+  return locator
 }
