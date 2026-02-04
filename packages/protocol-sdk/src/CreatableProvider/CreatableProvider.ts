@@ -29,7 +29,7 @@ export interface CreatableProviderFactory<T extends CreatableProviderInstance = 
   TDependencies extends ProviderMoniker[] = ProviderMoniker[]>
   extends Omit<CreatableProvider<T>, 'create' | 'createHandler' | 'paramsHandler'> {
   creatableProvider: CreatableProvider<T>
-  defaultParams?: Partial<T['params']>
+  defaultParams: Omit<T['params'], 'context'>
 
   readonly dependencies: TDependencies
 
@@ -39,19 +39,19 @@ export interface CreatableProviderFactory<T extends CreatableProviderInstance = 
 
   getInstance(
     this: CreatableProviderFactory<T>,
-    params: T['params'] & CreatableProviderParams,
+    params: T['params'],
     options?: GetInstanceOptions): Promise<T>
 
   tryGetInstance(
     this: CreatableProviderFactory<T>,
-    params: T['params'] & CreatableProviderParams,
+    params: T['params'],
     options?: GetInstanceOptions): Promise<T | undefined>
 
 }
 
 export interface LabeledCreatableProvider<T extends CreatableProviderInstance = CreatableProviderInstance,
   TDependencies extends ProviderMoniker[] = ProviderMoniker[]> extends CreatableProvider<T>, WithOptionalLabels {
-  factory(dependencies: TDependencies, params?: Partial<T['params'] & CreatableProviderParams>): LabeledCreatableProviderFactory<T>
+  factory(dependencies: TDependencies, params: Omit<T['params'], 'context'>): LabeledCreatableProviderFactory<T>
 }
 
 export type ProviderMap<T extends ProviderMoniker = ProviderMoniker> = Partial<Record<T, CreatableProviderInstance<Provider<T>>>>
@@ -61,7 +61,7 @@ export interface CreatableProvider<T extends CreatableProviderInstance = Creatab
   readonly defaultMoniker: ProviderMoniker
   readonly dependencies: TDependencies
   readonly monikers: ProviderMoniker[]
-  factory(dependencies: TDependencies, params?: Partial<T['params'] & CreatableProviderParams>): CreatableProviderFactory<T>
+  factory(dependencies: TDependencies, params: Omit<T['params'], 'context'>): CreatableProviderFactory<T>
 }
 
 /**

@@ -10,12 +10,10 @@ import {
   AbstractCreatableProvider,
   creatableProvider,
   CreatableProviderParams,
-  type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleStepRewardsTotalViewerParams extends CreatableProviderParams {
   rewardMultipliers?: XL1RangeMultipliers
-  stakedChainContext: StakedChainContextRead
 }
 
 @creatableProvider()
@@ -28,10 +26,6 @@ export class SimpleStepRewardsTotalViewer extends
 
   get rewardMultipliers() {
     return this.params.rewardMultipliers ?? {}
-  }
-
-  get stakedChainContext() {
-    return this.params.stakedChainContext
   }
 
   async bonus({ range }: NetworkStakeStepRewardsRangeOptions = {}): Promise<AttoXL1> {

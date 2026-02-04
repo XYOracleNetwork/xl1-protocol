@@ -18,8 +18,9 @@ import type {
   BlockRate,
   BlockViewer, ChainContractViewer, ChainId,
   ChainQualifiedConfig, Count,
+  FinalizationViewer,
   ForkHistory,
-  MempoolViewer, NetworkStakeStepRewardsByPositionViewer, NetworkStakeViewer, Position,
+  MempoolViewer, NetworkStakeStepRewardsByPositionViewer, NetworkStakeViewer, PayloadMapRead, Position,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransactionWithHashMeta,
   SingleTimeConfig,
@@ -38,6 +39,7 @@ import {
   asSignedHydratedBlockWithHashMeta, asXL1BlockRange,
   BlockViewerMoniker,
   ChainContractViewerMoniker,
+  FinalizationViewerMoniker,
   isTransactionBoundWitnessWithStorageMeta, MempoolViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
   NetworkStakeViewerMoniker, StakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker, XYO_NETWORK_STAKING_ADDRESS,
   XYO_ZERO_ADDRESS,
@@ -54,8 +56,7 @@ import {
   externalBlockRangeFromXL1BlockRange,
   findMostRecentBlock, hydrateBlock, HydratedCache,
   networkStakeStepRewardPositionWeight,
-  PayloadMapRead,
-  readPayloadMapFromStore, StakedChainContextRead, stepRewardTotal,
+  readPayloadMapFromStore, stepRewardTotal,
   toStepIdentityString, tryHydrateTransaction,
   weightedStakeForRangeByPosition,
   withContextCacheResponse,
@@ -63,7 +64,7 @@ import {
 
 export interface SimpleXyoViewerParams extends CreatableProviderParams {
   chainId: ChainId
-  finalizedArchivist: ArchivistInstance
+  finalizedArchivist?: ArchivistInstance
   initRewardsCache?: boolean
   rewardMultipliers?: XL1RangeMultipliers
 }
@@ -91,6 +92,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   private _accountBalanceViewer?: AccountBalanceViewer
   private _blockViewer?: BlockViewer
   private _chainContractViewer?: ChainContractViewer
+  private _finalizationViewer!: FinalizationViewer
   private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
@@ -132,6 +134,10 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   get time() {
     return this._timeSyncViewer!
+  }
+
+  protected get finalizationViewer() {
+    return this._finalizationViewer
   }
 
   protected get finalizedArchivist() {
@@ -198,10 +204,11 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   override async createHandler() {
     await super.createHandler()
-    this._finalizedPayloadMap = readPayloadMapFromStore<WithStorageMeta<Payload>>(this.params.finalizedArchivist)
+    this._finalizedPayloadMap = readPayloadMapFromStore<WithStorageMeta<Payload>>(this.params.finalizedArchivist!)
     this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
     this._chainContractViewer = await this.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker)
+    this._finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
     this._mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
     this._networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
     this._networkStepRewardsByPositionViewer
@@ -260,18 +267,17 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   }
 
   async networkStakeStepRewardForStep(stepContext: StepIdentity): Promise<AttoXL1> {
-    return await stepRewardTotal(await this.getStakedChainContext(), stepContext, this.rewardMultipliers)
+    return await stepRewardTotal(this.context, this.block, stepContext, this.rewardMultipliers)
   }
 
   async networkStakeStepRewardForStepForPosition(stepIdentity: StepIdentity, position: number): Promise<[AttoXL1, AttoXL1]> {
     const stepIdentityString = toStepIdentityString(stepIdentity)
     const cacheKey = `${stepIdentityString}|${position}`
-    const stakedChainContext = await this.getStakedChainContext()
-    return await withContextCacheResponse(stakedChainContext, 'SimpleXyoViewer:networkStakeStepRewardForStepForPosition', cacheKey, async () => {
-      const range = await externalBlockRangeFromStep(stakedChainContext, this.block, stepIdentity)
+    return await withContextCacheResponse(this.context, 'SimpleXyoViewer:networkStakeStepRewardForStepForPosition', cacheKey, async () => {
+      const range = await externalBlockRangeFromStep(this.context, this.block, stepIdentity)
       const stake = await this.stakeById(position)
       const numerator = stake.staked === XYO_NETWORK_STAKING_ADDRESS
-        ? await weightedStakeForRangeByPosition(stakedChainContext, this.block, range, XYO_NETWORK_STAKING_ADDRESS, position)
+        ? await weightedStakeForRangeByPosition(this.context, this.block, this.stake.stakeEvents, range, XYO_NETWORK_STAKING_ADDRESS, position)
         : 0n
 
       const denominator = await this.stepWeightedDenominator(stepIdentity)
@@ -304,7 +310,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   }
 
   async networkStakeStepRewardPositionWeight(stepContext: StepIdentity, position: number): Promise<bigint> {
-    return await networkStakeStepRewardPositionWeight(await this.getStakedChainContext(), this.block, stepContext, position)
+    return await networkStakeStepRewardPositionWeight(this.context, this.block, this.stake.stakeEvents, stepContext, position)
   }
 
   networkStakeStepRewardPotentialPositionLoss(_context: StepIdentity, _position: number): Promise<AttoXL1> {
@@ -317,8 +323,9 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   async networkStakeStepRewardStakerCount(stepContext: StepIdentity): Promise<number> {
     return Object.keys(await allStakersForStep(
-      await this.getStakedChainContext(),
+      this.context,
       this.block,
+      this.stake.stakeEvents,
       stepContext,
       XYO_NETWORK_STAKING_ADDRESS,
     )).length
@@ -464,7 +471,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   }
 
   protected async getCurrentHead() {
-    const chainArchivist = this.finalizedArchivist
+    const chainArchivist = this.finalizedArchivist!
     const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'No blocks found in finalizedArchivist')
     assertEx(result.chain === this.params.chainId, () => `Chain ID mismatch in finalizedArchivist [${result.chain} should be ${this.params.chainId}]`)
     return result
@@ -473,13 +480,13 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {
     if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
     const chainMap = this._finalizedPayloadMap
-    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithHashMeta>(chainMap, async (
+    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithHashMeta>({ ...this.context, chainMap }, async (
       { chainMap }: ChainStoreRead,
       hash: Hash,
       maxDepth?: number,
       minDepth?: number,
     ) => {
-      const result = await hydrateBlock({ chainMap }, hash, maxDepth, minDepth)
+      const result = await hydrateBlock({ ...this.context, chainMap }, hash, maxDepth, minDepth)
       return asSignedHydratedBlockWithHashMeta(result, true)
     }, 200)
     return this._signedHydratedBlockCache
@@ -488,23 +495,8 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected getHydratedTransactionCache(): HydratedCache<SignedHydratedTransactionWithHashMeta> {
     if (this._signedHydratedTransactionCache) return this._signedHydratedTransactionCache
     const chainMap = this._finalizedPayloadMap
-    this._signedHydratedTransactionCache = new HydratedCache<SignedHydratedTransactionWithHashMeta>(chainMap, tryHydrateTransaction, 200)
+    this._signedHydratedTransactionCache = new HydratedCache<SignedHydratedTransactionWithHashMeta>({ ...this.context, chainMap }, tryHydrateTransaction, 200)
     return this._signedHydratedTransactionCache
-  }
-
-  protected async getStakedChainContext() {
-    const stake = this.stake
-    const store = { chainMap: this._finalizedPayloadMap } satisfies StakedChainContextRead['store']
-    const head = assertEx(await this.getCurrentHead(), () => 'No current head')
-    return {
-      caches: this.context.caches,
-      singletons: this.context.singletons,
-      head: () => { return [head._hash, head.block] },
-      store,
-      chainId: await this.chainId(),
-      stake,
-      timeBudgetLimit: this.context.timeBudgetLimit,
-    } satisfies StakedChainContextRead
   }
 
   protected override async startHandler() {
@@ -514,7 +506,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
       await this.account.balance.accountBalance(XYO_ZERO_ADDRESS)
       if (this.initRewardsCache) {
         const externalRange = await externalBlockRangeFromXL1BlockRange(
-          await this.getStakedChainContext(),
+          this.context,
           this.block,
           asXL1BlockRange([0, currentBlockNumber], { name: 'startHandler' }),
         )
@@ -543,10 +535,9 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   protected async stepWeightedDenominator(stepIdentity: StepIdentity, staked?: Address): Promise<bigint> {
     const cacheKey = toStepIdentityString(stepIdentity)
-    const stakedChainContext = await this.getStakedChainContext()
-    return await withContextCacheResponse(stakedChainContext, 'NodeXyoViewer-networkStakeStepRewardForStepForPosition-denominator', cacheKey, async () => {
-      const range = await externalBlockRangeFromStep(stakedChainContext, this.block, stepIdentity)
-      return await weightedStakeForRangeByPosition(stakedChainContext, this.block, range, staked)
+    return await withContextCacheResponse(this.context, 'NodeXyoViewer-networkStakeStepRewardForStepForPosition-denominator', cacheKey, async () => {
+      const range = await externalBlockRangeFromStep(this.context, this.block, stepIdentity)
+      return await weightedStakeForRangeByPosition(this.context, this.block, this.stake.stakeEvents, range, staked)
     })
   }
 }

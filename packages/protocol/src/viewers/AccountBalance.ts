@@ -1,6 +1,6 @@
 import { type Address, type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
-import { WithHashMetaZod } from '@xyo-network/payload-model'
+import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
 import { TransferZod } from '../payload/index.ts'
@@ -11,6 +11,14 @@ import {
   BlockBoundWitnessZod, ChainQualificationZod, ChainQualifiedConfigZod,
   TransactionBoundWitnessZod,
 } from '../zod/index.ts'
+
+export function WithStorageMetaZod<T extends z.ZodType>(valueZod: T) {
+  return z.intersection(valueZod, StorageMetaZod)
+}
+
+export function WithHashMetaZod<T extends z.ZodType>(valueZod: T) {
+  return z.intersection(valueZod, HashMetaZod)
+}
 
 export const AccountBalanceHistoryItemZod = z.tuple([
   WithHashMetaZod(BlockBoundWitnessZod),

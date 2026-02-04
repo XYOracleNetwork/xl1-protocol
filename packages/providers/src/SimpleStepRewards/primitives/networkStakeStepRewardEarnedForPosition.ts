@@ -1,18 +1,20 @@
 import type {
   BlockViewer,
+  CachingContext,
   Position,
+  StakeEventsViewer,
   StepIdentity,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import { XYO_NETWORK_STAKING_ADDRESS } from '@xyo-network/xl1-protocol'
-import type { StakedChainContextRead } from '@xyo-network/xl1-protocol-sdk'
 import {
   externalBlockRangeFromStep, stepRewardTotal, weightedStakeForRangeByPosition, withContextCacheResponse,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export async function networkStakeStepRewardEarnedForPosition(
-  context: StakedChainContextRead,
+  context: CachingContext,
   blockViewer: BlockViewer,
+  stakeEventsViewer: StakeEventsViewer,
   stepIdentity: StepIdentity,
   position: Position,
   rewardMultipliers: XL1RangeMultipliers = {},
@@ -24,6 +26,7 @@ export async function networkStakeStepRewardEarnedForPosition(
       ? await weightedStakeForRangeByPosition(
           context,
           blockViewer,
+          stakeEventsViewer,
           range,
           XYO_NETWORK_STAKING_ADDRESS,
           position.id,
@@ -33,10 +36,11 @@ export async function networkStakeStepRewardEarnedForPosition(
     const denominator = await weightedStakeForRangeByPosition(
       context,
       blockViewer,
+      stakeEventsViewer,
       range,
     )
 
-    const totalReward = await stepRewardTotal(context, stepIdentity, rewardMultipliers)
+    const totalReward = await stepRewardTotal(context, blockViewer, stepIdentity, rewardMultipliers)
     const positionReward = denominator > 0n ? totalReward * numerator / denominator : 0n
     const result: [bigint, bigint] = [positionReward, totalReward]
     return result

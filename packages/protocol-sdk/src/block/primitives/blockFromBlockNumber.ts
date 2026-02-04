@@ -4,20 +4,25 @@ import {
 import { toSafeJsonString } from '@xylabs/sdk-js'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
-import type { BlockBoundWitness, XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import type {
+  BlockBoundWitness, ChainContextRead, XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 import {
   asSignedBlockBoundWitnessWithStorageMeta, SignedBlockBoundWitnessWithHashMetaZod, StepSizes,
 } from '@xyo-network/xl1-protocol'
 
-import { type ChainContextRead, withContextCacheResponse } from '../../model/index.ts'
+import { withContextCacheResponse } from '../../model/index.ts'
 
-export async function blockFromBlockNumber(context: ChainContextRead, blockNumber: XL1BlockNumber): Promise<WithHashMeta<Signed<BlockBoundWitness>>> {
+export async function blockFromBlockNumber(
+  context: ChainContextRead,
+  blockNumber: XL1BlockNumber,
+): Promise<WithHashMeta<Signed<BlockBoundWitness>>> {
   const cacheKey = `${blockNumber}`
+  const { chainMap, head } = context
   return await withContextCacheResponse(context, 'blockFromBlockNumber', cacheKey, async () => {
-    const [headHash] = await context.head()
-    const result = await context.store.chainMap.get(headHash)
+    const result = await chainMap.get(head._hash)
     if (!isDefined(result)) {
-      throw new Error(`Head block not found for hash: ${headHash}`)
+      throw new Error(`Head block not found for hash: ${head._hash}`)
     }
     let currentBlock = asSignedBlockBoundWitnessWithStorageMeta(
       result,
@@ -36,7 +41,7 @@ export async function blockFromBlockNumber(context: ChainContextRead, blockNumbe
           jumpHash = asHash(currentBlock.step_hashes?.at(step), () => `Step hash not found for step ${step} in block ${currentBlock.block}`)
         }
       }
-      const newBlock = await context.store.chainMap.get(
+      const newBlock = await chainMap.get(
         asHash(jumpHash, () => `Jump hash not found for block number [${blockNumber}]: ${jumpBlockNumber} ${toSafeJsonString(currentBlock, 10)}`),
       )
       if (!isDefined(newBlock)) {
@@ -53,7 +58,7 @@ export async function blockFromBlockNumber(context: ChainContextRead, blockNumbe
         break
       }
       if (currentBlock.block < blockNumber) {
-        throw new Error(`Block number ${blockNumber} is not a valid step block number for block ${headHash}.`)
+        throw new Error(`Block number ${blockNumber} is not a valid step block number for block ${head._hash}.`)
       }
     }
     return currentBlock

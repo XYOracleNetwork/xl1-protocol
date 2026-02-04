@@ -26,13 +26,13 @@ export async function transfersStepSummaryFromRange(
   // console.log(`transfersStepSummaryFromRange: head=${context.head}, range=${range[0]}-${range[1]}`)
   const frameHeadHash = await hashFromBlockNumber(context, range[1])
   const frameSize = range[1] - range[0] + 1
-  const [headHash] = await context.head()
+  const headHash = context.head._hash
 
   let result: WithHashMeta<TransfersStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
     const hash = await hashFromBlockNumber(context, range[0])
-    const [, payloads] = await hydrateBlock(context.store, hash)
+    const [, payloads] = await hydrateBlock(context, hash)
     const transfers: Record<Address, Record<Address, SignedBigInt>> = {}
     for (const [from, toMap] of Object.entries(netTransfersForPayloads(payloads))) {
       transfers[from as Address] = transfers[from as Address] ?? {}

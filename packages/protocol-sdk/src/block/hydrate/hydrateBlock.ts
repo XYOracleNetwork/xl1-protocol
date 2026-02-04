@@ -1,13 +1,12 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import type { HydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
+import type { BlockContextRead, HydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import { asBlockBoundWitnessWithStorageMeta, isTransactionBoundWitnessWithStorageMeta } from '@xyo-network/xl1-protocol'
 
-import type { ChainStoreRead } from '../../model/index.ts'
 import { allHashesPresent } from './allHashesPresent.ts'
 
 export const hydrateBlock = async (
-  { chainMap }: ChainStoreRead,
+  context: BlockContextRead,
   hash: Hash,
   maxDepth: number = 1,
   minDepth = maxDepth,
@@ -15,6 +14,8 @@ export const hydrateBlock = async (
   assertEx(maxDepth >= 0, () => 'maxDepth must be greater than or equal to 0')
   assertEx(minDepth >= 0, () => 'minDepth must be greater than or equal to 0')
   assertEx(maxDepth >= minDepth, () => 'maxDepth must be greater than or equal to minDepth')
+
+  const { chainMap } = context
 
   const bw = assertEx(asBlockBoundWitnessWithStorageMeta(
     assertEx(await chainMap.get(hash), () => `block ${hash} not found`),

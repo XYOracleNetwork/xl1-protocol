@@ -9,17 +9,15 @@ import {
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { PayloadMap } from '../../model/index.ts'
 
-export interface SimpleChainStakeParams extends CreatableProviderParams {
+export interface SimpleStakeViewerParams extends CreatableProviderParams {
   chainId?: Address
-  chainMap: PayloadMap
   minWithdrawalBlocks?: number
   positions: Position[]
 }
 
 @creatableProvider()
-export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStakeParams> implements StakeViewer {
+export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeViewerParams> implements StakeViewer {
   static readonly defaultMoniker = StakeViewerMoniker
   static readonly dependencies = [StakeEventsViewerMoniker]
   static readonly monikers = [StakeViewerMoniker]
@@ -29,10 +27,6 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleChainStak
 
   get stakeEvents() {
     return assertEx(this._chainStakeEventsViewer, () => 'Stake events viewer not set')
-  }
-
-  protected get chainMap() {
-    return this.params.chainMap
   }
 
   protected get positions() {

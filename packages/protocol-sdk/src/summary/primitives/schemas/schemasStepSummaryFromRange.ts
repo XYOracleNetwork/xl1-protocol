@@ -22,13 +22,13 @@ export async function schemasStepSummaryFromRange(
   // console.log(`balanceStepSummaryFromRange: head=${head}, range=${range[0]}-${range[1]}`)
   const frameHeadHash = await hashFromBlockNumber(context, range[1])
   const frameSize = range[1] - range[0] + 1
-  const [headHash] = await context.head()
+  const headHash = context.head._hash
 
   let result: WithHashMeta<SchemasStepSummary> | undefined = undefined
 
   if (frameSize === 1) {
     const hash = await hashFromBlockNumber(context, range[0])
-    const [block, payloads] = await hydrateBlock(context.store, hash)
+    const [block, payloads] = await hydrateBlock(context, hash)
     const boundWitnesses = [block, ...payloads.filter(x => isBoundWitness(x) && isHashMeta(x))]
     const schemas: Record<Schema, number> = {}
     for (const bw of boundWitnesses) {

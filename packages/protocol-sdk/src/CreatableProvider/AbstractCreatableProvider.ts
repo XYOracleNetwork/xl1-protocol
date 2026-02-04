@@ -44,7 +44,7 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
   static factory<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[] = ProviderMoniker[]>(
     this: CreatableProvider<TInstance>,
     dependencies: TDependencies,
-    params?: Partial<TInstance['params']>,
+    params: Omit<TInstance['params'], 'context'>,
   ) {
     const factory = ProviderFactory.withParams<TInstance, TDependencies>(this, dependencies, params)
     return factory

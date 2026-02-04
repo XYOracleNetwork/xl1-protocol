@@ -15,7 +15,6 @@ import {
   AbstractCreatableProvider,
   creatableProvider,
   CreatableProviderParams,
-  type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 
 import { SimpleStepRewardsByPositionViewer } from './SimpleStepRewardsByPositionViewer.ts'
@@ -42,7 +41,6 @@ export class SimpleStepRewardsViewer extends AbstractCreatableProvider<NodeStepR
 
   private _blockViewer?: BlockViewer
   private _position?: SimpleStepRewardsByPositionViewer
-  private _stakedChainContext?: StakedChainContextRead
   private _staker?: SimpleStepRewardsByStakerViewer
   private _step?: SimpleStepRewardsByStepViewer
 
@@ -64,10 +62,6 @@ export class SimpleStepRewardsViewer extends AbstractCreatableProvider<NodeStepR
 
   protected get rewardMultipliers() {
     return this.params.rewardMultipliers
-  }
-
-  protected get stakedChainContext() {
-    return this._stakedChainContext
   }
 
   override async createHandler() {

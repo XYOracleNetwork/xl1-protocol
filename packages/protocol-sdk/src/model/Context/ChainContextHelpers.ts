@@ -5,13 +5,6 @@ import type { CachingContext, MapType } from '@xyo-network/xl1-protocol'
 
 import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
 import { timeBudget } from '../../primitives/index.ts'
-import type {
-  ChainStakeContext, ChainStakeContextRead, ChainStakeContextWrite,
-} from './ChainStakeContext.ts'
-import type { ChainStateContextRead, ChainStateContextWrite } from './ChainStateContext.ts'
-import type {
-  ChainStoreContext, ChainStoreContextRead, ChainStoreContextWrite,
-} from './ChainStoreContext.ts'
 
 export function contextCache<TCacheValue>(
   context: CachingContext,
@@ -52,15 +45,3 @@ export async function withContextCacheResponse<T extends {} | string | number | 
   await cache.set(key, result)
   return result
 }
-
-export interface ChainContextWrite extends CachingContext, ChainStateContextWrite, ChainStoreContextWrite {}
-
-export interface StakedChainContextWrite extends CachingContext, ChainContextWrite, ChainStakeContextWrite {}
-
-export interface ChainContextRead extends CachingContext, ChainStateContextRead, ChainStoreContextRead {}
-
-export interface StakedChainContextRead extends CachingContext, ChainContextRead, ChainStakeContextRead {}
-
-export type ChainContext = ChainContextRead & ChainContextWrite & ChainStoreContext
-
-export type StakedChainContext = ChainContext & ChainStakeContext & ChainStakeContextRead & ChainStakeContextWrite

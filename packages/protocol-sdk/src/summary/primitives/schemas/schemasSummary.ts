@@ -15,8 +15,8 @@ export async function schemasSummary(
   config?: ChainQualifiedConfig,
 ): Promise<ChainQualified<Record<Schema, number>>> {
   return await spanRootAsync('schemasSummary', async () => {
-    const [headHash] = isChainQualifiedHeadConfig(config) ? [config.head] : await context.head()
-    const headResult = await context.store.chainMap.get(headHash)
+    const [headHash] = isChainQualifiedHeadConfig(config) ? [config.head] : [context.head._hash]
+    const headResult = await context.chainMap.get(headHash)
     const headBoundWitness = asBlockBoundWitnessWithStorageMeta(headResult, () => `Head block not found for hash: ${headHash}`)
     const range = isChainQualifiedRangeConfig(config) ? config.range : asXL1BlockRange([0, headBoundWitness.block], true)
     const ranges = deepCalculateFramesFromRange(asXL1BlockRange(

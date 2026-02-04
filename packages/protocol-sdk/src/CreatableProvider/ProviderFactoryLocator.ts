@@ -138,16 +138,6 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
       // Otherwise, return the first factory
       : this._registry[moniker]?.[0]
 
-    if (result) {
-      result.defaultParams = {
-        ...result?.defaultParams,
-        context: {
-          ...this.context,
-          ...result?.defaultParams?.context,
-        },
-      }
-    }
-
     return result as CreatableProviderFactory<CreatableProviderInstance<TProvider>>
       | LabeledCreatableProviderFactory<CreatableProviderInstance<TProvider>> | undefined
   }

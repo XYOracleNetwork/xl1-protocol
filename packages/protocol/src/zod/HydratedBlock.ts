@@ -1,11 +1,10 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/zod'
-import {
-  PayloadZodLoose, WithHashMetaZod, WithStorageMetaZod,
-} from '@xyo-network/payload-model'
+import { PayloadZodLoose } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
+import { WithHashMetaZod, WithStorageMetaZod } from '../viewers/index.ts'
 import {
   BlockBoundWitnessZod,
   SignedBlockBoundWitnessZod,

@@ -18,7 +18,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
 
   defaultMoniker: CreatableProvider<TProvider>['monikers'][number]
 
-  defaultParams?: Partial<TProvider['params']>
+  defaultParams: Omit<TProvider['params'], 'context'>
 
   dependencies: TDependencies
 
@@ -31,7 +31,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
   constructor(
     creatableProvider: CreatableProvider<TProvider>,
     dependencies: TDependencies,
-    params?: Partial<TProvider['params']>,
+    params: Omit<TProvider['params'], 'context'>,
     labels: Labels = {},
     scope: ProviderFactoryScope = 'context',
   ) {
@@ -54,7 +54,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
   static withParams<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[]>(
     creatableProvider: CreatableProvider<TInstance>,
     dependencies: TDependencies,
-    params?: Partial<TInstance['params']>,
+    params: Omit<TInstance['params'], 'context'>,
     labels: Labels = {},
   ) {
     return new ProviderFactory<TInstance, TDependencies>(creatableProvider, dependencies, params, labels)
@@ -63,7 +63,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
   factory<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[]>(
     this: CreatableProviderFactory<TInstance, TDependencies>,
     dependencies: TDependencies,
-    params?: Partial<TInstance['params']>,
+    params: Omit<TInstance['params'], 'context'>,
     labels: Labels = {},
   ) {
     return new ProviderFactory<TInstance, TDependencies>(this.creatableProvider, dependencies, params, labels)
@@ -98,14 +98,6 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     const mergedParams: TProvider['params'] = {
       ...this.defaultParams,
       ...params,
-      context: {
-        ...this.defaultParams?.context,
-        ...params?.context,
-        config: {
-          ...this.defaultParams?.context?.config,
-          ...params?.context?.config,
-        },
-      },
     } as TProvider['params']
     const resultPromise = scopeObject[this.resolvedMoniker] as Promise<TProvider> ?? this.creatableProvider.create<TProvider>(mergedParams)
     scopeObject[this.resolvedMoniker] = resultPromise

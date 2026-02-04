@@ -6,8 +6,9 @@ import type { ReadArchivist } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
-  BlockRate, BlockViewer, BlockViewerMoniker, ChainContractViewer, ChainContractViewerMoniker,
-  ChainId, FinalizationViewer, FinalizationViewerMoniker, type SignedHydratedBlockWithHashMeta,
+  BlockContextRead,
+  BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker,
+  ChainId, FinalizationViewer, FinalizationViewerMoniker, PayloadMap, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta, SingleTimeConfig, TimeDurations, type XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
@@ -15,11 +16,7 @@ import { hydrateBlock } from '../../block/index.ts'
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
 import { LruCacheMap } from '../../driver/index.ts'
-import {
-  ChainContextRead,
-  ChainStoreRead,
-  PayloadMap,
-} from '../../model/index.ts'
+import { ChainStoreRead } from '../../model/index.ts'
 import {
   calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber, readPayloadMapFromStore,
 } from '../../primitives/index.ts'
@@ -50,14 +47,14 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   protected get hydratedBlockCache(): HydratedCache<SignedHydratedBlockWithStorageMeta> {
     if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
-    const chainMap = this.store.chainMap
-    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithStorageMeta>(chainMap, async (
-      store: ChainStoreRead,
+    const context = this.getBlockContextRead()
+    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithStorageMeta>(context, async (
+      context,
       hash: Hash,
       maxDepth?: number,
       minDepth?: number,
     ) => {
-      const result = await hydrateBlock(store, hash, maxDepth, minDepth)
+      const result = await hydrateBlock(context, hash, maxDepth, minDepth)
       return asSignedHydratedBlockWithStorageMeta(result, true)
     }, 200)
     return this._signedHydratedBlockCache
@@ -93,14 +90,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
       if (isUndefined(head)) {
         return null
       }
-      return asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber({
-        ...this.context,
-        chainId: head.chain,
-        head: () => {
-          return [head._hash, head.block]
-        },
-        store: this.store,
-      } satisfies ChainContextRead, blockNumber)) ?? null
+      return asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber(await this.getChainContextRead(), blockNumber)) ?? null
     }, this.context)
   }
 
@@ -207,5 +197,19 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     maxAttempts?: number,
   ): Promise<BlockRate> {
     return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts)
+  }
+
+  protected getBlockContextRead(): BlockContextRead {
+    return {
+      ...this.context,
+      chainMap: this.store.chainMap,
+    }
+  }
+
+  protected async getChainContextRead(): Promise<ChainContextRead> {
+    return {
+      ...this.getBlockContextRead(),
+      head: (await this.finalizationViewer.head())[0],
+    }
   }
 }

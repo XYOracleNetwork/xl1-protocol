@@ -2,9 +2,9 @@ import type { Hash } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
 import type { ReadArchivist, ReadWriteArchivist } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { PayloadMap, PayloadMapRead } from '@xyo-network/xl1-protocol'
 
 import { isReadArchivist, isReadWriteArchivist } from '../block/index.ts'
-import type { PayloadMap, PayloadMapRead } from '../model/index.ts'
 
 export function readPayloadMapFromStore<T extends Payload>(store: ReadArchivist<T> | PayloadMapRead<WithStorageMeta<T>>): PayloadMapRead<WithStorageMeta<T>> {
   if (isReadArchivist(store)) {

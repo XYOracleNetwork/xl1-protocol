@@ -1,13 +1,13 @@
 import { assertEx, isDefined } from '@xylabs/sdk-js'
 import type {
-  AttoXL1, StepIdentity, XL1BlockRange, XL1RangeMultipliers,
+  AttoXL1, BlockViewer, CachingContext, StepIdentity, XL1BlockRange, XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import {
   asAttoXL1, asXL1BlockRange, isTransfer,
   XYO_STEP_REWARD_ADDRESS,
 } from '@xyo-network/xl1-protocol'
 
-import { type ChainContextRead, withContextCacheResponse } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../model/index.ts'
 import { netTransfersForPayloads } from '../../../payloads/index.ts'
 import { stepBlockRange, stepTransferIndex } from '../../step/index.ts'
 import { stepRewardBlock } from './stepRewardBlock.ts'
@@ -17,10 +17,10 @@ function stepInRange(step: StepIdentity, range: XL1BlockRange): boolean {
   return ((stepRange[0] >= range[0]) && (stepRange[1] <= range[1]))
 }
 
-export async function stepRewardTotal(context: ChainContextRead, { block, step }: StepIdentity, multipliers: XL1RangeMultipliers): Promise<AttoXL1> {
+export async function stepRewardTotal(context: CachingContext, blockViewer: BlockViewer, { block, step }: StepIdentity, multipliers: XL1RangeMultipliers): Promise<AttoXL1> {
   const cacheKey = `${block}|${step}|${isDefined(multipliers)}`
   return await withContextCacheResponse(context, 'stepRewardTotal', cacheKey, async () => {
-    const [blockBw, payloads] = await stepRewardBlock(context, { block, step })
+    const [blockBw, payloads] = await stepRewardBlock(context, blockViewer, { block, step })
     assertEx(blockBw.block === block, () => `Block Mismatch: expected ${block}, got ${blockBw.block}`)
     const [transferIndex] = stepTransferIndex(block, step)
     const stepTransfer = assertEx(

@@ -1,20 +1,23 @@
-import type { Promisable } from '@xylabs/sdk-js'
+import type { Hash, Promisable } from '@xylabs/sdk-js'
+import { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import type {
   AttoXL1,
+  BlockContextRead,
   BlockViewer,
+  ChainContextRead,
+  FinalizationViewer,
   NetworkStakeStepRewardsByStepViewer,
   NetworkStakeStepRewardsByStepViewerOptions,
-  StakeEventsViewer,
+  PayloadMapRead,
+  StakeViewer,
   StepIdentityString,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import {
-  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, NetworkStakeStepRewardsByStepViewerMoniker,
+  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, FinalizationViewerMoniker, NetworkStakeStepRewardsByStepViewerMoniker,
+  StakeViewerMoniker,
 } from '@xyo-network/xl1-protocol'
-import type {
-  CreatableProviderParams,
-  StakedChainContextRead,
-} from '@xyo-network/xl1-protocol-sdk'
+import type { CreatableProviderParams } from '@xyo-network/xl1-protocol-sdk'
 import {
   AbstractCreatableProvider,
   blockRangeSteps,
@@ -25,8 +28,6 @@ import { networkStakeStepRewardEarned } from './primitives/index.ts'
 
 export interface SimpleStepRewardsByStepViewerParams extends CreatableProviderParams {
   rewardMultipliers?: XL1RangeMultipliers
-  stakeEventsViewer: StakeEventsViewer
-  stakedChainContext: StakedChainContextRead
 }
 
 @creatableProvider()
@@ -37,18 +38,24 @@ export class SimpleStepRewardsByStepViewer extends
   static readonly monikers = [NetworkStakeStepRewardsByStepViewerMoniker]
   moniker = SimpleStepRewardsByStepViewer.defaultMoniker
 
-  private _blockViewer?: BlockViewer
+  private _blockViewer!: BlockViewer
+  private _finalizationViewer!: FinalizationViewer
+  private _stakeViewer!: StakeViewer
 
   get rewardMultipliers() {
     return this.params.rewardMultipliers ?? {}
   }
 
-  get stakedChainContext() {
-    return this.params.stakedChainContext
+  protected get blockViewer() {
+    return this._blockViewer
   }
 
-  protected get blockViewer() {
-    return this._blockViewer!
+  protected get finalizationViewer() {
+    return this._finalizationViewer
+  }
+
+  protected get stakeViewer() {
+    return this._stakeViewer
   }
 
   async bonus({ range, steps }: NetworkStakeStepRewardsByStepViewerOptions = {}): Promise<Record<StepIdentityString, AttoXL1>> {
@@ -68,19 +75,22 @@ export class SimpleStepRewardsByStepViewer extends
   override async createHandler() {
     await super.createHandler()
     this._blockViewer = await this.locator.getInstance(BlockViewerMoniker)
+    this._finalizationViewer = await this.locator.getInstance(FinalizationViewerMoniker)
+    this._stakeViewer = await this.locator.getInstance<StakeViewer>(StakeViewerMoniker)
   }
 
   async earned({ range, steps }: NetworkStakeStepRewardsByStepViewerOptions = {}): Promise<Record<StepIdentityString, AttoXL1>> {
     const result: Record<StepIdentityString, AttoXL1> = {}
     const resolvedSteps = steps ?? blockRangeSteps(asXL1BlockRange(
-      range ?? [0, (await this.stakedChainContext.head())[1]],
+      range ?? [0, await this.finalizationViewer.headNumber()],
       { name: 'NodeStepRewardsByStepViewer' },
     ), [3, 4, 5, 6, 7])
     for (const step of resolvedSteps) {
       const stepIdentityString = toStepIdentityString(step)
       result[stepIdentityString] = asAttoXL1((result[stepIdentityString] ?? 0n) + (await networkStakeStepRewardEarned(
-        this.stakedChainContext,
+        this.context,
         this.blockViewer,
+        this.stakeViewer,
         step,
       ))[0])
     }
@@ -90,15 +100,16 @@ export class SimpleStepRewardsByStepViewer extends
   async total({ range, steps }: NetworkStakeStepRewardsByStepViewerOptions = {}): Promise<Record<StepIdentityString, AttoXL1>> {
     const result: Record<StepIdentityString, AttoXL1> = {}
     const resolvedSteps = steps ?? blockRangeSteps(asXL1BlockRange(
-      range ?? [0, (await this.stakedChainContext.head())[1]],
+      range ?? [0, (await this.finalizationViewer.head())[1]],
       { name: 'NodeStepRewardsByStepViewer' },
     ), [3, 4, 5, 6, 7])
     for (const step of resolvedSteps) {
       const stepIdentityString = toStepIdentityString(step)
       result[stepIdentityString] = asAttoXL1((result[stepIdentityString] ?? 0n)
         + (await networkStakeStepRewardEarned(
-          this.stakedChainContext,
+          this.context,
           this.blockViewer,
+          this.stakeViewer,
           step,
           this.rewardMultipliers,
         ))[0])

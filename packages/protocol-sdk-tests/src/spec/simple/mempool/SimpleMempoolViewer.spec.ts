@@ -330,38 +330,34 @@ describe('SimpleMempoolViewer', () => {
       }],
   ] as unknown as SignedHydratedBlockWithStorageMeta
 
-  function initTransfersSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): TransfersStepSummaryContext {
+  async function getTransfersSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance): Promise<TransfersStepSummaryContext> {
     const transfersSummaryMap = new MemoryMap<string, WithStorageMeta<TransfersStepSummary>>()
     const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
+
+    const head = assertEx(await findMostRecentBlock(finalizedArchivist))
 
     const transfersSummaryContext = {
       ...context,
       stepSemaphores: StepSizes.map(() => new Semaphore(20)),
       summaryMap: transfersSummaryMap,
-      head: async function (): Promise<[Hash, number]> {
-        const head = assertEx(await findMostRecentBlock(finalizedArchivist))
-        return [head._hash, head.block]
-      },
-      store: { chainMap },
-      chainId,
+      chainMap,
+      head,
     } satisfies TransfersStepSummaryContext
     return transfersSummaryContext
   }
 
-  function initBalanceSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance, chainId: ChainId): BalanceStepSummaryContext {
+  async function getBalanceSummaryContext(context: CachingContext, finalizedArchivist: ArchivistInstance): Promise<BalanceStepSummaryContext> {
     const balancesSummaryMap = new MemoryMap<string, WithStorageMeta<BalancesStepSummary>>()
     const chainMap = payloadMapFromStore<WithStorageMeta<Payload>>(finalizedArchivist)
+
+    const head = assertEx(await findMostRecentBlock(finalizedArchivist))
 
     const balanceSummaryContext = {
       ...context,
       stepSemaphores: StepSizes.map(() => new Semaphore(20)),
       summaryMap: balancesSummaryMap,
-      head: async function (): Promise<[Hash, number]> {
-        const head = assertEx(await findMostRecentBlock(finalizedArchivist))
-        return [head._hash, head.block]
-      },
-      store: { chainMap },
-      chainId,
+      head,
+      chainMap,
     } satisfies BalanceStepSummaryContext
     return balanceSummaryContext
   }
@@ -373,8 +369,8 @@ describe('SimpleMempoolViewer', () => {
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
     const locator = buildSimpleProviderLocator()
-    const transfersSummaryContext = initTransfersSummaryContext(locator.context, finalizedArchivist, chainId)
-    const balanceSummaryContext = initBalanceSummaryContext(locator.context, finalizedArchivist, chainId)
+    const transfersSummaryContext = await getTransfersSummaryContext(locator.context, finalizedArchivist)
+    const balanceSummaryContext = await getBalanceSummaryContext(locator.context, finalizedArchivist)
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()
@@ -385,7 +381,7 @@ describe('SimpleMempoolViewer', () => {
         SimpleAccountBalanceViewer.dependencies,
         { transfersSummaryContext, balanceSummaryContext },
       ),
-      SimpleBlockValidationViewer.factory<SimpleBlockValidationViewer>(SimpleBlockValidationViewer.dependencies),
+      SimpleBlockValidationViewer.factory<SimpleBlockValidationViewer>(SimpleBlockValidationViewer.dependencies, { maxUncleWindowSize: 10 }),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
       SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, contractViewerParams),
       SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 1000, syncInterval: 10_000 }),

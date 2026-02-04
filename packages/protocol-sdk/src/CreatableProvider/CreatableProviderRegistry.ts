@@ -10,6 +10,7 @@ export type CreatableProviderRegistry<TMonikers extends ProviderMoniker[] = Prov
 
 const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
   provider: CreatableProviderFactory<TProvider>,
+  defaultParams: Omit<TProvider['params'], 'context'>,
   labels?: Labels,
 ): LabeledCreatableProviderFactory<TProvider> => {
   const factory = {
@@ -21,6 +22,7 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
     dependencies: provider.dependencies,
     resolvedMoniker: provider.resolvedMoniker,
     scope: provider.scope,
+    defaultParams,
     getInstance: provider.getInstance.bind(provider) as LabeledCreatableProviderFactory<TProvider>['getInstance'],
     tryGetInstance: provider.tryGetInstance?.bind(provider) as LabeledCreatableProviderFactory<TProvider>['tryGetInstance'],
     defaultMoniker: provider.defaultMoniker,
@@ -66,7 +68,7 @@ export const registerCreatableProviderFactory = <TProvider extends CreatableProv
     throw new Error(`Invalid primary value: ${primary}`)
   }
 
-  const factoryClone: LabeledCreatableProviderFactory<TProvider> = buildProviderFactory(factory, labels)
+  const factoryClone: LabeledCreatableProviderFactory<TProvider> = buildProviderFactory(factory, factory.defaultParams, labels)
 
   // add this default moniker as the first entry
   registry[factoryClone.defaultMoniker] = [factoryClone, ...(registry[factoryClone.defaultMoniker] ?? [])]

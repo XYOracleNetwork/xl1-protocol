@@ -3,16 +3,18 @@ import { isDefined } from '@xylabs/sdk-js'
 import type {
   BlockRange,
   BlockViewer,
+  CachingContext,
+  StakeEventsViewer,
 } from '@xyo-network/xl1-protocol'
 import { asBlockNumber } from '@xyo-network/xl1-protocol'
 
-import type { StakedChainContextRead } from '../../model/index.ts'
 import { withContextCacheResponse } from '../../model/index.ts'
 import { mergedAddRemoveStakeEventsByPosition } from './mergedAddRemoveStakeEventsByPosition.ts'
 
 export async function weightedStakeForRangeByPosition(
-  context: StakedChainContextRead,
+  context: CachingContext,
   blockViewer: BlockViewer,
+  stakeEventsViewer: StakeEventsViewer,
   externalRange: BlockRange, // first to last block of step
   staked?: Address,
   positionId?: number,
@@ -22,7 +24,7 @@ export async function weightedStakeForRangeByPosition(
     let weightedStakeSum = 0n
     if (isDefined(positionId)) {
       const mergedEvents = (await mergedAddRemoveStakeEventsByPosition(
-        context.stake.stakeEvents,
+        stakeEventsViewer,
         [0, externalRange[1]],
         positionId,
       )).toSorted((a, b) => a.time - b.time)
@@ -56,9 +58,9 @@ export async function weightedStakeForRangeByPosition(
         weightedStakeSum += currentStake * BigInt(externalRange[1] - currentTime)
       }
     } else {
-      const positionCount = await context.stake.stakeEvents.positionCount([0, externalRange[1]])
+      const positionCount = await stakeEventsViewer.positionCount([0, externalRange[1]])
       for (let pos = 0; pos < positionCount; pos++) {
-        weightedStakeSum += await weightedStakeForRangeByPosition(context, blockViewer, externalRange, staked, pos)
+        weightedStakeSum += await weightedStakeForRangeByPosition(context, blockViewer, stakeEventsViewer, externalRange, staked, pos)
       }
     }
     return weightedStakeSum

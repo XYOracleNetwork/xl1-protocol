@@ -28,20 +28,20 @@ export async function balancesStepSummaryFromRange(
       // console.log(`balanceStepSummaryFromRange: head=${head}, range=${range[0]}-${range[1]}`)
       const frameHeadHash = await hashFromBlockNumber(context, range[1])
       const frameSize = range[1] - range[0] + 1
-      const [headHash] = await context.head()
+      const { head } = context
 
       const key = `${frameHeadHash}|${frameSize}`
 
       return (frameSize === 1)
         ? await spanRootAsync(`balancesStepSummaryFromRange.frameSize=1[${key}]`, async () => {
             const hash = await hashFromBlockNumber(context, range[0])
-            const [, payloads] = await hydrateBlock(context.store, hash)
+            const [, payloads] = await hydrateBlock(context, hash)
             const balances: Record<Address, SignedBigInt> = {}
             for (const [address, balance] of Object.entries(netBalancesForPayloads(payloads))) {
               balances[address as Address] = toSignedBigInt(balance)
             }
             return await PayloadBuilder.addHashMeta({
-              schema: BalancesStepSummarySchema, hash: headHash, stepSize: -1, balances,
+              schema: BalancesStepSummarySchema, hash: head._hash, stepSize: -1, balances,
             })
           }, context)
         : await spanRootAsync(`balancesStepSummaryFromRange.frameSize>1[${key}]`, async () => {

@@ -3,26 +3,27 @@ import { isArray } from '@xylabs/sdk-js'
 import type {
   AttoXL1,
   BlockViewer,
+  FinalizationViewer,
   NetworkStakeStepRewardsByPositionViewer,
   NetworkStakeStepRewardsByPositionViewerOptions,
+  StakeViewer,
   XL1RangeMultipliers,
 } from '@xyo-network/xl1-protocol'
 import {
-  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
+  asAttoXL1, asXL1BlockRange, BlockViewerMoniker, FinalizationViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
+  StakeViewerMoniker,
 } from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider,
   blockRangeSteps,
   creatableProvider,
   CreatableProviderParams,
-  type StakedChainContextRead,
 } from '@xyo-network/xl1-protocol-sdk'
 
 import { networkStakeStepRewardEarnedForPosition } from './primitives/index.ts'
 
 export interface SimpleStepRewardsByPositionViewerParams extends CreatableProviderParams {
   rewardMultipliers?: XL1RangeMultipliers
-  stakedChainContext: StakedChainContextRead
 }
 
 @creatableProvider()
@@ -33,18 +34,24 @@ export class SimpleStepRewardsByPositionViewer extends
   static readonly monikers = [NetworkStakeStepRewardsByPositionViewerMoniker]
   moniker = SimpleStepRewardsByPositionViewer.defaultMoniker
 
-  private _blockViewer?: BlockViewer
+  private _blockViewer!: BlockViewer
+  private _finalizationViewer!: FinalizationViewer
+  private _stakeViewer!: StakeViewer
 
   get rewardMultipliers() {
     return this.params.rewardMultipliers ?? {}
   }
 
-  get stakedChainContext() {
-    return this.params.stakedChainContext
-  }
-
   protected get blockViewer() {
     return this._blockViewer!
+  }
+
+  protected get finalizationViewer() {
+    return this._finalizationViewer!
+  }
+
+  protected get stakeViewer() {
+    return this._stakeViewer!
   }
 
   async bonus({ range, positions }: NetworkStakeStepRewardsByPositionViewerOptions = {}): Promise<Record<number, AttoXL1>> {
@@ -64,6 +71,8 @@ export class SimpleStepRewardsByPositionViewer extends
   override async createHandler() {
     await super.createHandler()
     this._blockViewer = await this.locator.getInstance(BlockViewerMoniker)
+    this._finalizationViewer = await this.locator.getInstance(FinalizationViewerMoniker)
+    this._stakeViewer = await this.locator.getInstance(StakeViewerMoniker)
   }
 
   async earned({ range, positions }: NetworkStakeStepRewardsByPositionViewerOptions = {}): Promise<Record<number, AttoXL1>> {
@@ -84,16 +93,17 @@ export class SimpleStepRewardsByPositionViewer extends
   ): Promise<Record<number, AttoXL1>> {
     const result: Record<number, AttoXL1> = {}
     const steps = blockRangeSteps(asXL1BlockRange(
-      range ?? [0, (await this.stakedChainContext.head())[1]],
+      range ?? [0, (await this.finalizationViewer.head())[1]],
       { name: 'NodeStepRewardsByPositionViewer' },
     ), [3, 4, 5, 6, 7])
     for (const step of steps) {
       if (isArray(positions)) {
         for (const positionId of positions) {
-          const position = await this.stakedChainContext.stake.stakeById(positionId)
+          const position = await this.stakeViewer.stakeById(positionId)
           result[positionId] = asAttoXL1((result[positionId] ?? 0n) + (await networkStakeStepRewardEarnedForPosition(
-            this.stakedChainContext,
+            this.context,
             this.blockViewer,
+            this.stakeViewer.stakeEvents,
             step,
             position,
             rewardMultipliers,

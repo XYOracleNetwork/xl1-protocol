@@ -19,9 +19,7 @@ export const BlockBoundWitnessFieldsZod = z.object({
 
 export const BlockBoundWitnessMetaZod = z.object({ $epoch: z.number() })
 
-export const BlockBoundWitnessZod = BoundWitnessZod
-  .safeExtend(BlockBoundWitnessFieldsZod.shape)
-  .safeExtend(BlockBoundWitnessMetaZod.shape)
+export const BlockBoundWitnessZod = z.intersection(z.intersection(BoundWitnessZod, BlockBoundWitnessFieldsZod), BlockBoundWitnessMetaZod)
 
 export type BlockBoundWitness = z.infer<typeof BlockBoundWitnessZod>
 
@@ -29,8 +27,7 @@ export const isBlockBoundWitness = zodIsFactory(BlockBoundWitnessZod)
 export const asBlockBoundWitness = zodAsFactory(BlockBoundWitnessZod, 'asBlockBoundWitness')
 export const toBlockBoundWitness = zodToFactory(BlockBoundWitnessZod, 'toBlockBoundWitness')
 
-export const BlockBoundWitnessWithHashMetaZod = BlockBoundWitnessZod
-  .safeExtend(HashMetaZod.shape)
+export const BlockBoundWitnessWithHashMetaZod = z.intersection(BlockBoundWitnessZod, HashMetaZod)
 
 export type BlockBoundWitnessWithHashMeta = z.infer<typeof BlockBoundWitnessWithHashMetaZod>
 
@@ -38,8 +35,7 @@ export const isBlockBoundWitnessWithHashMeta = zodIsFactory(BlockBoundWitnessWit
 export const asBlockBoundWitnessWithHashMeta = zodAsFactory(BlockBoundWitnessWithHashMetaZod, 'asBlockBoundWitnessWithHashMeta')
 export const toBlockBoundWitnessWithHashMeta = zodToFactory(BlockBoundWitnessWithHashMetaZod, 'toBlockBoundWitnessWithHashMeta')
 
-export const BlockBoundWitnessWithStorageMetaZod = BlockBoundWitnessZod
-  .safeExtend(StorageMetaZod.shape)
+export const BlockBoundWitnessWithStorageMetaZod = z.intersection(BlockBoundWitnessZod, StorageMetaZod)
 
 export type BlockBoundWitnessWithStorageMeta = z.infer<typeof BlockBoundWitnessWithStorageMetaZod>
 

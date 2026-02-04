@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
-  asSignedHydratedBlockWithStorageMeta, ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer,
+  asSignedHydratedBlockWithStorageMeta, BlockContextRead, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer,
   FinalizationViewerMoniker, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta,
   XL1BlockNumber,
@@ -49,14 +49,14 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
 
   protected get hydratedBlockCache(): HydratedCache<SignedHydratedBlockWithStorageMeta> {
     if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
-    const chainMap = this.store.chainMap
-    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithStorageMeta>(chainMap, async (
+    const context = this.getBlockContextRead()
+    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithStorageMeta>(context, async (
       store: ChainStoreRead,
       hash: Hash,
       maxDepth?: number,
       minDepth?: number,
     ) => {
-      const result = await hydrateBlock(store, hash, maxDepth, minDepth)
+      const result = await hydrateBlock(context, hash, maxDepth, minDepth)
       return asSignedHydratedBlockWithStorageMeta(result, true)
     }, 200)
     return this._signedHydratedBlockCache
@@ -102,6 +102,20 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
 
   async headNumber(): Promise<XL1BlockNumber> {
     return (await this.headBlock()).block
+  }
+
+  protected getBlockContextRead(): BlockContextRead {
+    return {
+      ...this.context,
+      chainMap: this.store.chainMap,
+    }
+  }
+
+  protected async getChainContextRead(): Promise<ChainContextRead> {
+    return {
+      ...this.getBlockContextRead(),
+      head: (await this.head())[0],
+    }
   }
 
   protected async getCurrentHead() {
