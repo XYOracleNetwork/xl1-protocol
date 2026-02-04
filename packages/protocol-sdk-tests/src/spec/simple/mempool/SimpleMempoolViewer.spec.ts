@@ -1,6 +1,5 @@
 import '@xylabs/vitest-extended'
 
-import type { Hash } from '@xylabs/sdk-js'
 import {
   asHex,
   assertEx,
@@ -9,9 +8,7 @@ import {
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
-import type {
-  CachingContext, ChainId, SignedHydratedBlockWithStorageMeta,
-} from '@xyo-network/xl1-protocol'
+import type { CachingContext, SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, StepSizes } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary,
