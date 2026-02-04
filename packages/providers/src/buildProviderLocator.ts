@@ -1,3 +1,4 @@
+import type { AccountInstance } from '@xyo-network/account-model'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
@@ -10,6 +11,7 @@ import type {
 import {
   getDefaultConfig, getEmptyContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
+  SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
@@ -40,14 +42,17 @@ export function buildProviderLocator({ context = getEmptyContext() }: BuildProvi
   }, locator?.registry)
 }
 
-export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams {
+export interface SignerParams {
+  signerAccount?: AccountInstance
+}
 
+export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, SignerParams {
 }
 
 export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorParams) {
   const locator = buildProviderLocator(params)
   const positions: Position[] = []
-  return locator.registerMany([
+  locator.registerMany([
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
     SimpleNetworkStakeViewer.factory<SimpleNetworkStakeViewer>(SimpleNetworkStakeViewer.dependencies, {}),
@@ -61,9 +66,13 @@ export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorPa
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
+  if (params?.signerAccount) {
+    locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account: params.signerAccount }))
+  }
+  return locator
 }
 
-export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams {
+export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams, SignerParams {
   transportFactory: TransportFactory
 }
 
@@ -71,7 +80,7 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
   const locator = buildProviderLocator(params)
   const transportFactory = params.transportFactory
   const positions: Position[] = []
-  return locator.registerMany([
+  locator.registerMany([
     JsonRpcStakeTotalsViewer.factory<JsonRpcStakeTotalsViewer>(
       JsonRpcStakeTotalsViewer.dependencies,
       { transport: await transportFactory(StakeTotalsViewerRpcSchemas) },
@@ -100,6 +109,10 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
+  if (params?.signerAccount) {
+    locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account: params.signerAccount }))
+  }
+  return locator
 }
 
 export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams {
