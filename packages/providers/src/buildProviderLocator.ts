@@ -28,7 +28,7 @@ import { SimpleStepViewer } from './SimpleStepViewer.ts'
 import { SimpleXyoConnection } from './SimpleXyoConnection.ts'
 
 export interface BuildProviderLocatorParams {
-  context?: CreatableProviderContext
+  context?: Omit<CreatableProviderContext, 'locator'> & Partial<{ locator: CreatableProviderContext['locator'] }>
 }
 
 export function buildProviderLocator({ context = getEmptyContext() }: BuildProviderLocatorParams = {}) {
