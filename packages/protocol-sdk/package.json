@@ -26,6 +26,11 @@
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
+    "./test": {
+      "types": "./dist/neutral/test/index.d.ts",
+      "source": "./src/test/index.ts",
+      "default": "./dist/neutral/test/index.mjs"
+    },
     "./package.json": "./package.json"
   },
   "module": "./dist/neutral/index.mjs",
@@ -43,13 +48,16 @@
     "@xylabs/sdk-js": "~5.0.65",
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/account-model": "~5.3.2",
+    "@xyo-network/archivist-memory": "~5.3.2",
     "@xyo-network/archivist-model": "~5.3.2",
     "@xyo-network/boundwitness-builder": "~5.3.2",
     "@xyo-network/boundwitness-model": "~5.3.2",
+    "@xyo-network/id-payload-plugin": "~5.3.2",
     "@xyo-network/payload-builder": "~5.3.2",
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
     "@xyo-network/xl1-protocol": "~1.22.15",
+    "@xyo-network/xl1-schema": "~1.22.15",
     "async-mutex": "~0.5.0",
     "ethers": "^6.16.0",
     "lru-cache": "^11.2.5"

@@ -5,7 +5,7 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import { getEmptyContext } from '../../../context/index.ts'
+import { getEmptyProviderContext } from '../../../context/index.ts'
 import type { CreatableProviderContext } from '../../../CreatableProvider/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'
@@ -16,7 +16,7 @@ describe('getWindowedChain', () => {
   let context: CreatableProviderContext
 
   beforeEach(async () => {
-    context = getEmptyContext()
+    context = getEmptyProviderContext()
     finalizedArchivist = await MemoryArchivist.create({ account: 'random', config: { name: 'FinalizedArchivist' } })
     blockViewer = await SimpleBlockViewer.create({
       finalizedArchivist,

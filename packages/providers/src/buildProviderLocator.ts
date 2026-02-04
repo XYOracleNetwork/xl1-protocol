@@ -9,7 +9,7 @@ import type {
   BalancesStepSummary, CreatableProviderContext, CreatableProviderContextType, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
-  getDefaultConfig, getEmptyContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  getDefaultConfig, getEmptyProviderContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoGatewayRunner, SimpleXyoRunner,
   SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -40,7 +40,7 @@ export interface GatewayRunnerLocatorParams {
   signerAccount?: AccountInstance
 }
 
-export function buildProviderLocator({ context = getEmptyContext() }: BuildProviderLocatorParams = {}) {
+export function buildProviderLocator({ context = getEmptyProviderContext() }: BuildProviderLocatorParams = {}) {
   const {
     config = getDefaultConfig(), locator, singletons = {}, caches = {}, ...restOfContext
   } = context
