@@ -33,6 +33,13 @@ export interface BuildProviderLocatorParams {
   context?: Omit<CreatableProviderContext, 'locator'> & Partial<{ locator: CreatableProviderContext['locator'] }>
 }
 
+export interface SignerLocatorParams {
+  /**
+   * The account instance to be used to register a SimpleXyoSigner with the locator
+   */
+  signerAccount?: AccountInstance
+}
+
 export function buildProviderLocator({ context = getEmptyContext() }: BuildProviderLocatorParams = {}) {
   const {
     config = getDefaultConfig(), locator, singletons = {}, caches = {}, ...restOfContext
@@ -40,10 +47,6 @@ export function buildProviderLocator({ context = getEmptyContext() }: BuildProvi
   return new ProviderFactoryLocator({
     ...restOfContext, config, singletons, caches,
   }, locator?.registry)
-}
-
-export interface SignerLocatorParams {
-  signerAccount?: AccountInstance
 }
 
 export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, SignerLocatorParams {
@@ -140,12 +143,17 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
   return locator
 }
 
+/**
+ * Registers a SimpleXyoSigner with the locator if a signerAccount is provided in params
+ * @param locator The ProviderFactoryLocator to register the signer with
+ * @param params The SignerLocatorParams containing the optional signerAccount
+ * @returns The updated ProviderFactoryLocator
+ */
 const registerSignerWithLocatorIfProvided = (
   locator: ProviderFactoryLocator<CreatableProviderContextType, string[]>,
   params?: SignerLocatorParams,
 ) => {
-  if (params?.signerAccount) {
-    locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account: params.signerAccount }))
-  }
+  const account = params?.signerAccount
+  if (account) locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }))
   return locator
 }
