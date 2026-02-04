@@ -144,7 +144,7 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
 }
 
 /**
- * Registers a SimpleXyoSigner with the locator if a signerAccount is provided in params
+ * Registers a SimpleXyoGatewayRunner with the locator if a signerAccount is provided in params
  * @param locator The ProviderFactoryLocator to register the signer with
  * @param params The SignerLocatorParams containing the optional signerAccount
  * @returns The updated ProviderFactoryLocator
