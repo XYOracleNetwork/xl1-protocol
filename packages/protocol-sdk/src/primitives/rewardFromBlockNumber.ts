@@ -1,25 +1,18 @@
-import { toFixedPoint } from '@xylabs/sdk-js'
-import { asAttoXL1, type XL1BlockNumber } from '@xyo-network/xl1-protocol'
+import {
+  asAttoXL1, XL1_REWARDS_BLOCKS_PER_STEP, XL1_REWARDS_CREATOR_REWARD,
+  XL1_REWARDS_MIN_BLOCK_REWARD, XL1_REWARDS_STARTING_REWARD, XL1_REWARDS_STEP_FACTOR_DENOMINATOR,
+  XL1_REWARDS_STEP_FACTOR_NUMERATOR, type XL1BlockNumber,
+} from '@xyo-network/xl1-protocol'
 
-export const rewardFromBlockNumber = (places = 18) => {
-  return (
-    blockNumber: XL1BlockNumber,
-    startingReward = asAttoXL1(toFixedPoint(500n, places)),
-    blocksPerStep = 1_000_000,
-    stepFactorNumerator = 95n,
-    stepFactorDenominator = 100n,
-    minBlockReward = asAttoXL1(toFixedPoint(10n, places)),
-    creatorReward = asAttoXL1(toFixedPoint(20_000_000_000n, places)),
-  ) => {
-    if (blockNumber === 0) {
-      return creatorReward
-    }
-    const step = Math.floor((blockNumber + blocksPerStep) / blocksPerStep)
-    const stepExp = BigInt(step - 1)
-    const poweredNumerator = stepExp > 0 ? stepFactorNumerator ** stepExp : 1n
-    const poweredDenominator = stepExp > 0 ? stepFactorDenominator ** stepExp : 1n
-    let reward = (startingReward * poweredNumerator) / poweredDenominator
-    // eslint-disable-next-line unicorn/prefer-math-min-max
-    return asAttoXL1((reward < minBlockReward) ? minBlockReward : reward)
+export function rewardFromBlockNumber(blockNumber: XL1BlockNumber) {
+  if (blockNumber === 0) {
+    return XL1_REWARDS_CREATOR_REWARD
   }
+  const step = Math.floor((blockNumber + XL1_REWARDS_BLOCKS_PER_STEP) / XL1_REWARDS_BLOCKS_PER_STEP)
+  const stepExp = BigInt(step - 1)
+  const poweredNumerator = stepExp > 0 ? XL1_REWARDS_STEP_FACTOR_NUMERATOR ** stepExp : 1n
+  const poweredDenominator = stepExp > 0 ? XL1_REWARDS_STEP_FACTOR_DENOMINATOR ** stepExp : 1n
+  let reward = (XL1_REWARDS_STARTING_REWARD * poweredNumerator) / poweredDenominator
+  // eslint-disable-next-line unicorn/prefer-math-min-max
+  return asAttoXL1((reward < XL1_REWARDS_MIN_BLOCK_REWARD) ? XL1_REWARDS_MIN_BLOCK_REWARD : reward)
 }

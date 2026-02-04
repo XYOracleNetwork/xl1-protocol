@@ -8,14 +8,7 @@ import {
 } from '../../CreatableProvider/index.ts'
 import { rewardFromBlockNumber } from '../../primitives/index.ts'
 
-export interface SimpleBlockRewardViewerParams extends CreatableProviderParams {
-  creatorReward: AttoXL1
-  initialReward: AttoXL1
-  minRewardPerBlock: AttoXL1
-  stepFactorDenominator: bigint
-  stepFactorNumerator: bigint
-  stepSize: XL1BlockNumber
-}
+export interface SimpleBlockRewardViewerParams extends CreatableProviderParams {}
 
 @creatableProvider()
 export class SimpleBlockRewardViewer extends AbstractCreatableProvider<SimpleBlockRewardViewerParams> implements BlockRewardViewer {
@@ -24,17 +17,9 @@ export class SimpleBlockRewardViewer extends AbstractCreatableProvider<SimpleBlo
   static readonly monikers = [BlockRewardViewerMoniker]
   moniker = SimpleBlockRewardViewer.defaultMoniker
 
-  protected rewardFromBlockNumber = rewardFromBlockNumber(18)
-
   allowedRewardForBlock(block: XL1BlockNumber): Promisable<AttoXL1> {
-    return this.rewardFromBlockNumber(
+    return rewardFromBlockNumber(
       block,
-      this.params.initialReward,
-      this.params.stepSize,
-      this.params.stepFactorNumerator,
-      this.params.stepFactorDenominator,
-      this.params.minRewardPerBlock,
-      this.params.creatorReward,
     )
   }
 }
