@@ -341,7 +341,7 @@ describe('SimpleMempoolViewer', () => {
           balancesSummaryMap: new MemoryMap<string, WithStorageMeta<BalancesStepSummary>>(),
         },
       ),
-      SimpleBlockValidationViewer.factory<SimpleBlockValidationViewer>(SimpleBlockValidationViewer.dependencies, { maxUncleWindowSize: 10 }),
+      SimpleBlockValidationViewer.factory<SimpleBlockValidationViewer>(SimpleBlockValidationViewer.dependencies, {}),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
       SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, contractViewerParams),
       SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 1000, syncInterval: 10_000 }),

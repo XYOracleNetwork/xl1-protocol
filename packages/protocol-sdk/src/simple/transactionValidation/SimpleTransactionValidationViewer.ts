@@ -26,7 +26,7 @@ import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
 
 export interface SimpleTransactionValidationViewerParams extends CreatableProviderParams {
-  maxUncleWindowSize: number
+  maxUncleWindowSize?: number
   protocol?: HydratedTransactionValidationFunction
   state?: HydratedTransactionStateValidationFunction
 }
@@ -52,7 +52,7 @@ export class SimpleTransactionValidationViewer extends
   }
 
   protected get maxUncleWindowSize() {
-    return this.params.maxUncleWindowSize
+    return this.params.maxUncleWindowSize!
   }
 
   static override async paramsHandler(params: Partial<SimpleTransactionValidationViewerParams>): Promise<SimpleTransactionValidationViewerParams> {
