@@ -1,20 +1,15 @@
 import z from 'zod'
 
-import { BlockBoundWitnessWithHashMetaZod } from '../../zod/index.ts'
 import { BlockContextReadZod, BlockContextWriteZod } from './BlockContext.zod.ts'
-import { CachingContextZod } from './CachingContext.zod.ts'
-
-export const ChainContextBaseZod = CachingContextZod.extend(
-  { head: BlockBoundWitnessWithHashMetaZod },
-)
+import { HeadContextBaseZod } from './HeadContext.zod.ts'
 
 export const ChainContextReadZod = z.intersection(
-  ChainContextBaseZod,
+  HeadContextBaseZod,
   BlockContextReadZod,
 )
 
 export const ChainContextWriteZod = z.intersection(
-  ChainContextBaseZod,
+  HeadContextBaseZod,
   BlockContextWriteZod,
 )
 
