@@ -10,7 +10,7 @@ import type {
 } from '@xyo-network/xl1-protocol-sdk'
 import {
   getDefaultConfig, getEmptyContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
-  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
+  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoGatewayRunner, SimpleXyoRunner,
   SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
@@ -33,7 +33,7 @@ export interface BuildProviderLocatorParams {
   context?: Omit<CreatableProviderContext, 'locator'> & Partial<{ locator: CreatableProviderContext['locator'] }>
 }
 
-export interface SignerLocatorParams {
+export interface GatewayRunnerLocatorParams {
   /**
    * The account instance to be used to register a SimpleXyoSigner with the locator
    */
@@ -49,7 +49,7 @@ export function buildProviderLocator({ context = getEmptyContext() }: BuildProvi
   }, locator?.registry)
 }
 
-export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, SignerLocatorParams {
+export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
 }
 
 export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorParams) {
@@ -69,11 +69,11 @@ export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorPa
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
-  registerSignerWithLocatorIfProvided(locator, params)
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
   return locator
 }
 
-export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams, SignerLocatorParams {
+export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
   transportFactory: TransportFactory
 }
 
@@ -110,11 +110,11 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
     SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
   ])
-  registerSignerWithLocatorIfProvided(locator, params)
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
   return locator
 }
 
-export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams, SignerLocatorParams {
+export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
   chainId: ChainId
   finalizedArchivist: ArchivistInstance
@@ -139,7 +139,7 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
     NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
   ])
-  registerSignerWithLocatorIfProvided(locator, params)
+  registerGatewayRunnerWithLocatorIfProvided(locator, params)
   return locator
 }
 
@@ -149,11 +149,16 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
  * @param params The SignerLocatorParams containing the optional signerAccount
  * @returns The updated ProviderFactoryLocator
  */
-const registerSignerWithLocatorIfProvided = (
+const registerGatewayRunnerWithLocatorIfProvided = (
   locator: ProviderFactoryLocator<CreatableProviderContextType, string[]>,
-  params?: SignerLocatorParams,
+  params?: GatewayRunnerLocatorParams,
 ) => {
   const account = params?.signerAccount
-  if (account) locator.register(SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }))
+  if (account) {
+    locator.registerMany([
+      SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }),
+      SimpleXyoGatewayRunner.factory<SimpleXyoGatewayRunner>(SimpleXyoGatewayRunner.dependencies, {}),
+    ])
+  }
   return locator
 }
