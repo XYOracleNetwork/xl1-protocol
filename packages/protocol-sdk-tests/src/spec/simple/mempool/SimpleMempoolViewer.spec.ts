@@ -366,12 +366,12 @@ describe('SimpleMempoolViewer', () => {
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
     const locator = buildSimpleProviderLocator()
-    const transfersSummaryContext = await getTransfersSummaryContext(locator.context, finalizedArchivist)
-    const balanceSummaryContext = await getBalanceSummaryContext(locator.context, finalizedArchivist)
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()
     await finalizedArchivist.insert(flattenHydratedBlock(genesisBlock))
+    const transfersSummaryContext = await getTransfersSummaryContext(locator.context, finalizedArchivist)
+    const balanceSummaryContext = await getBalanceSummaryContext(locator.context, finalizedArchivist)
     locator.registerMany([
       SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
       SimpleAccountBalanceViewer.factory<SimpleAccountBalanceViewer>(
