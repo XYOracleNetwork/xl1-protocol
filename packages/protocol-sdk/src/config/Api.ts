@@ -9,7 +9,9 @@ export const ApiConfigZod = z.object({
     title: 'api.host',
     type: 'string',
   }),
-  initRewardsCache: z.union([z.number(), z.string()]).transform(v => v !== '0' && v !== 'false').default(true).register(globalRegistry, {
+  initRewardsCache: z.union([z.number(), z.string(), z.boolean()]).transform(
+    v => v !== '0' && v !== 'false' && v !== false && v != 0,
+  ).default(true).register(globalRegistry, {
     description: 'Whether to initialize the rewards cache on startup',
     title: 'api.initRewardsCache',
     type: 'boolean',

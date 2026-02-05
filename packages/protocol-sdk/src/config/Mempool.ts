@@ -3,7 +3,8 @@ import { globalRegistry, z } from 'zod'
 import { MnemonicStringZod } from '../validation/index.ts'
 
 export const MempoolConfigZod = z.object({
-  enabled: z.string().default('false').transform((val, ctx) => {
+  enabled: z.union([z.string(), z.boolean()]).default('false').transform((val, ctx) => {
+    if (typeof val === 'boolean') return val
     const normalized = val.toLowerCase().trim()
     if (['true', '1', 'yes', 'on'].includes(normalized)) return true
     if (['false', '0', 'no', 'off'].includes(normalized)) return false

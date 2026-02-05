@@ -51,7 +51,7 @@
     "ajv": "~8.17.1"
   },
   "devDependencies": {
-    "@types/node": "~25.1.0",
+    "@types/node": "~25.2.0",
     "@xylabs/sdk-js": "~5.0.65",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",

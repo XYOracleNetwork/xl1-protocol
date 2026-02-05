@@ -59,7 +59,7 @@
     "@xyo-network/xl1-protocol": "~1.22.18"
   },
   "devDependencies": {
-    "@types/node": "~25.1.0",
+    "@types/node": "~25.2.0",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
     "@xylabs/vitest-extended": "~5.0.65",
