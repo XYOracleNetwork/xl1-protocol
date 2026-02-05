@@ -5,11 +5,10 @@ import type {
   ChainId, MapType, Position,
 } from '@xyo-network/xl1-protocol'
 import type {
-  BalancesStepSummary, CreatableProviderContext, TransfersStepSummary,
+  BalancesStepSummary, Config, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
-  ConfigZod,
-  getEmptyProviderContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
@@ -21,41 +20,21 @@ import {
 } from '@xyo-network/xl1-rpc'
 
 import { NodeXyoViewer } from './NodeXyoViewer.ts'
-import type { GatewayRunnerLocatorParams } from './registerHelpers.ts'
-import { registerGatewayAndConnectionWithLocator, registerGatewayRunnerWithLocatorIfProvided } from './registerHelpers.ts'
+import { registerGatewayAndConnectionWithLocator } from './registerHelpers.ts'
 import { SimpleNetworkStakeViewer } from './SimpleNetworkStakeViewer.ts'
 import {
   SimpleStepRewardsByPositionViewer, SimpleStepRewardsByStakerViewer, SimpleStepRewardsByStepViewer, SimpleStepRewardsTotalViewer, SimpleStepRewardsViewer,
 } from './SimpleStepRewards/index.ts'
 import { SimpleStepViewer } from './SimpleStepViewer.ts'
 
-/** @deprecated use buildEmptyProviderLocator */
-export interface BuildProviderLocatorParams {
-  context?: Omit<CreatableProviderContext, 'locator'> & Partial<{ locator: CreatableProviderContext['locator'] }>
-}
-
-/** @deprecated use buildEmptyProviderLocator */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function buildProviderLocator({ context = getEmptyProviderContext(ConfigZod.parse({})) }: BuildProviderLocatorParams = {}) {
-  const {
-    config, locator, singletons = {}, caches = {}, ...restOfContext
-  } = context
+export function buildEmptyProviderLocator(config: Config) {
   return new ProviderFactoryLocator({
-    ...restOfContext, config, singletons, caches,
-  }, locator?.registry)
+    config, singletons: {}, caches: {},
+  })
 }
 
-/** @deprecated use buildSimpleProviderLocatorV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface BuildSimpleProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
-}
-
-/** @deprecated use buildSimpleProviderLocatorV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorParams) {
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const locator = buildProviderLocator(params)
-  const positions: Position[] = []
+export function buildSimpleProviderLocatorV2(config: Config, positions: Position[]) {
+  const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
@@ -68,23 +47,11 @@ export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorPa
     SimpleStepRewardsByStepViewer.factory<SimpleStepRewardsByStepViewer>(SimpleStepRewardsByStepViewer.dependencies, {}),
     SimpleStepRewardsTotalViewer.factory<SimpleStepRewardsTotalViewer>(SimpleStepRewardsTotalViewer.dependencies, {}),
   ])
-
-  return registerGatewayAndConnectionWithLocator(registerGatewayRunnerWithLocatorIfProvided(locator, params))
+  return registerGatewayAndConnectionWithLocator(locator)
 }
 
-/** @deprecated use buildJsonRpcProviderLocatorV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface BuildJsonRpcProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
-  transportFactory: TransportFactory
-}
-
-/** @deprecated use buildJsonRpcProviderLocatorV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLocatorParams) {
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const locator = buildProviderLocator(params)
-  const transportFactory = params.transportFactory
-  const positions: Position[] = []
+export async function buildJsonRpcProviderLocatorV2(config: Config, transportFactory: TransportFactory, positions: Position[]) {
+  const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
     JsonRpcStakeTotalsViewer.factory<JsonRpcStakeTotalsViewer>(
       JsonRpcStakeTotalsViewer.dependencies,
@@ -109,30 +76,27 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
     ),
     JsonRpcXyoRunner.factory<JsonRpcXyoRunner>(JsonRpcXyoRunner.dependencies, { transport: await transportFactory(XyoRunnerRpcSchemas) }),
     JsonRpcXyoViewer.factory<JsonRpcXyoViewer>(JsonRpcXyoViewer.dependencies, { transport: await transportFactory(XyoViewerRpcSchemas) }),
+
     SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
     SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
   ])
-
-  return registerGatewayAndConnectionWithLocator(registerGatewayRunnerWithLocatorIfProvided(locator, params))
+  return registerGatewayAndConnectionWithLocator(locator)
 }
 
-/** deprecated use buildLocalProviderLocatorV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
+export interface BuildLocalProviderLocatorParamsV2 {
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
   chainId: ChainId
   finalizedArchivist: ArchivistInstance
   node: NodeInstance
   pendingBlocksArchivist: ArchivistInstance
   pendingTransactionsArchivist: ArchivistInstance
+  positions: Position[]
   transfersSummaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>
 }
 
-/** deprecated use buildLocalProviderLocatorV2 instead */
-export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParams) {
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const locator = buildSimpleProviderLocator(params)
+export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalProviderLocatorParamsV2) {
+  const locator = buildSimpleProviderLocatorV2(config, params.positions)
   const {
     pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node, chainId,
   } = params
@@ -146,6 +110,5 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
     NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
   ])
-
-  return registerGatewayRunnerWithLocatorIfProvided(locator, params)
+  return registerGatewayAndConnectionWithLocator(locator)
 }

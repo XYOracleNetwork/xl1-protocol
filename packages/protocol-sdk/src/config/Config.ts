@@ -32,4 +32,5 @@ export const ConfigZod = z.object({
 
 export type Config = z.infer<typeof ConfigZod>
 
+/** @deprecated Use ConfigZod.parse({}) instead */
 export const getDefaultConfig = (): Config => ConfigZod.parse({})

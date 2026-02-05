@@ -1,5 +1,6 @@
 import type {
   CreatableInstance, CreatableParams, EmptyObject,
+  Logger,
   Promisable,
 } from '@xylabs/sdk-js'
 import {
@@ -10,39 +11,33 @@ import {
 import { AccountInstance } from '@xyo-network/account-model'
 import { Semaphore } from 'async-mutex'
 
-import { Config, getDefaultConfig } from '../config/index.ts'
+import { Config } from '../config/index.ts'
 import { CreatableProviderFactory, ProviderFactoryLocator } from '../CreatableProvider/index.ts'
 import { ActorContext } from './ActorContext.ts'
 
-/** @deprecated use ActorParamsV2 */
-export type ActorParams<T extends EmptyObject | void = void> = CreatableParams & {
+export type ActorParamsV2<T extends EmptyObject | void = void> = CreatableParams & {
   account: AccountInstance
-  context?: ActorContext
-  displayName?: string
-  id: string
+  config: Config
+  logger?: Logger
 } & (T extends void ? EmptyObject : T)
 
-/** @deprecated use ActorInstanceV2 */
-export type ActorInstance<T extends ActorParams = ActorParams> = CreatableInstance<T>
+export type ActorInstanceV2<T extends ActorParamsV2 = ActorParamsV2> = CreatableInstance<T>
 
-/** @deprecated use Actor */
 @creatable()
-export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCreatable<TParams> {
+export class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> extends AbstractCreatable<TParams> {
   protected readonly _intervals: Map<string, ReturnType<typeof setInterval>> = new Map()
   protected readonly _semaphores: Map<string, Semaphore> = new Map()
   protected readonly _timeouts: Map<string, ReturnType<typeof setTimeout>> = new Map()
   private _active = false
+  private _context!: ActorContext
 
-  get displayName() {
-    return this.params.displayName ?? this.params.name ?? 'UnnamedActor'
-  }
-
+  /** @deprecated use .name instead */
   get id() {
-    return this.params.id
+    return this.name
   }
 
   protected get account() {
-    return this.params.account!
+    return this.params.account
   }
 
   protected get config() {
@@ -50,51 +45,26 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
   }
 
   protected get context() {
-    return this.params.context!
+    return this._context
   }
 
   protected get locator() {
     return this.context.locator
   }
 
-  protected get logPrefix() {
-    return `[${this.displayName} (${this.id})] `
-  }
-
   static defaultFactories(): CreatableProviderFactory[] {
     return []
   }
 
-  static override async paramsHandler<T extends ActorInstance>(params?: Partial<T['params']>) {
-    const baseParams = await super.paramsHandler(params)
-    const id = params?.id ?? baseParams.name ?? 'UnnamedActor'
-    const displayName = params?.displayName ?? baseParams.name
-    const account = assertEx(params?.account, () => `Account is required for actor ${id}.`)
-    const context = await this.initContext({
-      ...params, account, id, displayName,
-    })
-    const logger = context?.logger ?? new IdLogger(Base.defaultLogger ?? console, () => `[${displayName} (${id})] `)
+  static override async paramsHandler<T extends ActorInstanceV2>(params: Partial<T['params']>) {
+    const baseParams = await super.paramsHandler({ ...params, name: params.name ?? 'UnknownActor' })
+    const account = assertEx(params.account, () => `Account is required for actor ${baseParams.name}.`)
+    const config = assertEx(params.config, () => `Config is required for actor ${baseParams.name}.`)
+    const inLogger = params.logger ?? Base.defaultLogger
+    const logger = inLogger ? new IdLogger(inLogger, () => `[${baseParams.name}] `) : undefined
     return {
-      ...baseParams, account, context, displayName, id, logger,
-    } satisfies ActorParams
-  }
-
-  protected static initContext<T extends ActorInstance>(
-    params: T['params'],
-  ): Promisable<ActorContext> {
-    const logger = params?.context?.logger
-    const config: Config = params?.context?.config ?? getDefaultConfig()
-    const singletons = params?.context?.singletons ?? {}
-
-    const locator = params.context?.locator ?? new ProviderFactoryLocator({
-      ...params?.context,
-      caches: params.context?.caches ?? {},
-      config,
-      logger,
-      singletons,
-    })
-    locator.registerMany(this.defaultFactories())
-    return locator.context
+      ...baseParams, account, logger, config,
+    } satisfies ActorParamsV2
   }
 
   /**
@@ -168,6 +138,7 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
    */
   override async startHandler() {
     await super.startHandler()
+    this._context = await this.initContext()
     this._active = true
     this.logger?.log('Started.')
   }
@@ -206,5 +177,16 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     this._intervals.clear()
 
     this.logger?.log('Stopped.')
+  }
+
+  protected initContext(): Promisable<ActorContext> {
+    const locator = this.initLocator()
+    return locator.context
+  }
+
+  protected initLocator() {
+    const locator = new ProviderFactoryLocator(this.context)
+    locator.registerMany(ActorV2.defaultFactories())
+    return locator
   }
 }
