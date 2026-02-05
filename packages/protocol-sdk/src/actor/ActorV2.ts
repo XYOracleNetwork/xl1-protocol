@@ -12,7 +12,7 @@ import type { AccountInstance } from '@xyo-network/account-model'
 import { Semaphore } from 'async-mutex'
 
 import type { Config } from '../config/index.ts'
-import type { ProviderFactoryLocator } from '../CreatableProvider/index.ts'
+import type { ProviderFactoryLocatorInstance } from '../CreatableProvider/index.ts'
 import type { ActorContext } from './ActorContext.ts'
 
 export type ActorParamsV2<T extends EmptyObject | void = void> = CreatableParams & {
@@ -179,5 +179,5 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
     return locator.context
   }
 
-  abstract initLocator(): Promisable<ProviderFactoryLocator>
+  abstract initLocator(): Promisable<ProviderFactoryLocatorInstance>
 }
