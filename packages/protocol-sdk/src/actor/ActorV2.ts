@@ -34,7 +34,7 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
   }
 
   protected get config() {
-    return this.context.config
+    return this.params.config
   }
 
   protected get context() {
