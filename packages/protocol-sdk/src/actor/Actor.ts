@@ -23,10 +23,12 @@ export type ActorParams<T extends EmptyObject | void = void> = CreatableParams &
 } & (T extends void ? EmptyObject : T)
 
 /** @deprecated use ActorInstanceV2 */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export type ActorInstance<T extends ActorParams = ActorParams> = CreatableInstance<T>
 
 /** @deprecated use Actor */
 @creatable()
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCreatable<TParams> {
   protected readonly _intervals: Map<string, ReturnType<typeof setInterval>> = new Map()
   protected readonly _semaphores: Map<string, Semaphore> = new Map()
@@ -65,6 +67,7 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     return []
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   static override async paramsHandler<T extends ActorInstance>(params?: Partial<T['params']>) {
     const baseParams = await super.paramsHandler(params)
     const id = params?.id ?? baseParams.name ?? 'UnnamedActor'
@@ -76,13 +79,16 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     const logger = context?.logger ?? new IdLogger(Base.defaultLogger ?? console, () => `[${displayName} (${id})] `)
     return {
       ...baseParams, account, context, displayName, id, logger,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     } satisfies ActorParams
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   protected static initContext<T extends ActorInstance>(
     params: T['params'],
   ): Promisable<ActorContext> {
     const logger = params?.context?.logger
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const config: Config = params?.context?.config ?? getDefaultConfig()
     const singletons = params?.context?.singletons ?? {}
 
