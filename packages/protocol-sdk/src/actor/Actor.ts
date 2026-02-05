@@ -85,7 +85,7 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
 
   protected static initContext<T extends ActorInstance>(
     params: T['params'],
-  ): Promisable<T['params']['context']> {
+  ): Promisable<ActorContext> {
     const logger = params?.context?.logger
     const config: Config = params?.context?.config ?? getDefaultConfig()
     const singletons = params?.context?.singletons ?? {}
