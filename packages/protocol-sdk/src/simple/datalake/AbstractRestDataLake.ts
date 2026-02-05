@@ -57,7 +57,7 @@ export abstract class AbstractRestDataLake<TParams extends AbstractRestDataLakeP
     if (isAnyPayload(value)) {
       return this.isAllowedSchema(value.schema)
     }
-    return true
+    return false
   }
 
   protected isAllowedSchema(schema: Schema): boolean {

@@ -12,8 +12,8 @@ export interface SynchronousMapRead<K, V> extends SyncMapRead<K, V> {}
 export interface SyncMapWrite<K, V> {
   clear(): void
   delete(id: K): boolean
-  set(id: K, data: V): void
-  setMany(entries: [K, V][]): void
+  set(id: K, data: V): K | undefined | void
+  setMany(entries: [K, V][]): K[] | void
 }
 
 /**

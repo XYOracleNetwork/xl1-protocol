@@ -13,8 +13,8 @@ export interface AsynchronousMapRead<K, V> extends AsyncMapRead<K, V> {}
 export interface AsyncMapWrite<K, V> {
   clear(): Promisable<void>
   delete(id: K): Promisable<boolean>
-  set(id: K, data: V): Promisable<void>
-  setMany(entries: [K, V][]): Promisable<void>
+  set(id: K, data: V): Promisable<K | undefined | void>
+  setMany(entries: [K, V][]): Promisable<K[] | void>
 }
 /**
  * @deprecated Use AsyncMapWrite instead

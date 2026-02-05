@@ -35,6 +35,6 @@ export class SimpleDataLakeRunner<TParams extends SimpleDataLakeRunnerParams> ex
 
   async setMany(entries: [Hash, DataLakeData][]): Promise<void> {
     const allowed = entries.filter(([_, data]) => this.isAllowed(data))
-    return await this.map.setMany(allowed)
+    await this.map.setMany(allowed)
   }
 }

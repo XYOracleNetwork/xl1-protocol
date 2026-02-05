@@ -1,6 +1,8 @@
 import {
   assertEx, exists, type Hash,
 } from '@xylabs/sdk-js'
+import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { isAnyPayload } from '@xyo-network/payload-model'
 import {
   DataLakeData,
   DataLakeRunner,
@@ -29,24 +31,27 @@ export class RestDataLakeRunner<TParams extends RestDataLakeRunnerParams> extend
     throw new Error('Delete is not supported on RestDataLakeRunner')
   }
 
-  async set(hash: Hash, data: DataLakeData): Promise<void> {
-    if (this.isAllowed(data)) {
+  async set(hash: Hash, data: DataLakeData): Promise<Hash | undefined | void> {
+    if (isAnyPayload(data) && this.isAllowed(data)) {
+      const actualHash = await PayloadBuilder.hash(data)
+      assertEx(actualHash === hash, () => `Hash of data does not match provided hash. Expected ${hash}, got ${actualHash}`)
       assertEx(typeof data === 'object' && data !== null, () => 'Data must be an object')
-      await this.axios.post(`${this.params.endpoint}/insert`, data)
+      const result = await this.axios.post(`${this.params.endpoint}/insert`, data)
+      return result.status === 200 ? actualHash : undefined
     }
   }
 
-  async setMany(entries: [Hash, DataLakeData][]): Promise<void> {
+  async setMany(entries: [Hash, DataLakeData][]): Promise<Hash[] | void> {
     const data = entries.map(([, data]) => {
-      if (this.isAllowed(data)) {
+      if (isAnyPayload(data) && this.isAllowed(data)) {
         assertEx(typeof data === 'object' && data !== null, () => 'Data must be an object')
         return data
       }
       return null
     }).filter(exists)
     if (data.length > 0) {
-      assertEx(typeof data === 'object' && data !== null, () => 'Data must be an object')
-      await this.axios.post(`${this.params.endpoint}/insert`, data)
+      const result = await this.axios.post(`${this.params.endpoint}/insert`, data)
+      return result.data
     }
   }
 }
