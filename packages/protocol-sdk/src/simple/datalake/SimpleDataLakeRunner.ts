@@ -7,12 +7,12 @@ import {
 
 import { creatableProvider } from '../../CreatableProvider/index.ts'
 import { AbstractSimpleDataLake } from './AbstractSimpleDataLake.ts'
-import { DataLakeViewerParams } from './SimpleDataLakeViewer.ts'
+import { SimpleDataLakeViewerParams } from './SimpleDataLakeViewer.ts'
 
-export interface DataLakeRunnerParams extends DataLakeViewerParams<MapType<Hash, DataLakeData>> {}
+export interface SimpleDataLakeRunnerParams extends SimpleDataLakeViewerParams<MapType<Hash, DataLakeData>> {}
 
 @creatableProvider()
-export class SimpleDataLakeRunner<TParams extends DataLakeRunnerParams> extends
+export class SimpleDataLakeRunner<TParams extends SimpleDataLakeRunnerParams> extends
   AbstractSimpleDataLake<TParams> implements DataLakeRunner {
   static readonly defaultMoniker = DataLakeRunnerMoniker
   static readonly dependencies = []
