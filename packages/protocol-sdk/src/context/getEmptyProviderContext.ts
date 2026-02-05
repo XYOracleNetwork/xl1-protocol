@@ -1,6 +1,7 @@
 import type { Config } from '../config/index.ts'
 import { type CreatableProviderContext, ProviderFactoryLocator } from '../CreatableProvider/index.ts'
 
+/** @deprecated use getTestProviderContext instead */
 export function getEmptyProviderContext(config: Config): CreatableProviderContext {
   const singletons = {}
   const caches = {}
@@ -12,5 +13,6 @@ export function getEmptyProviderContext(config: Config): CreatableProviderContex
 
 /** @deprecated Use getEmptyProviderContext instead */
 export function getEmptyContext(config: Config) {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return getEmptyProviderContext(config)
 }

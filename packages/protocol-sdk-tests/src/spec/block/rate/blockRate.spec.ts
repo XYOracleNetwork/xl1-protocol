@@ -1,7 +1,7 @@
 import type { BlockViewer } from '@xyo-network/xl1-protocol'
 import { asXL1BlockRange, BlockViewerMoniker } from '@xyo-network/xl1-protocol'
-import { calculateBlockRate } from '@xyo-network/xl1-protocol-sdk'
-import { buildJsonRpcProviderLocator } from '@xyo-network/xl1-providers'
+import { calculateBlockRate, ConfigZod } from '@xyo-network/xl1-protocol-sdk'
+import { buildJsonRpcProviderLocatorV2 } from '@xyo-network/xl1-providers'
 import type { RpcSchemaMap, TransportFactory } from '@xyo-network/xl1-rpc'
 import { HttpRpcTransport } from '@xyo-network/xl1-rpc'
 import {
@@ -14,13 +14,14 @@ import { SkipRateSpecs } from './Config.ts'
 // that can happen once sdk 1.18.x is released with the new rpc changes
 // and we can update the block ranges to something static for all time
 const endpoint = 'http://localhost:8080/rpc'
+const config = ConfigZod.parse({})
 
 describe.skipIf(SkipRateSpecs)('calculateBlockRate', () => {
   let viewer: BlockViewer
 
   beforeEach(async () => {
     const transportFactory: TransportFactory = (schemas: RpcSchemaMap) => new HttpRpcTransport(endpoint, schemas)
-    const locator = await buildJsonRpcProviderLocator({ transportFactory })
+    const locator = await buildJsonRpcProviderLocatorV2(config, transportFactory, [])
     viewer = await locator.getInstance<BlockViewer>(BlockViewerMoniker)
   })
 

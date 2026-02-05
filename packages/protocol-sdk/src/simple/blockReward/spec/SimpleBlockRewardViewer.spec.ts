@@ -6,13 +6,14 @@ import {
   beforeAll, describe, expect, it,
 } from 'vitest'
 
-import { getDefaultConfig } from '../../../config/index.ts'
+import { ConfigZod } from '../../../config/index.ts'
 import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
 import { SimpleBlockRewardViewer } from '../SimpleBlockRewardViewer.ts'
 
+const config = ConfigZod.parse({})
+
 describe('MemoryBlockRewardService', () => {
   let sut: SimpleBlockRewardViewer
-  const config = getDefaultConfig()
   const locator = new ProviderFactoryLocator({
     singletons: {}, caches: {}, config,
   })

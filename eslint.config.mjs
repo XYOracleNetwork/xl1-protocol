@@ -16,7 +16,7 @@ export default [
     ...importConfig,
     rules: {
       ...importConfig.rules,
-      'import-x/no-internal-modules': ['warn', { allow: ['vitest/config', 'ethers/utils', '*/index.ts', '**/test'] }],
+      'import-x/no-internal-modules': ['warn', { allow: ['vitest/config', 'ethers/utils', '*/index.ts', ...importConfig.rules['import-x/no-internal-modules'][1].allow] }],
       'import-x/no-unresolved': ['off'],
       'import-x/no-relative-packages': ['error'],
       'import-x/no-self-import': ['error'],

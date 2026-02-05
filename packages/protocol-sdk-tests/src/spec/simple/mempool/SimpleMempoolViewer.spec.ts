@@ -15,14 +15,17 @@ import type {
 } from '@xyo-network/xl1-protocol-sdk'
 import {
   buildRandomTransaction,
+  ConfigZod,
   flattenHydratedBlock, MemoryMap, SimpleAccountBalanceViewer, SimpleBlockValidationViewer, SimpleBlockViewer, SimpleChainContractViewer,
   SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleWindowedBlockViewer,
 } from '@xyo-network/xl1-protocol-sdk'
-import { buildSimpleProviderLocator } from '@xyo-network/xl1-providers'
+import { buildSimpleProviderLocatorV2 } from '@xyo-network/xl1-providers'
 import {
   beforeAll, beforeEach, describe, expect, it,
 } from 'vitest'
+
+const config = ConfigZod.parse({})
 
 describe('SimpleMempoolViewer', () => {
   const chainId = asHex('c5fe2e6f6841cbab12d8c0618be2df8c6156cc44', true)
@@ -327,7 +330,7 @@ describe('SimpleMempoolViewer', () => {
     pendingTransactionsArchivist: MemoryArchivist,
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
-    const locator = buildSimpleProviderLocator()
+    const locator = buildSimpleProviderLocatorV2(config, [])
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()

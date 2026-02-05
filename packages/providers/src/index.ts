@@ -1,6 +1,7 @@
 export * from './buildProviderLocator.ts'
 export * from './buildProviderLocatorV2.ts'
 export * from './buildSimpleXyoSigner.ts'
+export * from './buildSimpleXyoSignerV2.ts'
 export * from './NodeXyoViewer.ts'
 export * from './registerHelpers.ts'
 export * from './SimpleNetworkStakeViewer.ts'

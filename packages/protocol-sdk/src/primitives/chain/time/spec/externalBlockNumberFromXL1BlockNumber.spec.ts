@@ -5,12 +5,14 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import { getDefaultConfig } from '../../../../config/index.ts'
+import { ConfigZod } from '../../../../config/index.ts'
 import { ProviderFactoryLocator } from '../../../../CreatableProvider/index.ts'
 import {
   SimpleBlockViewer, SimpleChainContractViewer, SimpleFinalizationViewer,
 } from '../../../../simple/index.ts'
 import { externalBlockNumberFromXL1BlockNumber } from '../externalBlockNumberFromXL1BlockNumber.ts'
+
+const config = ConfigZod.parse({})
 
 describe('externalBlockNumberFromXL1BlockNumber', () => {
   it('should be tested', async () => {
@@ -22,7 +24,6 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
       },
     })
 
-    const config = getDefaultConfig()
     const locator = new ProviderFactoryLocator({
       singletons: {}, caches: {}, config,
     })

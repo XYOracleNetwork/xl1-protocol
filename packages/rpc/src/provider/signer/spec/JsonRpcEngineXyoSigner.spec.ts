@@ -6,8 +6,9 @@ import type { ChainId } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, defaultTransactionFees } from '@xyo-network/xl1-protocol'
 import type { XyoSigner } from '@xyo-network/xl1-protocol-sdk'
 import {
-  buildUnsignedTransaction, getDefaultConfig, ProviderFactoryLocator, SimpleXyoSigner,
+  buildUnsignedTransaction, ConfigZod, SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
+import { getTestProviderContext } from '@xyo-network/xl1-protocol-sdk/test'
 import {
   beforeAll, describe, expect, it,
 } from 'vitest'
@@ -19,18 +20,14 @@ import {
 } from '../../../types/index.ts'
 import { JsonRpcXyoSigner } from '../JsonRpcXyoSigner.ts'
 
+const config = ConfigZod.parse({})
+
 describe('RpcEngine - XyoSigner', () => {
   let sut: XyoSigner
   const chain = toAddress('2AAE728aFd1777b79c34D79c4523797F9D9965b0') as ChainId
   beforeAll(async () => {
     const account = await Account.random()
-    const config = getDefaultConfig()
-    const locator = new ProviderFactoryLocator({
-      singletons: {}, caches: {}, config,
-    })
-    const context = {
-      caches: {}, singletons: {}, config, locator,
-    }
+    const context = getTestProviderContext(config)
     const signer = await SimpleXyoSigner.create({ account, context })
     const handlers = rpcMethodHandlersFromSigner(signer)
     const engine = new JsonRpcEngine()
