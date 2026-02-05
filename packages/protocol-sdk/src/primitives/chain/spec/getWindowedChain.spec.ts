@@ -6,9 +6,9 @@ import {
 } from 'vitest'
 
 import { ConfigZod } from '../../../config/index.ts'
-import { getEmptyProviderContext } from '../../../context/index.ts'
 import type { CreatableProviderContext } from '../../../CreatableProvider/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
+import { getTestProviderContext } from '../../../test/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'
 
 describe('getWindowedChain', () => {
@@ -17,7 +17,7 @@ describe('getWindowedChain', () => {
   let context: CreatableProviderContext
 
   beforeEach(async () => {
-    context = getEmptyProviderContext(ConfigZod.parse({}))
+    context = getTestProviderContext(ConfigZod.parse({}))
     finalizedArchivist = await MemoryArchivist.create({ account: 'random', config: { name: 'FinalizedArchivist' } })
     blockViewer = await SimpleBlockViewer.create({
       finalizedArchivist,

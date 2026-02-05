@@ -1,15 +1,13 @@
+import type { AccountInstance } from '@xyo-network/account-model'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import type { NodeInstance } from '@xyo-network/node-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
-import type {
-  ChainId, MapType, Position,
-} from '@xyo-network/xl1-protocol'
+import type { ChainId, MapType } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, Config, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
 import {
   ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
-  SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
+  SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
@@ -19,13 +17,13 @@ import {
   StakeTotalsViewerRpcSchemas, TimeSyncViewerRpcSchemas, XyoRunnerRpcSchemas, XyoViewerRpcSchemas,
 } from '@xyo-network/xl1-rpc'
 
-import { NodeXyoViewer } from './NodeXyoViewer.ts'
-import { registerGatewayAndConnectionWithLocator } from './registerHelpers.ts'
+import { registerGatewayWithLocator } from './registerHelpers.ts'
 import { SimpleNetworkStakeViewer } from './SimpleNetworkStakeViewer.ts'
 import {
   SimpleStepRewardsByPositionViewer, SimpleStepRewardsByStakerViewer, SimpleStepRewardsByStepViewer, SimpleStepRewardsTotalViewer, SimpleStepRewardsViewer,
 } from './SimpleStepRewards/index.ts'
 import { SimpleStepViewer } from './SimpleStepViewer.ts'
+import { SimpleXyoViewer } from './SimpleXyoViewer.ts'
 
 export function buildEmptyProviderLocator(config: Config) {
   return new ProviderFactoryLocator({
@@ -33,11 +31,9 @@ export function buildEmptyProviderLocator(config: Config) {
   })
 }
 
-export function buildSimpleProviderLocatorV2(config: Config, positions: Position[]) {
+export function buildSimpleProviderLocatorV2(config: Config, account?: AccountInstance) {
   const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
-    SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
-    SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
     SimpleNetworkStakeViewer.factory<SimpleNetworkStakeViewer>(SimpleNetworkStakeViewer.dependencies, {}),
     SimpleTimeSyncViewer.factory<SimpleTimeSyncViewer>(SimpleTimeSyncViewer.dependencies, {}),
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
@@ -47,10 +43,10 @@ export function buildSimpleProviderLocatorV2(config: Config, positions: Position
     SimpleStepRewardsByStepViewer.factory<SimpleStepRewardsByStepViewer>(SimpleStepRewardsByStepViewer.dependencies, {}),
     SimpleStepRewardsTotalViewer.factory<SimpleStepRewardsTotalViewer>(SimpleStepRewardsTotalViewer.dependencies, {}),
   ])
-  return registerGatewayAndConnectionWithLocator(locator)
+  return registerGatewayWithLocator(locator, account)
 }
 
-export async function buildJsonRpcProviderLocatorV2(config: Config, transportFactory: TransportFactory, positions: Position[]) {
+export async function buildJsonRpcProviderLocatorV2(config: Config, transportFactory: TransportFactory, account?: AccountInstance) {
   const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
     JsonRpcStakeTotalsViewer.factory<JsonRpcStakeTotalsViewer>(
@@ -76,30 +72,25 @@ export async function buildJsonRpcProviderLocatorV2(config: Config, transportFac
     ),
     JsonRpcXyoRunner.factory<JsonRpcXyoRunner>(JsonRpcXyoRunner.dependencies, { transport: await transportFactory(XyoRunnerRpcSchemas) }),
     JsonRpcXyoViewer.factory<JsonRpcXyoViewer>(JsonRpcXyoViewer.dependencies, { transport: await transportFactory(XyoViewerRpcSchemas) }),
-
-    SimpleStakeViewer.factory<SimpleStakeViewer>(SimpleStakeViewer.dependencies, { positions }),
-    SimpleStakeEventsViewer.factory<SimpleStakeEventsViewer>(SimpleStakeEventsViewer.dependencies, { positions }),
-    SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
   ])
-  return registerGatewayAndConnectionWithLocator(locator)
+  return registerGatewayWithLocator(locator, account)
 }
 
 export interface BuildLocalProviderLocatorParamsV2 {
+  account?: AccountInstance
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
   chainId: ChainId
   finalizedArchivist: ArchivistInstance
-  node: NodeInstance
   pendingBlocksArchivist: ArchivistInstance
   pendingTransactionsArchivist: ArchivistInstance
-  positions: Position[]
   transfersSummaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>
 }
 
 export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalProviderLocatorParamsV2) {
-  const locator = buildSimpleProviderLocatorV2(config, params.positions)
   const {
-    pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node, chainId,
+    account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, chainId,
   } = params
+  const locator = buildSimpleProviderLocatorV2(config, account)
   locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
     SimpleMempoolRunner.factory<SimpleMempoolRunner>(SimpleMempoolRunner.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
@@ -108,7 +99,7 @@ export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalPr
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies, {}),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
-    NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
+    SimpleXyoViewer.factory<SimpleXyoViewer>(SimpleXyoViewer.dependencies, { chainId }),
   ])
-  return registerGatewayAndConnectionWithLocator(locator)
+  return locator
 }

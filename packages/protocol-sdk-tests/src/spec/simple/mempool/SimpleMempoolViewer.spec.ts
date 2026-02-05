@@ -330,7 +330,7 @@ describe('SimpleMempoolViewer', () => {
     pendingTransactionsArchivist: MemoryArchivist,
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
-    const locator = buildSimpleProviderLocatorV2(config, [])
+    const locator = buildSimpleProviderLocatorV2(config)
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()
     await pendingTransactionsArchivist.clear()

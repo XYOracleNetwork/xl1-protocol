@@ -21,7 +21,7 @@ describe.skipIf(SkipRateSpecs)('calculateBlockRate', () => {
 
   beforeEach(async () => {
     const transportFactory: TransportFactory = (schemas: RpcSchemaMap) => new HttpRpcTransport(endpoint, schemas)
-    const locator = await buildJsonRpcProviderLocatorV2(config, transportFactory, [])
+    const locator = await buildJsonRpcProviderLocatorV2(config, transportFactory)
     viewer = await locator.getInstance<BlockViewer>(BlockViewerMoniker)
   })
 

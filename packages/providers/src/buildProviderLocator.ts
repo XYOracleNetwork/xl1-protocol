@@ -22,7 +22,7 @@ import {
 
 import { NodeXyoViewer } from './NodeXyoViewer.ts'
 import type { GatewayRunnerLocatorParams } from './registerHelpers.ts'
-import { registerGatewayAndConnectionWithLocator, registerGatewayRunnerWithLocatorIfProvided } from './registerHelpers.ts'
+import { registerGatewayWithLocator } from './registerHelpers.ts'
 import { SimpleNetworkStakeViewer } from './SimpleNetworkStakeViewer.ts'
 import {
   SimpleStepRewardsByPositionViewer, SimpleStepRewardsByStakerViewer, SimpleStepRewardsByStepViewer, SimpleStepRewardsTotalViewer, SimpleStepRewardsViewer,
@@ -69,7 +69,7 @@ export function buildSimpleProviderLocator(params?: BuildSimpleProviderLocatorPa
     SimpleStepRewardsTotalViewer.factory<SimpleStepRewardsTotalViewer>(SimpleStepRewardsTotalViewer.dependencies, {}),
   ])
 
-  return registerGatewayAndConnectionWithLocator(registerGatewayRunnerWithLocatorIfProvided(locator, params))
+  return registerGatewayWithLocator(locator, params?.signerAccount)
 }
 
 /** @deprecated use buildJsonRpcProviderLocatorV2 instead */
@@ -114,7 +114,7 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
     SimpleStepViewer.factory<SimpleStepViewer>(SimpleStepViewer.dependencies, {}),
   ])
 
-  return registerGatewayAndConnectionWithLocator(registerGatewayRunnerWithLocatorIfProvided(locator, params))
+  return registerGatewayWithLocator(locator, params?.signerAccount)
 }
 
 /** deprecated use buildLocalProviderLocatorV2 instead */
@@ -147,5 +147,5 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
     NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
   ])
 
-  return registerGatewayRunnerWithLocatorIfProvided(locator, params)
+  return registerGatewayWithLocator(locator, params?.signerAccount)
 }

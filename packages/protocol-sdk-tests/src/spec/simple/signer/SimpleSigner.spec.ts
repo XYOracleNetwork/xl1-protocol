@@ -6,11 +6,15 @@ import {
   asXL1BlockNumber, defaultTransactionFees, SignedHydratedTransactionWithHashMetaZod,
 } from '@xyo-network/xl1-protocol'
 import type { XyoSigner } from '@xyo-network/xl1-protocol-sdk'
-import { buildUnsignedTransaction, SimpleXyoSigner } from '@xyo-network/xl1-protocol-sdk'
-import { buildSimpleXyoSigner } from '@xyo-network/xl1-providers'
+import {
+  buildUnsignedTransaction, ConfigZod, SimpleXyoSigner,
+} from '@xyo-network/xl1-protocol-sdk'
+import { buildSimpleXyoSignerV2 } from '@xyo-network/xl1-providers'
 import {
   beforeEach, describe, expect, it,
 } from 'vitest'
+
+const config = ConfigZod.parse({})
 
 describe('SimpleXyoSigner', () => {
   let sut: XyoSigner
@@ -18,7 +22,7 @@ describe('SimpleXyoSigner', () => {
 
   beforeEach(async () => {
     account = await Account.random()
-    sut = await buildSimpleXyoSigner({ account })
+    sut = await buildSimpleXyoSignerV2(config, account)
   })
 
   it('should create an instance of SimpleXyoSigner', () => {
