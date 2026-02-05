@@ -18,7 +18,9 @@ import {
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
+import {
+  buildUnsignedTransaction, confirmSubmittedTransaction, flattenHydratedTransaction,
+} from '../../transaction/index.ts'
 
 export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {
   dataLakes?: DataLakeRunner[]
@@ -38,8 +40,8 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
     return this._connection
   }
 
-  get dataLakes(): DataLakesRunner {
-    throw new Error('Method [dataLakes] not implemented.')
+  get dataLakes(): DataLakesRunner | undefined {
+    return this._dataLakes
   }
 
   get signer(): XyoSigner {
@@ -72,8 +74,8 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
     const signer = this.signer
     const runner = assertEx(connection.runner, () => 'No runner available on connection')
-    const signedTx = await signer.signTransaction(tx)
-    await this.addPayloadsToDataLakes(signedTx[1])
+    const signedTx: SignedHydratedTransactionWithHashMeta = await signer.signTransaction(tx)
+    await this.addPayloadsToDataLakes([...signedTx[1], signedTx[0]])
     return [await runner.broadcastTransaction(
       [signedTx[0], signedTx[1]],
     ), signedTx]
@@ -114,7 +116,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
   }
 
   protected async addPayloadsToDataLakes(payloads: WithHashMeta<Payload>[]): Promise<void> {
-    const dataLakes = this._dataLakes?.dataLakes ?? []
+    const dataLakes = this.dataLakes?.dataLakes ?? []
     await Promise.all(dataLakes.map(async (dataLake) => {
       await Promise.all(payloads.map(async (payload) => {
         await dataLake?.set(payload._hash, payload)
