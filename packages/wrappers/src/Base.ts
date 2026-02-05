@@ -1,5 +1,5 @@
 import type { PromisableArray } from '@xylabs/sdk-js'
-import type { XyoConnection } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoConnection } from '@xyo-network/xl1-protocol'
 
 export interface BaseWrapperConfig<T> {
   provider: XyoConnection
