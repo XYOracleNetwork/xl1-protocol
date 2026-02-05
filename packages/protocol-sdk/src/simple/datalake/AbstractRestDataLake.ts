@@ -1,7 +1,9 @@
 import { axiosJsonConfig } from '@xylabs/axios'
 import { exists, type Hash } from '@xylabs/sdk-js'
+import type { Payload, Schema } from '@xyo-network/payload-model'
 import {
-  isAnyPayload, PayloadZodLoose, type Schema,
+  isAnyPayload,
+  PayloadZodLoose,
 } from '@xyo-network/payload-model'
 import type { DataLakeData } from '@xyo-network/xl1-protocol'
 import { Axios } from 'axios'
@@ -35,8 +37,8 @@ export abstract class AbstractRestDataLake<TParams extends AbstractRestDataLakeP
   }
 
   async get(hash: Hash): Promise<DataLakeData | undefined> {
-    const result = PayloadZodLoose.parse(await this.axios.get(`${this.params.endpoint}/get/${hash}`))
-    return this.isAllowed(result) ? result : undefined
+    const { data } = await this.axios.get(`${this.params.endpoint}/get/${hash}`)
+    return (this.isAllowed(data) ? data : undefined) ?? undefined
   }
 
   async getMany(hashes: Hash[]): Promise<DataLakeData[]> {
