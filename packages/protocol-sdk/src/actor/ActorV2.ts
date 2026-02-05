@@ -6,14 +6,14 @@ import type {
 import {
   AbstractCreatable,
   assertEx,
-  Base, creatable, delay, IdLogger,
+  Base, delay, IdLogger,
 } from '@xylabs/sdk-js'
-import { AccountInstance } from '@xyo-network/account-model'
+import type { AccountInstance } from '@xyo-network/account-model'
 import { Semaphore } from 'async-mutex'
 
-import { Config } from '../config/index.ts'
-import { CreatableProviderFactory, ProviderFactoryLocator } from '../CreatableProvider/index.ts'
-import { ActorContext } from './ActorContext.ts'
+import type { Config } from '../config/index.ts'
+import type { ProviderFactoryLocator } from '../CreatableProvider/index.ts'
+import type { ActorContext } from './ActorContext.ts'
 
 export type ActorParamsV2<T extends EmptyObject | void = void> = CreatableParams & {
   account: AccountInstance
@@ -23,8 +23,7 @@ export type ActorParamsV2<T extends EmptyObject | void = void> = CreatableParams
 
 export type ActorInstanceV2<T extends ActorParamsV2 = ActorParamsV2> = CreatableInstance<T>
 
-@creatable()
-export class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> extends AbstractCreatable<TParams> {
+export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> extends AbstractCreatable<TParams> {
   protected readonly _intervals: Map<string, ReturnType<typeof setInterval>> = new Map()
   protected readonly _semaphores: Map<string, Semaphore> = new Map()
   protected readonly _timeouts: Map<string, ReturnType<typeof setTimeout>> = new Map()
@@ -50,10 +49,6 @@ export class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> extends Abst
 
   protected get locator() {
     return this.context.locator
-  }
-
-  static defaultFactories(): CreatableProviderFactory[] {
-    return []
   }
 
   static override async paramsHandler<T extends ActorInstanceV2>(params: Partial<T['params']>) {
@@ -179,14 +174,10 @@ export class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> extends Abst
     this.logger?.log('Stopped.')
   }
 
-  protected initContext(): Promisable<ActorContext> {
-    const locator = this.initLocator()
+  protected async initContext(): Promise<ActorContext> {
+    const locator = await this.initLocator()
     return locator.context
   }
 
-  protected initLocator() {
-    const locator = new ProviderFactoryLocator(this.context)
-    locator.registerMany(ActorV2.defaultFactories())
-    return locator
-  }
+  abstract initLocator(): Promisable<ProviderFactoryLocator>
 }
