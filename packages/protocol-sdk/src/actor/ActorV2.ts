@@ -27,13 +27,7 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
   protected readonly _intervals: Map<string, ReturnType<typeof setInterval>> = new Map()
   protected readonly _semaphores: Map<string, Semaphore> = new Map()
   protected readonly _timeouts: Map<string, ReturnType<typeof setTimeout>> = new Map()
-  private _active = false
   private _context!: ActorContext
-
-  /** @deprecated use .name instead */
-  get id() {
-    return this.name
-  }
 
   protected get account() {
     return this.params.account
@@ -62,13 +56,18 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
     } satisfies ActorParamsV2
   }
 
+  override async createHandler() {
+    await super.createHandler()
+    this._context = await this.initContext()
+  }
+
   /**
    * The timer runs until the actor is deactivated (or you manually stop it).
    */
   registerTimer(timerName: string, callback: () => Promise<void>, dueTimeMs: number, periodMs: number) {
-    if (!this._active) {
+    if (this.status !== 'starting') {
       this.logger?.warn(
-        `Cannot register timer '${timerName}' because actor is not active.`,
+        `Cannot register timer '${timerName}' because actor is not starting.`,
       )
       return
     }
@@ -80,7 +79,7 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
     const timeoutId = setTimeout(() => {
       const intervalId = setInterval(() => {
         const semaphore = this._semaphores.get(timerName)
-        if (!this._active || !this._intervals.has(timerName) || !semaphore || running) return
+        if (this.status !== 'started' || !this._intervals.has(timerName) || !semaphore || running) return
         if (semaphore.isLocked()) {
           this.logger?.warn(
             `Skipping timer '${this.name}:${timerName}' execution because previous execution is still running.`,
@@ -129,22 +128,11 @@ export abstract class ActorV2<TParams extends ActorParamsV2 = ActorParamsV2> ext
   }
 
   /**
-   * Called by the Orchestrator when the actor is activated.
-   */
-  override async startHandler() {
-    await super.startHandler()
-    this._context = await this.initContext()
-    this._active = true
-    this.logger?.log('Started.')
-  }
-
-  /**
    * Called by the Orchestrator when the actor is deactivated.
    * Stop all running timers.
    */
   override async stopHandler() {
     await super.stopHandler()
-    this._active = false
     this.logger?.log('Stopping all timers...')
 
     // wait for all semaphores to be free and acquire them to prevent new tasks from starting
