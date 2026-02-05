@@ -1,4 +1,4 @@
-import type { DataLakeViewerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { DataLakeViewerMethods } from '@xyo-network/xl1-protocol'
 
 export type DataLakeViewerMethodName = keyof DataLakeViewerMethods
 

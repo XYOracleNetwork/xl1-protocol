@@ -1,6 +1,6 @@
 import type {
   XyoClient, XyoGatewayRunner, XyoPermissions,
-} from '../../model/index.ts'
+} from '@xyo-network/xl1-protocol'
 
 export class SimpleXyoClient implements XyoClient {
   gateways: Readonly<Partial<Record<string, XyoGatewayRunner>>>

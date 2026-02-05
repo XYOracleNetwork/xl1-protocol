@@ -14,7 +14,8 @@ import {
   ChainContractViewerMoniker,
   FinalizationViewer,
   FinalizationViewerMoniker,
-  isHydratedBlockWithHashMeta, isSignedHydratedBlockWithHashMeta, type SignedHydratedBlock, SignedHydratedBlockWithHashMeta, type SignedHydratedTransaction,
+  isHydratedBlockWithHashMeta, isSignedHydratedBlockWithHashMeta, MempoolPruneOptions, MempoolRunner,
+  MempoolRunnerMoniker, type SignedHydratedBlock, SignedHydratedBlockWithHashMeta, type SignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
 
 import {
@@ -22,7 +23,7 @@ import {
 } from '../../CreatableProvider/index.ts'
 import {
   bundledPayloadToHydratedBlock,
-  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle, MempoolPruneOptions, MempoolRunner, MempoolRunnerMoniker,
+  hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle,
 } from '../../model/index.ts'
 
 export interface SimpleMempoolRunnerParams extends CreatableProviderParams {

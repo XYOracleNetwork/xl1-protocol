@@ -2,13 +2,12 @@ import { type Hash } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import { type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
+import { FinalizationRunner, FinalizationRunnerMoniker } from '@xyo-network/xl1-protocol'
 
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import {
-  ChainStoreWrite, FinalizationRunner, FinalizationRunnerMoniker,
-} from '../../model/index.ts'
+import { ChainStoreWrite } from '../../model/index.ts'
 import { payloadMapFromStore } from '../../primitives/index.ts'
 
 export interface SimpleFinalizationRunnerParams extends CreatableProviderParams {

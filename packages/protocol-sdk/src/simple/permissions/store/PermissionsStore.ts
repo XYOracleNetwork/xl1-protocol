@@ -1,4 +1,4 @@
-import type { InvokerPermission, PermissionsGetHandler } from '../../../model/index.ts'
+import type { InvokerPermission, PermissionsGetHandler } from '@xyo-network/xl1-protocol'
 
 export type Invoker = string
 export type ParentCapability = string

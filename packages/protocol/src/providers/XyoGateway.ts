@@ -1,5 +1,4 @@
-import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
-
+import type { Provider, ProviderMoniker } from '../Provider.ts'
 import type { DataLakesViewer } from './DataLakes.ts'
 import type { XyoConnection } from './XyoConnection.ts'
 

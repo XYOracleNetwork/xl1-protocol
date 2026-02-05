@@ -1,7 +1,5 @@
-import type {
-  NetworkStakeViewer, Provider, XyoViewer,
-} from '@xyo-network/xl1-protocol'
-
+import type { Provider } from '../Provider.ts'
+import type { NetworkStakeViewer, XyoViewer } from '../viewers/index.ts'
 import type { DataLakeRunner, DataLakeViewer } from './DataLake.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'

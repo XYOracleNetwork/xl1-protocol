@@ -1,12 +1,11 @@
 import { isUndefined } from '@xylabs/sdk-js'
 import type {
   GatewayName,
-  NetworkStatus,
+  NetworkStatus, XyoNetwork,
 } from '@xyo-network/xl1-protocol'
 import { isNetworkStatus } from '@xyo-network/xl1-protocol'
 import axios from 'axios'
 
-import type { XyoNetwork } from '../../model/index.ts'
 import {
   errorStatus, StatusNetworks, unknownStatus,
 } from './lib/index.ts'

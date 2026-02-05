@@ -1,5 +1,6 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
-import type { ChainId } from '@xyo-network/xl1-protocol'
+
+import type { ChainId } from '../model/index.ts'
 
 /** @deprecated  - use XyoClient instead */
 export interface XyoWallet {

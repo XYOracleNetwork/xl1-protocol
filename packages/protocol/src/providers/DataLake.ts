@@ -1,8 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 import type { Payload, Schema } from '@xyo-network/payload-model'
-import type {
-  MapType, Provider, ProviderMoniker,
-} from '@xyo-network/xl1-protocol'
+
+import type { MapType } from '../map/index.ts'
+import type { Provider, ProviderMoniker } from '../Provider.ts'
 
 export type DataLakeData = Payload | ArrayBuffer
 

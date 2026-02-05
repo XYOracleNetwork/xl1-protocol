@@ -1,4 +1,4 @@
-import type { XyoSignerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoSignerMethods } from '@xyo-network/xl1-protocol'
 
 import type { XyoSignerRpcMethodHandlers } from '../types/index.ts'
 

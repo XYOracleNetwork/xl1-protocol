@@ -1,8 +1,8 @@
+import type { PermissionRequest } from '@xyo-network/xl1-protocol'
 import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import type { PermissionRequest } from '../../../model/index.ts'
 import { SimpleXyoPermissions } from '../SimpleXyoPermissions.ts'
 import { MemoryPermissionsStore } from '../store/index.ts'
 

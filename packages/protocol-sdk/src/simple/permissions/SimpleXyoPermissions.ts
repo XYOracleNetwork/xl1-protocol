@@ -1,9 +1,9 @@
 import { assertEx } from '@xylabs/sdk-js'
-
 import type {
   CaveatTypes,
   InvokerPermission, PermissionRequest, RequestedPermission, XyoPermissions,
-} from '../../model/index.ts'
+} from '@xyo-network/xl1-protocol'
+
 import type { Invoker, PermissionsStore } from './store/index.ts'
 
 /**

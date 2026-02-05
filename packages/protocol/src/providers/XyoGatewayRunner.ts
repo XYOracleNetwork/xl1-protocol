@@ -1,17 +1,35 @@
 import type {
-  Address, Hash, Promisable,
+  Address, Hash, Logger, Promisable,
 } from '@xylabs/sdk-js'
 import type { Payload } from '@xyo-network/payload-model'
-import type {
-  AllowedBlockPayload, AttoXL1, ChainId, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionFeesBigInt,
-  UnsignedHydratedTransaction,
-  XL1BlockNumber,
-} from '@xyo-network/xl1-protocol'
 
-import type { ConfirmSubmittedTransactionOptions } from '../../transaction/index.ts'
+import type { AllowedBlockPayload } from '../block/index.ts'
+import type { ChainId, XL1BlockNumber } from '../model/index.ts'
+import type { AttoXL1 } from '../xl1/index.ts'
+import type {
+  SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionFeesBigInt,
+  UnsignedHydratedTransaction,
+} from '../zod/index.ts'
 import type { DataLakesRunner } from './DataLakes.ts'
 import type { XyoSigner } from './signer/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'
+
+export type ConfirmSubmittedTransactionOptions = {
+  /**
+   * Number of attempts to confirm the transaction.
+   * Defaults to 20.
+   */
+  attempts?: number
+  /**
+   * Delay in milliseconds between confirmation attempts.
+   * Defaults to 1000 (1 second).
+   */
+  delay?: number
+  /**
+   * Optional logger instance for logging progress.
+   */
+  logger?: Logger
+}
 
 export interface TransactionOptions {
   chain?: ChainId

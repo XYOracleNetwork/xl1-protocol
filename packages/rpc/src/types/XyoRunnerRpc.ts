@@ -1,4 +1,4 @@
-import type { XyoRunnerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoRunnerMethods } from '@xyo-network/xl1-protocol'
 
 export type XyoRunnerMethodName = keyof XyoRunnerMethods
 

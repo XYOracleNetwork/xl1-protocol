@@ -1,12 +1,13 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { Signed } from '@xyo-network/boundwitness-model'
 import type { Payload } from '@xyo-network/payload-model'
+
+import type { AllowedBlockPayload } from '../../block/index.ts'
+import type { ChainId } from '../../model/index.ts'
+import type { Provider } from '../../Provider.ts'
 import type {
-  AllowedBlockPayload, ChainId,
-  Provider,
-  SignedHydratedTransactionWithHashMeta, TransactionBoundWitness,
-  TransactionFeesBigInt,
-} from '@xyo-network/xl1-protocol'
+  SignedHydratedTransactionWithHashMeta, TransactionBoundWitness, TransactionFeesBigInt,
+} from '../../zod/index.ts'
 
 export const XyoSignerMoniker = 'XyoSigner' as const
 export type XyoSignerMoniker = typeof XyoSignerMoniker

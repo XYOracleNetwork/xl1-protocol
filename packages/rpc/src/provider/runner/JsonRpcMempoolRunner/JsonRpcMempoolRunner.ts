@@ -1,6 +1,7 @@
 import {
-  creatableProvider, MempoolPruneOptions, type MempoolRunner, MempoolRunnerMoniker,
-} from '@xyo-network/xl1-protocol-sdk'
+  MempoolPruneOptions, type MempoolRunner, MempoolRunnerMoniker,
+} from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcMempoolRunnerMethods } from './JsonRpcMempoolRunnerMethods.ts'
 

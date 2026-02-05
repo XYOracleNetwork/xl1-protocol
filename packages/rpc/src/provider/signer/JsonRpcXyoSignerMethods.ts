@@ -1,10 +1,9 @@
 import type { Address } from '@xylabs/sdk-js'
 import type {
   SignedHydratedTransactionWithHashMeta,
-  UnsignedHydratedTransaction,
+  UnsignedHydratedTransaction, XyoSignerMethods,
 } from '@xyo-network/xl1-protocol'
-import type { XyoSignerMethods } from '@xyo-network/xl1-protocol-sdk'
-import { XyoSignerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { XyoSignerMoniker } from '@xyo-network/xl1-protocol'
 
 import { XyoSignerRpcSchemas } from '../../types/index.ts'
 import { AbstractJsonRpcRunner } from '../runner/index.ts'

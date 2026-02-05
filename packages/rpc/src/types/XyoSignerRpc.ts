@@ -1,4 +1,4 @@
-import type { XyoSignerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoSignerMethods } from '@xyo-network/xl1-protocol'
 
 export type XyoSignerMethodName = keyof XyoSignerMethods
 

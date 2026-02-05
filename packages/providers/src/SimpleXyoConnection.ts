@@ -1,11 +1,11 @@
 import { CreatableParams } from '@xylabs/sdk-js'
 import { XyoViewer, XyoViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
-  AbstractCreatableProvider,
-  creatableProvider,
-  type CreatableProviderContext,
   type DataLakeRunner, DataLakeRunnerMoniker, type DataLakeViewer, DataLakeViewerMoniker,
   type XyoConnection, XyoConnectionMoniker, type XyoNetwork, type XyoRunner, XyoRunnerMoniker,
+} from '@xyo-network/xl1-protocol'
+import {
+  AbstractCreatableProvider, creatableProvider, CreatableProviderContext,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleXyoConnectionParams<TContext extends CreatableProviderContext = CreatableProviderContext> extends CreatableParams {

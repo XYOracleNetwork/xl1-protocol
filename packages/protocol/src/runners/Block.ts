@@ -1,7 +1,9 @@
 import type { WithHashMeta } from '@xyo-network/payload-model'
+
+import type { Provider } from '../Provider.ts'
 import type {
-  BlockBoundWitness, Provider, SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta,
-} from '@xyo-network/xl1-protocol'
+  BlockBoundWitness, SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta,
+} from '../zod/index.ts'
 
 export interface BlockRunnerMethods {
   produceNextBlock(head: SignedBlockBoundWitnessWithHashMeta, force: true): Promise<SignedHydratedBlockWithHashMeta>

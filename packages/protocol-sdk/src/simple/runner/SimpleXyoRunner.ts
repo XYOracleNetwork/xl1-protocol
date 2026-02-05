@@ -1,13 +1,13 @@
 import { type Hash } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { SignedHydratedTransactionWithStorageMeta } from '@xyo-network/xl1-protocol'
+import {
+  MempoolRunner,
+  MempoolRunnerMoniker, SignedHydratedTransactionWithStorageMeta,
+  XyoRunner, XyoRunnerMoniker,
+} from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider, creatableProvider } from '../../CreatableProvider/index.ts'
-import {
-  MempoolRunner,
-  MempoolRunnerMoniker, type XyoRunner, XyoRunnerMoniker,
-} from '../../model/index.ts'
 
 export interface SimpleXyoRunnerParams extends CreatableProviderParams {
 }

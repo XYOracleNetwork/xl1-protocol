@@ -1,4 +1,4 @@
-import { type XyoSigner, XyoSignerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { type XyoSigner, XyoSignerMoniker } from '@xyo-network/xl1-protocol'
 
 import { JsonRpcXyoSignerMethods } from './JsonRpcXyoSignerMethods.ts'
 

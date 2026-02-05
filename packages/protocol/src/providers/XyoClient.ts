@@ -1,5 +1,4 @@
-import type { GatewayName } from '@xyo-network/xl1-protocol'
-
+import type { GatewayName } from '../model/index.ts'
 import type { XyoPermissions } from '../permissions/index.ts'
 import type { XyoGateway } from './XyoGateway.ts'
 import type { XyoGatewayRunner } from './XyoGatewayRunner.ts'

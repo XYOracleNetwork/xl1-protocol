@@ -3,7 +3,7 @@ import type {
   PermissionRequest,
   RequestedPermission,
   XyoPermissions,
-} from '@xyo-network/xl1-protocol-sdk'
+} from '@xyo-network/xl1-protocol'
 
 import type { RpcTransport } from '../../transport/index.ts'
 import type { XyoPermissionsRpcSchemas } from '../../types/index.ts'

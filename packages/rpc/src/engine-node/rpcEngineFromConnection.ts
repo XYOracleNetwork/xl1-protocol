@@ -1,6 +1,6 @@
 import { createAsyncMiddleware, JsonRpcEngine } from '@metamask/json-rpc-engine'
 import type { Json } from '@metamask/utils'
-import type { XyoConnection } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoConnection } from '@xyo-network/xl1-protocol'
 
 import { requestSchemas, rpcMethodHandlersFromConnection } from '../engine/index.ts'
 import {

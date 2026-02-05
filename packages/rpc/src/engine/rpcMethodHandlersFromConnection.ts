@@ -1,4 +1,4 @@
-import type { XyoConnection } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoConnection } from '@xyo-network/xl1-protocol'
 
 import type { XyoProviderRpcMethodHandlers } from '../types/index.ts'
 import { rpcMethodHandlersFromAccountBalanceViewer } from './rpcMethodHandlersFromAccountBalanceViewer.ts'

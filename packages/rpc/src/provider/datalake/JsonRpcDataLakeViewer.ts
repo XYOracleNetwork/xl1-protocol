@@ -1,4 +1,5 @@
-import { creatableProvider, type DataLakeViewer } from '@xyo-network/xl1-protocol-sdk'
+import { DataLakeViewer } from '@xyo-network/xl1-protocol'
+import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcDataLakeViewerMethods } from './JsonRpcDataLakeViewerMethods.ts'
 

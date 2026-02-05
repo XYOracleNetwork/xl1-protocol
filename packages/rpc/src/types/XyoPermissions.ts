@@ -1,4 +1,4 @@
-import type { XyoPermissions } from '@xyo-network/xl1-protocol-sdk'
+import type { XyoPermissions } from '@xyo-network/xl1-protocol'
 
 export type XyoPermissionMethodName = keyof XyoPermissions
 

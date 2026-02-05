@@ -1,14 +1,15 @@
-import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
-import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
 import type {
   DataLakesViewer,
   XyoConnection,
   XyoGateway,
-} from '../../model/index.ts'
+} from '@xyo-network/xl1-protocol'
 import {
   XyoConnectionMoniker, XyoGatewayMoniker,
   XyoSignerMoniker,
-} from '../../model/index.ts'
+} from '@xyo-network/xl1-protocol'
+
+import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
+import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
 
 export interface SimpleXyoGatewayParams extends CreatableProviderParams {}
 

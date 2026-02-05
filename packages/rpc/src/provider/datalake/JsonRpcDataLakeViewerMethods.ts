@@ -1,5 +1,5 @@
 import type { Payload } from '@xyo-network/payload-model'
-import { type DataLakeViewerMethods, DataLakeViewerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { type DataLakeViewerMethods, DataLakeViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { DataLakeViewerRpcSchemas } from '../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../viewer/index.ts'

@@ -1,7 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type { SignedHydratedBlock, SignedHydratedTransaction } from '@xyo-network/xl1-protocol'
-import type { MempoolRunnerMethods } from '@xyo-network/xl1-protocol-sdk'
-import { MempoolRunnerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import type {
+  MempoolRunnerMethods, SignedHydratedBlock, SignedHydratedTransaction,
+} from '@xyo-network/xl1-protocol'
+import { MempoolRunnerMoniker } from '@xyo-network/xl1-protocol'
 
 import { MempoolRunnerRpcSchemas } from '../../../types/index.ts'
 import { AbstractJsonRpcRunner } from '../JsonRpcRunner.ts'

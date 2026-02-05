@@ -1,12 +1,11 @@
 import type { Hash } from '@xylabs/sdk-js'
-import { MapTypeRead } from '@xyo-network/xl1-protocol'
-
-import { creatableProvider } from '../../CreatableProvider/index.ts'
 import {
   DataLakeData,
   DataLakeViewer,
-  DataLakeViewerMoniker,
-} from '../../model/index.ts'
+  DataLakeViewerMoniker, MapTypeRead,
+} from '@xyo-network/xl1-protocol'
+
+import { creatableProvider } from '../../CreatableProvider/index.ts'
 import { AbstractSimpleDataLake, AbstractSimpleDataLakeParams } from './AbstractSimpleDataLake.ts'
 
 export interface DataLakeViewerParams<TMap extends MapTypeRead<Hash, DataLakeData> = MapTypeRead<Hash, DataLakeData>> extends

@@ -1,5 +1,6 @@
 import type { AccountInstance } from '@xyo-network/account-model'
-import { SimpleXyoSigner, XyoSignerMoniker } from '@xyo-network/xl1-protocol-sdk'
+import { XyoSignerMoniker } from '@xyo-network/xl1-protocol'
+import { SimpleXyoSigner } from '@xyo-network/xl1-protocol-sdk'
 
 import type { BuildProviderLocatorParams } from './buildProviderLocator.ts'
 import { buildSimpleProviderLocator } from './buildProviderLocator.ts'

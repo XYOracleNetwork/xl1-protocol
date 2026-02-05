@@ -1,11 +1,12 @@
 import { Account } from '@xyo-network/account'
 import type { AccountInstance } from '@xyo-network/account-model'
 import type { Payload } from '@xyo-network/payload-model'
-import type { AllowedBlockPayload, ChainId } from '@xyo-network/xl1-protocol'
+import type {
+  AllowedBlockPayload, ChainId, XyoSigner,
+} from '@xyo-network/xl1-protocol'
 import {
   asXL1BlockNumber, defaultTransactionFees, SignedHydratedTransactionWithHashMetaZod,
 } from '@xyo-network/xl1-protocol'
-import type { XyoSigner } from '@xyo-network/xl1-protocol-sdk'
 import {
   buildUnsignedTransaction, ConfigZod, SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'

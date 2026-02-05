@@ -1,4 +1,4 @@
-import type { MempoolRunnerMethods } from '@xyo-network/xl1-protocol-sdk'
+import type { MempoolRunnerMethods } from '@xyo-network/xl1-protocol'
 
 import type { MempoolRunnerRpcMethodHandlers } from '../types/index.ts'
 

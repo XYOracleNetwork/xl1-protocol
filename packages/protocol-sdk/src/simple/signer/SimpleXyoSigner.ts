@@ -7,13 +7,15 @@ import type {
   AllowedBlockPayload, ChainId, SignedHydratedTransactionWithHashMeta,
   SignedTransactionBoundWitness, TransactionFeesBigInt,
   UnsignedTransactionBoundWitness,
-  XL1BlockNumber,
+  XL1BlockNumber, XyoSigner,
 } from '@xyo-network/xl1-protocol'
-import { SignedHydratedTransactionWithHashMetaZod } from '@xyo-network/xl1-protocol'
+import {
+  SignedHydratedTransactionWithHashMetaZod,
+  XyoSignerMoniker,
+} from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import { type XyoSigner, XyoSignerMoniker } from '../../model/index.ts'
 import { buildTransaction, signTransaction } from '../../transaction/index.ts'
 
 export interface SimpleXyoSignerParams extends CreatableProviderParams {

@@ -7,19 +7,17 @@ import {
 import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import type {
-  AllowedBlockPayload, AttoXL1, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, Transfer, UnsignedHydratedTransaction,
+  AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,
+  DataLakeRunner, DataLakesRunner, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
+  XyoConnection, XyoGatewayRunner, XyoSigner,
 } from '@xyo-network/xl1-protocol'
-import { asXL1BlockNumber, TransferSchema } from '@xyo-network/xl1-protocol'
+import {
+  asXL1BlockNumber, TransferSchema,
+  XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
+} from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import type {
-  DataLakeRunner, DataLakesRunner, TransactionOptions, XyoConnection, XyoGatewayRunner, XyoSigner,
-} from '../../model/index.ts'
-import {
-  XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
-} from '../../model/index.ts'
-import type { ConfirmSubmittedTransactionOptions } from '../../transaction/index.ts'
 import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
 
 export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {

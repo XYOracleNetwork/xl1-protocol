@@ -1,26 +1,11 @@
-import type { Hash, Logger } from '@xylabs/sdk-js'
+import type { Hash } from '@xylabs/sdk-js'
 import { delay, isDefined } from '@xylabs/sdk-js'
-import type { SignedHydratedTransaction, XyoViewer } from '@xyo-network/xl1-protocol'
+import type {
+  ConfirmSubmittedTransactionOptions, SignedHydratedTransaction, XyoViewer,
+} from '@xyo-network/xl1-protocol'
 
 const DEFAULT_CONFIRMATION_ATTEMPTS = 20
 const DEFAULT_DELAY_BETWEEN_ATTEMPTS = 1000 // milliseconds
-
-export type ConfirmSubmittedTransactionOptions = {
-  /**
-   * Number of attempts to confirm the transaction.
-   * Defaults to 20.
-   */
-  attempts?: number
-  /**
-   * Delay in milliseconds between confirmation attempts.
-   * Defaults to 1000 (1 second).
-   */
-  delay?: number
-  /**
-   * Optional logger instance for logging progress.
-   */
-  logger?: Logger
-}
 
 /**
  * Confirms a submitted transaction by checking if it has been included in the blockchain.
