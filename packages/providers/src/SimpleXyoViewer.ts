@@ -63,7 +63,6 @@ import {
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleXyoViewerParams extends CreatableProviderParams {
-  chainId: ChainId
   finalizedArchivist?: ArchivistInstance
   initRewardsCache?: boolean
   rewardMultipliers?: XL1RangeMultipliers
@@ -92,6 +91,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   private _accountBalanceViewer?: AccountBalanceViewer
   private _blockViewer?: BlockViewer
   private _chainContractViewer?: ChainContractViewer
+  private _chainId!: ChainId
   private _finalizationViewer!: FinalizationViewer
   private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
@@ -161,7 +161,6 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return {
       ...await super.paramsHandler(params),
       finalizedArchivist: assertEx(params.finalizedArchivist, () => 'SimpleXyoViewer requires a finalizedArchivist'),
-      chainId: assertEx(params.chainId, () => 'SimpleXyoViewer requires a chainId'),
     } satisfies SimpleXyoViewerParams
   }
 
@@ -195,7 +194,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
     return await this.spanAsync('SimpleXyoViewer:chainId', async () => {
       const chainId = assertEx(
-        blockNumber === 'latest' ? await this.chainContractViewer.chainId() : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber),
+        blockNumber === 'latest' ? this._chainId : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber),
         () => `Could not find block for chainId at block ${blockNumber}`,
       )
       return chainId
@@ -216,6 +215,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     this._stakeViewer = await this.locator.getInstance<StakeViewer>(StakeViewerMoniker)
     this._stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
     this._timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
+    this._chainId = await this._chainContractViewer.chainId()
   }
 
   async currentBlock() {
@@ -473,7 +473,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected async getCurrentHead() {
     const chainArchivist = this.finalizedArchivist!
     const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'No blocks found in finalizedArchivist')
-    assertEx(result.chain === this.params.chainId, () => `Chain ID mismatch in finalizedArchivist [${result.chain} should be ${this.params.chainId}]`)
+    assertEx(result.chain === this._chainId, () => `Chain ID mismatch in finalizedArchivist [${result.chain} should be ${this._chainId}]`)
     return result
   }
 
