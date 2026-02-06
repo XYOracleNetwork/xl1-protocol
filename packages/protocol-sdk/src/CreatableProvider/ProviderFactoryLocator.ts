@@ -35,33 +35,22 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     return this._registry
   }
 
-  static empty(context: Omit<CreatableProviderContext, 'locator'>) {
-    return new ProviderFactoryLocator(context, {})
-  }
-
-  static standard(context: Omit<CreatableProviderContext, 'locator'>) {
-    return new ProviderFactoryLocator(context, {})
-  }
-
   freeze() {
     this._frozen = true
   }
 
   async getInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
-    params?: Partial<CreatableProviderInstance<TProvider>['params']>,
     { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
-    const resolvedParams = {
-      ...params,
-      context: {
-        ...this.context,
-        ...params?.context,
-      } as CreatableProviderInstance<TProvider>['params']['context'],
-    } as CreatableProviderInstance<TProvider>['params']
+    const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
     const factory = this.locate<TProvider>(moniker, labels)
     const result = await factory.getInstance(resolvedParams, { start })
     return result
+  }
+
+  has(moniker: TMonikers[number]): boolean {
+    return !!this._registry[moniker]
   }
 
   /**
@@ -115,11 +104,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
 
   async tryGetInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
-    params?: Partial<CreatableProviderInstance<TProvider>['params']>,
     options?: ProviderFactoryGetInstanceOptions,
   ) {
     try {
-      return await this.getInstance<TProvider>(moniker, params, options)
+      return await this.getInstance<TProvider>(moniker, options)
     } catch {
       return
     }

@@ -18,10 +18,8 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
 
   freeze(): void
 
-  getInstance<TProvider extends Provider<ProviderMoniker>,
-    TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(
+  getInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
-    params?: Partial<TParams>,
     options?: ProviderFactoryGetInstanceOptions,
   ): Promise<CreatableProviderInstance<TProvider>>
 
@@ -49,10 +47,8 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
    */
   registerMany(factories: CreatableProviderFactory[]): ProviderFactoryLocatorInstance
 
-  tryGetInstance<TProvider extends Provider<ProviderMoniker>,
-    TParams extends CreatableProviderInstance<TProvider>['params'] = CreatableProviderInstance<TProvider>['params']>(
+  tryGetInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
-    params?: Partial<TParams>,
     options?: ProviderFactoryGetInstanceOptions,
   ): Promise<CreatableProviderInstance<TProvider> | undefined>
 

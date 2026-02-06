@@ -18,9 +18,7 @@ import {
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import {
-  buildUnsignedTransaction, confirmSubmittedTransaction, flattenHydratedTransaction,
-} from '../../transaction/index.ts'
+import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
 
 export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {
   dataLakes?: DataLakeRunner[]

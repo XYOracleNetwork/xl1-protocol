@@ -1,10 +1,7 @@
 import { axiosJsonConfig } from '@xylabs/axios'
 import { exists, type Hash } from '@xylabs/sdk-js'
-import type { Payload, Schema } from '@xyo-network/payload-model'
-import {
-  isAnyPayload,
-  PayloadZodLoose,
-} from '@xyo-network/payload-model'
+import type { Schema } from '@xyo-network/payload-model'
+import { isAnyPayload } from '@xyo-network/payload-model'
 import type { DataLakeData } from '@xyo-network/xl1-protocol'
 import { Axios } from 'axios'
 
