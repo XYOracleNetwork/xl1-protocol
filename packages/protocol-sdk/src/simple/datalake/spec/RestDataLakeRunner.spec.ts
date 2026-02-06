@@ -16,8 +16,8 @@ import type { RestDataLakeViewerParams } from '../RestDataLakeViewer.ts'
 const endpoint = 'https://beta.api.archivist.xyo.network/dataLake'
 const context = getTestProviderContext(ConfigZod.parse({}))
 
-const testPayload: Id = { schema: IdSchema, salt: 'some-salt' }
-const testBadPayload = { schema3: IdSchema, salt: 'some-salt' }
+const testPayload: Id = { schema: IdSchema, salt: 'some-salt-324' }
+const testBadPayload = { schema3: IdSchema, salt: 'some-salt-34534' }
 
 describe('RestDataLakeRunner', () => {
   it('insert - single - success', async () => {

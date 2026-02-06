@@ -1,9 +1,7 @@
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
-import type {
-  ChainId, MapType, Position,
-} from '@xyo-network/xl1-protocol'
+import type { MapType, Position } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, CreatableProviderContext, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -121,7 +119,6 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface BuildLocalProviderLocatorParams extends BuildProviderLocatorParams, GatewayRunnerLocatorParams {
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
-  chainId: ChainId
   finalizedArchivist: ArchivistInstance
   node: NodeInstance
   pendingBlocksArchivist: ArchivistInstance
@@ -134,7 +131,7 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const locator = buildSimpleProviderLocator(params)
   const {
-    pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node, chainId,
+    pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, node,
   } = params
   locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),
@@ -144,7 +141,7 @@ export function buildLocalProviderLocator(params: BuildLocalProviderLocatorParam
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies, {}),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
-    NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node, chainId }),
+    NodeXyoViewer.factory<NodeXyoViewer>(NodeXyoViewer.dependencies, { node }),
   ])
 
   return registerGatewayWithLocator(locator, params?.signerAccount)

@@ -24,7 +24,7 @@ describe('RestDataLakeViewer', () => {
   })
   it('get - fail', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
-    const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt' } satisfies Id)
+    const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt-5' } satisfies Id)
     const result = await sot.get(hash)
     expect(result).toBeUndefined()
   })
@@ -35,7 +35,7 @@ describe('RestDataLakeViewer', () => {
   })
   it('getMany - fail', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
-    const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt' } satisfies Id)
+    const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt-7' } satisfies Id)
     const result = await sot.getMany([hash])
     expect(result).toHaveLength(0)
   })

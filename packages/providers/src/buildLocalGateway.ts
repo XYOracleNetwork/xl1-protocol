@@ -1,7 +1,7 @@
 import type { AccountInstance } from '@xyo-network/account-model'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
-import type { ChainId, MapType } from '@xyo-network/xl1-protocol'
+import type { MapType } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, Config, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -80,7 +80,6 @@ export async function buildJsonRpcProviderLocatorV2(config: Config, transportFac
 export interface BuildLocalGatewayParams {
   account?: AccountInstance
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
-  chainId: ChainId
   finalizedArchivist: ArchivistInstance
   pendingBlocksArchivist: ArchivistInstance
   pendingTransactionsArchivist: ArchivistInstance
@@ -89,7 +88,7 @@ export interface BuildLocalGatewayParams {
 
 export function buildLocalGateway(config: Config, params: BuildLocalGatewayParams) {
   const {
-    account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, chainId,
+    account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist,
   } = params
   const locator = buildSimpleProviderLocatorV2(config, account)
   locator.registerMany([

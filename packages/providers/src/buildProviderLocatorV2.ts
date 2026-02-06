@@ -1,7 +1,7 @@
 import type { AccountInstance } from '@xyo-network/account-model'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { WithHashMeta } from '@xyo-network/payload-model'
-import type { ChainId, MapType } from '@xyo-network/xl1-protocol'
+import type { MapType } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, Config, TransfersStepSummary,
 } from '@xyo-network/xl1-protocol-sdk'
@@ -79,7 +79,6 @@ export async function buildJsonRpcProviderLocatorV2(config: Config, transportFac
 export interface BuildLocalProviderLocatorParamsV2 {
   account?: AccountInstance
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
-  chainId: ChainId
   finalizedArchivist: ArchivistInstance
   pendingBlocksArchivist: ArchivistInstance
   pendingTransactionsArchivist: ArchivistInstance
@@ -88,7 +87,7 @@ export interface BuildLocalProviderLocatorParamsV2 {
 
 export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalProviderLocatorParamsV2) {
   const {
-    account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist, chainId,
+    account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist,
   } = params
   const locator = buildSimpleProviderLocatorV2(config, account)
   locator.registerMany([
@@ -99,7 +98,7 @@ export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalPr
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleXyoRunner.factory<SimpleXyoRunner>(SimpleXyoRunner.dependencies, {}),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
-    SimpleXyoViewer.factory<SimpleXyoViewer>(SimpleXyoViewer.dependencies, { chainId }),
+    SimpleXyoViewer.factory<SimpleXyoViewer>(SimpleXyoViewer.dependencies, {}),
   ])
   return locator
 }
