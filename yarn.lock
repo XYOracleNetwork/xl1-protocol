@@ -3244,7 +3244,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-network-model@npm:~1.22.32, @xyo-network/xl1-network-model@workspace:packages/network-model":
+"@xyo-network/xl1-network-model@npm:~1.23.0, @xyo-network/xl1-network-model@workspace:packages/network-model":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-network-model@workspace:packages/network-model"
   dependencies:
@@ -3259,7 +3259,7 @@ __metadata:
     "@xyo-network/node-model": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/wallet": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
     copyfiles: "npm:~2.4.1"
     dotenv: "npm:~17.2.3"
     eslint: "npm:^9.39.2"
@@ -3285,10 +3285,10 @@ __metadata:
     "@xyo-network/archivist-memory": "npm:~5.3.2"
     "@xyo-network/archivist-model": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
-    "@xyo-network/xl1-providers": "npm:~1.22.32"
-    "@xyo-network/xl1-rpc": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
+    "@xyo-network/xl1-providers": "npm:~1.23.0"
+    "@xyo-network/xl1-rpc": "npm:~1.23.0"
     async-mutex: "npm:~0.5.0"
     axios: "npm:^1.13.4"
     typescript: "npm:~5.9.3"
@@ -3297,7 +3297,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-protocol-sdk@npm:~1.22.32, @xyo-network/xl1-protocol-sdk@workspace:packages/protocol-sdk":
+"@xyo-network/xl1-protocol-sdk@npm:~1.23.0, @xyo-network/xl1-protocol-sdk@workspace:packages/protocol-sdk":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-protocol-sdk@workspace:packages/protocol-sdk"
   dependencies:
@@ -3321,15 +3321,14 @@ __metadata:
     "@xyo-network/payload-builder": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/wallet": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-schema": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-schema": "npm:~1.23.0"
     async-mutex: "npm:~0.5.0"
     axios: "npm:^1.13.4"
     eslint: "npm:^9.39.2"
     ethers: "npm:^6.16.0"
     lru-cache: "npm:^11.2.5"
     mongodb: "npm:~7.0.0"
-    ts-deepmerge: "npm:^7.0.3"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.9.3"
     vitest: "npm:~4.0.18"
@@ -3341,7 +3340,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-protocol@npm:~1.22.32, @xyo-network/xl1-protocol@workspace:packages/protocol":
+"@xyo-network/xl1-protocol@npm:~1.23.0, @xyo-network/xl1-protocol@workspace:packages/protocol":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-protocol@workspace:packages/protocol"
   dependencies:
@@ -3375,7 +3374,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-providers@npm:~1.22.32, @xyo-network/xl1-providers@workspace:packages/providers":
+"@xyo-network/xl1-providers@npm:~1.23.0, @xyo-network/xl1-providers@workspace:packages/providers":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-providers@workspace:packages/providers"
   dependencies:
@@ -3393,9 +3392,9 @@ __metadata:
     "@xyo-network/node-model": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/typechain": "npm:~4.1.1"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
-    "@xyo-network/xl1-rpc": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
+    "@xyo-network/xl1-rpc": "npm:~1.23.0"
     axios: "npm:^1.13.4"
     dotenv: "npm:~17.2.3"
     eslint: "npm:^9.39.2"
@@ -3408,7 +3407,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-rpc@npm:~1.22.32, @xyo-network/xl1-rpc@workspace:packages/rpc":
+"@xyo-network/xl1-rpc@npm:~1.23.0, @xyo-network/xl1-rpc@workspace:packages/rpc":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-rpc@workspace:packages/rpc"
   dependencies:
@@ -3429,8 +3428,8 @@ __metadata:
     "@xyo-network/payload-builder": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/wallet": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
     axios: "npm:^1.13.4"
     dotenv: "npm:~17.2.3"
     eslint: "npm:^9.39.2"
@@ -3444,7 +3443,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-schema@npm:~1.22.32, @xyo-network/xl1-schema@workspace:packages/schema":
+"@xyo-network/xl1-schema@npm:~1.23.0, @xyo-network/xl1-schema@workspace:packages/schema":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-schema@workspace:packages/schema"
   dependencies:
@@ -3459,7 +3458,7 @@ __metadata:
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/payload-wrapper": "npm:~5.3.2"
     "@xyo-network/schema-payload-plugin": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
     ajv: "npm:~8.17.1"
     eslint: "npm:^9.39.2"
     typescript: "npm:~5.9.3"
@@ -3476,14 +3475,14 @@ __metadata:
   dependencies:
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
-    "@xyo-network/xl1-network-model": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
-    "@xyo-network/xl1-providers": "npm:~1.22.32"
-    "@xyo-network/xl1-rpc": "npm:~1.22.32"
-    "@xyo-network/xl1-schema": "npm:~1.22.32"
-    "@xyo-network/xl1-validation": "npm:~1.22.32"
-    "@xyo-network/xl1-wrappers": "npm:~1.22.32"
+    "@xyo-network/xl1-network-model": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
+    "@xyo-network/xl1-providers": "npm:~1.23.0"
+    "@xyo-network/xl1-rpc": "npm:~1.23.0"
+    "@xyo-network/xl1-schema": "npm:~1.23.0"
+    "@xyo-network/xl1-validation": "npm:~1.23.0"
+    "@xyo-network/xl1-wrappers": "npm:~1.23.0"
     axios: "npm:^1.13.4"
     typescript: "npm:~5.9.3"
     zod: "npm:~4.3.6"
@@ -3493,7 +3492,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-validation@npm:~1.22.32, @xyo-network/xl1-validation@workspace:packages/validation":
+"@xyo-network/xl1-validation@npm:~1.23.0, @xyo-network/xl1-validation@workspace:packages/validation":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-validation@workspace:packages/validation"
   dependencies:
@@ -3511,9 +3510,9 @@ __metadata:
     "@xyo-network/payload-builder": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
     "@xyo-network/wallet": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
-    "@xyo-network/xl1-schema": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
+    "@xyo-network/xl1-schema": "npm:~1.23.0"
     ajv: "npm:~8.17.1"
     axios: "npm:^1.13.4"
     eslint: "npm:^9.39.2"
@@ -3526,7 +3525,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-wrappers@npm:~1.22.32, @xyo-network/xl1-wrappers@workspace:packages/wrappers":
+"@xyo-network/xl1-wrappers@npm:~1.23.0, @xyo-network/xl1-wrappers@workspace:packages/wrappers":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-wrappers@workspace:packages/wrappers"
   dependencies:
@@ -3538,9 +3537,9 @@ __metadata:
     "@xyo-network/boundwitness-validator": "npm:~5.3.2"
     "@xyo-network/payload-builder": "npm:~5.3.2"
     "@xyo-network/payload-model": "npm:~5.3.2"
-    "@xyo-network/xl1-protocol": "npm:~1.22.32"
-    "@xyo-network/xl1-protocol-sdk": "npm:~1.22.32"
-    "@xyo-network/xl1-validation": "npm:~1.22.32"
+    "@xyo-network/xl1-protocol": "npm:~1.23.0"
+    "@xyo-network/xl1-protocol-sdk": "npm:~1.23.0"
+    "@xyo-network/xl1-validation": "npm:~1.23.0"
     axios: "npm:^1.13.4"
     eslint: "npm:^9.39.2"
     typescript: "npm:~5.9.3"
@@ -7721,13 +7720,6 @@ __metadata:
   peerDependencies:
     typescript: ">=4.8.4"
   checksum: 10/d6b2b3b6caad8d2f4ddc0c3785d22bb1a6041773335a1c71d73a5d67d11d993763fe8e4faefc4a4d03bb42b26c6126bbcf2e34826baed1def5369d0ebad358fa
-  languageName: node
-  linkType: hard
-
-"ts-deepmerge@npm:^7.0.3":
-  version: 7.0.3
-  resolution: "ts-deepmerge@npm:7.0.3"
-  checksum: 10/fbe1d5d7b2561430c0faa17f76e84e9b025ab1ea01812b5bbab9d5aebdad1eca8263908d9359a17348de66eb27fd42b9861f92bd1eba70906b1ae647729c3680
   languageName: node
   linkType: hard
 
