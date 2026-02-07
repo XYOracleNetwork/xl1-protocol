@@ -1,8 +1,9 @@
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'
+import { BaseConfigZod } from './Base.ts'
 
-export const RewardRedemptionApiConfigZod = z.object({
+export const RewardRedemptionConfigZod = BaseConfigZod.extend(z.object({
   chainRpcApiUrl: z.string().default('http://localhost:8080/rpc').register(globalRegistry, {
     default: 'http://localhost:8080/rpc',
     description: 'URL for the Chain RPC API',
@@ -26,6 +27,6 @@ export const RewardRedemptionApiConfigZod = z.object({
     title: 'rewardRedemptionApi.port',
     type: 'number',
   }),
-})
+}).shape)
 
-export type RewardRedemptionApiConfig = z.infer<typeof RewardRedemptionApiConfigZod>
+export type RewardRedemptionConfig = z.infer<typeof RewardRedemptionConfigZod>

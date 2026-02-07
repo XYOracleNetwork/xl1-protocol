@@ -1,8 +1,9 @@
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'
+import { BaseConfigZod } from './Base.ts'
 
-export const MempoolConfigZod = z.object({
+export const MempoolConfigZod = BaseConfigZod.extend(z.object({
   enabled: z.union([z.string(), z.boolean()]).default('false').transform((val, ctx) => {
     if (typeof val === 'boolean') return val
     const normalized = val.toLowerCase().trim()
@@ -37,6 +38,6 @@ export const MempoolConfigZod = z.object({
     title: 'mempool.port',
     type: 'number',
   }),
-})
+}).shape)
 
 export type MempoolConfig = z.infer<typeof MempoolConfigZod>

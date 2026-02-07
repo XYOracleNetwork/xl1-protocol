@@ -6,6 +6,7 @@ import { AttoXL1ConvertFactor, XL1 } from '@xyo-network/xl1-protocol'
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'
+import { BaseConfigZod } from './Base.ts'
 
 const DEFAULT_FIXED_FEE = toHex(XL1(1n) * AttoXL1ConvertFactor.xl1)
 const DEFAULT_HARDHAT_BRIDGE_CONTRACT = toAddress('2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6')
@@ -18,7 +19,7 @@ const DEFAULT_MIN_BRIDGE_AMOUNT = toHex(XL1(10n) * AttoXL1ConvertFactor.xl1)
 export const BasisPointsZod = z.coerce.number().int().nonnegative().max(10_000)
 export type BasisPoints = z.infer<typeof BasisPointsZod>
 
-export const BridgeConfigZod = z.object({
+export const BridgeConfigZod = BaseConfigZod.extend(z.object({
   chainRpcApiUrl: z.string().default('http://localhost:8080/rpc').register(globalRegistry, {
     default: 'http://localhost:8080/rpc',
     description: 'URL for the Chain RPC API',
@@ -121,7 +122,7 @@ export const BridgeConfigZod = z.object({
     title: 'bridge.xl1TokenAddress',
     type: 'string',
   }),
-})
+}).shape)
 
 export type BridgeConfig = z.infer<typeof BridgeConfigZod>
 

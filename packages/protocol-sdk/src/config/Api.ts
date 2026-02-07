@@ -1,8 +1,9 @@
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'
+import { BaseConfigZod } from './Base.ts'
 
-export const ApiConfigZod = z.object({
+export const ApiConfigZod = BaseConfigZod.extend(z.object({
   host: z.string().default('localhost').register(globalRegistry, {
     default: 'localhost',
     description: 'Host for the API',
@@ -27,6 +28,6 @@ export const ApiConfigZod = z.object({
     title: 'api.port',
     type: 'number',
   }),
-})
+}).shape)
 
 export type ApiConfig = z.infer<typeof ApiConfigZod>

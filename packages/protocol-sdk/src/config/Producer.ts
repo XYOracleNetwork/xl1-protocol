@@ -2,8 +2,9 @@ import { AddressZod, asAddress } from '@xylabs/sdk-js'
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'
+import { BaseConfigZod } from './Base.ts'
 
-export const ProducerConfigZod = z.object({
+export const ProducerConfigZod = BaseConfigZod.extend(z.object({
   allowlist: z.preprocess((val) => {
     if (typeof val === 'string') {
       return val.split(',').map(s => asAddress(s.trim()))
@@ -55,6 +56,6 @@ export const ProducerConfigZod = z.object({
     title: 'producer.rewardAddress',
     type: 'string',
   }),
-})
+}).shape)
 
 export type ProducerConfig = z.infer<typeof ProducerConfigZod>

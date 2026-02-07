@@ -1,36 +1,40 @@
+import { deepMerge } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import { ApiConfigZod } from './Api.ts'
+import type { BaseConfig } from './Base.ts'
+import { BaseConfigZod } from './Base.ts'
 import { BridgeConfigZod } from './Bridge.ts'
-import { ChainConfigZod } from './Chain.ts'
-import { EvmConfigZod } from './Evm.ts'
-import { LogConfigZod } from './Log.ts'
 import { MempoolConfigZod } from './Mempool.ts'
 import { ProducerConfigZod } from './Producer.ts'
-import { RewardRedemptionApiConfigZod } from './RewardRedemptionApi.ts'
-import { ServicesConfigZod } from './Services.ts'
-import { StorageConfigZod } from './storage/index.ts'
-import { TelemetryConfigZod } from './Telemetry.ts'
-import { ValidationConfigZod } from './Validation.ts'
+import { RewardRedemptionConfigZod } from './RewardRedemption.ts'
 
-export const Xl1CommonConfigSchema = z.object({ ...LogConfigZod.shape }).describe('XL1 common configuration options')
+export const ActorsConfigZod = z.object({
+  api: ApiConfigZod.default(ApiConfigZod.parse({})).describe('Configuration for the API node').optional(),
+  bridge: BridgeConfigZod.default(BridgeConfigZod.parse({})).describe('Configuration for the Bridge node').optional(),
+  mempool: MempoolConfigZod.default(MempoolConfigZod.parse({})).describe('Configuration for the mempool').optional(),
+  producer: ProducerConfigZod.default(ProducerConfigZod.parse({})).describe('Configuration for the producer').optional(),
+  rewardRedemption: RewardRedemptionConfigZod.default(RewardRedemptionConfigZod.parse({})).describe('Configuration for the rewards redemption API').optional(),
+}).describe('Actor-specific configurations that override the base configuration when the actor is running')
 
-export const ConfigZod = z.object({
-  ...Xl1CommonConfigSchema.shape,
-  api: ApiConfigZod.default(ApiConfigZod.parse({})).describe('Configuration for the API node'),
-  bridge: BridgeConfigZod.default(BridgeConfigZod.parse({})).describe('Configuration for the Bridge node'),
-  chain: ChainConfigZod.default(ChainConfigZod.parse({})).describe('Configuration for the chain'),
-  evm: EvmConfigZod.default(EvmConfigZod.parse({})).describe('Configuration for EVM-backed services'),
-  mempool: MempoolConfigZod.default(MempoolConfigZod.parse({})).describe('Configuration for the mempool'),
-  producer: ProducerConfigZod.default(ProducerConfigZod.parse({})).describe('Configuration for the producer'),
-  rewardRedemptionApi: RewardRedemptionApiConfigZod.default(RewardRedemptionApiConfigZod.parse({})).describe('Configuration for the rewards redemption API'),
-  services: ServicesConfigZod.default(ServicesConfigZod.parse({})).describe('Configuration for the global services'),
-  storage: StorageConfigZod.default(StorageConfigZod.parse({})).describe('Configuration for the storage'),
-  telemetry: TelemetryConfigZod.default(TelemetryConfigZod.parse({})).describe('Configuration for telemetry'),
-  validation: ValidationConfigZod.default(ValidationConfigZod.parse({})).describe('Configuration for validation'),
-})
+export type ActorsConfig = z.infer<typeof ActorsConfigZod>
+
+export const ConfigZod = BaseConfigZod.extend(z.object({ actors: ActorsConfigZod.optional() })
+  .describe('Actor-specific configurations that override the base configuration when the actor is running').shape)
 
 export type Config = z.infer<typeof ConfigZod>
+export type ActorName = keyof ActorsConfig
+
+export function resolveConfig<T extends ActorName>(
+  config: Config,
+  actor: ActorName,
+) {
+  const parsedConfig = ConfigZod.parse(config)
+  if (parsedConfig.actors?.[actor] === undefined) {
+    return BaseConfigZod.parse(config) as BaseConfig & Partial<ActorsConfig[T]>
+  }
+  return deepMerge(BaseConfigZod.parse(config), parsedConfig.actors[actor]) as ActorsConfig[T]
+}
 
 /** @deprecated Use ConfigZod.parse({}) instead */
 export const getDefaultConfig = (): Config => ConfigZod.parse({})

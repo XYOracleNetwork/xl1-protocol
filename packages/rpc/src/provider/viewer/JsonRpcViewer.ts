@@ -23,7 +23,7 @@ export abstract class AbstractJsonRpcViewer<TSchemas extends RpcSchemaMap,
   }
 
   private createTransport(): RpcTransport<TSchemas> {
-    const endpoint = this.config.services.apiEndpoint
+    const endpoint = this.config.remote.rpc?.url
     if (isDefined(endpoint)) {
       return new HttpRpcTransport(endpoint, this.schemas())
     }
