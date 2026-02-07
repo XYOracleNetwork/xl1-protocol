@@ -18,10 +18,12 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
   protected readonly _registry: CreatableProviderRegistry<TMonikers>
 
   private _frozen = false
+  private _parent?: ProviderFactoryLocatorInstance<TContext>
 
-  constructor(context: Omit<TContext, 'locator'>, registry: CreatableProviderRegistry = {}) {
+  constructor(context: TContext | (Omit<TContext, 'locator'> & { locator?: TContext['locator'] }), registry: CreatableProviderRegistry = {}) {
     this._registry = registry
     this._context = { ...context, locator: this } as unknown as TContext
+    this._parent = context.locator as ProviderFactoryLocatorInstance<TContext>
   }
 
   get context() {
@@ -44,9 +46,20 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
     const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
-    const factory = this.locate<TProvider>(moniker, labels)
-    const result = await factory.getInstance(resolvedParams, { start })
-    return result
+    const singletonsKey = `${moniker}${labels ? `:${JSON.stringify(labels)}` : ''}`
+    if (this.context.singletons[singletonsKey]) {
+      return this.context.singletons[singletonsKey] as CreatableProviderInstance<TProvider>
+    }
+    const factory = this.tryLocate<TProvider>(moniker, labels)
+    if (factory) {
+      const result = await factory.getInstance(resolvedParams, { start })
+      this.context.singletons[singletonsKey] = result
+      return result
+    } else if (this._parent) {
+      return this._parent.getInstance(moniker, { start, labels })
+    } else {
+      throw new Error(`No provider factory for the supplied config moniker [${moniker}]${labels ? ` & labels [${JSON.stringify(labels)}]` : ''} registered`)
+    }
   }
 
   has(moniker: TMonikers[number]): boolean {
