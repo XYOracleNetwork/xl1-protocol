@@ -9,7 +9,7 @@ import { MempoolConfigZod } from './Mempool.ts'
 import { ProducerConfigZod } from './Producer.ts'
 import { RewardRedemptionConfigZod } from './RewardRedemption.ts'
 
-export const ActorConfigsZod = z.object({
+export const ActorsConfigZod = z.object({
   api: ApiConfigZod.default(ApiConfigZod.parse({})).register(globalRegistry, {
     description: 'Configuration for the api Actor',
     type: 'object',
@@ -37,10 +37,6 @@ export const ActorConfigsZod = z.object({
   producer: ProducerConfigZod.parse({}),
   rewardRedemption: RewardRedemptionConfigZod.parse({}),
 })
-
-export const ActorsConfigZod = z.object({ actors: ActorConfigsZod.default(ActorConfigsZod.parse({})) }).describe(
-  'Config Object that holds the configuration for all actors, where each actor can have its own specific configuration that overrides the base configuration when the actor is running',
-)
 
 export type ActorsConfig = z.infer<typeof ActorsConfigZod>
 
