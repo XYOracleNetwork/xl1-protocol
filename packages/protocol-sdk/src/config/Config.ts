@@ -19,7 +19,15 @@ export const ActorsConfigZod = z.object({
 
 export type ActorsConfig = z.infer<typeof ActorsConfigZod>
 
-export const ConfigZod = BaseConfigZod.extend(z.object({ actors: ActorsConfigZod.optional() })
+export const ConfigZod = BaseConfigZod.extend(z.object({
+  actors: ActorsConfigZod.default({
+    api: ApiConfigZod.parse({}),
+    bridge: BridgeConfigZod.parse({}),
+    mempool: MempoolConfigZod.parse({}),
+    producer: ProducerConfigZod.parse({}),
+    rewardRedemption: RewardRedemptionConfigZod.parse({}),
+  }),
+})
   .describe('Actor-specific configurations that override the base configuration when the actor is running').shape)
 
 export type Config = z.infer<typeof ConfigZod>
