@@ -1,6 +1,4 @@
-import {
-  AddressZod, BigIntToJsonZod, JsonToBigIntZod,
-} from '@xylabs/sdk-js'
+import { AddressZod } from '@xylabs/sdk-js'
 import { JsonToStakeZod, StakeToJsonZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
@@ -9,37 +7,6 @@ import { NoArgsZod } from './NoArgsZod.ts'
 import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 
 export const StakeViewerRpcSchemas = {
-
-  stakeViewer_active: {
-    params: {
-      to: z.tuple([z.number().optional()]),
-      from: z.tuple([z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
-    },
-  },
-  stakeViewer_activeByAddressStaked: {
-    params: {
-      to: z.tuple([AddressZod, z.number().optional()]),
-      from: z.tuple([AddressZod, z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
-    },
-  },
-  stakeViewer_activeByStaker: {
-    params: {
-      to: z.tuple([AddressZod, z.number().optional()]),
-      from: z.tuple([AddressZod, z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
-    },
-  },
   stakeViewer_minWithdrawalBlocks: {
     params: {
       to: NoArgsZod,
@@ -48,26 +15,6 @@ export const StakeViewerRpcSchemas = {
     result: {
       to: z.number(),
       from: z.number(),
-    },
-  },
-  stakeViewer_pending: {
-    params: {
-      to: z.tuple([z.number().optional()]),
-      from: z.tuple([z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
-    },
-  },
-  stakeViewer_pendingByStaker: {
-    params: {
-      to: z.tuple([AddressZod, z.number().optional()]),
-      from: z.tuple([AddressZod, z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
     },
   },
   stakeViewer_rewardsContract: {
@@ -128,26 +75,6 @@ export const StakeViewerRpcSchemas = {
     result: {
       to: AddressZod,
       from: AddressZod,
-    },
-  },
-  stakeViewer_withdrawn: {
-    params: {
-      to: z.tuple([z.number().optional()]),
-      from: z.tuple([z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
-    },
-  },
-  stakeViewer_withdrawnByStaker: {
-    params: {
-      to: z.tuple([AddressZod, z.number().optional()]),
-      from: z.tuple([AddressZod, z.number().optional()]),
-    },
-    result: {
-      to: BigIntToJsonZod,
-      from: JsonToBigIntZod,
     },
   },
 } satisfies RpcSchemaMap<StakeViewerRpcMethodName>

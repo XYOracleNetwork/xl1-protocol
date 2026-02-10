@@ -10,8 +10,8 @@ import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 export const StakeTotalsViewerRpcSchemas = {
   stakeTotalsViewer_active: {
     params: {
-      to: z.array(z.any()).length(0).optional(),
-      from: z.array(z.any()).length(0).optional(),
+      to: z.tuple([z.number().optional()]).optional(),
+      from: z.tuple([z.number().optional()]).optional(),
     },
     result: {
       to: BigIntToJsonZod,
@@ -20,8 +20,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_activeByStaked: {
     params: {
-      to: z.tuple([AddressZod]),
-      from: z.tuple([AddressZod]),
+      to: z.tuple([AddressZod, z.number().optional()]),
+      from: z.tuple([AddressZod, z.number().optional()]),
     },
     result: {
       to: BigIntToJsonZod,
@@ -30,8 +30,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_activeByStaker: {
     params: {
-      to: z.tuple([AddressZod]),
-      from: z.tuple([AddressZod]),
+      to: z.tuple([AddressZod, z.number().optional()]),
+      from: z.tuple([AddressZod, z.number().optional()]),
     },
     result: {
       to: BigIntToJsonZod,
@@ -40,8 +40,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_pending: {
     params: {
-      to: z.array(z.any()).length(0).optional(),
-      from: z.array(z.any()).length(0).optional(),
+      to: z.tuple([z.number().optional()]).optional(),
+      from: z.tuple([z.number().optional()]).optional(),
     },
     result: {
       to: BigIntToJsonZod,
@@ -50,8 +50,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_pendingByStaker: {
     params: {
-      to: z.tuple([AddressZod]),
-      from: z.tuple([AddressZod]),
+      to: z.tuple([AddressZod, z.number().optional()]),
+      from: z.tuple([AddressZod, z.number().optional()]),
     },
     result: {
       to: BigIntToJsonZod,
@@ -60,8 +60,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_withdrawn: {
     params: {
-      to: z.array(z.any()).length(0).optional(),
-      from: z.array(z.any()).length(0).optional(),
+      to: z.tuple([z.number().optional()]).optional(),
+      from: z.tuple([z.number().optional()]).optional(),
     },
     result: {
       to: BigIntToJsonZod,
@@ -70,8 +70,8 @@ export const StakeTotalsViewerRpcSchemas = {
   },
   stakeTotalsViewer_withdrawnByStaker: {
     params: {
-      to: z.tuple([AddressZod]),
-      from: z.tuple([AddressZod]),
+      to: z.tuple([AddressZod, z.number().optional()]),
+      from: z.tuple([AddressZod, z.number().optional()]),
     },
     result: {
       to: BigIntToJsonZod,

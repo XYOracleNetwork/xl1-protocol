@@ -1,5 +1,5 @@
 import {
-  type Address, asAddress, toAddress,
+  type Address, asAddress, Promisable, toAddress,
 } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
 import {
@@ -33,9 +33,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return this.params.positions
   }
 
-  active(): bigint {
+  async active(): Promise<bigint> {
     let active = 0n
-    for (const position of this.positions) {
+    const positions = await this.activeStakes()
+    for (const position of positions) {
       if (position.removeBlock === 0) {
         active += position.amount
       }
@@ -43,9 +44,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return active
   }
 
-  activeByAddressStaked(staked: Address): bigint {
+  async activeByAddressStaked(staked: Address) {
     let active = 0n
-    for (const position of this.positions) {
+    const positions = await this.activeStakes()
+    for (const position of positions) {
       if (position.removeBlock === 0 && asAddress(position.staked) === asAddress(staked)) {
         active += position.amount
       }
@@ -53,14 +55,19 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return active
   }
 
-  activeByStaker(staker: Address): bigint {
+  async activeByStaker(staker: Address): Promise<bigint> {
     let active = 0n
-    for (const position of this.positions) {
+    const positions = await this.activeStakes()
+    for (const position of positions) {
       if (position.removeBlock === 0 && asAddress(position.staker) === asAddress(staker)) {
         active += position.amount
       }
     }
     return active
+  }
+
+  activeStakes(): Promisable<Position[]> {
+    return this.positions.filter(s => (s.withdrawBlock === 0) && (s.removeBlock === 0))
   }
 
   override async createHandler() {
@@ -75,9 +82,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return this.params.minWithdrawalBlocks ?? 10
   }
 
-  pending(): bigint {
+  async pending() {
     let pending = 0n
-    for (const position of this.positions) {
+    const positions = await this.removedStakes()
+    for (const position of positions) {
       if (position.removeBlock !== 0 && position.withdrawBlock === 0) {
         pending += position.amount
       }
@@ -85,14 +93,19 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return pending
   }
 
-  pendingByStaker(staker: Address): bigint {
+  async pendingByStaker(staker: Address) {
     let pending = 0n
-    for (const position of this.positions) {
+    const positions = await this.removedStakes()
+    for (const position of positions) {
       if (position.removeBlock !== 0 && position.withdrawBlock === 0 && asAddress(position.staker) === asAddress(staker)) {
         pending += position.amount
       }
     }
     return pending
+  }
+
+  removedStakes(): Promisable<Position[]> {
+    return this.positions.filter(s => (s.withdrawBlock === 0) && (s.removeBlock !== 0))
   }
 
   rewardsContract(): Address {
@@ -121,9 +134,10 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return toAddress('0x000000000000000000000000000011')
   }
 
-  withdrawn(): bigint {
+  async withdrawn() {
     let withdrawn = 0n
-    for (const position of this.positions) {
+    const positions = await this.withdrawnStakes()
+    for (const position of positions) {
       if (position.withdrawBlock !== 0) {
         withdrawn += position.amount
       }
@@ -131,13 +145,18 @@ export class SimpleStakeViewer extends AbstractCreatableProvider<SimpleStakeView
     return withdrawn
   }
 
-  withdrawnByStaker(staker: Address): bigint {
+  async withdrawnByStaker(staker: Address) {
     let withdrawn = 0n
-    for (const position of this.positions) {
+    const positions = await this.withdrawnStakes()
+    for (const position of positions) {
       if (position.withdrawBlock !== 0 && asAddress(position.staker) === asAddress(staker)) {
         withdrawn += position.amount
       }
     }
     return withdrawn
+  }
+
+  withdrawnStakes(): Promisable<Position[]> {
+    return this.positions.filter(s => (s.withdrawBlock !== 0))
   }
 }

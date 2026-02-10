@@ -5,6 +5,8 @@ import {
   NetworkStakeStepRewardsViewer,
   NetworkStakeStepRewardsViewerMoniker,
   NetworkStakeViewer, NetworkStakeViewerMoniker,
+  StakeTotalsViewer,
+  StakeTotalsViewerMoniker,
   StakeViewer,
   StakeViewerMoniker,
   XL1RangeMultipliers,
@@ -27,6 +29,7 @@ export class SimpleNetworkStakeViewer extends AbstractCreatableProvider<SimpleNe
 
   private _finalizationViewer!: FinalizationViewer
   private _stake!: StakeViewer
+  private _stakeTotals!: StakeTotalsViewer
   private _stepRewardsViewer?: NetworkStakeStepRewardsViewer
 
   get stepRewards(): NetworkStakeStepRewardsViewer {
@@ -45,15 +48,20 @@ export class SimpleNetworkStakeViewer extends AbstractCreatableProvider<SimpleNe
     return this._stake
   }
 
+  protected get stakeTotals() {
+    return this._stakeTotals
+  }
+
   async active(blockNumber?: number): Promise<[bigint, number]> {
     const resolvedBlockNumber = blockNumber ?? (await this.finalizationViewer.headNumber())
-    return [await this.stake.active(resolvedBlockNumber), resolvedBlockNumber]
+    return [await this.stakeTotals.active(resolvedBlockNumber), resolvedBlockNumber]
   }
 
   override async createHandler() {
     await super.createHandler()
     this._finalizationViewer = await this.locator.getInstance(FinalizationViewerMoniker)
     this._stake = await this.locator.getInstance(StakeViewerMoniker)
+    this._stakeTotals = await this.locator.getInstance(StakeTotalsViewerMoniker)
     this._stepRewardsViewer = await this.locator.getInstance(NetworkStakeStepRewardsViewerMoniker)
   }
 }

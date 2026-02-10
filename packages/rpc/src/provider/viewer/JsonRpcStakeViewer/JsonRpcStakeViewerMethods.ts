@@ -8,28 +8,8 @@ import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'
 export class JsonRpcStakeViewerMethods extends AbstractJsonRpcViewer<StakeViewerRpcSchemas> implements StakeViewerMethods {
   readonly moniker = StakeViewerMoniker
 
-  async active(time?: number) {
-    return await this.transport.sendRequest('stakeViewer_active', [time])
-  }
-
-  async activeByAddressStaked(address: Address, time?: number) {
-    return await this.transport.sendRequest('stakeViewer_activeByAddressStaked', [address, time])
-  }
-
-  async activeByStaker(address: Address, time?: number) {
-    return await this.transport.sendRequest('stakeViewer_activeByStaker', [address, time])
-  }
-
   async minWithdrawalBlocks() {
     return await this.transport.sendRequest('stakeViewer_minWithdrawalBlocks', [])
-  }
-
-  async pending(time?: number) {
-    return await this.transport.sendRequest('stakeViewer_pending', [time])
-  }
-
-  async pendingByStaker(staker: Address, time?: number) {
-    return await this.transport.sendRequest('stakeViewer_pendingByStaker', [staker, time])
   }
 
   async rewardsContract() {
@@ -54,14 +34,6 @@ export class JsonRpcStakeViewerMethods extends AbstractJsonRpcViewer<StakeViewer
 
   async stakingTokenAddress() {
     return await this.transport.sendRequest('stakeViewer_stakingTokenAddress', [])
-  }
-
-  async withdrawn(time?: number) {
-    return await this.transport.sendRequest('stakeViewer_withdrawn', [time])
-  }
-
-  async withdrawnByStaker(staker: string, time?: number) {
-    return await this.transport.sendRequest('stakeViewer_withdrawnByStaker', [staker, time])
   }
 
   protected schemas() {

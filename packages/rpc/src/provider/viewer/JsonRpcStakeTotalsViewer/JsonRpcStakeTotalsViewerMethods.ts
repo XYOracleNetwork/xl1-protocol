@@ -7,32 +7,32 @@ import { AbstractJsonRpcViewer } from '../JsonRpcViewer.ts'
 export class JsonRpcStakeTotalsViewerMethods extends AbstractJsonRpcViewer<StakeTotalsViewerRpcSchemas> implements StakeTotalsViewerMethods {
   readonly moniker = StakeTotalsViewerMoniker
 
-  async active(): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_active', [])
+  async active(time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_active', [time])
   }
 
-  async activeByStaked(staked: Address): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_activeByStaked', [staked])
+  async activeByStaked(staked: Address, time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_activeByStaked', [staked, time])
   }
 
-  async activeByStaker(address: Address): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_activeByStaker', [address])
+  async activeByStaker(address: Address, time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_activeByStaker', [address, time])
   }
 
-  async pending(): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_pending', [])
+  async pending(time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_pending', [time])
   }
 
-  async pendingByStaker(staker: Address): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_pendingByStaker', [staker])
+  async pendingByStaker(staker: Address, time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_pendingByStaker', [staker, time])
   }
 
-  async withdrawn(): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_withdrawn', [])
+  async withdrawn(time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_withdrawn', [time])
   }
 
-  async withdrawnByStaker(staker: Address): Promise<bigint> {
-    return await this.transport.sendRequest('stakeTotalsViewer_withdrawnByStaker', [staker])
+  async withdrawnByStaker(staker: Address, time?: number): Promise<bigint> {
+    return await this.transport.sendRequest('stakeTotalsViewer_withdrawnByStaker', [staker, time])
   }
 
   protected schemas() {

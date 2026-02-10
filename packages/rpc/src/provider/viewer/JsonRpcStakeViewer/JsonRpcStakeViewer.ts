@@ -1,4 +1,6 @@
+import { Promisable } from '@xylabs/sdk-js'
 import {
+  Position,
   StakeEventsViewer, StakeEventsViewerMoniker, StakeTotalsViewerMoniker,
   StakeViewer,
   StakeViewerMoniker,
@@ -19,8 +21,20 @@ export class JsonRpcStakeViewer extends JsonRpcStakeViewerMethods implements Sta
     return this._stakeEvents
   }
 
+  activeStakes(): Promisable<Position[]> {
+    throw new Error('Method not implemented.')
+  }
+
   override async createHandler() {
     await super.createHandler()
     this._stakeEvents = await this.locator.getInstance<StakeEventsViewer>(StakeEventsViewerMoniker)
+  }
+
+  removedStakes(): Promisable<Position[]> {
+    throw new Error('Method not implemented.')
+  }
+
+  withdrawnStakes(): Promisable<Position[]> {
+    throw new Error('Method not implemented.')
   }
 }
