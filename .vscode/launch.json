@@ -11,7 +11,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "packages/protocol-sdk-tests/src/spec/simple/mempool/SimpleMempoolViewer.spec.ts"
+        "packages/rpc/src/transport/spec/HttpRpcTransport.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [
