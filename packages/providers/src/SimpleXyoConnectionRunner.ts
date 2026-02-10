@@ -1,24 +1,24 @@
-import { CreatableParams } from '@xylabs/sdk-js'
 import { XyoViewer, XyoViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
   type DataLakeRunner, DataLakeRunnerMoniker, type DataLakeViewer, DataLakeViewerMoniker,
   type XyoConnection, XyoConnectionMoniker, type XyoNetwork, type XyoRunner, XyoRunnerMoniker,
 } from '@xyo-network/xl1-protocol'
 import {
-  AbstractCreatableProvider, creatableProvider, CreatableProviderContext,
+  AbstractCreatableProvider, creatableProvider,
+  CreatableProviderParams,
 } from '@xyo-network/xl1-protocol-sdk'
 
-export interface SimpleXyoConnectionParams<TContext extends CreatableProviderContext = CreatableProviderContext> extends CreatableParams {
-  context: TContext
+export interface SimpleXyoConnectionRunnerParams extends CreatableProviderParams {
+
 }
 
 @creatableProvider()
-export class SimpleXyoConnection<TParams extends SimpleXyoConnectionParams = SimpleXyoConnectionParams> extends
+export class SimpleXyoConnectionRunner<TParams extends SimpleXyoConnectionRunnerParams = SimpleXyoConnectionRunnerParams> extends
   AbstractCreatableProvider<TParams> implements XyoConnection {
   static readonly defaultMoniker = XyoConnectionMoniker
   static readonly dependencies = [XyoRunnerMoniker, XyoViewerMoniker, DataLakeRunnerMoniker, DataLakeViewerMoniker]
   static readonly monikers = [XyoConnectionMoniker]
-  moniker = SimpleXyoConnection.defaultMoniker
+  moniker = SimpleXyoConnectionRunner.defaultMoniker
 
   protected _network?: XyoNetwork
   protected _runner?: XyoRunner

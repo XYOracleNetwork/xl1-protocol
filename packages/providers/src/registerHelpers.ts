@@ -8,7 +8,7 @@ import {
   SimpleXyoSigner,
 } from '@xyo-network/xl1-protocol-sdk'
 
-import { SimpleXyoConnection } from './SimpleXyoConnection.ts'
+import { SimpleXyoConnectionRunner } from './SimpleXyoConnectionRunner.ts'
 
 export interface GatewayRunnerLocatorParams {
   /**
@@ -49,7 +49,7 @@ export const registerGatewayWithLocator = (
   account?: AccountInstance,
 ) => {
   locator.registerMany([
-    SimpleXyoConnection.factory<SimpleXyoConnection>(SimpleXyoConnection.dependencies, {}),
+    SimpleXyoConnectionRunner.factory<SimpleXyoConnectionRunner>(SimpleXyoConnectionRunner.dependencies, {}),
     SimpleXyoGateway.factory<SimpleXyoGateway>(SimpleXyoGateway.dependencies, {}),
   ])
   if (account) {
