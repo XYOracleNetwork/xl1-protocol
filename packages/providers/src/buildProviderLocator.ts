@@ -7,7 +7,7 @@ import type {
 } from '@xyo-network/xl1-protocol-sdk'
 import {
   ConfigZod,
-  getEmptyProviderContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
+  getTestProviderContext, ProviderFactoryLocator, SimpleAccountBalanceViewer, SimpleBlockViewer, SimpleFinalizationViewer, SimpleMempoolRunner, SimpleMempoolViewer,
   SimpleStakeEventsViewer, SimpleStakeViewer, SimpleTimeSyncViewer, SimpleWindowedBlockViewer, SimpleXyoRunner,
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
@@ -34,7 +34,7 @@ export interface BuildProviderLocatorParams {
 
 /** @deprecated use buildEmptyProviderLocator */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export function buildProviderLocator({ context = getEmptyProviderContext(ConfigZod.parse({})) }: BuildProviderLocatorParams = {}) {
+export function buildProviderLocator({ context = getTestProviderContext(ConfigZod.parse({})) }: BuildProviderLocatorParams = {}) {
   const {
     config, locator, singletons = {}, caches = {}, ...restOfContext
   } = context

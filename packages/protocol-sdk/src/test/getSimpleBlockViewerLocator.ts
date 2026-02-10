@@ -3,7 +3,7 @@ import { Account } from '@xyo-network/account'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import { type ChainId, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 
-import { getEmptyProviderContext } from '../_internal/index.ts'
+import { getTestProviderContext } from '../_internal/index.ts'
 import type { Config } from '../config/index.ts'
 import { ConfigZod } from '../config/index.ts'
 import {
@@ -28,7 +28,7 @@ export async function getTestSimpleBlockViewerLocator({
 }: TestSimpleBlockViewerLocatorParams) {
   const chainId = chainIdIn ?? (await Account.random()).address as ChainId
   const finalizedArchivist = finalizedArchivistIn ?? await buildRandomChainArchivist()
-  const context = getEmptyProviderContext(config)
+  const context = getTestProviderContext(config)
   context.locator.registerMany([
     SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, {
       chainId,
