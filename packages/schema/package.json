@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-schema",
-  "version": "1.23.7",
+  "version": "1.23.8",
   "description": "XYO Layer One SDK Schema",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -46,7 +46,7 @@
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/payload-wrapper": "~5.3.2",
     "@xyo-network/schema-payload-plugin": "~5.3.2",
-    "@xyo-network/xl1-protocol": "~1.23.7"
+    "@xyo-network/xl1-protocol": "~1.23.8"
   },
   "devDependencies": {
     "@types/node": "~25.2.3",
