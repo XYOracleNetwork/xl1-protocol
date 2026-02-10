@@ -39,7 +39,7 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xylabs/sdk-js": "~5.0.65",
+    "@xylabs/sdk-js": "~5.0.78",
     "@xyo-network/boundwitness-builder": "~5.3.2",
     "@xyo-network/boundwitness-model": "~5.3.2",
     "@xyo-network/boundwitness-validator": "~5.3.2",
@@ -51,8 +51,8 @@
     "ajv": "~8.17.1"
   },
   "devDependencies": {
-    "@types/node": "~25.2.0",
-    "@xylabs/sdk-js": "~5.0.65",
+    "@types/node": "~25.2.2",
+    "@xylabs/sdk-js": "~5.0.78",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
     "@xyo-network/account": "~5.3.2",
@@ -60,7 +60,7 @@
     "@xyo-network/archivist-memory": "~5.3.2",
     "@xyo-network/archivist-model": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
-    "axios": "^1.13.4",
+    "axios": "^1.13.5",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",

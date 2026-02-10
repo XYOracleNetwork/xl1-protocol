@@ -64,16 +64,16 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
     // Build, sign, and broadcast the transaction
     const tx = await buildUnsignedTransaction(resolvedChainId, onChain, offChain, resolvedNbf, resolvedExp, await this.signer.address(), fees)
-    return await this.addTransactionToChain(tx)
+    return await this.addTransactionToChain(tx, await PayloadBuilder.addHashMeta(offChain))
   }
 
-  async addTransactionToChain(tx: UnsignedHydratedTransaction): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
+  async addTransactionToChain(tx: UnsignedHydratedTransaction, offChain?: WithHashMeta<Payload>[]): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
     const connection = this.connection
 
     const signer = this.signer
     const runner = assertEx(connection.runner, () => 'No runner available on connection')
     const signedTx: SignedHydratedTransactionWithHashMeta = await signer.signTransaction(tx)
-    await this.addPayloadsToDataLakes([...signedTx[1], signedTx[0]])
+    await this.addPayloadsToDataLakes([...signedTx[1], ...(offChain ?? []), signedTx[0]])
     return [await runner.broadcastTransaction(
       [signedTx[0], signedTx[1]],
     ), signedTx]

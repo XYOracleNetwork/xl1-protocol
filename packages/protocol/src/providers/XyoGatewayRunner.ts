@@ -52,6 +52,7 @@ export interface XyoGatewayRunnerMethods {
 
   addTransactionToChain(
     tx: UnsignedHydratedTransaction | SignedHydratedTransaction,
+    offChain?: Payload[]
   ): Promisable<[Hash, SignedHydratedTransactionWithHashMeta]>
 
   confirmSubmittedTransaction(txHash: Hash, options?: ConfirmSubmittedTransactionOptions): Promisable<SignedHydratedTransaction>
