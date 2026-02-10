@@ -45,8 +45,8 @@
   ],
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@xylabs/axios": "^5.0.78",
-    "@xylabs/sdk-js": "~5.0.78",
+    "@xylabs/axios": "^5.0.79",
+    "@xylabs/sdk-js": "~5.0.79",
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/account-model": "~5.3.2",
     "@xyo-network/archivist-memory": "~5.3.2",
@@ -61,14 +61,14 @@
     "@xyo-network/xl1-schema": "~1.23.7",
     "async-mutex": "~0.5.0",
     "ethers": "^6.16.0",
-    "lru-cache": "^11.2.5"
+    "lru-cache": "^11.2.6"
   },
   "devDependencies": {
-    "@types/node": "~25.2.2",
-    "@xylabs/events": "~5.0.78",
+    "@types/node": "~25.2.3",
+    "@xylabs/events": "~5.0.79",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xylabs/vitest-extended": "~5.0.78",
+    "@xylabs/vitest-extended": "~5.0.79",
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/archivist-memory": "~5.3.2",
     "@xyo-network/archivist-mongodb": "~5.3.2",
@@ -82,7 +82,7 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
-    "axios": "^1.13.2",
+    "axios": "^1",
     "mongodb": "^6 || ^7",
     "zod": "^4"
   },

@@ -57,29 +57,29 @@
   },
   "dependencies": {
     "@metamask/json-rpc-engine": "~10.2.2",
-    "@xylabs/axios": "~5.0.78",
-    "@xylabs/sdk-js": "~5.0.78",
+    "@xylabs/axios": "~5.0.79",
+    "@xylabs/sdk-js": "~5.0.79",
     "@xyo-network/archivist-model": "~5.3.2",
     "@xyo-network/module-model": "~5.3.2",
     "@xyo-network/node-model": "~5.3.2",
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/xl1-protocol": "~1.23.7",
     "@xyo-network/xl1-protocol-sdk": "~1.23.7",
-    "axios": "^1.13.5",
     "uuid": "~13.0.0"
   },
   "devDependencies": {
     "@metamask/utils": "~11.9.0",
-    "@types/node": "~25.2.2",
-    "@xylabs/sdk-js": "~5.0.78",
+    "@types/node": "~25.2.3",
+    "@xylabs/sdk-js": "~5.0.79",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xylabs/vitest-extended": "~5.0.78",
+    "@xylabs/vitest-extended": "~5.0.79",
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/account-model": "~5.3.2",
     "@xyo-network/boundwitness-model": "~5.3.2",
     "@xyo-network/payload-builder": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
+    "axios": "^1.13.5",
     "dotenv": "~17.2.4",
     "eslint": "^9.39.2",
     "tslib": "^2.8.1",
@@ -88,6 +88,7 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "axios": "^1",
     "zod": "^4"
   },
   "packageManager": "yarn@4.6.0",

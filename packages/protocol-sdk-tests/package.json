@@ -33,11 +33,11 @@
     "deploy3": "echo Deploy3 not allowed!"
   },
   "devDependencies": {
-    "@types/node": "~25.2.2",
-    "@xylabs/sdk-js": "~5.0.78",
+    "@types/node": "~25.2.3",
+    "@xylabs/sdk-js": "~5.0.79",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xylabs/vitest-extended": "~5.0.78",
+    "@xylabs/vitest-extended": "~5.0.79",
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/account-model": "~5.3.2",
     "@xyo-network/archivist-memory": "~5.3.2",
