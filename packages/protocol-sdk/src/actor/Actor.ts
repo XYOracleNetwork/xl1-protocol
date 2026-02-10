@@ -10,7 +10,7 @@ import {
 import { AccountInstance } from '@xyo-network/account-model'
 import { Semaphore } from 'async-mutex'
 
-import { Config, getDefaultConfig } from '../config/index.ts'
+import { Config, ConfigZod } from '../config/index.ts'
 import { CreatableProviderFactory, ProviderFactoryLocator } from '../CreatableProvider/index.ts'
 import { ActorContext } from './ActorContext.ts'
 
@@ -88,8 +88,8 @@ export class Actor<TParams extends ActorParams = ActorParams> extends AbstractCr
     params: T['params'],
   ): Promisable<ActorContext> {
     const logger = params?.context?.logger
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const config: Config = params?.context?.config ?? getDefaultConfig()
+
+    const config: Config = params?.context?.config ?? ConfigZod.parse({})
     const singletons = params?.context?.singletons ?? {}
 
     const locator = params.context?.locator ?? new ProviderFactoryLocator({
