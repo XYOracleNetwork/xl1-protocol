@@ -1,5 +1,6 @@
 export * from './JsonRpcAccountBalanceViewer/index.ts'
 export * from './JsonRpcBlockViewer/index.ts'
+export * from './JsonRpcFinalizationViewer/index.ts'
 export * from './JsonRpcMempoolViewer/index.ts'
 export * from './JsonRpcNetworkStakeStepRewardsViewer/index.ts'
 export * from './JsonRpcNetworkStakeViewer/index.ts'
