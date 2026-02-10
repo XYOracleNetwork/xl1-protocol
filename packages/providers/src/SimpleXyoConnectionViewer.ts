@@ -1,7 +1,7 @@
 import { XyoViewer, XyoViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
   DataLakeRunnerMoniker, type DataLakeViewer, DataLakeViewerMoniker,
-  type XyoConnection, XyoConnectionMoniker, type XyoNetwork, type XyoRunner, XyoRunnerMoniker,
+  type XyoConnection, XyoConnectionMoniker, type XyoNetwork, XyoRunnerMoniker,
 } from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider, creatableProvider,
@@ -21,7 +21,6 @@ export class SimpleXyoConnectionViewer<TParams extends SimpleXyoConnectionViewer
   moniker = SimpleXyoConnectionViewer.defaultMoniker
 
   protected _network?: XyoNetwork
-  protected _runner?: XyoRunner
   protected _storage?: DataLakeViewer
   protected _viewer?: XyoViewer
 
@@ -39,7 +38,6 @@ export class SimpleXyoConnectionViewer<TParams extends SimpleXyoConnectionViewer
 
   override async createHandler() {
     await super.createHandler()
-    this._runner = await this.locator.getInstance<XyoRunner>(XyoRunnerMoniker)
     this._viewer = await this.locator.getInstance<XyoViewer>(XyoViewerMoniker)
     const dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
     this._storage = dataLakeViewer
