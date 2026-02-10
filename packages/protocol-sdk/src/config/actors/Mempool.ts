@@ -1,7 +1,7 @@
 import { globalRegistry, z } from 'zod'
 
-import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { MnemonicStringZod } from '../../validation/index.ts'
+import { BaseConfigZod } from '../Base.ts'
 
 export const MempoolConfigZod = BaseConfigZod.extend(z.object({
   enabled: z.union([z.string(), z.boolean()]).default('false').transform((val, ctx) => {

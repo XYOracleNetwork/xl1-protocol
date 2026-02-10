@@ -1,8 +1,8 @@
 import { AddressZod, asAddress } from '@xylabs/sdk-js'
 import { globalRegistry, z } from 'zod'
 
-import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { MnemonicStringZod } from '../../validation/index.ts'
+import { BaseConfigZod } from '../Base.ts'
 
 export const ProducerConfigZod = BaseConfigZod.extend(z.object({
   allowlist: z.preprocess((val) => {

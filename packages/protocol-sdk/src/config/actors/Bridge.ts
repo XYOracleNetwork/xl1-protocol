@@ -5,8 +5,8 @@ import type { ChainId } from '@xyo-network/xl1-protocol'
 import { AttoXL1ConvertFactor, XL1 } from '@xyo-network/xl1-protocol'
 import { globalRegistry, z } from 'zod'
 
-import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { MnemonicStringZod } from '../../validation/index.ts'
+import { BaseConfigZod } from '../Base.ts'
 
 const DEFAULT_FIXED_FEE = toHex(XL1(1n) * AttoXL1ConvertFactor.xl1)
 const DEFAULT_HARDHAT_BRIDGE_CONTRACT = toAddress('2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6')

@@ -1,13 +1,11 @@
 import { deepMerge } from '@xylabs/sdk-js'
 import { globalRegistry, z } from 'zod'
 
-import { ApiConfigZod } from './Api.ts'
+import {
+  ApiConfigZod, BridgeConfigZod, MempoolConfigZod, ProducerConfigZod, RewardRedemptionConfigZod,
+} from './actors/index.ts'
 import type { BaseConfig } from './Base.ts'
 import { BaseConfigZod } from './Base.ts'
-import { BridgeConfigZod } from './Bridge.ts'
-import { MempoolConfigZod } from './Mempool.ts'
-import { ProducerConfigZod } from './Producer.ts'
-import { RewardRedemptionConfigZod } from './RewardRedemption.ts'
 
 export const ActorsConfigZod = z.object({
   api: ApiConfigZod.default(ApiConfigZod.parse({})).register(globalRegistry, {

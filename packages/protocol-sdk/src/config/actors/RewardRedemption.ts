@@ -1,7 +1,7 @@
 import { globalRegistry, z } from 'zod'
 
-import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { MnemonicStringZod } from '../../validation/index.ts'
+import { BaseConfigZod } from '../Base.ts'
 
 export const RewardRedemptionConfigZod = BaseConfigZod.extend(z.object({
   chainRpcApiUrl: z.string().default('http://localhost:8080/rpc').register(globalRegistry, {

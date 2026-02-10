@@ -1,7 +1,7 @@
 import { globalRegistry, z } from 'zod'
 
-import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { MnemonicStringZod } from '../../validation/index.ts'
+import { BaseConfigZod } from '../Base.ts'
 
 export const ApiConfigZod = BaseConfigZod.extend(z.object({
   host: z.string().default('localhost').register(globalRegistry, {
