@@ -28,6 +28,8 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
 
   scope: ProviderFactoryScope
 
+  private _uniqueId?: symbol
+
   constructor(
     creatableProvider: CreatableProvider<TProvider>,
     dependencies: TDependencies,
@@ -49,6 +51,11 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     const labels: Labels = this.labels ?? {}
     const labelString = Object.entries(labels).map(([key, value]) => `${key}=${value}`).join(',')
     return labelString.length === 0 ? `${this.defaultMoniker}` : `${this.defaultMoniker}|${labelString}`
+  }
+
+  get uniqueId() {
+    this._uniqueId = this._uniqueId ?? Symbol(`${this.constructor.name}:${this.resolvedMoniker}`)
+    return this._uniqueId!
   }
 
   static withParams<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[]>(

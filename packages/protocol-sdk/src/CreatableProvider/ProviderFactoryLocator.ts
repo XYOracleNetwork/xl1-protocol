@@ -46,14 +46,13 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
     const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
-    const singletonsKey = `${moniker}${labels ? `:${JSON.stringify(labels)}` : ''}`
-    if (this.context.singletons[singletonsKey]) {
-      return this.context.singletons[singletonsKey] as CreatableProviderInstance<TProvider>
-    }
     const factory = this.tryLocate<TProvider>(moniker, labels)
     if (factory) {
+      if (this.context.singletons[factory.uniqueId]) {
+        return this.context.singletons[factory.uniqueId] as CreatableProviderInstance<TProvider>
+      }
       const result = await factory.getInstance(resolvedParams, { start })
-      this.context.singletons[singletonsKey] = result
+      this.context.singletons[factory.uniqueId] = result
       return result
     } else if (this._parent) {
       return this._parent.getInstance(moniker, { start, labels })

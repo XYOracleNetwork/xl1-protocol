@@ -9,7 +9,7 @@ export const CachesZod = z.record(
   z.custom<MapType<string, unknown>>(val => val && typeof val === 'object' && ('get' in val || 'set' in val)),
 )
 
-export const SingletonsZod = z.record(z.string(), z.unknown())
+export const SingletonsZod = z.record(z.union([z.string(), z.symbol()]), z.unknown())
 
 export const LoggerZod = z.custom<Logger>(val => val && typeof val === 'object' && 'info' in val && 'error' in val)
 

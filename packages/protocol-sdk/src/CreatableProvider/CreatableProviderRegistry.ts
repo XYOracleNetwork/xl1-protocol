@@ -15,7 +15,7 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
 ): LabeledCreatableProviderFactory<TProvider> => {
   const factory = {
     monikers: provider.monikers,
-
+    uniqueId: Symbol(),
     // Merge module & supplied labels
     labels: { ...(provider as LabeledCreatableProviderFactory).labels, ...labels },
     creatableProvider: provider.creatableProvider,

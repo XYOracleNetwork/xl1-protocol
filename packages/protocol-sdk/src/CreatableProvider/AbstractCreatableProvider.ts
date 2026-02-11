@@ -50,14 +50,6 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
     return factory
   }
 
-  // static async getInstance<T extends CreatableProviderInstance>(
-  //   this: CreatableProvider<T>,
-  //   inParams: T['params'],
-  // ): Promise<T> {
-  //   const instance = await this.create<T>(inParams)
-  //   return instance
-  // }
-
   static override async paramsHandler<T extends CreatableProviderInstance>(
     params: Partial<T['params']> = {},
   ) {
@@ -74,17 +66,6 @@ export abstract class AbstractCreatableProvider<TParams extends CreatableProvide
       logger: params.logger ?? context.logger,
     })
   }
-
-  // static async tryGetInstance<T extends CreatableProviderInstance>(
-  //   this: CreatableProvider<T>,
-  //   inParams: T['params'],
-  // ): Promise<T | undefined> {
-  //   try {
-  //     return await this.create<T>(inParams)
-  //   } catch {
-  //     return
-  //   }
-  // }
 
   async locateAndCreate<TProvider extends Provider<ProviderMoniker>>(moniker: TProvider['moniker']) {
     return await this.locator.getInstance<TProvider>(moniker)

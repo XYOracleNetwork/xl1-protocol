@@ -37,6 +37,8 @@ export interface CreatableProviderFactory<T extends CreatableProviderInstance = 
   resolvedMoniker: string
   scope: ProviderFactoryScope
 
+  uniqueId: symbol
+
   getInstance(
     this: CreatableProviderFactory<T>,
     params: T['params'],
