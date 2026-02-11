@@ -5,15 +5,14 @@ import {
   assertEx, BigIntToJsonZod, isDefined,
 } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import { type Payload, type WithHashMeta } from '@xyo-network/payload-model'
 import type {
   AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,
   DataLakeRunner, DataLakesRunner, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
   XyoConnection, XyoGatewayRunner, XyoSigner,
 } from '@xyo-network/xl1-protocol'
 import {
-  asXL1BlockNumber, TransferSchema,
-  XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
+  asXL1BlockNumber, isSignedHydratedTransaction, TransferSchema, XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
 } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
@@ -67,16 +66,35 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
     return await this.addTransactionToChain(tx, await PayloadBuilder.addHashMeta(offChain))
   }
 
-  async addTransactionToChain(tx: UnsignedHydratedTransaction, offChain?: WithHashMeta<Payload>[]): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
+  async addTransactionToChain(
+    tx: UnsignedHydratedTransaction | SignedHydratedTransaction,
+    offChain?: WithHashMeta<Payload>[],
+  ): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
     const connection = this.connection
 
     const signer = this.signer
     const runner = assertEx(connection.runner, () => 'No runner available on connection')
-    const signedTx: SignedHydratedTransactionWithHashMeta = await signer.signTransaction(tx)
+
+    // Prepare for returning the SignedHydratedTransactionWithHashMeta
+    let signedTx: SignedHydratedTransactionWithHashMeta
+
+    // If the supplied transaction is already signed
+    if (isSignedHydratedTransaction(tx)) {
+      // Ensure it has hash meta
+      const [bw, payloads] = tx
+      const hashedBw = await PayloadBuilder.addHashMeta(bw)
+      const hashedPayloads = await PayloadBuilder.addHashMeta(payloads)
+      signedTx = [hashedBw, hashedPayloads]
+    } else {
+      // Otherwise, sign it using our signer
+      signedTx = await signer.signTransaction(tx)
+    }
+
+    // Add all payloads to data lakes before broadcasting the transaction
     await this.addPayloadsToDataLakes([...signedTx[1], ...(offChain ?? []), signedTx[0]])
-    return [await runner.broadcastTransaction(
-      [signedTx[0], signedTx[1]],
-    ), signedTx]
+
+    // Broadcast the transaction
+    return [await runner.broadcastTransaction([signedTx[0], signedTx[1]]), signedTx]
   }
 
   async confirmSubmittedTransaction(txHash: Hash, options?: ConfirmSubmittedTransactionOptions): Promise<SignedHydratedTransaction> {
