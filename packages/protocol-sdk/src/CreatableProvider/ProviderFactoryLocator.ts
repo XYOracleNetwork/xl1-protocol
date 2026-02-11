@@ -30,6 +30,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     return this._context
   }
 
+  get logger() {
+    return this.context.logger
+  }
+
   /**
    * The current registry for the module factory
    */
@@ -51,6 +55,7 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
       if (this.context.singletons[factory.uniqueId]) {
         return this.context.singletons[factory.uniqueId] as CreatableProviderInstance<TProvider>
       }
+      this.logger?.info(`Creating provider instance for moniker [${moniker}]${labels ? ` with labels [${JSON.stringify(labels)}]` : ''} using factory [${factory.uniqueId.description}]`)
       const result = await factory.getInstance(resolvedParams, { start })
       this.context.singletons[factory.uniqueId] = result
       return result
