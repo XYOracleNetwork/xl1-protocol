@@ -1,4 +1,4 @@
-export * from './actors/index.ts'
+export * from './Base.ts'
 export * from './Config.ts'
 export { hasMongoConfig } from './storage/index.ts'
 export { DefaultMetricsScrapePorts } from './Telemetry.ts'
