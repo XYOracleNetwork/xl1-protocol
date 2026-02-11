@@ -132,11 +132,11 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
    * @returns A module factory that matches the supplied moniker and labels or undefined
    */
   tryLocate<TProvider extends Provider<ProviderMoniker>>(moniker: TProvider['moniker'], labels?: Labels) {
-    const result = labels
+    const result = (labels
       // Find the first factory that has labels and has all the labels provided
       ? (this._registry[moniker]?.filter(hasLabels).find(factory => hasAllLabels(factory?.labels, labels)) ?? this._registry[moniker]?.[0])
       // Otherwise, return the first factory
-      : this._registry[moniker]?.[0]
+      : this._registry[moniker]?.[0]) ?? this._parent?.tryLocate<TProvider>(moniker, labels)
 
     return result as CreatableProviderFactory<CreatableProviderInstance<TProvider>>
       | LabeledCreatableProviderFactory<CreatableProviderInstance<TProvider>> | undefined
