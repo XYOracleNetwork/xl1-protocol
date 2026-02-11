@@ -46,7 +46,7 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
     const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
-    const factory = this.tryLocate<TProvider>(moniker, labels)
+    const factory = this.tryLocate<TProvider>(moniker, labels) ?? this._parent?.tryLocate<TProvider>(moniker, labels)
     if (factory) {
       if (this.context.singletons[factory.uniqueId]) {
         return this.context.singletons[factory.uniqueId] as CreatableProviderInstance<TProvider>
@@ -54,8 +54,6 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
       const result = await factory.getInstance(resolvedParams, { start })
       this.context.singletons[factory.uniqueId] = result
       return result
-    } else if (this._parent) {
-      return this._parent.getInstance(moniker, { start, labels })
     } else {
       throw new Error(`No provider factory for the supplied config moniker [${moniker}]${labels ? ` & labels [${JSON.stringify(labels)}]` : ''} registered`)
     }

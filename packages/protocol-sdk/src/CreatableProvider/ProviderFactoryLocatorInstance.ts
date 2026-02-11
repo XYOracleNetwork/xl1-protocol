@@ -58,5 +58,8 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
    * @param labels The labels for the module factory
    * @returns A module factory that matches the supplied moniker and labels or undefined
    */
-  tryLocate(moniker: ProviderMoniker, labels?: Labels): CreatableProviderFactory | LabeledCreatableProviderFactory | undefined
+  tryLocate<TProvider extends Provider<ProviderMoniker>>(
+    moniker: ProviderMoniker,
+    labels?: Labels
+  ): CreatableProviderFactory<CreatableProviderInstance<TProvider>> | LabeledCreatableProviderFactory<CreatableProviderInstance<TProvider>> | undefined
 }
