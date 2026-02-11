@@ -20,12 +20,6 @@ export const BasisPointsZod = z.coerce.number().int().nonnegative().max(10_000)
 export type BasisPoints = z.infer<typeof BasisPointsZod>
 
 export const BridgeConfigZod = BaseConfigZod.extend(z.object({
-  chainRpcApiUrl: z.string().default('http://localhost:8080/rpc').register(globalRegistry, {
-    default: 'http://localhost:8080/rpc',
-    description: 'URL for the Chain RPC API',
-    title: 'bridge.chainRpcApiUrl',
-    type: 'string',
-  }),
   escrowAddress: AddressZod.optional().register(globalRegistry, {
     description: 'Address to which bridge escrow will be sent',
     title: 'bridge.escrowAddress',

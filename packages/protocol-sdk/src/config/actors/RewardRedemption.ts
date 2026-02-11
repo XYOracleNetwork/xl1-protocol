@@ -4,12 +4,6 @@ import { MnemonicStringZod } from '../../validation/index.ts'
 import { BaseConfigZod } from '../Base.ts'
 
 export const RewardRedemptionConfigZod = BaseConfigZod.extend(z.object({
-  chainRpcApiUrl: z.string().default('http://localhost:8080/rpc').register(globalRegistry, {
-    default: 'http://localhost:8080/rpc',
-    description: 'URL for the Chain RPC API',
-    title: 'rewardRedemptionApi.chainRpcApiUrl',
-    type: 'string',
-  }),
   host: z.string().default('localhost').register(globalRegistry, {
     default: 'localhost',
     description: 'Host for the Redemption API',
