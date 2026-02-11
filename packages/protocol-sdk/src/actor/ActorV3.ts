@@ -167,3 +167,5 @@ export abstract class ActorV3<TParams extends ActorParamsV3 = ActorParamsV3> ext
     this.logger?.log('Stopped.')
   }
 }
+
+export abstract class Actor<TParams extends ActorParamsV3 = ActorParamsV3> extends ActorV3<TParams> {}

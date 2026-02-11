@@ -1,9 +1,12 @@
+import {
+  zodAsFactory, zodIsFactory, zodToFactory,
+} from '@xylabs/zod'
 import type { CachingContext } from '@xyo-network/xl1-protocol'
 import { CachingContextZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
-import type { Config } from '../config/index.ts'
-import { ConfigZod } from '../config/index.ts'
+import type { BaseConfig } from '../config/index.ts'
+import { BaseConfigZod } from '../config/index.ts'
 import type { RuntimeStatusMonitor } from '../status/index.ts'
 import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorInstance.ts'
 
@@ -14,15 +17,25 @@ export const ProviderFactoryLocatorZod: z.ZodType<ProviderFactoryLocatorInstance
 
 export type CreatableProviderContextType = CachingContext & {
   _id?: string
-  config: Config
+  config: BaseConfig
   locator: ProviderFactoryLocatorInstance
   statusReporter?: RuntimeStatusMonitor
 }
 
+export const BaseConfigContextZod = CachingContextZod.extend({ config: BaseConfigZod.loose() })
+export type BaseConfigContext = z.infer<typeof BaseConfigContextZod>
+
 export const CreatableProviderContextZod: z.ZodType<CreatableProviderContextType> = z.lazy(() =>
-  CachingContextZod.extend({
+  BaseConfigContextZod.extend({
     _id: z.string().optional(),
-    config: ConfigZod,
     locator: ProviderFactoryLocatorZod,
     statusReporter: RuntimeStatusMonitorZod.optional(),
   }))
+
+export const isBaseConfigContext = zodIsFactory(BaseConfigContextZod)
+export const asBaseConfigContext = zodAsFactory(BaseConfigContextZod, 'asBaseConfigContext')
+export const toBaseConfigContext = zodToFactory(BaseConfigContextZod, 'toBaseConfigContext')
+
+export const isCreatableProviderContext = zodIsFactory(CreatableProviderContextZod)
+export const asCreatableProviderContext = zodAsFactory(CreatableProviderContextZod, 'asCreatableProviderContext')
+export const toCreatableProviderContext = zodToFactory(CreatableProviderContextZod, 'toCreatableProviderContext')
