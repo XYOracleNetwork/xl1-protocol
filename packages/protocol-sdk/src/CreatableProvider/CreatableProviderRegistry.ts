@@ -4,6 +4,7 @@ import type { ProviderMoniker } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderFactory, CreatableProviderInstance } from './CreatableProvider.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
+import { providerFactoryDescription } from './ProviderFactory.ts'
 
 export type CreatableProviderRegistry<TMonikers extends ProviderMoniker[] = ProviderMoniker[]>
   = Record<TMonikers[number], (CreatableProviderFactory | LabeledCreatableProviderFactory)[] | undefined>
@@ -15,7 +16,7 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
 ): LabeledCreatableProviderFactory<TProvider> => {
   const factory = {
     monikers: provider.monikers,
-    uniqueId: Symbol(),
+    uniqueId: Symbol(providerFactoryDescription(provider, labels)),
     // Merge module & supplied labels
     labels: { ...(provider as LabeledCreatableProviderFactory).labels, ...labels },
     creatableProvider: provider.creatableProvider,

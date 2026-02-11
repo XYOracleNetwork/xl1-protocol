@@ -12,6 +12,10 @@ declare global {
   var xyoServiceSingletons: Record<string, unknown>
 }
 
+export function providerFactoryDescription(factory: CreatableProviderFactory<CreatableProviderInstance>, labels?: Labels) {
+  return `${factory.constructor.name}:${factory.resolvedMoniker}:${JSON.stringify(labels ?? factory.labels ?? {})}`
+}
+
 export class ProviderFactory<TProvider extends CreatableProviderInstance,
   TDependencies extends ProviderMoniker[]> implements CreatableProviderFactory<TProvider> {
   creatableProvider: CreatableProvider<TProvider>
@@ -53,8 +57,8 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     return labelString.length === 0 ? `${this.defaultMoniker}` : `${this.defaultMoniker}|${labelString}`
   }
 
-  get uniqueId() {
-    this._uniqueId = this._uniqueId ?? Symbol(`${this.constructor.name}:${this.resolvedMoniker}`)
+  get uniqueId(): symbol {
+    this._uniqueId = this._uniqueId ?? Symbol(providerFactoryDescription(this))
     return this._uniqueId!
   }
 
