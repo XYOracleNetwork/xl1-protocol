@@ -49,19 +49,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     moniker: TProvider['moniker'],
     { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
-    const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
-    const factory = this.tryLocate<TProvider>(moniker, labels) ?? this._parent?.tryLocate<TProvider>(moniker, labels)
-    if (factory) {
-      if (this.context.singletons[factory.uniqueId]) {
-        return this.context.singletons[factory.uniqueId] as CreatableProviderInstance<TProvider>
-      }
-      this.logger?.info(`Creating provider instance for moniker [${moniker}]${labels ? ` with labels [${JSON.stringify(labels)}]` : ''} using factory [${factory.uniqueId.description}]`)
-      const result = await factory.getInstance(resolvedParams, { start })
-      this.context.singletons[factory.uniqueId] = result
-      return result
-    } else {
-      throw new Error(`No provider factory for the supplied config moniker [${moniker}]${labels ? ` & labels [${JSON.stringify(labels)}]` : ''} registered`)
-    }
+    return assertEx(
+      await this.tryGetInstance<TProvider>(moniker, { start, labels }),
+      () => `No provider instance for the supplied config moniker [${moniker}]${labels ? ` & labels [${JSON.stringify(labels)}]` : ''} could be created`,
+    )
   }
 
   has(moniker: TMonikers[number]): boolean {
@@ -119,12 +110,18 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
 
   async tryGetInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
-    options?: ProviderFactoryGetInstanceOptions,
+    { start = true, labels }: ProviderFactoryGetInstanceOptions = {},
   ) {
-    try {
-      return await this.getInstance<TProvider>(moniker, options)
-    } catch {
-      return
+    const resolvedParams = { context: this.context } as CreatableProviderInstance<TProvider>['params']
+    const factory = this.tryLocate<TProvider>(moniker, labels) ?? this._parent?.tryLocate<TProvider>(moniker, labels)
+    if (factory) {
+      if (this.context.singletons[factory.uniqueId]) {
+        return this.context.singletons[factory.uniqueId] as CreatableProviderInstance<TProvider>
+      }
+      this.logger?.info(`Creating provider instance for moniker [${moniker}]${labels ? ` with labels [${JSON.stringify(labels)}]` : ''} using factory [${factory.uniqueId.description}]`)
+      const result = await factory.getInstance(resolvedParams, { start })
+      this.context.singletons[factory.uniqueId] = result
+      return result
     }
   }
 
