@@ -12,8 +12,8 @@ declare global {
   var xyoServiceSingletons: Record<string, unknown>
 }
 
-export function providerFactoryDescription(factory: CreatableProviderFactory<CreatableProviderInstance>, labels?: Labels) {
-  return `${factory.constructor.name}:${factory.resolvedMoniker}:${JSON.stringify(labels ?? factory.labels ?? {})}`
+export function providerFactoryDescription(factory: CreatableProviderFactory, labels?: Labels) {
+  return `${factory.providerName}:${factory.defaultMoniker}:${JSON.stringify(labels ?? (factory as WithOptionalLabels).labels ?? {})}`
 }
 
 export class ProviderFactory<TProvider extends CreatableProviderInstance,
@@ -30,9 +30,11 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
 
   monikers: CreatableProvider<TProvider>['monikers']
 
+  providerName: string
+
   scope: ProviderFactoryScope
 
-  private _uniqueId?: symbol
+  private _uniqueId: symbol
 
   constructor(
     creatableProvider: CreatableProvider<TProvider>,
@@ -49,6 +51,8 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
     this.scope = scope
     assertEx(this.monikers.includes(this.defaultMoniker), () => 'defaultMoniker must be in monikers')
     this.labels = Object.assign({}, (creatableProvider as WithOptionalLabels).labels ?? {}, labels ?? {})
+    this.providerName = creatableProvider.name
+    this._uniqueId = Symbol(providerFactoryDescription(this))
   }
 
   get resolvedMoniker() {
@@ -58,8 +62,7 @@ export class ProviderFactory<TProvider extends CreatableProviderInstance,
   }
 
   get uniqueId(): symbol {
-    this._uniqueId = this._uniqueId ?? Symbol(providerFactoryDescription(this))
-    return this._uniqueId!
+    return this._uniqueId
   }
 
   static withParams<TInstance extends CreatableProviderInstance, TDependencies extends ProviderMoniker[]>(

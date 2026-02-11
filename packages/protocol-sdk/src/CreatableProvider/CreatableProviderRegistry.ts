@@ -22,6 +22,7 @@ const buildProviderFactory = <TProvider extends CreatableProviderInstance>(
     creatableProvider: provider.creatableProvider,
     dependencies: provider.dependencies,
     resolvedMoniker: provider.resolvedMoniker,
+    providerName: provider.providerName,
     scope: provider.scope,
     defaultParams,
     getInstance: provider.getInstance.bind(provider) as LabeledCreatableProviderFactory<TProvider>['getInstance'],

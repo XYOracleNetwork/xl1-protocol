@@ -34,6 +34,7 @@ export interface CreatableProviderFactory<T extends CreatableProviderInstance = 
   readonly dependencies: TDependencies
 
   labels?: Labels
+  providerName: string
   resolvedMoniker: string
   scope: ProviderFactoryScope
 
