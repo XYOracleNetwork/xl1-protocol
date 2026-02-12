@@ -5,10 +5,12 @@ import {
   assertEx, BigIntToJsonZod, isDefined,
 } from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { type Payload, type WithHashMeta } from '@xyo-network/payload-model'
+import {
+  isAnyPayload, isHashMeta, type Payload, type WithHashMeta,
+} from '@xyo-network/payload-model'
 import type {
   AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,
-  DataLakeRunner, DataLakesRunner, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
+  DataLakeRunner, DataLakesRunner, SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
   XyoConnection, XyoGatewayRunner, XyoSigner,
 } from '@xyo-network/xl1-protocol'
 import {
@@ -95,6 +97,25 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
     // Broadcast the transaction
     return [await runner.broadcastTransaction([signedTx[0], signedTx[1]]), signedTx]
+  }
+
+  async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
+    const [block, payloads] = await this.connection.viewer?.block.blockByHash(hash) ?? [null, []]
+    if (block !== null) {
+      const missingHashes = block.payload_hashes.filter(h => !payloads.some(p => p._hash === h))
+      const foundPayloads: Record<Hash, WithHashMeta<Payload>> = {}
+      const dataLakes = this.dataLakes ? this.dataLakes.dataLakes : []
+      for (const dataLake of dataLakes) {
+        const found = (await dataLake.getMany(missingHashes)).filter(p => isAnyPayload(p) && isHashMeta(p) && missingHashes.includes(p._hash)) as WithHashMeta<Payload>[]
+        for (const payload of found) {
+          foundPayloads[payload._hash] = payload
+        }
+      }
+      for (const [, payload] of Object.entries(foundPayloads)) {
+        payloads.push(payload)
+      }
+    }
+    return block ? [block, payloads] : null
   }
 
   async confirmSubmittedTransaction(txHash: Hash, options?: ConfirmSubmittedTransactionOptions): Promise<SignedHydratedTransaction> {
