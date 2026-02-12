@@ -1,4 +1,7 @@
+import type { Hash, Promisable } from '@xylabs/sdk-js'
+
 import type { Provider, ProviderMoniker } from '../Provider.ts'
+import type { SignedHydratedBlockWithHashMeta } from '../zod/index.ts'
 import type { DataLakesViewer } from './DataLakes.ts'
 import type { XyoConnection } from './XyoConnection.ts'
 
@@ -16,14 +19,10 @@ export interface XyoGatewayProvider<
   connection: XyoConnection
 
   dataLakes?: TDataLakesProvider
+
+  blockByHash(hash: Hash): Promisable<SignedHydratedBlockWithHashMeta | null>
 }
 
 export interface XyoGateway<
   TDataLakesProvider extends DataLakesViewer = DataLakesViewer> extends XyoGatewayProvider<XyoGatewayMoniker, TDataLakesProvider>, Provider<XyoGatewayMoniker> {
-  /**
-   * Returns the connection provider for this gateway.
-   */
-  connection: XyoConnection
-
-  dataLakes?: TDataLakesProvider
 }
