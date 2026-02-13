@@ -1,6 +1,6 @@
 import { asHex } from '@xylabs/sdk-js'
 import type { BoundWitness } from '@xyo-network/boundwitness-model'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { SignatureInstance } from '@xyo-network/xl1-protocol-sdk'
 
 import { SignatureWrapper } from '../Signature.ts'

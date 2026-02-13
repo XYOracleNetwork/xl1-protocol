@@ -1,4 +1,4 @@
-import { Account } from '@xyo-network/account'
+import { Account } from '@xyo-network/sdk-js'
 import { ChainStakeIntentSchema } from '@xyo-network/xl1-protocol'
 import { Ajv } from 'ajv'
 import {

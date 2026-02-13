@@ -1,6 +1,6 @@
-import { Account } from '@xyo-network/account'
 import type { AccountInstance } from '@xyo-network/account-model'
 import type { Payload } from '@xyo-network/payload-model'
+import { Account } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, ChainId, XyoSigner,
 } from '@xyo-network/xl1-protocol'

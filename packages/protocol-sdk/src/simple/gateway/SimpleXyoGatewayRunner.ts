@@ -4,10 +4,10 @@ import type {
 import {
   assertEx, BigIntToJsonZod, isDefined,
 } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import {
   isAnyPayload, isHashMeta, type Payload, type WithHashMeta,
 } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,
   DataLakeRunner, DataLakesRunner, SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,

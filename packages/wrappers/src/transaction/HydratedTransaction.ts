@@ -1,11 +1,11 @@
 import type { Hash, Hex } from '@xylabs/sdk-js'
 import { hexToBigInt, isDefined } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type {
   Payload, Schema,
   WithHashMeta,
   WithStorageMeta,
 } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, BaseContext, HydratedTransactionWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'

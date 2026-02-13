@@ -1,5 +1,5 @@
 import { assertEx } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   AccountBalanceViewer,
   AccountBalanceViewerMoniker,

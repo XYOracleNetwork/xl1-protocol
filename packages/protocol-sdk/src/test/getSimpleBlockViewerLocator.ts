@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/account'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
+import { Account } from '@xyo-network/sdk-js'
 import { type ChainId, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 
 import { getTestProviderContext } from '../_internal/index.ts'

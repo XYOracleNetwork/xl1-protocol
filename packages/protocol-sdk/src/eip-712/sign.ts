@@ -1,4 +1,4 @@
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { Signer } from 'ethers'
 
 import {

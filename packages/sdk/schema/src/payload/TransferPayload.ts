@@ -1,8 +1,9 @@
 import { AddressRegEx } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { payloadJsonSchema, Uint256RegEx } from '@xyo-network/payload-wrapper'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
+import {
+  PayloadBuilder, payloadJsonSchema, Uint256RegEx,
+} from '@xyo-network/sdk-js'
 import type { Transfer } from '@xyo-network/xl1-protocol'
 import { TransferSchema } from '@xyo-network/xl1-protocol'
 import type { JSONSchemaType } from 'ajv'

@@ -1,4 +1,4 @@
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { HydratedTransaction } from '@xyo-network/xl1-protocol'
 
 /** The number of bytes that a transaction and its payloads will take up in a block */

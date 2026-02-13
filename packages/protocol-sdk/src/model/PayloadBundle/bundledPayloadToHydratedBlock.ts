@@ -1,5 +1,5 @@
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { PayloadBundle } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { asSignedBlockBoundWitnessWithHashMeta } from '@xyo-network/xl1-protocol'
 

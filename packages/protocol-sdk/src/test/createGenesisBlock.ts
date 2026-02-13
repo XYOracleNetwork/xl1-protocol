@@ -1,7 +1,7 @@
 import type { Address } from '@xylabs/sdk-js'
 import type { AccountInstance } from '@xyo-network/account-model'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { WithHashMeta } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, ChainId, SignedHydratedBlockWithHashMeta,
 } from '@xyo-network/xl1-protocol'

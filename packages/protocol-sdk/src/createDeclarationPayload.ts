@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   type ChainStakeIntent, ChainStakeIntentSchema, type Intent,
 } from '@xyo-network/xl1-protocol'

@@ -1,7 +1,7 @@
 import { asHash } from '@xylabs/sdk-js'
 import type { Id } from '@xyo-network/id-payload-plugin'
 import { IdSchema } from '@xyo-network/id-payload-plugin'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   describe, expect, it,
 } from 'vitest'

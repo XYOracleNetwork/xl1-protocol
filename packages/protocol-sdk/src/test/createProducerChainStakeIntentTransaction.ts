@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
 import type { AccountInstance } from '@xyo-network/account-model'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   ChainId, ChainStakeIntent,
   HydratedTransactionWithHashMeta,

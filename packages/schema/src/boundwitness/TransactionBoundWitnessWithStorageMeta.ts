@@ -1,10 +1,10 @@
 import { AddressRegEx } from '@xylabs/sdk-js'
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
-import { boundWitnessJsonSchema } from '@xyo-network/boundwitness-wrapper'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
-import { Uint256RegEx } from '@xyo-network/payload-wrapper'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
+import {
+  boundWitnessJsonSchema, PayloadBuilder, Uint256RegEx,
+} from '@xyo-network/sdk-js'
 import type { TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 import type { JSONSchemaType } from 'ajv'
 

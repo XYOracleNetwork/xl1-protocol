@@ -1,7 +1,7 @@
 import { createAsyncMiddleware, JsonRpcEngine } from '@metamask/json-rpc-engine'
 import type { Json } from '@metamask/utils'
 import { asAddress, toAddress } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/account'
+import { Account } from '@xyo-network/sdk-js'
 import type { ChainId, XyoSigner } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber, defaultTransactionFees } from '@xyo-network/xl1-protocol'
 import {

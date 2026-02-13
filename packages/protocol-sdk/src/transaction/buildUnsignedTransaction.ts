@@ -1,8 +1,7 @@
 import type { Address } from '@xylabs/sdk-js'
 import { toHex } from '@xylabs/sdk-js'
-import { BoundWitnessBuilder } from '@xyo-network/boundwitness-builder'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import type { Payload } from '@xyo-network/payload-model'
+import { BoundWitnessBuilder, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, ChainId, ExecutableFields, FromFields, TransactionBoundWitness, TransactionBoundWitnessFields, TransactionFeesBigInt,
   UnsignedHydratedTransaction,

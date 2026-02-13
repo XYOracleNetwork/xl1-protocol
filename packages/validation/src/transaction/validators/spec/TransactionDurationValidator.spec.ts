@@ -1,6 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/account'
 import type { AccountInstance } from '@xyo-network/account-model'
+import { Account } from '@xyo-network/sdk-js'
 import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
 import { buildTransaction } from '@xyo-network/xl1-protocol-sdk'
 import {

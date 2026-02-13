@@ -1,6 +1,6 @@
 import type { Address, JsonObject } from '@xylabs/sdk-js'
 import { toHex } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { Transfer } from '@xyo-network/xl1-protocol'
 import { TransferSchema } from '@xyo-network/xl1-protocol'
 

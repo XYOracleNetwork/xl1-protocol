@@ -1,5 +1,5 @@
 import { ZERO_HASH } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { HydratedTransactionValidationFunction, TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 import { HydratedTransactionValidationError } from '@xyo-network/xl1-protocol'
 import { TransactionBoundWitnessJsonSchema } from '@xyo-network/xl1-schema'

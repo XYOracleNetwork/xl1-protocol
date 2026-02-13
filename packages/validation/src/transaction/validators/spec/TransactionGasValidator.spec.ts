@@ -1,5 +1,5 @@
 import { hexFromBigInt } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/account'
+import { Account } from '@xyo-network/sdk-js'
 import type {
   ChainId,
   HydratedTransactionValidationFunctionContext,

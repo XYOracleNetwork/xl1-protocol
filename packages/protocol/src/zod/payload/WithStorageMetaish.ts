@@ -1,8 +1,8 @@
 import { zodToAsyncFactory } from '@xylabs/zod'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import {
   isAnyPayload, isStorageMeta, PayloadZodLoose,
 } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { z } from 'zod'
 
 export const WithStorageMetaishZod = PayloadZodLoose.transform(async (data) => {

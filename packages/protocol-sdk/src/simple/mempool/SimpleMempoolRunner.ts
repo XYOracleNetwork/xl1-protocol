@@ -2,11 +2,11 @@ import {
   assertEx, exists, type Hash,
 } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import {
   isPayloadBundle, Payload, Sequence,
   WithHashMeta,
 } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   BlockValidationViewer,
   BlockValidationViewerMoniker,

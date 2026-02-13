@@ -1,8 +1,8 @@
 import {
   assertEx, exists, type Hash,
 } from '@xylabs/sdk-js'
-import { PayloadBuilder } from '@xyo-network/payload-builder'
 import { isAnyPayload } from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   DataLakeData,
   DataLakeRunner,
