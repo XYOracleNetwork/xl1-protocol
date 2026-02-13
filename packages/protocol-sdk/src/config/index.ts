@@ -1,5 +1,8 @@
+export * from './Actor.ts'
 export * from './Base.ts'
 export * from './Config.ts'
+export * from './getFileConfig.ts'
+export * from './HostActor.ts'
 export { hasMongoConfig } from './storage/index.ts'
 export { DefaultMetricsScrapePorts } from './Telemetry.ts'
 export * from './UsageMeta.ts'

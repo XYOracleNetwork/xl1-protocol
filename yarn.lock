@@ -3497,6 +3497,7 @@ __metadata:
     "@xyo-network/xl1-schema": "npm:~1.24.2"
     async-mutex: "npm:~0.5.0"
     axios: "npm:^1.13.5"
+    cosmiconfig: "npm:^9.0.0"
     eslint: "npm:^9.39.2"
     ethers: "npm:^6.16.0"
     lru-cache: "npm:^11.2.6"
@@ -4361,7 +4362,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:~9.0.0":
+"cosmiconfig@npm:^9.0.0, cosmiconfig@npm:~9.0.0":
   version: 9.0.0
   resolution: "cosmiconfig@npm:9.0.0"
   dependencies:
