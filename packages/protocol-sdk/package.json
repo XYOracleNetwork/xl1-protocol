@@ -23,6 +23,10 @@
   "exports": {
     ".": {
       "types": "./dist/neutral/index.d.ts",
+      "node": {
+        "types": "./dist/neutral/index-node.d.ts",
+        "export": "./dist/neutral/index-node.mjs"
+      },
       "source": "./src/index.ts",
       "default": "./dist/neutral/index.mjs"
     },
