@@ -1,10 +1,11 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 import type { Signed } from '@xyo-network/boundwitness-model'
 
-import type {
-  BlockBoundWitness, TransactionBoundWitness, Transfer, XL1BlockRange,
-} from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { BlockBoundWitness } from '../block/index.ts'
+import type { XL1BlockRange } from '../model/index.ts'
+import type { Provider } from '../provider/index.ts'
+import type { TransactionBoundWitness } from '../transaction/index.ts'
+import type { Transfer } from '../TransferPayload.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
 
 export type TransferBalanceHistoryItem = [

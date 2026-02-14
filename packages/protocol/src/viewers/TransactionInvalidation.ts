@@ -6,7 +6,7 @@ import type { SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta }
 import {
   ChainQualificationZod, ChainQualifiedHeadConfigZod, ChainQualifiedRangeConfigZod,
 } from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 import type { HydratedTransactionValidationError } from '../validation/index.ts'
 
 export const TransactionInvalidationQualificationZod = ChainQualificationZod

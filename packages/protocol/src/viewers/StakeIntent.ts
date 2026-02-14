@@ -4,7 +4,7 @@ import type {
 
 import type { ChainQualified, XL1BlockRange } from '../model/index.ts'
 import type { ChainStakeIntent } from '../payload/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 
 export interface StakeIntentViewerMethods {
   qualifiedIntentByAddress(address: Address, headOrRange?: Hash | XL1BlockRange): Promisable<ChainQualified<ChainStakeIntent | null>>

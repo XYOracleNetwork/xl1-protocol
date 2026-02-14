@@ -1,9 +1,9 @@
 import { zodAsFactory, zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
-import type { EthBlockNumber, XL1BlockNumber } from './BlockNumber/index.ts'
+import type { EthBlockNumber, XL1BlockNumber } from '../BlockNumber/index.ts'
+import { StepSizes } from '../Step/index.ts'
 import { XL1BlockRangeZod } from './BlockRange/index.ts'
-import { StepSizes } from './StepSizes.ts'
 
 export const TimeDurationsZod = z.object({
   millis: z.number().nonnegative(),

@@ -77,7 +77,6 @@
     "@xyo-network/account": "~5.3.2",
     "@xyo-network/account-model": "~5.3.2",
     "@xyo-network/boundwitness-model": "~5.3.2",
-    "@xyo-network/payload-builder": "~5.3.2",
     "@xyo-network/sdk-js": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
     "axios": "^1.13.5",
@@ -89,6 +88,7 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xyo-network/sdk-js": "^5",
     "axios": "^1",
     "zod": "^4"
   },

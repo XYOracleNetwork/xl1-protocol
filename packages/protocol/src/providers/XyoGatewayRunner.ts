@@ -4,10 +4,13 @@ import type {
 import type { Payload } from '@xyo-network/payload-model'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
+import type { XL1BlockNumber } from '../BlockNumber/index.ts'
+import type { ChainId } from '../chain/index.ts'
 import type {
-  ChainId, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionFeesBigInt,
-  UnsignedHydratedTransaction, XL1BlockNumber,
+  SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta,
+  UnsignedHydratedTransaction,
 } from '../model/index.ts'
+import type { TransactionFeesBigInt } from '../transaction/index.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
 import type { DataLakesRunner } from './DataLakes.ts'
 import type { XyoSigner } from './signer/index.ts'

@@ -1,10 +1,10 @@
 import { AddressZod, HexZod } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
-import type { PositionId } from './PositionId.ts'
 import {
   AttoToJsonZod, AttoZod, JsonToAttoZod,
-} from './TransactionFees.ts'
+} from '../transaction/index.ts'
+import type { PositionId } from './PositionId.ts'
 
 export const StakeZod = z.object({
   amount: AttoZod,

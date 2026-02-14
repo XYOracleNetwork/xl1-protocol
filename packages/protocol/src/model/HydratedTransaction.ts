@@ -9,7 +9,7 @@ import { z } from 'zod'
 
 import {
   SignedTransactionBoundWitnessZod, TransactionBoundWitnessZod, UnsignedTransactionBoundWitnessZod,
-} from './TransactionBoundWitness.ts'
+} from '../transaction/index.ts'
 
 export const HydratedTransactionZod = z.tuple([
   TransactionBoundWitnessZod,

@@ -1,4 +1,4 @@
-import type { Provider } from '../../../Provider.ts'
+import type { Provider } from '../../../provider/index.ts'
 import type { AttoXL1 } from '../../../xl1/index.ts'
 import type { NetworkStakeStepRewardsRangeOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsViewerMethodsTemplate } from './templates/index.ts'

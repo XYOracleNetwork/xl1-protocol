@@ -1,7 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 
-import type { SignedHydratedBlock, SignedHydratedTransaction } from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { SignedHydratedBlock } from '../block/index.ts'
+import type { SignedHydratedTransaction } from '../model/index.ts'
+import type { Provider } from '../provider/index.ts'
 
 export interface MempoolRunnerMethods {
   submitBlocks(blocks: SignedHydratedBlock[]): Promise<Hash[]>

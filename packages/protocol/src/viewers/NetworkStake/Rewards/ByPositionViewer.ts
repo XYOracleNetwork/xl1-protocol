@@ -1,4 +1,4 @@
-import type { Provider } from '../../../Provider.ts'
+import type { Provider } from '../../../provider/index.ts'
 import type { NetworkStakeStepRewardsByPositionViewerOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsByIndexViewerMethodsTemplate } from './templates/index.ts'
 

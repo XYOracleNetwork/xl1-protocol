@@ -1,5 +1,5 @@
-import type { StepIdentityString } from '../../../model/index.ts'
-import type { Provider } from '../../../Provider.ts'
+import type { Provider } from '../../../provider/index.ts'
+import type { StepIdentityString } from '../../../Step/index.ts'
 import type { NetworkStakeStepRewardsByStepViewerOptions } from './Options.ts'
 import type { NetworkStakeStepRewardsByIndexViewerMethodsTemplate } from './templates/index.ts'
 

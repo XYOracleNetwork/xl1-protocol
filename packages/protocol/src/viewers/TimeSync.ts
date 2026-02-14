@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
 import type { TimeDomain, TimePayload } from '../payload/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 
 export interface TimeSyncViewerMethods {
   /** Convert time between different domains */

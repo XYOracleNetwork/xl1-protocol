@@ -1,7 +1,7 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 
-import type { SignedHydratedBlockWithHashMeta } from '../model/index.ts'
-import type { Provider, ProviderMoniker } from '../Provider.ts'
+import type { SignedHydratedBlockWithHashMeta } from '../block/index.ts'
+import type { Provider, ProviderMoniker } from '../provider/index.ts'
 import type { DataLakesViewer } from './DataLakes.ts'
 import type { XyoConnection } from './XyoConnection.ts'
 

@@ -1,7 +1,7 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
-import type { XL1BlockNumber } from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { XL1BlockNumber } from '../BlockNumber/index.ts'
+import type { Provider } from '../provider/index.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
 
 export interface BlockRewardViewerMethods {

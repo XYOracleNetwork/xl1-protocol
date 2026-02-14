@@ -6,12 +6,10 @@ import {
 import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
-import type { XL1BlockNumber } from '../BlockNumber/index.ts'
 import {
   asXL1BlockNumber,
-  XL1BlockNumberishZod,
-  XL1BlockNumberZod,
-} from '../BlockNumber/index.ts'
+  type XL1BlockNumber, XL1BlockNumberishZod, XL1BlockNumberZod,
+} from '../../BlockNumber/index.ts'
 
 export type XL1BlockRange = [XL1BlockNumber, XL1BlockNumber]
 

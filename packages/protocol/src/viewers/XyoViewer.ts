@@ -3,7 +3,7 @@ import type { Address, Promisable } from '@xylabs/sdk-js'
 import type {
   AccountBalanceHistoryItem, AccountBalanceViewer, ChainQualifiedConfig,
 } from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
 import type { BlockViewer, BlockViewerMethods } from './Block.ts'
 import type { ForkViewerMethods } from './Fork.ts'

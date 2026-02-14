@@ -2,11 +2,11 @@ import { type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
-import type { SignedHydratedBlock, SignedHydratedBlockWithHashMeta } from '../model/index.ts'
+import type { SignedHydratedBlock, SignedHydratedBlockWithHashMeta } from '../block/index.ts'
 import {
   ChainQualificationZod, ChainQualifiedHeadConfigZod, ChainQualifiedRangeConfigZod,
 } from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 import type { HydratedBlockValidationError } from '../validation/index.ts'
 
 export const BlockValidationQualificationZod = ChainQualificationZod

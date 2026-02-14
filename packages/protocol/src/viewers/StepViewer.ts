@@ -1,9 +1,8 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
 
-import type {
-  Position, PositionId, StepIdentity,
-} from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { Position, PositionId } from '../model/index.ts'
+import type { Provider } from '../provider/index.ts'
+import type { StepIdentity } from '../Step/index.ts'
 import type { NetworkStakeStepRewardsViewer } from './NetworkStake/index.ts'
 
 export interface PagedPositionsOptions {

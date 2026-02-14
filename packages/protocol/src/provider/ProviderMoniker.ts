@@ -7,9 +7,5 @@ export const asProviderMoniker = <T>(value: T) => {
   return assertEx(moniker)
 }
 
-export interface Provider<T extends ProviderMoniker> {
-  moniker: T
-}
-
 export const DefaultProviderMoniker = 'Provider' as const
 export type DefaultProviderMoniker = typeof DefaultProviderMoniker

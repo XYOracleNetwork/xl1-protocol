@@ -1,8 +1,9 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
+import type { ChainId } from '../../chain/index.ts'
 import type {
   AccountBalanceViewer,
-  BaseContext, ChainId, HydratedTransactionWithHashMeta,
+  BaseContext, HydratedTransactionWithHashMeta,
 } from '../../model/index.ts'
 import type { BlockViewer } from '../../viewers/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'

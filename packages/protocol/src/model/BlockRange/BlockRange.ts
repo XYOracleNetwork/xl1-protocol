@@ -8,9 +8,8 @@ import { z } from 'zod'
 
 import {
   asBlockNumber,
-  type BlockNumber, BlockNumberishZod,
-  BlockNumberZod,
-} from '../BlockNumber/index.ts'
+  type BlockNumber, BlockNumberishZod, BlockNumberZod,
+} from '../../BlockNumber/index.ts'
 
 export type BlockRange = [BlockNumber, BlockNumber]
 

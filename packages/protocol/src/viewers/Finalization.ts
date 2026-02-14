@@ -1,9 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 
-import type {
-  SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
-} from '../model/index.ts'
-import type { Provider } from '../Provider.ts'
+import type { SignedBlockBoundWitnessWithHashMeta, SignedHydratedBlockWithHashMeta } from '../block/index.ts'
+import type { XL1BlockNumber } from '../BlockNumber/index.ts'
+import type { Provider } from '../provider/index.ts'
 
 export interface FinalizationViewerMethods {
   head(): Promise<SignedHydratedBlockWithHashMeta>

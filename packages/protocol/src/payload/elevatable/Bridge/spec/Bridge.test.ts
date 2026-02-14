@@ -3,7 +3,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import type { ChainId } from '../../../../model/index.ts'
+import type { ChainId } from '../../../../chain/index.ts'
 import { AttoXL1ConvertFactor } from '../../../../xl1/index.ts'
 import type { BridgeDestinationObservationFields } from '../BridgeDestinationObservation.ts'
 import type { BridgeIntentFields } from '../BridgeIntent.ts'

@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { BlockBoundWitnessWithHashMetaZod } from '../block/index.ts'
+import { BlockBoundWitnessWithHashMetaZod } from '../../block/index.ts'
 import { CachingContextZod } from './CachingContext.zod.ts'
 
 export const HeadContextBaseZod = z.object(

@@ -6,7 +6,7 @@ import {
   isPayloadOfSchemaTypeWithSources,
 } from '@xyo-network/payload-model'
 
-import type { XL1BlockNumber } from '../model/index.ts'
+import type { XL1BlockNumber } from '../BlockNumber/index.ts'
 
 export const BlockNumberSchema = asSchema('network.xyo.chain.block.number', true)
 export type BlockNumberSchema = typeof BlockNumberSchema

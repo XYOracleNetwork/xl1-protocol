@@ -1,4 +1,4 @@
-import type { ChainId } from '../model/index.ts'
+import type { ChainId } from '../chain/index.ts'
 
 /**
  * Required info for a chain reference

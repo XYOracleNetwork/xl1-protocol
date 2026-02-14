@@ -1,10 +1,9 @@
 import type { Address, Hash } from '@xylabs/sdk-js'
-import { Signed } from '@xyo-network/boundwitness-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AccountBalanceHistoryItem,
   AccountBalanceViewer,
   AttoXL1,
-  BlockBoundWitnessWithHashMeta,
   BlockRate,
   BlockViewer,
   ChainId,
@@ -28,7 +27,7 @@ import type {
 import {
   AccountBalanceViewerMoniker, BlockViewerMoniker, isSignedHydratedBlock, isSignedHydratedBlockWithHashMeta,
   MempoolViewerMoniker,
-  NetworkStakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker, toWithHashMeta,
+  NetworkStakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker,
   XyoViewerMoniker,
 } from '@xyo-network/xl1-protocol'
 import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
@@ -43,7 +42,7 @@ async function fixSignedHydratedBlockWithHashMeta(block: HydratedBlock): Promise
     return block
   }
   if (isSignedHydratedBlock(block)) {
-    return [block[0] as Signed<BlockBoundWitnessWithHashMeta>, await Promise.all(block[1].map(p => toWithHashMeta(p, true)))]
+    return [await PayloadBuilder.addHashMeta(block[0]), await PayloadBuilder.addHashMeta(block[1])]
   }
   throw new Error('Invalid block format')
 }
@@ -248,10 +247,10 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
   }
 
   async payloadsByHash(hashes: Hash[]) {
-    return await Promise.all((await this.transport.sendRequest(
+    return await PayloadBuilder.addHashMeta(await this.transport.sendRequest(
       'xyoViewer_payloadsByHash',
       [hashes],
-    )).map(p => toWithHashMeta(p, true)))
+    ))
   }
 
   async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {

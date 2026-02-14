@@ -1,7 +1,7 @@
 import { type Brand, isUndefined } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
-import { toXL1BlockNumber, XL1BlockNumberZod } from './BlockNumber/index.ts'
+import { toXL1BlockNumber, XL1BlockNumberZod } from '../BlockNumber/index.ts'
 
 export const StepIdentityZod = z.object({
   block: XL1BlockNumberZod.describe('The block number at which the step occurs'),

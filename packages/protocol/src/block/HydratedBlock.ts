@@ -4,11 +4,9 @@ import {
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-import { WithHashMetaZod, WithStorageMetaZod } from './AccountBalance.ts'
-import {
-  BlockBoundWitnessZod,
-  SignedBlockBoundWitnessZod,
-} from './block/index.ts'
+import { WithHashMetaZod, WithStorageMetaZod } from '../payload/index.ts'
+import { BlockBoundWitnessZod } from './BlockBoundWitness.ts'
+import { SignedBlockBoundWitnessZod } from './signed/index.ts'
 
 export const HydratedBlockZod = z.tuple([
   BlockBoundWitnessZod,

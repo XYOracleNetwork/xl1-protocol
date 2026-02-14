@@ -3,7 +3,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import type { HydratedBlock } from '../../model/index.ts'
+import type { HydratedBlock } from '../../block/index.ts'
 import { HydratedBlockStateValidationError } from './error.ts'
 
 describe('HydratedBlockStateValidationError', () => {

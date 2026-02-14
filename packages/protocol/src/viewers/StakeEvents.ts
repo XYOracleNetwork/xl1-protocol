@@ -2,7 +2,7 @@ import type {
   Address, JsonObject, Promisable,
 } from '@xylabs/sdk-js'
 
-import type { Provider } from '../Provider.ts'
+import type { Provider } from '../provider/index.ts'
 
 export const StakeEventNames = ['StakeAdded', 'StakeRemoved', 'StakeWithdrawn'] as const
 export type StakeEventName = typeof StakeEventNames[number]

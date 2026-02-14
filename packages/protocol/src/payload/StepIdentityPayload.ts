@@ -3,7 +3,7 @@ import type { Payload } from '@xyo-network/payload-model'
 import { asSchema, isPayloadOfZodType } from '@xyo-network/payload-model'
 import type { z } from 'zod'
 
-import { StepIdentityZod } from '../model/index.ts'
+import { StepIdentityZod } from '../Step/index.ts'
 
 export const StepIdentitySchema = asSchema('network.xyo.chain.step.identity', true)
 export type StepIdentitySchema = typeof StepIdentitySchema

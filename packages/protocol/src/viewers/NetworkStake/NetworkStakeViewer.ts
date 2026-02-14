@@ -1,6 +1,6 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
-import type { Provider } from '../../Provider.ts'
+import type { Provider } from '../../provider/index.ts'
 import type { NetworkStakeStepRewardsViewer } from './Rewards/index.ts'
 
 export interface NetworkStakeViewerMethods {

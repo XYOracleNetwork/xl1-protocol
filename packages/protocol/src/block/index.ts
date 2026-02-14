@@ -1,1 +1,5 @@
 export * from './AllowedBlockPayload.ts'
+export * from './BlockBoundWitness.ts'
+export * from './HydratedBlock.ts'
+export * from './signed/index.ts'
+export * from './unsigned/index.ts'

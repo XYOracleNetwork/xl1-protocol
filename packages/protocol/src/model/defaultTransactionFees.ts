@@ -1,6 +1,6 @@
+import type { TransactionFeesBigInt } from '../transaction/index.ts'
 import { AttoXL1, AttoXL1ConvertFactor } from '../xl1/index.ts'
 import { minTransactionFees } from './minTransactionFees.ts'
-import type { TransactionFeesBigInt } from './TransactionFees.ts'
 
 export const defaultTransactionFees: TransactionFeesBigInt = {
   base: minTransactionFees.base,
