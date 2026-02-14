@@ -1,6 +1,6 @@
 {
   "name": "@xyo-network/xl1-protocol-sdk",
-  "version": "1.24.6",
+  "version": "1.24.7",
   "description": "XYO Layer One SDK Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -27,6 +27,11 @@
         "default": "./dist/node/index-node.mjs"
       },
       "neutral": {
+        "types": "./dist/neutral/index.d.ts",
+        "source": "./src/index.ts",
+        "default": "./dist/neutral/index.mjs"
+      },
+      "default": {
         "types": "./dist/neutral/index.d.ts",
         "source": "./src/index.ts",
         "default": "./dist/neutral/index.mjs"
@@ -61,8 +66,8 @@
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/sdk-js": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
-    "@xyo-network/xl1-protocol": "~1.24.6",
-    "@xyo-network/xl1-schema": "~1.24.6",
+    "@xyo-network/xl1-protocol": "~1.24.7",
+    "@xyo-network/xl1-schema": "~1.24.7",
     "async-mutex": "~0.5.0",
     "cosmiconfig": "^9.0.0",
     "ethers": "^6.16.0",
