@@ -64,7 +64,7 @@
     "@xylabs/tsconfig": "~7.3.2",
     "@xylabs/vitest-extended": "~5.0.79",
     "copyfiles": "~2.4.1",
-    "dotenv": "~17.2.4",
+    "dotenv": "~17.3.1",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",
