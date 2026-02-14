@@ -2,7 +2,7 @@ import { HashZod } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
-import { XL1BlockRangeZod } from '../model/index.ts'
+import { XL1BlockRangeZod } from './BlockRange/index.ts'
 
 export const ChainQualificationZod = z.object({ head: HashZod, range: XL1BlockRangeZod })
 export type ChainQualification = z.infer<typeof ChainQualificationZod>

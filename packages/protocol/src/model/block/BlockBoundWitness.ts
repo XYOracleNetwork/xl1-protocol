@@ -6,7 +6,7 @@ import { BoundWitnessZod } from '@xyo-network/boundwitness-model'
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-import { XL1BlockNumberZod } from '../../model/index.ts'
+import { XL1BlockNumberZod } from '../BlockNumber/index.ts'
 import { ChainZod } from '../Chain.ts'
 
 export const BlockBoundWitnessFieldsZod = z.object({

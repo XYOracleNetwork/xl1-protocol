@@ -6,7 +6,7 @@ import {
   asBlockNumber, asTimePayload, isTimePayload,
 } from '@xyo-network/xl1-protocol'
 
-import { withContextCacheResponse } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../ChainContextHelpers.ts'
 
 const functionName = 'externalBlockNumberFromXL1BlockNumber' as const
 

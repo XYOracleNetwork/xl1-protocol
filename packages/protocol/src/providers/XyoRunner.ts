@@ -1,8 +1,8 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 
+import type { SignedHydratedTransaction } from '../model/index.ts'
 import type { Provider } from '../Provider.ts'
 import type { MempoolRunner } from '../runners/index.ts'
-import type { SignedHydratedTransaction } from '../zod/index.ts'
 
 export interface XyoRunnerMethods {
   broadcastTransaction(transaction: SignedHydratedTransaction): Promisable<Hash>

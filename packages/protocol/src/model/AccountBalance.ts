@@ -3,14 +3,13 @@ import { zodIsFactory } from '@xylabs/zod'
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-import { TransferZod } from '../payload/index.ts'
 import type { Provider } from '../Provider.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
-import type { ChainQualified } from '../zod/index.ts'
-import {
-  BlockBoundWitnessZod, ChainQualificationZod, ChainQualifiedConfigZod,
-  TransactionBoundWitnessZod,
-} from '../zod/index.ts'
+import { BlockBoundWitnessZod } from './block/index.ts'
+import type { ChainQualified } from './ChainQualification.ts'
+import { ChainQualificationZod, ChainQualifiedConfigZod } from './ChainQualification.ts'
+import { TransactionBoundWitnessZod } from './TransactionBoundWitness.ts'
+import { TransferZod } from './TransferPayload.ts'
 
 export function WithStorageMetaZod<T extends z.ZodType>(valueZod: T) {
   return z.intersection(valueZod, StorageMetaZod)

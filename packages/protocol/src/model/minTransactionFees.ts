@@ -1,5 +1,5 @@
 import { AttoXL1, AttoXL1ConvertFactor } from '../xl1/index.ts'
-import type { TransactionFeesBigInt } from '../zod/index.ts'
+import type { TransactionFeesBigInt } from './TransactionFees.ts'
 
 export const minTransactionFees: TransactionFeesBigInt = {
   base: AttoXL1(1000n * AttoXL1ConvertFactor.nano),

@@ -1,7 +1,7 @@
 import z from 'zod'
 
 import { ActorConfigZod } from './Actor.ts'
-import { BaseConfigZod } from './Base.ts'
+import { BaseConfigZod } from './config/index.ts'
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]

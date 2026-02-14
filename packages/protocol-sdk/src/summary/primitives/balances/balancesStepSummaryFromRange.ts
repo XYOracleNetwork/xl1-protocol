@@ -10,7 +10,7 @@ import { asXL1BlockNumber, StepSizes } from '@xyo-network/xl1-protocol'
 import type { Semaphore } from 'async-mutex'
 
 import { deepCalculateFramesFromRange } from '../../../block/index.ts'
-import { withContextCacheResponse } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../ChainContextHelpers.ts'
 import { netBalancesForPayloads } from '../../../payloads/index.ts'
 import {
   parseSignedBigInt, type SignedBigInt, toSignedBigInt,

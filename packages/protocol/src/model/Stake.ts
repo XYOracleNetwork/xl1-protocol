@@ -1,7 +1,7 @@
 import { AddressZod, HexZod } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
-import type { PositionId } from '../model/index.ts'
+import type { PositionId } from './PositionId.ts'
 import {
   AttoToJsonZod, AttoZod, JsonToAttoZod,
 } from './TransactionFees.ts'

@@ -3,8 +3,8 @@ import {
 } from '@xylabs/zod'
 import { globalRegistry, z } from 'zod'
 
-import { BaseConfigContextZod } from '../CreatableProvider/index.ts'
 import { ActorConfigZod } from './Actor.ts'
+import { BaseConfigContextZod } from './CreatableProviderContext.zod.ts'
 
 export const HostActorConfigZod = ActorConfigZod.extend({
   host: z.string().default('localhost').register(globalRegistry, {

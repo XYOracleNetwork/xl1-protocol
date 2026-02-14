@@ -3,7 +3,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import type { HydratedBlock } from '../../zod/index.ts'
+import type { HydratedBlock } from '../../model/index.ts'
 import { HydratedBlockStateValidationError } from './error.ts'
 
 describe('HydratedBlockStateValidationError', () => {

@@ -8,7 +8,7 @@ import {
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-import { XL1BlockNumberZod } from '../model/index.ts'
+import { XL1BlockNumberZod } from './BlockNumber/index.ts'
 import { ChainZod } from './Chain.ts'
 import { TransactionFeesHexZod } from './TransactionFees.ts'
 

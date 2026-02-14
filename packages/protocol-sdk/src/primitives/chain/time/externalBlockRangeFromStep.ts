@@ -3,7 +3,7 @@ import type {
 } from '@xyo-network/xl1-protocol'
 
 import { toStepIdentityString } from '../../../block/index.ts'
-import { withContextCacheResponse } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../ChainContextHelpers.ts'
 import { stepBlockRange } from '../../step/index.ts'
 import { externalBlockRangeFromXL1BlockRange } from './externalBlockRangeFromXL1BlockRange.ts'
 

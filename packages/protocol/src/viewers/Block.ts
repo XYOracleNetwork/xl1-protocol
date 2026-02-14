@@ -2,12 +2,10 @@ import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 
 import type {
-  ChainId, XL1BlockNumber, XL1BlockRange,
+  BlockRate, ChainId, SignedHydratedBlockWithHashMeta, SingleTimeConfig, TimeDurations,
+  XL1BlockNumber, XL1BlockRange,
 } from '../model/index.ts'
 import type { Provider, ProviderMoniker } from '../Provider.ts'
-import type {
-  BlockRate, SignedHydratedBlockWithHashMeta, SingleTimeConfig, TimeDurations,
-} from '../zod/index.ts'
 
 export interface BlockViewerMethods {
   blocksByHash(hash: Hash, limit?: number): Promisable<SignedHydratedBlockWithHashMeta[]>

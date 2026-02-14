@@ -1,9 +1,9 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
 import type {
-  BaseContext, ChainId, StepIdentity,
+  BaseContext, ChainId, HydratedTransactionWithHashMeta,
+  StepIdentity,
 } from '../../model/index.ts'
-import type { HydratedTransactionWithHashMeta } from '../../zod/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'
 
 export interface HydratedTransactionValidationFunctionContext extends BaseContext {

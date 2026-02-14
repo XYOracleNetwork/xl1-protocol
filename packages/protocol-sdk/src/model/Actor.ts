@@ -3,9 +3,9 @@ import {
 } from '@xylabs/zod'
 import { globalRegistry, z } from 'zod'
 
-import { BaseConfigContextZod } from '../CreatableProvider/index.ts'
 import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './Base.ts'
+import { BaseConfigZod } from './config/index.ts'
+import { BaseConfigContextZod } from './CreatableProviderContext.zod.ts'
 
 export const ActorConfigZod = BaseConfigZod.extend({
   name: z.string(),

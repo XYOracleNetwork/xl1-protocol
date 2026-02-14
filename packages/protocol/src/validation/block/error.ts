@@ -1,7 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 
-import type { ChainId } from '../../model/index.ts'
-import type { BlockBoundWitness, HydratedBlock } from '../../zod/index.ts'
+import type {
+  BlockBoundWitness, ChainId, HydratedBlock,
+} from '../../model/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class BlockValidationError extends ValidationError<BlockBoundWitness> {}

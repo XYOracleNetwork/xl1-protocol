@@ -5,7 +5,7 @@ import type {
 } from '@xylabs/sdk-js'
 import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
 
-import type { CreatableProviderContext } from './CreatableProviderContext.ts'
+import type { CreatableProviderContext } from '../model/index.ts'
 import type { GetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'
 

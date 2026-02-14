@@ -1,7 +1,7 @@
 import type { Hash } from '@xylabs/sdk-js'
 
+import type { SignedHydratedBlockWithHashMeta } from '../model/index.ts'
 import type { Provider } from '../Provider.ts'
-import type { SignedHydratedBlockWithHashMeta } from '../zod/index.ts'
 
 export interface FinalizationRunnerMethods {
   finalizeBlocks(blocks: SignedHydratedBlockWithHashMeta[]): Promise<Hash[]>

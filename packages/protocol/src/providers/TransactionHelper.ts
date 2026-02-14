@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type { Payload } from '@xyo-network/payload-model'
 
-import type { UnsignedHydratedTransaction } from '../zod/index.ts'
+import type { UnsignedHydratedTransaction } from '../model/index.ts'
 
 export interface TransactionHelper {
   // build tx, sign tx, send tx

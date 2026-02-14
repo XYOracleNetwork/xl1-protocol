@@ -1,5 +1,5 @@
-import type { Config } from '../../config/index.ts'
-import { type CreatableProviderContext, ProviderFactoryLocator } from '../../CreatableProvider/index.ts'
+import { ProviderFactoryLocator } from '../../CreatableProvider/index.ts'
+import type { Config, CreatableProviderContext } from '../../model/index.ts'
 
 // This file should not be exported from the package
 export function getTestProviderContext(config: Config): CreatableProviderContext {

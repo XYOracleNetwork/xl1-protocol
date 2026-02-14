@@ -1,6 +1,6 @@
 import { AsTypeFactory } from '@xylabs/sdk-js'
 
-import { asXL1BlockNumber, type XL1BlockNumber } from '../model/index.ts'
+import { asXL1BlockNumber, type XL1BlockNumber } from './BlockNumber/index.ts'
 
 // StepsV2 are primorial(n+2) + 1, where n is the index of the step size
 // primorial(n+2) = 2 → 2×3=6 → 6×5=30 → 30×7=210 → 210×11=2310

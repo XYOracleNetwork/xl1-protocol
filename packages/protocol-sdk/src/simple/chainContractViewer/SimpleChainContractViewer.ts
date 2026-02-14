@@ -6,10 +6,10 @@ import {
   ChainContractViewer, ChainContractViewerMoniker, ChainId, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
+import { withContextCacheResponse } from '../../ChainContextHelpers.ts'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { withContextCacheResponse } from '../../model/index.ts'
 
 export interface SimpleChainContractViewerParams extends CreatableProviderParams {
   chainId: ChainId

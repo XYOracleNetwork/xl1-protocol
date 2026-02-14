@@ -1,8 +1,10 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
-import type { BaseContext, ChainId } from '../../model/index.ts'
-import type { AccountBalanceViewer, BlockViewer } from '../../viewers/index.ts'
-import type { HydratedTransactionWithHashMeta } from '../../zod/index.ts'
+import type {
+  AccountBalanceViewer,
+  BaseContext, ChainId, HydratedTransactionWithHashMeta,
+} from '../../model/index.ts'
+import type { BlockViewer } from '../../viewers/index.ts'
 import type { HydratedTransactionValidationError } from './error.ts'
 
 export interface HydratedTransactionStateValidationFunctionContext extends BaseContext {

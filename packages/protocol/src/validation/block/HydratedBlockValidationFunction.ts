@@ -1,9 +1,9 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
 import type {
-  BaseContext, ChainId, XL1BlockNumber,
+  BaseContext, ChainId, HydratedBlockWithHashMeta,
+  XL1BlockNumber,
 } from '../../model/index.ts'
-import type { HydratedBlockWithHashMeta } from '../../zod/index.ts'
 import type { HydratedBlockValidationError } from './error.ts'
 
 export interface HydratedBlockValidationFunctionContext extends BaseContext {}

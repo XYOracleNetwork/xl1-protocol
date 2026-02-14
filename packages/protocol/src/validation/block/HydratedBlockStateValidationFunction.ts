@@ -1,10 +1,10 @@
 import type { Promisable } from '@xylabs/sdk-js'
 
 import type {
-  BaseContext, ChainId, XL1BlockNumber,
+  AccountBalanceViewer,
+  BaseContext, ChainId, HydratedBlockWithHashMeta,
+  XL1BlockNumber,
 } from '../../model/index.ts'
-import type { AccountBalanceViewer } from '../../viewers/index.ts'
-import type { HydratedBlockWithHashMeta } from '../../zod/index.ts'
 import type { HydratedBlockStateValidationError } from './error.ts'
 
 export type ChainAtBlockNumberFunction = (blockNumber: XL1BlockNumber) => Promisable<ChainId>

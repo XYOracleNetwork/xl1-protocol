@@ -1,4 +1,4 @@
-import type { HydratedTransaction } from '../../zod/index.ts'
+import type { HydratedTransaction } from '../../model/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'
 
 export class HydratedTransactionValidationError extends ValidationError<HydratedTransaction> {}

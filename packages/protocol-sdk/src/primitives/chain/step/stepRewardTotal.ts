@@ -7,7 +7,7 @@ import {
   XYO_STEP_REWARD_ADDRESS,
 } from '@xyo-network/xl1-protocol'
 
-import { withContextCacheResponse } from '../../../model/index.ts'
+import { withContextCacheResponse } from '../../../ChainContextHelpers.ts'
 import { netTransfersForPayloads } from '../../../payloads/index.ts'
 import { stepBlockRange, stepTransferIndex } from '../../step/index.ts'
 import { stepRewardBlock } from './stepRewardBlock.ts'

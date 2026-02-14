@@ -3,7 +3,7 @@ const config: XyTsupConfig = {
   compile: {
     entryMode: 'custom',
     browser: {},
-    neutral: { src: { entry: ['index.ts', 'test/index.ts', 'config/getFileConfig.ts'] } },
+    neutral: { src: { entry: ['index.ts', 'test/index.ts', './getFileConfig.ts'] } },
     node: {},
   },
 }

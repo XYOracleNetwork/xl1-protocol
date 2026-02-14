@@ -1,8 +1,8 @@
 import type { Labels } from '@xylabs/sdk-js'
 import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'
 
+import type { CreatableProviderContext } from '../model/index.ts'
 import type { CreatableProviderFactory, CreatableProviderInstance } from './CreatableProvider.ts'
-import type { CreatableProviderContext } from './CreatableProviderContext.ts'
 import type { CreatableProviderRegistry } from './CreatableProviderRegistry.ts'
 import type { ProviderFactoryGetInstanceOptions } from './GetInstanceOptions.ts'
 import type { LabeledCreatableProviderFactory } from './LabeledCreatableProviderFactory.ts'

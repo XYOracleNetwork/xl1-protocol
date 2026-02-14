@@ -4,8 +4,7 @@ import { Account } from '@xyo-network/sdk-js'
 import { type ChainId, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 
 import { getTestProviderContext } from '../_internal/index.ts'
-import type { Config } from '../config/index.ts'
-import { ConfigZod } from '../config/index.ts'
+import { type Config, ConfigZod } from '../model/index.ts'
 import {
   SimpleBlockViewer, SimpleChainContractViewer, SimpleFinalizationViewer,
 } from '../simple/index.ts'

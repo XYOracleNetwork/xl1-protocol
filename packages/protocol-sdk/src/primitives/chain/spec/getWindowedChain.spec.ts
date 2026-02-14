@@ -5,8 +5,7 @@ import {
   beforeEach, describe, expect, it,
 } from 'vitest'
 
-import { ConfigZod } from '../../../config/index.ts'
-import type { CreatableProviderContext } from '../../../CreatableProvider/index.ts'
+import { ConfigZod, type CreatableProviderContext } from '../../../model/index.ts'
 import { SimpleBlockViewer } from '../../../simple/index.ts'
 import { getTestProviderContext } from '../../../test/index.ts'
 import { getWindowedChain } from '../getWindowedChain.ts'

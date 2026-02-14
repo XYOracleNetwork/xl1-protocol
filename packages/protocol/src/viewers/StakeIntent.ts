@@ -2,10 +2,9 @@ import type {
   Address, Hash, Promisable,
 } from '@xylabs/sdk-js'
 
-import type { XL1BlockRange } from '../model/index.ts'
+import type { ChainQualified, XL1BlockRange } from '../model/index.ts'
 import type { ChainStakeIntent } from '../payload/index.ts'
 import type { Provider } from '../Provider.ts'
-import type { ChainQualified } from '../zod/index.ts'
 
 export interface StakeIntentViewerMethods {
   qualifiedIntentByAddress(address: Address, headOrRange?: Hash | XL1BlockRange): Promisable<ChainQualified<ChainStakeIntent | null>>

@@ -1,7 +1,5 @@
 export * from './AbstractCreatableProvider.ts'
 export * from './CreatableProvider.ts'
-export * from './CreatableProviderContext.ts'
-export * from './CreatableProviderContext.zod.ts'
 export * from './CreatableProviderRegistry.ts'
 export * from './GetInstanceOptions.ts'
 export * from './LabeledCreatableProviderFactory.ts'

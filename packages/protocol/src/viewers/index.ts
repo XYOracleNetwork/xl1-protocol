@@ -1,4 +1,3 @@
-export * from './AccountBalance.ts'
 export * from './Block.ts'
 export * from './BlockInvalidation.ts'
 export * from './BlockReward.ts'

@@ -5,7 +5,7 @@ import type {
 } from '@xyo-network/xl1-protocol'
 
 import { blockFromBlockNumber, hydrateBlock } from '../../block/index.ts'
-import { withContextCacheResponse } from '../../model/index.ts'
+import { withContextCacheResponse } from '../../ChainContextHelpers.ts'
 
 export async function hydratedBlockByNumber(context: ChainContextRead, blockNumber: XL1BlockNumber): Promise<HydratedBlockWithHashMeta | null> {
   if (blockNumber < 0) throw new Error(`Block number ${blockNumber} is less than 0`)

@@ -1,10 +1,10 @@
 import {
   isDefined, isObject, isUndefined,
+  timeBudget,
 } from '@xylabs/sdk-js'
 import type { CachingContext, MapType } from '@xyo-network/xl1-protocol'
 
-import { LruCacheMap, MemoryMap } from '../../driver/index.ts'
-import { timeBudget } from '../../primitives/index.ts'
+import { LruCacheMap, MemoryMap } from './driver/index.ts'
 
 export function contextCache<TCacheValue>(
   context: CachingContext,

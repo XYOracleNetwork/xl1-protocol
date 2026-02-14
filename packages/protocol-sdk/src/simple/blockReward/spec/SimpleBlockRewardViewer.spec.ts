@@ -6,8 +6,8 @@ import {
   beforeAll, describe, expect, it,
 } from 'vitest'
 
-import { ConfigZod } from '../../../config/index.ts'
 import { ProviderFactoryLocator } from '../../../CreatableProvider/index.ts'
+import { ConfigZod } from '../../../model/index.ts'
 import { SimpleBlockRewardViewer } from '../SimpleBlockRewardViewer.ts'
 
 const config = ConfigZod.parse({})

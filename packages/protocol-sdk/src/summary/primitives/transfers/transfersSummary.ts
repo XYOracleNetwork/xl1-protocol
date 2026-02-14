@@ -1,4 +1,4 @@
-import type { Address, Hash } from '@xylabs/sdk-js'
+import type { Address } from '@xylabs/sdk-js'
 import {
   asAddress, assertEx, spanRootAsync,
 } from '@xylabs/sdk-js'
@@ -49,8 +49,4 @@ export async function transfersSummary(
     }
     return [transfers, { range, head: headHash }]
   }, context)
-}
-
-export function transfersSummaryKey(frameHeadHash: Hash, frameSize: number) {
-  return `${frameHeadHash}|${frameSize}`
 }

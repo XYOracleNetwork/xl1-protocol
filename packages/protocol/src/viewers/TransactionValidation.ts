@@ -2,12 +2,12 @@ import { type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
-import type { Provider } from '../Provider.ts'
-import type { HydratedTransactionValidationError } from '../validation/index.ts'
-import type { SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta } from '../zod/index.ts'
+import type { SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta } from '../model/index.ts'
 import {
   ChainQualificationZod, ChainQualifiedHeadConfigZod, ChainQualifiedRangeConfigZod,
-} from '../zod/index.ts'
+} from '../model/index.ts'
+import type { Provider } from '../Provider.ts'
+import type { HydratedTransactionValidationError } from '../validation/index.ts'
 
 export const TransactionValidationQualificationZod = ChainQualificationZod
 export type TransactionValidationQualification = z.infer<typeof TransactionValidationQualificationZod>

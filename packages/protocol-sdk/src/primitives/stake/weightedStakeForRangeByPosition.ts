@@ -8,7 +8,7 @@ import type {
 } from '@xyo-network/xl1-protocol'
 import { asBlockNumber } from '@xyo-network/xl1-protocol'
 
-import { withContextCacheResponse } from '../../model/index.ts'
+import { withContextCacheResponse } from '../../ChainContextHelpers.ts'
 import { mergedAddRemoveStakeEventsByPosition } from './mergedAddRemoveStakeEventsByPosition.ts'
 
 export async function weightedStakeForRangeByPosition(

@@ -1,6 +1,6 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 
-import type { SignedHydratedTransaction } from '../zod/index.ts'
+import type { SignedHydratedTransaction } from '../model/index.ts'
 
 export interface TransactionViewerMethods {
   transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promisable<SignedHydratedTransaction | null>

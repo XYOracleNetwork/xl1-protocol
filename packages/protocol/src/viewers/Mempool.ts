@@ -1,9 +1,9 @@
 import { HashZod } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
+import type { SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta } from '../model/index.ts'
 import { XL1BlockRangeZod } from '../model/index.ts'
 import type { Provider } from '../Provider.ts'
-import type { SignedHydratedBlockWithHashMeta, SignedHydratedTransactionWithHashMeta } from '../zod/index.ts'
 
 export const PendingTransactionsOptionsZod = z.object({
   cursor: HashZod.optional(),

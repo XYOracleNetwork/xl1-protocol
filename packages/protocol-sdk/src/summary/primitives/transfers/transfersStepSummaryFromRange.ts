@@ -1,5 +1,5 @@
 /* eslint-disable max-statements */
-import { type Address } from '@xylabs/sdk-js'
+import type { Address, Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
 import type { WithHashMeta } from '@xyo-network/payload-model'
 import { isAnyPayload } from '@xyo-network/payload-model'
@@ -16,7 +16,10 @@ import {
   parseSignedBigInt, type SignedBigInt, toSignedBigInt,
 } from '../../../SignedBigInt.ts'
 import { type TransfersStepSummary, TransfersStepSummarySchema } from '../../model/index.ts'
-import { transfersSummaryKey } from './transfersSummary.ts'
+
+export function transfersSummaryKey(frameHeadHash: Hash, frameSize: number) {
+  return `${frameHeadHash}|${frameSize}`
+}
 
 export async function transfersStepSummaryFromRange(
   context: CachingContext,

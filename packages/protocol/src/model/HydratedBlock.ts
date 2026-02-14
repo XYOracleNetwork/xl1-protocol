@@ -4,7 +4,7 @@ import {
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import { z } from 'zod'
 
-import { WithHashMetaZod, WithStorageMetaZod } from '../viewers/index.ts'
+import { WithHashMetaZod, WithStorageMetaZod } from './AccountBalance.ts'
 import {
   BlockBoundWitnessZod,
   SignedBlockBoundWitnessZod,

@@ -6,15 +6,20 @@ import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
 import { z } from 'zod'
 
+import type { TransactionBoundWitness, Transfer } from '../model/index.ts'
+import {
+  isTransactionBoundWitness,
+  isTransfer,
+  TransferSchema,
+} from '../model/index.ts'
 import type {
-  BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload, Transfer,
+  BridgeDestinationObservation, BridgeIntent, BridgeSourceObservation, ChainStakeIntent, HashPayload, StepComplete, TimePayload,
 } from '../payload/index.ts'
 import {
   BridgeDestinationObservationSchema, BridgeIntentSchema, BridgeSourceObservationSchema, ChainStakeIntentSchema, HashSchema,
-  isBridgeDestinationObservation, isBridgeIntent, isBridgeSourceObservation, isChainStakeIntent, isHashPayload, isTimePayload, isTransfer, StepCompleteSchema,
-  TimeSchema, TransferSchema,
+  isBridgeDestinationObservation, isBridgeIntent, isBridgeSourceObservation, isChainStakeIntent, isHashPayload, isTimePayload, StepCompleteSchema,
+  TimeSchema,
 } from '../payload/index.ts'
-import { isTransactionBoundWitness, type TransactionBoundWitness } from '../zod/index.ts'
 
 export type AllowedBlockPayload
   = | BridgeDestinationObservation

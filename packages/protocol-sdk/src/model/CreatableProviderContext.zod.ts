@@ -5,10 +5,9 @@ import type { CachingContext } from '@xyo-network/xl1-protocol'
 import { CachingContextZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
-import type { BaseConfig } from '../config/index.ts'
-import { BaseConfigZod } from '../config/index.ts'
+import type { ProviderFactoryLocatorInstance } from '../CreatableProvider/index.ts'
 import type { RuntimeStatusMonitor } from '../status/index.ts'
-import type { ProviderFactoryLocatorInstance } from './ProviderFactoryLocatorInstance.ts'
+import { type BaseConfig, BaseConfigZod } from './config/index.ts'
 
 export const RuntimeStatusMonitorZod = z.custom<RuntimeStatusMonitor>(val => val && typeof val === 'object')
 
