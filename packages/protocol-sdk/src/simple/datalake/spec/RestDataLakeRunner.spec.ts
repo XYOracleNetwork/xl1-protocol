@@ -8,7 +8,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import { ConfigZod } from '../../../model/index.ts'
+import { ConfigZod } from '../../../config/index.ts'
 import { getTestProviderContext } from '../../../test/index.ts'
 import { RestDataLakeRunner } from '../RestDataLakeRunner.ts'
 import type { RestDataLakeViewerParams } from '../RestDataLakeViewer.ts'

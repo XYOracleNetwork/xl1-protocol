@@ -3,9 +3,9 @@ import {
 } from '@xylabs/zod'
 import { globalRegistry, z } from 'zod'
 
+import { BaseConfigContextZod } from '../model/index.ts'
 import { MnemonicStringZod } from '../validation/index.ts'
-import { BaseConfigZod } from './config/index.ts'
-import { BaseConfigContextZod } from './CreatableProviderContext.zod.ts'
+import { BaseConfigZod } from './Base.ts'
 
 export const ActorConfigZod = BaseConfigZod.extend({
   name: z.string(),
@@ -26,11 +26,3 @@ export type ActorConfig = z.infer<typeof ActorConfigZod>
 export const isActorConfig = zodIsFactory(ActorConfigZod)
 export const asActorConfig = zodAsFactory(ActorConfigZod, 'asActorConfig')
 export const toActorConfig = zodToFactory(ActorConfigZod, 'toActorConfig')
-
-export const ActorConfigContext = BaseConfigContextZod.extend({ config: ActorConfigZod })
-
-export type ActorConfigContext = z.infer<typeof ActorConfigContext>
-
-export const isActorConfigContext = zodIsFactory(ActorConfigContext)
-export const asActorConfigContext = zodAsFactory(ActorConfigContext, 'asActorConfigContext')
-export const toActorConfigContext = zodToFactory(ActorConfigContext, 'toActorConfigContext')

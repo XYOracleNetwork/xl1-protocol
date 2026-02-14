@@ -4,7 +4,6 @@ import {
 import { globalRegistry, z } from 'zod'
 
 import { ActorConfigZod } from './Actor.ts'
-import { BaseConfigContextZod } from './CreatableProviderContext.zod.ts'
 
 export const HostActorConfigZod = ActorConfigZod.extend({
   host: z.string().default('localhost').register(globalRegistry, {
@@ -26,11 +25,3 @@ export type HostActorConfig = z.infer<typeof HostActorConfigZod>
 export const isHostActorConfig = zodIsFactory(HostActorConfigZod)
 export const asHostActorConfig = zodAsFactory(HostActorConfigZod, 'asHostActorConfig')
 export const toHostActorConfig = zodToFactory(HostActorConfigZod, 'toHostActorConfig')
-
-export const HostActorConfigContext = BaseConfigContextZod.extend({ config: HostActorConfigZod })
-
-export type HostActorConfigContext = z.infer<typeof HostActorConfigContext>
-
-export const isHostActorConfigContext = zodIsFactory(HostActorConfigContext)
-export const asHostActorConfigContext = zodAsFactory(HostActorConfigContext, 'asHostActorConfigContext')
-export const toHostActorConfigContext = zodToFactory(HostActorConfigContext, 'toHostActorConfigContext')

@@ -1,7 +1,7 @@
 import { isDefined, isNull } from '@xylabs/sdk-js'
 import { cosmiconfig } from 'cosmiconfig'
 
-import { ConfigZod } from './model/index.ts'
+import { ConfigZod } from './config/index.ts'
 
 /**
  * The name of the configuration file to search for.
