@@ -1,7 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-protocol-sdk",
-  "version": "1.24.4",
+  "version": "1.24.5",
   "description": "XYO Layer One SDK Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -22,18 +21,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/neutral/index.d.ts",
       "node": {
-        "types": "./dist/neutral/index-node.d.ts",
-        "export": "./dist/neutral/index-node.mjs"
+        "types": "./dist/node/index-node.d.ts",
+        "export": "./dist/node/index-node.mjs"
       },
-      "source": "./src/index.ts",
-      "default": "./dist/neutral/index.mjs"
+      "neutral": {
+        "types": "./dist/neutral/index.d.ts",
+        "export": "./dist/neutral/index.mjs"
+      },
+      "source": "./src/index.ts"
     },
     "./test": {
-      "types": "./dist/neutral/test/index.d.ts",
+      "types": "./dist/node/test/index.d.ts",
       "source": "./src/test/index.ts",
-      "default": "./dist/neutral/test/index.mjs"
+      "default": "./dist/node/test/index.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -59,8 +60,8 @@
     "@xyo-network/payload-model": "~5.3.2",
     "@xyo-network/sdk-js": "~5.3.2",
     "@xyo-network/wallet": "~5.3.2",
-    "@xyo-network/xl1-protocol": "~1.24.4",
-    "@xyo-network/xl1-schema": "~1.24.4",
+    "@xyo-network/xl1-protocol": "~1.24.5",
+    "@xyo-network/xl1-schema": "~1.24.5",
     "async-mutex": "~0.5.0",
     "cosmiconfig": "^9.0.0",
     "ethers": "^6.16.0",
