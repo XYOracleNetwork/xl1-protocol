@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "~25.2.3",
-    "@typescript-eslint/types": "~8.55.0",
+    "@typescript-eslint/types": "~8.56.0",
     "@xylabs/eslint-config-flat": "~7.3.2",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",

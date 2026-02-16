@@ -15,11 +15,12 @@ export class HydratedCache<T extends {}> {
   constructor(
     context: BlockContextRead,
     hydrateFunction: HydrateFunction<T>,
-    maxSize: number = 200,
+    maxCount: number = 2000,
+    ttl: number = Number.MAX_SAFE_INTEGER,
   ) {
     this.context = context
     this.hydrateFunction = hydrateFunction
-    this.cache = new LRUCache<Hash, T>({ max: maxSize })
+    this.cache = new LRUCache<Hash, T>({ max: maxCount, ttl })
   }
 
   async get(hash: Hash): Promise<T | null> {

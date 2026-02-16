@@ -4,14 +4,14 @@ import {
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
-  isAnyPayload, type Payload, WithHashMeta, type WithStorageMeta,
+  isAnyPayload, type Payload, WithHashMeta,
 } from '@xyo-network/payload-model'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
   BlockContextRead,
   BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker,
-  ChainId, DataLakeViewer, DataLakeViewerMoniker, FinalizationViewer, FinalizationViewerMoniker, PayloadMap, type SignedHydratedBlockWithHashMeta,
+  ChainId, DataLakeViewer, DataLakeViewerMoniker, FinalizationViewer, FinalizationViewerMoniker, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta, SingleTimeConfig, TimeDurations, type XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
@@ -41,8 +41,9 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   protected chainContractViewer!: ChainContractViewer
   protected dataLakeViewer?: DataLakeViewer
   protected finalizationViewer!: FinalizationViewer
+  protected payloadCache = new LruCacheMap<Hash, WithHashMeta<Payload>>({ max: 10_000 })
+  protected signedHydratedBlockWithDataLakePayloadsCache = new LruCacheMap<Hash, SignedHydratedBlockWithHashMeta>({ max: 2000, ttl: 1000 * 60 * 60 })
 
-  private _payloadCache: PayloadMap<WithStorageMeta<Payload>> | undefined
   private _signedHydratedBlockCache: HydratedCache<SignedHydratedBlockWithStorageMeta> | undefined
 
   get finalizedArchivist(): ReadArchivist {
@@ -60,14 +61,8 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     ) => {
       const result = await hydrateBlock(context, hash, maxDepth, minDepth)
       return asSignedHydratedBlockWithStorageMeta(result, true)
-    }, 200)
+    }, 2000)
     return this._signedHydratedBlockCache
-  }
-
-  protected get payloadCache(): PayloadMap<WithStorageMeta<Payload>> {
-    if (this._payloadCache) return this._payloadCache
-    this._payloadCache = new LruCacheMap<Hash, WithStorageMeta<Payload>>({ max: 10_000 })
-    return this._payloadCache
   }
 
   protected get store() {
@@ -83,9 +78,18 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
     return await this.spanAsync('blockByHash', async () => {
+      const cachedBlock = this.signedHydratedBlockWithDataLakePayloadsCache.get(hash)
+      if (cachedBlock) {
+        return cachedBlock
+      }
+
       const cache = this.hydratedBlockCache
       const block = await cache.get(hash)
-      return block ? await this.addDataLakePayloadsToBlock(block) : null
+      const result = block ? await this.addDataLakePayloadsToBlock(block) : null
+      if (result) {
+        this.signedHydratedBlockWithDataLakePayloadsCache.set(hash, result)
+      }
+      return result
     }, this.context)
   }
 
@@ -171,18 +175,17 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   async payloadsByHash(hashes: Hash[]): Promise<WithHashMeta<Payload>[]> {
     let remainingHashes = [...hashes]
-    const cachedPayloads = await this.payloadCache.getMany(remainingHashes)
+    const cachedPayloads = this.payloadCache.getMany(remainingHashes)
     const cachedHashes = new Set(cachedPayloads.map(p => p._hash))
     remainingHashes = remainingHashes.filter(h => !cachedHashes.has(h))
     const finalizedPayloads = remainingHashes.length > 0
       ? await this.finalizedArchivist.get(remainingHashes)
       : []
-    await Promise.all(finalizedPayloads.map(async (payload) => {
-      await this.payloadCache.set(payload._hash, payload)
-    }))
-    const finalizedHashes = new Set(finalizedPayloads.map(p => p._hash))
-    remainingHashes = remainingHashes.filter(h => !finalizedHashes.has(h))
-    return await this.addDataLakePayloadsToPayloads(hashes, [...cachedPayloads, ...finalizedPayloads.filter(exists)])
+    const resultPayloads = await this.addDataLakePayloadsToPayloads(hashes, [...cachedPayloads, ...finalizedPayloads.filter(exists)])
+    resultPayloads.map((payload) => {
+      this.payloadCache.set(payload._hash, payload)
+    })
+    return resultPayloads
   }
 
   async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
