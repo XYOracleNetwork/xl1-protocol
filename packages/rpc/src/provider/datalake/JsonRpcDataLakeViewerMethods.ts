@@ -1,5 +1,8 @@
-import type { Payload } from '@xyo-network/payload-model'
-import { type DataLakeViewerMethods, DataLakeViewerMoniker } from '@xyo-network/xl1-protocol'
+import type { Hash, PromisableArray } from '@xylabs/sdk-js'
+import type { NextOptions } from '@xyo-network/archivist-model'
+import type { Sequence } from '@xyo-network/payload-model'
+import type { DataLakeData, DataLakeViewerMethods } from '@xyo-network/xl1-protocol'
+import { DataLakeViewerMoniker } from '@xyo-network/xl1-protocol'
 
 import { DataLakeViewerRpcSchemas } from '../../types/index.ts'
 import { AbstractJsonRpcViewer } from '../viewer/index.ts'
@@ -9,16 +12,12 @@ export class JsonRpcDataLakeViewerMethods extends AbstractJsonRpcViewer<DataLake
   static readonly monikers = [DataLakeViewerMoniker]
   moniker = JsonRpcDataLakeViewerMethods.defaultMoniker
 
-  get(_id: unknown): Promise<Payload | ArrayBuffer | undefined> {
+  get(_hashes: Hash[]): PromisableArray<DataLakeData> {
     throw new Error('Method [get] not implemented.')
   }
 
-  getMany(_id: unknown): Promise<(Payload | ArrayBuffer)[]> {
-    throw new Error('Method [getMany] not implemented.')
-  }
-
-  has(_id: unknown): Promise<boolean> {
-    throw new Error('Method [has] not implemented.')
+  next(_options?: NextOptions<Sequence> | undefined): PromisableArray<DataLakeData> {
+    throw new Error('Method [next] not implemented.')
   }
 
   protected schemas() {

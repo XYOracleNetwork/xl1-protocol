@@ -1,13 +1,16 @@
 import {
-  assertEx, exists, type Hash,
+  assertEx, BrandedHash, exists, type Hash,
+  Promisable,
+  PromisableArray,
 } from '@xylabs/sdk-js'
-import { isAnyPayload } from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import { isAnyPayload, PayloadZodLoose } from '@xyo-network/payload-model'
 import {
   DataLakeData,
   DataLakeRunner,
   DataLakeRunnerMoniker,
 } from '@xyo-network/xl1-protocol'
+import { AxiosResponse } from 'axios'
+import z from 'zod'
 
 import { creatableProvider } from '../../CreatableProvider/index.ts'
 import { AbstractRestDataLake } from './AbstractRestDataLake.ts'
@@ -23,35 +26,27 @@ export class RestDataLakeRunner<TParams extends RestDataLakeRunnerParams> extend
   static readonly monikers = [DataLakeRunnerMoniker]
   moniker = RestDataLakeRunner.defaultMoniker
 
-  clear(): Promise<void> {
-    throw new Error('Clear is not supported on RestDataLakeRunner')
+  clear(): Promisable<void> {
+    throw new Error('Method not implemented.')
   }
 
-  delete(_hash: Hash): Promise<boolean> {
-    throw new Error('Delete is not supported on RestDataLakeRunner')
+  delete(_hashes: BrandedHash[]): PromisableArray<DataLakeData> {
+    throw new Error('Method not implemented.')
   }
 
-  async set(hash: Hash, data: DataLakeData): Promise<Hash | undefined | void> {
-    if (isAnyPayload(data) && this.isAllowed(data)) {
-      const actualHash = await PayloadBuilder.hash(data)
-      assertEx(actualHash === hash, () => `Hash of data does not match provided hash. Expected ${hash}, got ${actualHash}`)
-      assertEx(typeof data === 'object' && data !== null, () => 'Data must be an object')
-      const result = await this.axios.post(`${this.params.endpoint}/insert`, data)
-      return result.status === 200 ? actualHash : undefined
-    }
-  }
-
-  async setMany(entries: [Hash, DataLakeData][]): Promise<Hash[] | void> {
-    const data = entries.map(([, data]) => {
-      if (isAnyPayload(data) && this.isAllowed(data)) {
-        assertEx(typeof data === 'object' && data !== null, () => 'Data must be an object')
-        return data
+  async insert(items: DataLakeData[]): Promise<DataLakeData[]> {
+    const allowedItems = items.map((item) => {
+      if (isAnyPayload(item) && this.isAllowed(item)) {
+        assertEx(typeof item === 'object' && item !== null, () => 'Data must be an object')
+        return item
       }
       return null
     }).filter(exists)
-    if (data.length > 0) {
-      const result = await this.axios.post(`${this.params.endpoint}/insert`, data)
-      return result.data
+    if (allowedItems.length > 0) {
+      const result = await this.axios.post<DataLakeData[], AxiosResponse<Hash[]>>(`${this.params.endpoint}/insert`, allowedItems)
+      return z.array(PayloadZodLoose).parse(result.data)
+    } else {
+      return []
     }
   }
 }

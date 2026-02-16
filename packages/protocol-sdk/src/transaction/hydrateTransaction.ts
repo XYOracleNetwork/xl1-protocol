@@ -3,7 +3,8 @@ import { assertEx } from '@xylabs/sdk-js'
 import { hydrateTypedBoundWitness, tryHydrateTypedBoundWitness } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
 import type {
-  AllowedBlockPayload, SignedHydratedTransaction,
+  AllowedBlockPayload, HydratedTransaction, SignedHydratedTransaction,
+  SignedHydratedTransactionWithHashMeta,
   SignedHydratedTransactionWithStorageMeta, TransactionBoundWitness,
 } from '@xyo-network/xl1-protocol'
 import {
@@ -48,7 +49,7 @@ export const hydrateTransaction = async (
   ) as SignedHydratedTransaction
 }
 
-export const flattenHydratedTransaction = (hydratedTransaction: SignedHydratedTransaction): Payload[] => {
+export function flattenHydratedTransaction<T extends HydratedTransaction>(hydratedTransaction: T): (T[0] | T[1][number])[] {
   const [tx, txPayloads] = hydratedTransaction
   return [...txPayloads, tx]
 }
@@ -68,13 +69,14 @@ export const tryUnflattenHydratedTransaction = (
 export const unflattenHydratedTransaction = (flattened: Payload[]): SignedHydratedTransaction =>
   asSignedHydratedTransaction(tryUnflattenHydratedTransaction(flattened), true)
 
-export const flattenHydratedTransactions = (hydratedTransactions: SignedHydratedTransaction[]): Payload[] =>
-  hydratedTransactions.flatMap(tx => flattenHydratedTransaction(tx))
+export function flattenHydratedTransactions<T extends HydratedTransaction>(hydratedTransactions: T[]): (T[0] | T[1][number])[] {
+  return hydratedTransactions.flatMap(tx => flattenHydratedTransaction(tx))
+}
 
 export const tryHydrateElevatedTransaction = async (
   { chainMap }: ChainStoreRead,
   hash: Hash,
-): Promise<SignedHydratedTransactionWithStorageMeta | undefined> => {
+): Promise<SignedHydratedTransactionWithHashMeta | undefined> => {
   const hydratedTransaction = await tryHydrateTransaction({ chainMap }, hash)
   if (!hydratedTransaction) {
     return undefined
@@ -100,6 +102,6 @@ export const tryHydrateElevatedTransaction = async (
 export const hydrateElevatedTransaction = async (
   context: ChainStoreRead,
   hash: Hash,
-): Promise<SignedHydratedTransaction> => {
+): Promise<SignedHydratedTransactionWithHashMeta> => {
   return assertEx(await tryHydrateElevatedTransaction(context, hash), () => 'Hydration failed')
 }

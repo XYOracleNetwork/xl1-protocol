@@ -1,5 +1,4 @@
-export * from './DataLake.ts'
-export * from './DataLakes.ts'
+export * from './DataLake/index.ts'
 export * from './signer/index.ts'
 export * from './XyoClient.ts'
 export * from './XyoConnection.ts'

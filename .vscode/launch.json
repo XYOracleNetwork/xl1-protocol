@@ -11,7 +11,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "packages/rpc/src/transport/spec/HttpRpcTransport.spec.ts"
+        "packages/protocol-sdk/src/simple/datalake/spec/RestDataLakeViewer.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [

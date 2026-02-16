@@ -1,6 +1,10 @@
-import type { Hash } from '@xylabs/sdk-js'
-import { isAnyPayload, type Schema } from '@xyo-network/payload-model'
-import type { DataLakeData, MapTypeRead } from '@xyo-network/xl1-protocol'
+import type { Hash, PromisableArray } from '@xylabs/sdk-js'
+import type { NextOptions } from '@xyo-network/archivist-model'
+import type { Schema, Sequence } from '@xyo-network/payload-model'
+import { isAnyPayload } from '@xyo-network/payload-model'
+import type {
+  DataLakeData, DataLakeViewer, MapTypeRead,
+} from '@xyo-network/xl1-protocol'
 
 import { AbstractCreatableProvider, type CreatableProviderParams } from '../../CreatableProvider/index.ts'
 
@@ -14,7 +18,7 @@ MapTypeRead<Hash, DataLakeData> = MapTypeRead<Hash, DataLakeData>> extends
 }
 
 export abstract class AbstractSimpleDataLake<TParams extends AbstractSimpleDataLakeParams = AbstractSimpleDataLakeParams> extends
-  AbstractCreatableProvider<TParams> {
+  AbstractCreatableProvider<TParams> implements Omit<DataLakeViewer, 'moniker'> {
   get allowedSchemas(): Schema[] | undefined {
     return this.params.allowedSchemas
   }
@@ -27,22 +31,13 @@ export abstract class AbstractSimpleDataLake<TParams extends AbstractSimpleDataL
     return this.params.map
   }
 
-  async get(hash: Hash): Promise<DataLakeData | undefined> {
-    const result = await this.map.get(hash)
-    return this.isAllowed(result) ? result : undefined
-  }
-
-  async getMany(hashes: Hash[]): Promise<DataLakeData[]> {
+  async get(hashes: Hash[]): Promise<DataLakeData[]> {
     const result = await this.map.getMany(hashes)
     return result.filter(data => this.isAllowed(data))
   }
 
-  async has(hash: Hash): Promise<boolean> {
-    const value = await this.get(hash)
-    if (isAnyPayload(value)) {
-      return this.isAllowed(value)
-    }
-    return value !== undefined
+  next(_options?: NextOptions<Sequence> | undefined): PromisableArray<DataLakeData> {
+    throw new Error('Method not implemented.')
   }
 
   protected isAllowed(value: DataLakeData | undefined): boolean {

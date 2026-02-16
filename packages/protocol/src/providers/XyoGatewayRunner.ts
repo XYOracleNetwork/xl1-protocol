@@ -12,7 +12,6 @@ import type {
 } from '../model/index.ts'
 import type { TransactionFeesBigInt } from '../transaction/index.ts'
 import type { AttoXL1 } from '../xl1/index.ts'
-import type { DataLakesRunner } from './DataLakes.ts'
 import type { XyoSigner } from './signer/index.ts'
 import type { XyoGatewayProvider } from './XyoGateway.ts'
 
@@ -63,7 +62,7 @@ export interface XyoGatewayRunnerMethods {
   sendMany(transfers: Record<Address, AttoXL1>, options?: TransactionOptions): Promisable<Hash>
 }
 
-export interface XyoGatewayRunner extends XyoGatewayRunnerMethods, XyoGatewayProvider<XyoGatewayRunnerMoniker, DataLakesRunner> {
+export interface XyoGatewayRunner extends XyoGatewayRunnerMethods, XyoGatewayProvider<XyoGatewayRunnerMoniker> {
   /**
    * Returns the signer for this gateway.
    */

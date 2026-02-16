@@ -9,16 +9,6 @@ import type { RpcSchemaMap } from './RpcSchemaMap.ts'
 export const DataLakeViewerRpcSchemas = {
   dataLakeViewer_get: {
     params: {
-      to: z.tuple([HashZod]),
-      from: z.tuple([HashZod]),
-    },
-    result: {
-      to: z.union([PayloadZod, ArrayBufferToJsonZod]).optional(),
-      from: z.union([PayloadZod, JsonToArrayBufferZod]).optional(),
-    },
-  },
-  dataLakeViewer_getMany: {
-    params: {
       to: z.tuple([z.array(HashZod)]),
       from: z.tuple([z.array(HashZod)]),
     },
@@ -27,14 +17,14 @@ export const DataLakeViewerRpcSchemas = {
       from: z.array(z.union([PayloadZod, JsonToArrayBufferZod])),
     },
   },
-  dataLakeViewer_has: {
+  dataLakeViewer_next: {
     params: {
-      to: z.tuple([HashZod]),
-      from: z.tuple([HashZod]),
+      to: z.tuple([z.object({}).loose()]),
+      from: z.tuple([z.object({}).loose()]),
     },
     result: {
-      to: z.boolean(),
-      from: z.boolean(),
+      to: z.array(z.union([PayloadZod, ArrayBufferToJsonZod])),
+      from: z.array(z.union([PayloadZod, JsonToArrayBufferZod])),
     },
   },
 } satisfies RpcSchemaMap<DataLakeViewerRpcMethodName>

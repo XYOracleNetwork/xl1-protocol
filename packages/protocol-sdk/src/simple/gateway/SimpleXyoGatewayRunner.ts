@@ -4,22 +4,22 @@ import type {
 import {
   assertEx, BigIntToJsonZod, isDefined,
 } from '@xylabs/sdk-js'
-import {
-  isAnyPayload, isHashMeta, type Payload, type WithHashMeta,
-} from '@xyo-network/payload-model'
+import { type Payload, type WithHashMeta } from '@xyo-network/payload-model'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,
-  DataLakeRunner, DataLakesRunner, SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
+  DataLakeRunner, SignedHydratedTransaction, SignedHydratedTransactionWithHashMeta, TransactionOptions, Transfer, UnsignedHydratedTransaction,
   XyoConnection, XyoGatewayRunner, XyoSigner,
 } from '@xyo-network/xl1-protocol'
 import {
-  asXL1BlockNumber, isSignedHydratedTransaction, TransferSchema, XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
+  asXL1BlockNumber, DataLakeRunnerMoniker, isSignedHydratedTransaction, TransferSchema, XyoConnectionMoniker, XyoGatewayMoniker, XyoGatewayRunnerMoniker, XyoSignerMoniker,
 } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
-import { buildUnsignedTransaction, confirmSubmittedTransaction } from '../../transaction/index.ts'
+import {
+  buildUnsignedTransaction, confirmSubmittedTransaction, flattenHydratedTransaction,
+} from '../../transaction/index.ts'
 
 export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {
   dataLakes?: DataLakeRunner[]
@@ -32,15 +32,15 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
   moniker = SimpleXyoGatewayRunner.defaultMoniker
 
   private _connection!: XyoConnection
-  private _dataLakes?: DataLakesRunner
+  private _dataLakeRunner?: DataLakeRunner
   private _signer!: XyoSigner
 
   get connection(): XyoConnection {
     return this._connection
   }
 
-  get dataLakes(): DataLakesRunner | undefined {
-    return this._dataLakes
+  get dataLakeRunner(): DataLakeRunner | undefined {
+    return this._dataLakeRunner
   }
 
   get signer(): XyoSigner {
@@ -70,7 +70,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
   async addTransactionToChain(
     tx: UnsignedHydratedTransaction | SignedHydratedTransaction,
-    offChain?: WithHashMeta<Payload>[],
+    _offChain?: WithHashMeta<Payload>[],
   ): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
     const connection = this.connection
 
@@ -92,30 +92,10 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
       signedTx = await signer.signTransaction(tx)
     }
 
-    // Add all payloads to data lakes before broadcasting the transaction
-    await this.addPayloadsToDataLakes([...signedTx[1], ...(offChain ?? []), signedTx[0]])
+    await this._dataLakeRunner?.insert(flattenHydratedTransaction(signedTx))
 
     // Broadcast the transaction
     return [await runner.broadcastTransaction([signedTx[0], signedTx[1]]), signedTx]
-  }
-
-  async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
-    const [block, payloads] = await this.connection.viewer?.block.blockByHash(hash) ?? [null, []]
-    if (block !== null) {
-      const missingHashes = block.payload_hashes.filter(h => !payloads.some(p => p._hash === h))
-      const foundPayloads: Record<Hash, WithHashMeta<Payload>> = {}
-      const dataLakes = this.dataLakes ? this.dataLakes.dataLakes : []
-      for (const dataLake of dataLakes) {
-        const found = (await dataLake.getMany(missingHashes)).filter(p => isAnyPayload(p) && isHashMeta(p) && missingHashes.includes(p._hash)) as WithHashMeta<Payload>[]
-        for (const payload of found) {
-          foundPayloads[payload._hash] = payload
-        }
-      }
-      for (const [, payload] of Object.entries(foundPayloads)) {
-        payloads.push(payload)
-      }
-    }
-    return block ? [block, payloads] : null
   }
 
   async confirmSubmittedTransaction(txHash: Hash, options?: ConfirmSubmittedTransactionOptions): Promise<SignedHydratedTransaction> {
@@ -130,6 +110,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
     await super.createHandler()
     this._connection = await this.locator.getInstance<XyoConnection>(XyoConnectionMoniker)
     this._signer = await this.locator.getInstance<XyoSigner>(XyoSignerMoniker)
+    this._dataLakeRunner = await this.locator.tryGetInstance<DataLakeRunner>(DataLakeRunnerMoniker)
   }
 
   async send(to: Address, amount: AttoXL1, options?: TransactionOptions): Promise<Hash> {
@@ -150,14 +131,5 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
     }).build()
     const [hash] = await this.addPayloadsToChain([transfer], [], options)
     return hash
-  }
-
-  protected async addPayloadsToDataLakes(payloads: WithHashMeta<Payload>[]): Promise<void> {
-    const dataLakes = this.dataLakes?.dataLakes ?? []
-    await Promise.all(dataLakes.map(async (dataLake) => {
-      await Promise.all(payloads.map(async (payload) => {
-        await dataLake?.set(payload._hash, payload)
-      }))
-    }))
   }
 }

@@ -1,6 +1,6 @@
 import type { Provider } from '../provider/index.ts'
 import type { NetworkStakeViewer, XyoViewer } from '../viewers/index.ts'
-import type { DataLakeRunner, DataLakeViewer } from './DataLake.ts'
+import type { DataLakeRunner, DataLakeViewer } from './DataLake/index.ts'
 import type { XyoNetwork } from './XyoNetwork.ts'
 import type { XyoRunner } from './XyoRunner.ts'
 

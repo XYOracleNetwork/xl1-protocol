@@ -1,4 +1,5 @@
-import type { Hash } from '@xylabs/sdk-js'
+import { exists, type Hash } from '@xylabs/sdk-js'
+import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   DataLakeData,
   DataLakeRunner,
@@ -23,18 +24,19 @@ export class SimpleDataLakeRunner<TParams extends SimpleDataLakeRunnerParams> ex
     await this.map.clear()
   }
 
-  async delete(hash: Hash): Promise<boolean> {
-    return await this.map.delete(hash)
+  async delete(hashes: Hash[]) {
+    return (await Promise.all(hashes.map(async (hash) => {
+      const payload = await this.map.get(hash)
+      return (await this.map.delete(hash)) ? payload : undefined
+    }))).filter(exists)
   }
 
-  async set(hash: Hash, data: DataLakeData): Promise<void> {
-    if (this.isAllowed(data)) {
-      await this.map.set(hash, data)
+  async insert(items: DataLakeData[]) {
+    const payloads = items.filter(isAnyPayload).filter(i => this.isAllowed(i))
+    const hashPairs = await PayloadBuilder.hashPairs(payloads)
+    for (const [payload, hash] of hashPairs) {
+      await this.map.set(hash, payload)
     }
-  }
-
-  async setMany(entries: [Hash, DataLakeData][]): Promise<void> {
-    const allowed = entries.filter(([_, data]) => this.isAllowed(data))
-    await this.map.setMany(allowed)
+    return hashPairs.map(([payload]) => payload)
   }
 }

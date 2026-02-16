@@ -1,8 +1,11 @@
 import { axiosJsonConfig } from '@xylabs/axios'
-import { exists, type Hash } from '@xylabs/sdk-js'
-import type { Schema } from '@xyo-network/payload-model'
-import { isAnyPayload } from '@xyo-network/payload-model'
-import type { DataLakeData } from '@xyo-network/xl1-protocol'
+import {
+  exists, type Hash, type PromisableArray,
+} from '@xylabs/sdk-js'
+import type { NextOptions } from '@xyo-network/archivist-model'
+import type { Schema, Sequence } from '@xyo-network/payload-model'
+import { asAnyPayload, isAnyPayload } from '@xyo-network/payload-model'
+import type { DataLakeData, DataLakeViewer } from '@xyo-network/xl1-protocol'
 import { Axios } from 'axios'
 
 import { AbstractCreatableProvider, type CreatableProviderParams } from '../../CreatableProvider/index.ts'
@@ -16,7 +19,7 @@ export interface AbstractRestDataLakeParams extends
 }
 
 export abstract class AbstractRestDataLake<TParams extends AbstractRestDataLakeParams = AbstractRestDataLakeParams> extends
-  AbstractCreatableProvider<TParams> {
+  AbstractCreatableProvider<TParams> implements Omit<DataLakeViewer, 'moniker'> {
   get allowedSchemas(): Schema[] | undefined {
     return this.params.allowedSchemas
   }
@@ -33,21 +36,16 @@ export abstract class AbstractRestDataLake<TParams extends AbstractRestDataLakeP
     return this.params.endpoint
   }
 
-  async get(hash: Hash): Promise<DataLakeData | undefined> {
-    const { data } = await this.axios.get(`${this.params.endpoint}/get/${hash}`)
-    return (this.isAllowed(data) ? data : undefined) ?? undefined
+  async get(hashes: Hash[]): Promise<DataLakeData[]> {
+    return (await Promise.all(hashes.map(hash => this.getOne(hash)))).filter(exists)
   }
 
-  async getMany(hashes: Hash[]): Promise<DataLakeData[]> {
-    return (await Promise.all(hashes.map(hash => this.get(hash)))).filter(exists)
+  next(_options?: NextOptions<Sequence> | undefined): PromisableArray<DataLakeData> {
+    throw new Error('Method not implemented.')
   }
 
-  async has(hash: Hash): Promise<boolean> {
-    const value = await this.get(hash)
-    if (isAnyPayload(value)) {
-      return this.isAllowed(value)
-    }
-    return !!(await this.get(hash))
+  protected async getOne(hash: Hash): Promise<DataLakeData | undefined> {
+    return asAnyPayload((await this.axios.get(`${this.params.endpoint}/get/${hash}`)).data)
   }
 
   protected isAllowed(value: DataLakeData | undefined): boolean {
