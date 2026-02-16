@@ -1,14 +1,17 @@
 import type { Hash } from '@xylabs/sdk-js'
 import {
-  assertEx, exists, isDefined, isUndefined,
+  assertEx, exists, isUndefined,
 } from '@xylabs/sdk-js'
 import type { ReadArchivist } from '@xyo-network/archivist-model'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import {
+  isAnyPayload, type Payload, WithHashMeta, type WithStorageMeta,
+} from '@xyo-network/payload-model'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
   BlockContextRead,
   BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker,
-  ChainId, FinalizationViewer, FinalizationViewerMoniker, PayloadMap, type SignedHydratedBlockWithHashMeta,
+  ChainId, DataLakeViewer, DataLakeViewerMoniker, FinalizationViewer, FinalizationViewerMoniker, PayloadMap, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta, SingleTimeConfig, TimeDurations, type XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
 
@@ -34,8 +37,9 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   static readonly monikers = [BlockViewerMoniker]
   moniker = SimpleBlockViewer.defaultMoniker
 
-  protected _store: ChainStoreRead | undefined
+  protected _store?: ChainStoreRead
   protected chainContractViewer!: ChainContractViewer
+  protected dataLakeViewer?: DataLakeViewer
   protected finalizationViewer!: FinalizationViewer
 
   private _payloadCache: PayloadMap<WithStorageMeta<Payload>> | undefined
@@ -80,7 +84,8 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   async blockByHash(hash: Hash): Promise<SignedHydratedBlockWithHashMeta | null> {
     return await this.spanAsync('blockByHash', async () => {
       const cache = this.hydratedBlockCache
-      return await cache.get(hash)
+      const block = await cache.get(hash)
+      return block ? await this.addDataLakePayloadsToBlock(block) : null
     }, this.context)
   }
 
@@ -90,7 +95,8 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
       if (isUndefined(head)) {
         return null
       }
-      return asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber(await this.getChainContextRead(), blockNumber)) ?? null
+      const block = asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber(await this.getChainContextRead(), blockNumber)) ?? null
+      return block ? await this.addDataLakePayloadsToBlock(block) : null
     }, this.context)
   }
 
@@ -141,12 +147,13 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
       await this.locateAndCreate<ChainContractViewer>(ChainContractViewerMoniker),
       () => 'chainContractViewer is required',
     )
+    this.dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
     this.finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
     this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
   }
 
   async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {
-    return await this.finalizationViewer.head()
+    return await this.addDataLakePayloadsToBlock(await this.finalizationViewer.head())
   }
 
   async currentBlockHash(): Promise<Hash> {
@@ -157,28 +164,25 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     return await this.finalizationViewer.headNumber()
   }
 
-  async payloadByHash(hash: Hash): Promise<WithStorageMeta<Payload> | null> {
-    const cachedPayload = await this.payloadCache.get(hash)
-    if (cachedPayload) {
-      return cachedPayload
-    } else {
-      const [result] = await this.finalizedArchivist.get([hash])
-      if (isDefined(result)) {
-        await this.payloadCache.set(hash, result)
-      }
-      return result ?? null
-    }
+  async payloadByHash(hash: Hash): Promise<WithHashMeta<Payload> | null> {
+    const [payload] = await this.payloadsByHash([hash])
+    return payload ?? null
   }
 
-  async payloadsByHash(hashes: Hash[]): Promise<WithStorageMeta<Payload>[]> {
+  async payloadsByHash(hashes: Hash[]): Promise<WithHashMeta<Payload>[]> {
     let remainingHashes = [...hashes]
     const cachedPayloads = await this.payloadCache.getMany(remainingHashes)
     const cachedHashes = new Set(cachedPayloads.map(p => p._hash))
     remainingHashes = remainingHashes.filter(h => !cachedHashes.has(h))
-    const remainingPayloads = remainingHashes.length > 0
+    const finalizedPayloads = remainingHashes.length > 0
       ? await this.finalizedArchivist.get(remainingHashes)
       : []
-    return [...cachedPayloads, ...remainingPayloads.filter(exists)]
+    await Promise.all(finalizedPayloads.map(async (payload) => {
+      await this.payloadCache.set(payload._hash, payload)
+    }))
+    const finalizedHashes = new Set(finalizedPayloads.map(p => p._hash))
+    remainingHashes = remainingHashes.filter(h => !finalizedHashes.has(h))
+    return await this.addDataLakePayloadsToPayloads(hashes, [...cachedPayloads, ...finalizedPayloads.filter(exists)])
   }
 
   async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
@@ -197,6 +201,24 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     maxAttempts?: number,
   ): Promise<BlockRate> {
     return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts)
+  }
+
+  protected async addDataLakePayloadsToBlock(block: SignedHydratedBlockWithHashMeta): Promise<SignedHydratedBlockWithHashMeta> {
+    const dataLakeViewer = this.dataLakeViewer
+    if (!dataLakeViewer) return block
+    const missingPayloadHashes = block[0].payload_hashes.filter(hash => !block[1].some(p => p._hash === hash))
+    const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
+    return asSignedHydratedBlockWithHashMeta([block[0], [...block[1], ...payloadsFromDataLake]], true)
+  }
+
+  protected async addDataLakePayloadsToPayloads(hashes: Hash[], payloads: WithHashMeta<Payload>[]): Promise<WithHashMeta<Payload>[]> {
+    const dataLakeViewer = this.dataLakeViewer
+    if (!dataLakeViewer) return payloads
+    const missingPayloadHashes = hashes.filter(hash => !payloads.some(p => p._hash === hash))
+    const payloadsFromDataLake = await PayloadBuilder.addHashMeta(
+      await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload)),
+    )
+    return [...payloads, ...payloadsFromDataLake]
   }
 
   protected getBlockContextRead(): BlockContextRead {
