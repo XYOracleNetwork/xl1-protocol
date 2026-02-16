@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-sdk",
-  "version": "1.24.10",
+  "version": "1.24.11",
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -49,23 +49,27 @@
     "packages/*/packages/*/packages/*"
   ],
   "dependencies": {
-    "@xyo-network/xl1-network-model": "~1.24.10",
-    "@xyo-network/xl1-protocol": "~1.24.10",
-    "@xyo-network/xl1-protocol-sdk": "~1.24.10",
-    "@xyo-network/xl1-providers": "~1.24.10",
-    "@xyo-network/xl1-rpc": "~1.24.10",
-    "@xyo-network/xl1-schema": "~1.24.10",
-    "@xyo-network/xl1-validation": "~1.24.10",
-    "@xyo-network/xl1-wrappers": "~1.24.10"
+    "@xyo-network/xl1-network-model": "~1.24.11",
+    "@xyo-network/xl1-protocol": "~1.24.11",
+    "@xyo-network/xl1-protocol-sdk": "~1.24.11",
+    "@xyo-network/xl1-providers": "~1.24.11",
+    "@xyo-network/xl1-rpc": "~1.24.11",
+    "@xyo-network/xl1-schema": "~1.24.11",
+    "@xyo-network/xl1-validation": "~1.24.11",
+    "@xyo-network/xl1-wrappers": "~1.24.11"
   },
   "devDependencies": {
+    "@xylabs/sdk-js": "^5.0.79",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
+    "@xyo-network/sdk-js": "^5.3.5",
     "axios": "^1.13.5",
     "typescript": "~5.9.3",
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xylabs/sdk-js": "^5",
+    "@xyo-network/sdk-js": "^5",
     "axios": "^1",
     "zod": "^4"
   },
