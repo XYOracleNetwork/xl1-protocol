@@ -22,7 +22,7 @@ import {
 } from '../../transaction/index.ts'
 
 export interface SimpleXyoGatewayRunnerParams extends CreatableProviderParams {
-  dataLakes?: DataLakeRunner[]
+
 }
 
 export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoGatewayRunnerParams> implements XyoGatewayRunner {
