@@ -6,13 +6,9 @@ import { PayloadZodLoose } from '@xyo-network/payload-model'
 import {
   AccountBalanceHistoryItemZod,
   asAttoXL1,
-  BlockRangeZod,
-  BlockRateZod,
-  CountZod,
   JsonToStakeZod, SignedHydratedBlockWithHashMetaZod,
-  SignedHydratedTransactionZod, SingleTimeConfigZod, StakeToJsonZod, StepIdentityZod,
-  StepIndexZod,
-  TimeDurationsZod,
+  SignedHydratedTransactionZod,
+  StakeToJsonZod, StepIdentityZod,
   XL1BlockNumberZod, XL1BlockRangeZod,
 } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
@@ -339,36 +335,6 @@ export const XyoViewerRpcSchemas = {
     result: {
       to: z.array(PayloadZodLoose),
       from: z.array(PayloadZodLoose),
-    },
-  },
-  xyoViewer_rate: {
-    params: {
-      to: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
-      from: z.tuple([BlockRangeZod, TimeDurationsZod.keyof().optional()]),
-    },
-    result: {
-      to: BlockRateZod,
-      from: BlockRateZod,
-    },
-  },
-  xyoViewer_stepSizeRate: {
-    params: {
-      to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
-      from: z.tuple([BlockRateZod]),
-    },
-    result: {
-      to: BlockRateZod,
-      from: BlockRateZod,
-    },
-  },
-  xyoViewer_timeDurationRate: {
-    params: {
-      to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional(), z.number().optional(), z.number().optional()]),
-      from: z.tuple([BlockRateZod]),
-    },
-    result: {
-      to: BlockRateZod,
-      from: BlockRateZod,
     },
   },
 } satisfies RpcSchemaMap<XyoViewerRpcMethodName>
