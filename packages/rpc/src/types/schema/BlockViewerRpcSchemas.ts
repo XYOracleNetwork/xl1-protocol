@@ -63,7 +63,7 @@ export const BlockViewerRpcSchemas = {
   blockViewer_stepSizeRate: {
     params: {
       to: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
-      from: z.tuple([BlockRateZod]),
+      from: z.tuple([XL1BlockNumberZod, StepIndexZod, CountZod.optional(), TimeDurationsZod.keyof().optional()]),
     },
     result: {
       to: BlockRateZod,
@@ -73,7 +73,7 @@ export const BlockViewerRpcSchemas = {
   blockViewer_timeDurationRate: {
     params: {
       to: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional(), z.number().optional(), z.number().optional()]),
-      from: z.tuple([BlockRateZod]),
+      from: z.tuple([SingleTimeConfigZod, XL1BlockNumberZod.optional(), TimeDurationsZod.keyof().optional(), z.number().optional(), z.number().optional()]),
     },
     result: {
       to: BlockRateZod,
