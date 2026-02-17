@@ -93,7 +93,6 @@ export async function buildJsonRpcProviderLocator(params: BuildJsonRpcProviderLo
       { transport: await transportFactory(AccountBalanceViewerRpcSchemas) },
     ),
     JsonRpcBlockViewer.factory<JsonRpcBlockViewer>(JsonRpcBlockViewer.dependencies, { transport: await transportFactory(BlockViewerRpcSchemas) }),
-    JsonRpcDataLakeViewer.factory<JsonRpcDataLakeViewer>(JsonRpcDataLakeViewer.dependencies, { transport: await transportFactory(DataLakeViewerRpcSchemas) }),
     JsonRpcMempoolRunner.factory<JsonRpcMempoolRunner>(JsonRpcMempoolRunner.dependencies, { transport: await transportFactory(MempoolRunnerRpcSchemas) }),
     JsonRpcMempoolViewer.factory<JsonRpcMempoolViewer>(JsonRpcMempoolViewer.dependencies, { transport: await transportFactory(MempoolViewerRpcSchemas) }),
     JsonRpcNetworkStakeViewer.factory<JsonRpcNetworkStakeViewer>(
