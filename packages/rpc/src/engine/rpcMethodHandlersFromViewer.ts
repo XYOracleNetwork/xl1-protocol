@@ -36,8 +36,5 @@ export const rpcMethodHandlersFromViewer = (viewer: XyoViewer): XyoViewerRpcMeth
     xyoViewer_transactionByBlockNumberAndIndex: params => viewer.transactionByBlockNumberAndIndex(...(params ?? [])),
     xyoViewer_transactionByHash: params => viewer.transactionByHash(...(params ?? [])),
     xyoViewer_payloadsByHash: params => viewer.payloadsByHash(...(params ?? [])),
-    xyoViewer_rate: params => viewer.rate(...(params ?? [])),
-    xyoViewer_stepSizeRate: params => viewer.stepSizeRate(...(params ?? [])),
-    xyoViewer_timeDurationRate: params => viewer.timeDurationRate(...(params ?? [])),
   }
 }
