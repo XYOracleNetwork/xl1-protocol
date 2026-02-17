@@ -5,8 +5,7 @@ import {
 } from '@xyo-network/payload-model'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
-  BlockRate, BlockViewerMethods,
-  Count, DataLakeViewer, SignedHydratedBlockWithHashMeta, StepIndex, TimeDurations, XL1BlockNumber, XL1BlockRange,
+  BlockViewerMethods, DataLakeViewer, SignedHydratedBlockWithHashMeta, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import {
   asSignedHydratedBlockWithHashMeta, BlockViewerMoniker, DataLakeViewerMoniker,
@@ -55,33 +54,6 @@ export class JsonRpcBlockViewerMethods extends AbstractJsonRpcViewer<BlockViewer
       [hashes],
     )
     return await this.addDataLakePayloadsToPayloads(hashes, result.map(p => asHashMeta(p, true)).map(p => asAnyPayload(p, { required: true })))
-  }
-
-  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
-    return await this.transport.sendRequest(
-      'blockViewer_rate',
-      [range, timeUnit],
-    )
-  }
-
-  async stepSizeRate(start: XL1BlockNumber, stepSizeIndex: StepIndex, count?: Count, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
-    return await this.transport.sendRequest(
-      'blockViewer_stepSizeRate',
-      [start, stepSizeIndex, count, timeUnit],
-    )
-  }
-
-  async timeDurationRate(
-    timeConfig: Record<keyof TimeDurations, number>,
-    startBlockNumber?: XL1BlockNumber,
-    timeUnit?: keyof TimeDurations,
-    toleranceMs?: number,
-    maxAttempts?: number,
-  ): Promise<BlockRate> {
-    return await this.transport.sendRequest(
-      'blockViewer_timeDurationRate',
-      [timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts],
-    )
   }
 
   protected async addDataLakePayloadsToBlock(block: SignedHydratedBlockWithHashMeta): Promise<SignedHydratedBlockWithHashMeta> {

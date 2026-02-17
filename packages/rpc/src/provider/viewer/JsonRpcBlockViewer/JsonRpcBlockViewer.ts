@@ -1,13 +1,20 @@
 import type { Hash } from '@xylabs/sdk-js'
 import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
 import {
+  BlockRate,
   type BlockViewer,
   BlockViewerMoniker,
   type ChainId,
+  Count,
   type SignedHydratedBlockWithHashMeta,
+  StepIndex,
+  TimeDurations,
   type XL1BlockNumber,
+  XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
-import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
+import {
+  calculateBlockRate, calculateStepSizeRate, calculateTimeRate, creatableProvider,
+} from '@xyo-network/xl1-protocol-sdk'
 
 import { JsonRpcBlockViewerMethods } from './JsonRpcBlockViewerMethods.ts'
 
@@ -42,5 +49,23 @@ export class JsonRpcBlockViewer extends JsonRpcBlockViewerMethods implements Blo
 
   async payloadByHash(hash: Hash): Promise<WithHashMeta<Payload> | null> {
     return (await this.payloadsByHash([hash]))[0] ?? null
+  }
+
+  async rate(range: XL1BlockRange, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await calculateBlockRate(this, range, timeUnit)
+  }
+
+  async stepSizeRate(start: XL1BlockNumber, stepSizeIndex: StepIndex, count?: Count, timeUnit?: keyof TimeDurations): Promise<BlockRate> {
+    return await calculateStepSizeRate(this, start, stepSizeIndex, count, timeUnit)
+  }
+
+  async timeDurationRate(
+    timeConfig: Record<keyof TimeDurations, number>,
+    startBlockNumber?: XL1BlockNumber,
+    timeUnit?: keyof TimeDurations,
+    toleranceMs?: number,
+    maxAttempts?: number,
+  ): Promise<BlockRate> {
+    return await calculateTimeRate(this, timeConfig, startBlockNumber, timeUnit, toleranceMs, maxAttempts)
   }
 }
