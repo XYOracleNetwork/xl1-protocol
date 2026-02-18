@@ -23,9 +23,11 @@ export type TimeDurations = z.infer<typeof TimeDurationsZod>
 export const BlockRateZod = z.object({
   range: XL1BlockRangeZod.describe('the block range the rate was calculated over'),
   rate: z.number().nonnegative().describe('time to make a block'),
-  rateUnit: TimeDurationsZod.keyof().describe('the unit of time for the rate'),
+  timeUnit: TimeDurationsZod.keyof().describe('the unit of time for the rate and timePerBlock'),
   span: z.int().nonnegative().describe('number of blocks the rate was calculated over'),
   timeDifference: z.number().nonnegative().describe('time difference from start and end block'),
+  timePerBlock: z.number().nonnegative().describe('average time per block for the given range'),
+  // removed separate timePerBlockUnit; use `timeUnit` instead
 })
 
 export type BlockRate = z.infer<typeof BlockRateZod>
