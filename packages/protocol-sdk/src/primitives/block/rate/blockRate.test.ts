@@ -178,16 +178,12 @@ describe('blockRate', () => {
     expect(result.rate).toBeCloseTo(1.553_247_927_708_389_7)
   })
 
-  it('returns Infinity when time difference is zero', () => {
+  it('throws when time difference is zero', () => {
     // 10 blocks produced with identical epochs => division by zero
     const start = [{ block: 400, $epoch: 1000 }]
     const end = [{ block: 410, $epoch: 1000 }]
 
-    const result = blockRate(start as any, end as any, 'seconds')
-
-    expect(result.span).toEqual(10)
-    expect(result.timeDifference).toEqual(0)
-    expect(result.rate).toBe(Infinity)
+    expect(() => blockRate(start as any, end as any, 'seconds')).toThrow('Time difference must be greater than 0')
   })
 
   it('calculates average milliseconds per block (time per block)', () => {

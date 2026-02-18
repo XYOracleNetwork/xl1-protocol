@@ -18,6 +18,10 @@ export const blockRate = (
   const heightDifference = endingBlock.block - startingBlock.block
   const timeDifference = endingBlock.$epoch - startingBlock.$epoch
 
+  if (timeDifference === 0) {
+    throw new Error('Time difference must be greater than 0')
+  }
+
   const rate = heightDifference / timeDifference
 
   return {
