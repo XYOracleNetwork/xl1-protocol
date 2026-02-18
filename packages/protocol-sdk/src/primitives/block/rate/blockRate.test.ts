@@ -17,6 +17,7 @@ describe('blockRate', () => {
     expect(result.timeDifference).toEqual(1) // seconds
     expect(result.rateUnit).toEqual('seconds')
     expect(result.rate).toBeCloseTo(10)
+    expect(result.timePerBlock).toBeCloseTo(0.1)
   })
 
   it('calculates blocks per millisecond correctly', () => {
@@ -30,6 +31,7 @@ describe('blockRate', () => {
     expect(result.timeDifference).toEqual(1000) // milliseconds
     expect(result.rateUnit).toEqual('millis')
     expect(result.rate).toBeCloseTo(0.01)
+    expect(result.timePerBlock).toBeCloseTo(100)
   })
 
   it('calculates blocks per minute correctly', () => {
@@ -43,6 +45,7 @@ describe('blockRate', () => {
     expect(result.timeDifference).toEqual(1) // minutes
     expect(result.rateUnit).toEqual('minutes')
     expect(result.rate).toBeCloseTo(30)
+    expect(result.timePerBlock).toBeCloseTo(1 / 30)
   })
 
   it('calculates blocks per minute with large epoch values', () => {
@@ -176,6 +179,7 @@ describe('blockRate', () => {
     expect(result.timeDifference).toEqual(9.657_183_333_333_334) // minutes
     expect(result.rateUnit).toEqual('minutes')
     expect(result.rate).toBeCloseTo(1.553_247_927_708_389_7)
+    expect(result.timePerBlock).toBeCloseTo(9.657_183_333_333_334 / 15)
   })
 
   it('throws when time difference is zero', () => {
@@ -196,7 +200,6 @@ describe('blockRate', () => {
     expect(result.span).toEqual(10)
     // result.timeDifference is in millis when no timeUnit provided
     expect(result.timeDifference).toEqual(1000)
-    const msPerBlock = result.timeDifference / result.span
-    expect(msPerBlock).toBeCloseTo(100)
+    expect(result.timePerBlock).toBeCloseTo(100)
   })
 })
