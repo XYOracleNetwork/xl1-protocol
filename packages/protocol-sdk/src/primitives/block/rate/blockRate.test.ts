@@ -18,7 +18,6 @@ describe('blockRate', () => {
     expect(result.timeUnit).toEqual('seconds')
     expect(result.rate).toBeCloseTo(10)
     expect(result.timePerBlock).toBeCloseTo(0.1)
-    expect(result.timePerBlockUnit).toEqual(result.rateUnit)
   })
 
   it('calculates blocks per millisecond correctly', () => {
@@ -33,7 +32,6 @@ describe('blockRate', () => {
     expect(result.timeUnit).toEqual('millis')
     expect(result.rate).toBeCloseTo(0.01)
     expect(result.timePerBlock).toBeCloseTo(100)
-    expect(result.timePerBlockUnit).toEqual(result.rateUnit)
   })
 
   it('calculates blocks per minute correctly', () => {
@@ -48,7 +46,6 @@ describe('blockRate', () => {
     expect(result.timeUnit).toEqual('minutes')
     expect(result.rate).toBeCloseTo(30)
     expect(result.timePerBlock).toBeCloseTo(1 / 30)
-    expect(result.timePerBlockUnit).toEqual(result.rateUnit)
   })
 
   it('calculates blocks per minute with large epoch values', () => {
@@ -182,7 +179,7 @@ describe('blockRate', () => {
     expect(result.timeDifference).toEqual(9.657_183_333_333_334) // minutes
     expect(result.timeUnit).toEqual('minutes')
     expect(result.rate).toBeCloseTo(1.553_247_927_708_389_7)
-    expect(result.timePerBlock).toBeCloseTo(9.657_183_333_333_334 / 15)
+    expect(result.timePerBlock).toBeCloseTo(0.643_812_222_222_222_2)
   })
 
   it('throws when time difference is zero', () => {

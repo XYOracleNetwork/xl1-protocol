@@ -31,7 +31,7 @@ describe.skipIf(SkipRateSpecs)('calculateBlockRate', () => {
     // console.log('Block Rate Result:', result)
 
     expect(result.range, 'Range should match input').toEqual(range)
-    expect(result.rateUnit, 'Rate unit should be millis').toBe('millis')
+    expect(result.timeUnit, 'Rate unit should be millis').toBe('millis')
     expect(result.span, 'Span should be 2').toBe(2)
     expect(result.rate, 'Rate should be 1/34016 block/ms').toBeCloseTo(0.000_029_397_930_385_700_848)
     expect(result.timeDifference, 'Time difference should be 68,032 ms').toBe(68_032)
@@ -45,7 +45,7 @@ describe.skipIf(SkipRateSpecs)('calculateBlockRate', () => {
     expect(result.range, 'Range should match input').toEqual(range)
     expect(result.span, 'Span should be 2').toBeCloseTo(2)
     expect(result.rate, 'Rate should be 105.83254938852305 blocks per hour').toBe(105.832_549_388_523_05)
-    expect(result.rateUnit, 'Rate unit should be hours').toBe('hours')
+    expect(result.timeUnit, 'Rate unit should be hours').toBe('hours')
     expect(result.timeDifference, 'Time difference should be ~0.0189 hours').toBeCloseTo(0.018_899_722_222_222_222)
   })
 
