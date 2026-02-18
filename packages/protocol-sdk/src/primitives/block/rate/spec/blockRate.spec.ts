@@ -3,7 +3,7 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import { blockRate } from './blockRate.ts'
+import { blockRate } from '../blockRate.ts'
 
 describe('blockRate', () => {
   it('calculates blocks per second correctly', () => {
@@ -173,13 +173,14 @@ describe('blockRate', () => {
       _dataHash: '50742b2c32dd003bc83339ee83359783062121b7b326e0e1b2884fe8af625544',
     }]
 
-    const result = blockRate(start as any, end as any, 'minutes')
+    const result = blockRate(start as any, end as any, 'seconds')
+    console.log(result)
 
     expect(result.span).toEqual(15)
-    expect(result.timeDifference).toEqual(9.657_183_333_333_334) // minutes
-    expect(result.timeUnit).toEqual('minutes')
-    expect(result.rate).toBeCloseTo(1.553_247_927_708_389_7)
-    expect(result.timePerBlock).toBeCloseTo(0.643_812_222_222_222_2)
+    expect(result.timeDifference).toEqual(579.431) // seconds
+    expect(result.timeUnit).toEqual('seconds')
+    expect(result.rate).toBeCloseTo(0.025_887_465_461_806_498)
+    expect(result.timePerBlock).toBeCloseTo(38.628_733_333_333_34)
   })
 
   it('throws when time difference is zero', () => {
