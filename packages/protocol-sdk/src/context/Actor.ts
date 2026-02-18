@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import type { z } from 'zod'
 
 import { ActorConfigZod } from '../config/index.ts'

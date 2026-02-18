@@ -1,5 +1,5 @@
 import { type Address, type Promisable } from '@xylabs/sdk-js'
-import { zodIsFactory } from '@xylabs/zod'
+import { zodIsFactory } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import { BlockBoundWitnessZod } from '../block/index.ts'

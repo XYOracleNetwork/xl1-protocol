@@ -57,8 +57,8 @@
   },
   "dependencies": {
     "@metamask/json-rpc-engine": "~10.2.2",
-    "@xylabs/axios": "~5.0.79",
-    "@xylabs/sdk-js": "~5.0.79",
+    "@xylabs/axios": "~5.0.80",
+    "@xylabs/sdk-js": "~5.0.80",
     "@xyo-network/archivist-model": "~5.3.6",
     "@xyo-network/module-model": "~5.3.6",
     "@xyo-network/node-model": "~5.3.6",
@@ -70,10 +70,10 @@
   "devDependencies": {
     "@metamask/utils": "~11.10.0",
     "@types/node": "~25.2.3",
-    "@xylabs/sdk-js": "~5.0.79",
+    "@xylabs/sdk-js": "~5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xylabs/vitest-extended": "~5.0.79",
+    "@xylabs/vitest-extended": "~5.0.80",
     "@xyo-network/account": "~5.3.6",
     "@xyo-network/account-model": "~5.3.6",
     "@xyo-network/boundwitness-model": "~5.3.6",

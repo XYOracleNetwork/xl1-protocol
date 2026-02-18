@@ -1,7 +1,7 @@
-import { AddressZod } from '@xylabs/sdk-js'
 import {
+  AddressZod,
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import {
   BoundWitnessZod, SignedBoundWitnessZod, UnsignedBoundWitnessZod,
 } from '@xyo-network/boundwitness-model'

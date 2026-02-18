@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 export const RangeZod = z.tuple([z.number(), z.number()])

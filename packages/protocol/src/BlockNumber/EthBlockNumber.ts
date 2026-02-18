@@ -1,5 +1,5 @@
 import { type Brand } from '@xylabs/sdk-js'
-import { zodAsFactory, zodToFactory } from '@xylabs/zod'
+import { zodAsFactory, zodToFactory } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import type { BlockNumber } from './BlockNumber.ts'

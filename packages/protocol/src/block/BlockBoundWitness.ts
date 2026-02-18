@@ -1,7 +1,7 @@
-import { HashZod } from '@xylabs/sdk-js'
 import {
+  HashZod,
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { BoundWitnessZod } from '@xyo-network/boundwitness-model'
 import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
 import { z } from 'zod'

@@ -1,9 +1,7 @@
 import {
   BigIntToJsonZod, HexZod, JsonToBigIntZod,
-} from '@xylabs/sdk-js'
-import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import { asAttoXL1 } from '../xl1/index.ts'

@@ -59,7 +59,7 @@
     "@xyo-network/xl1-wrappers": "~1.24.20"
   },
   "devDependencies": {
-    "@xylabs/sdk-js": "^5.0.79",
+    "@xylabs/sdk-js": "^5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
     "@xyo-network/sdk-js": "^5.3.6",

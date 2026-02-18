@@ -1,5 +1,5 @@
 import { type Promisable } from '@xylabs/sdk-js'
-import { zodIsFactory } from '@xylabs/zod'
+import { zodIsFactory } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import type { SignedHydratedBlock, SignedHydratedBlockWithHashMeta } from '../block/index.ts'

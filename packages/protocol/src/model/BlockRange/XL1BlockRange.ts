@@ -1,9 +1,8 @@
 import type { AssertConfig, Brand } from '@xylabs/sdk-js'
 import {
   assertError,
-  isDefined,
+  isDefined, zodAsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
-import { zodAsFactory, zodToFactory } from '@xylabs/zod'
 import { z } from 'zod'
 
 import {

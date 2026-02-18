@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { globalRegistry, z } from 'zod'
 
 import { MnemonicStringZod } from '../validation/index.ts'

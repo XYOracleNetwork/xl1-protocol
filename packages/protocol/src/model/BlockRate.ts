@@ -1,4 +1,4 @@
-import { zodAsFactory, zodIsFactory } from '@xylabs/zod'
+import { zodAsFactory, zodIsFactory } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import type { EthBlockNumber, XL1BlockNumber } from '../BlockNumber/index.ts'

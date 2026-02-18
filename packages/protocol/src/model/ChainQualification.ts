@@ -1,5 +1,4 @@
-import { HashZod } from '@xylabs/sdk-js'
-import { zodIsFactory } from '@xylabs/zod'
+import { HashZod, zodIsFactory } from '@xylabs/sdk-js'
 import { z } from 'zod'
 
 import { XL1BlockRangeZod } from './BlockRange/index.ts'

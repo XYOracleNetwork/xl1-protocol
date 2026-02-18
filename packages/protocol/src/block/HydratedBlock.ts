@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { PayloadZodLoose } from '@xyo-network/payload-model'
 import { z } from 'zod'
 

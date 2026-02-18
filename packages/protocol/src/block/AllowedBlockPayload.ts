@@ -1,4 +1,4 @@
-import { zodIsFactory } from '@xylabs/zod'
+import { zodIsFactory } from '@xylabs/sdk-js'
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
 import { isHashMeta } from '@xyo-network/payload-model'

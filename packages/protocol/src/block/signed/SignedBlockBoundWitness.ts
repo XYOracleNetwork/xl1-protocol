@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import { SignedBoundWitnessZod } from '@xyo-network/boundwitness-model'
 import type { z } from 'zod'
 

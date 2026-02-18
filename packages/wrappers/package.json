@@ -39,7 +39,7 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xylabs/sdk-js": "~5.0.79",
+    "@xylabs/sdk-js": "~5.0.80",
     "@xyo-network/boundwitness-model": "~5.3.6",
     "@xyo-network/boundwitness-validator": "~5.3.6",
     "@xyo-network/payload-model": "~5.3.6",

@@ -1,6 +1,6 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
-} from '@xylabs/zod'
+} from '@xylabs/sdk-js'
 import type { CachingContext } from '@xyo-network/xl1-protocol'
 import { CachingContextZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
