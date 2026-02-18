@@ -70,8 +70,8 @@ const findEndBlockRecursive = async (
   toleranceMs: number,
   attemptsRemaining: number,
 ): Promise<XL1BlockNumber> => {
-  // console.log(`Attempts remaining: ${attemptsRemaining}, Estimated blocks back: ${estimatedBlocksBack}`)
-  assertEx(attemptsRemaining === 0, () => 'Maximum attempts reached while searching for end block')
+  console.log(`Attempts remaining: ${attemptsRemaining}, Estimated blocks back: ${estimatedBlocksBack}`)
+  assertEx(attemptsRemaining < 0, () => 'Maximum attempts reached while searching for end block')
 
   const startBlockEpoch = startBlock.$epoch
   const estimatedEndBlockNumber = asXL1BlockNumber(startBlock.block - estimatedBlocksBack, true)
