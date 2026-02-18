@@ -40,17 +40,17 @@
   ],
   "dependencies": {
     "@xylabs/sdk-js": "~5.0.79",
-    "@xyo-network/boundwitness-model": "~5.3.5",
-    "@xyo-network/payload-model": "~5.3.5",
-    "@xyo-network/schema-payload-plugin": "~5.3.5",
-    "@xyo-network/sdk-js": "~5.3.5",
+    "@xyo-network/boundwitness-model": "~5.3.6",
+    "@xyo-network/payload-model": "~5.3.6",
+    "@xyo-network/schema-payload-plugin": "~5.3.6",
+    "@xyo-network/sdk-js": "~5.3.6",
     "@xyo-network/xl1-protocol": "~1.24.19"
   },
   "devDependencies": {
     "@types/node": "~25.2.3",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/account": "~5.3.5",
+    "@xyo-network/account": "~5.3.6",
     "ajv": "~8.18.0",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",

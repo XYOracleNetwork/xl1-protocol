@@ -50,12 +50,12 @@
   ],
   "dependencies": {
     "@xylabs/sdk-js": "~5.0.79",
-    "@xyo-network/manifest-model": "~5.3.5",
-    "@xyo-network/manifest-wrapper": "~5.3.5",
-    "@xyo-network/module-factory-locator": "~5.3.5",
-    "@xyo-network/node-model": "~5.3.5",
-    "@xyo-network/payload-model": "~5.3.5",
-    "@xyo-network/wallet": "~5.3.5",
+    "@xyo-network/manifest-model": "~5.3.6",
+    "@xyo-network/manifest-wrapper": "~5.3.6",
+    "@xyo-network/module-factory-locator": "~5.3.6",
+    "@xyo-network/node-model": "~5.3.6",
+    "@xyo-network/payload-model": "~5.3.6",
+    "@xyo-network/wallet-model": "~5.3.6",
     "@xyo-network/xl1-protocol": "~1.24.19"
   },
   "devDependencies": {

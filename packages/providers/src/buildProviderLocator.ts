@@ -12,7 +12,7 @@ import {
 } from '@xyo-network/xl1-protocol-sdk'
 import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
-  AccountBalanceViewerRpcSchemas, BlockViewerRpcSchemas, DataLakeViewerRpcSchemas, JsonRpcAccountBalanceViewer, JsonRpcBlockViewer, JsonRpcDataLakeViewer,
+  AccountBalanceViewerRpcSchemas, BlockViewerRpcSchemas, JsonRpcAccountBalanceViewer, JsonRpcBlockViewer,
   JsonRpcMempoolRunner, JsonRpcMempoolViewer, JsonRpcNetworkStakeViewer, JsonRpcNetworkStakingStepRewardsViewer, JsonRpcStakeTotalsViewer,
   JsonRpcTimeSyncViewer, JsonRpcXyoRunner, JsonRpcXyoViewer, MempoolRunnerRpcSchemas, MempoolViewerRpcSchemas, NetworkStakeViewerRpcSchemas,
   StakeTotalsViewerRpcSchemas, TimeSyncViewerRpcSchemas, XyoRunnerRpcSchemas, XyoViewerRpcSchemas,
