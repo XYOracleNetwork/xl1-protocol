@@ -3,7 +3,7 @@ import {
   isAddress, isArray, isHash,
   isNumber, isObject,
 } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
+import type { AccountInstance } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, AttoXL1, ChainId, SignedHydratedTransaction, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'

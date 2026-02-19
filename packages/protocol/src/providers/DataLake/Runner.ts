@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type { WriteArchivistFunctions } from '@xyo-network/archivist-model'
+import type { WriteArchivistFunctions } from '@xyo-network/sdk-js'
 
 import type { DataLakeData, DataLakeProvider } from './Provider.ts'
 import type { DataLakeViewer, DataLakeViewerMethods } from './Viewer.ts'

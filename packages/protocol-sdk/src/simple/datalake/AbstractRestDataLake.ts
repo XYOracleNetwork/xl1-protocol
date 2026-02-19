@@ -2,8 +2,9 @@ import { axiosJsonConfig } from '@xylabs/axios'
 import {
   exists, type Hash, type PromisableArray,
 } from '@xylabs/sdk-js'
-import type { NextOptions } from '@xyo-network/archivist-model'
-import type { Schema, Sequence } from '@xyo-network/sdk-js'
+import type {
+  NextOptions, Schema, Sequence,
+} from '@xyo-network/sdk-js'
 import { asAnyPayload, isAnyPayload } from '@xyo-network/sdk-js'
 import type { DataLakeData, DataLakeViewer } from '@xyo-network/xl1-protocol'
 import { Axios } from 'axios'

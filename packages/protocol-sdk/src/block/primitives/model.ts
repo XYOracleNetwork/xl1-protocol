@@ -1,6 +1,6 @@
 import type {
   ReadArchivist, ReadWriteArchivist, WriteArchivist,
-} from '@xyo-network/archivist-model'
+} from '@xyo-network/sdk-js'
 
 export function isReadArchivist(value: unknown): value is ReadArchivist {
   return (value as ReadArchivist).get !== undefined && (value as ReadArchivist).next !== undefined

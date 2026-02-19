@@ -1,9 +1,9 @@
 import { AddressRegEx } from '@xylabs/sdk-js'
-import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
 import {
-  boundWitnessJsonSchema, PayloadBuilder, Uint256RegEx,
+  boundWitnessJsonSchema, BoundWitnessSchema,
+  PayloadBuilder, Uint256RegEx,
 } from '@xyo-network/sdk-js'
 import type { TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 import type { JSONSchemaType } from 'ajv'

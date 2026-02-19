@@ -1,9 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import { asArchivistInstance } from '@xyo-network/archivist-model'
 import type { ModuleIdentifier } from '@xyo-network/module-model'
-import type { NodeInstance } from '@xyo-network/node-model'
+import type { ArchivistInstance, NodeInstance } from '@xyo-network/sdk-js'
+import { asArchivistInstance } from '@xyo-network/sdk-js'
 import {
   MempoolRunner,
   type SignedHydratedTransaction, XyoRunner, XyoRunnerMoniker,

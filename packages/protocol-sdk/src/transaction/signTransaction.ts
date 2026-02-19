@@ -1,8 +1,7 @@
 import {
   assertEx, hexFromArrayBuffer, toArrayBuffer,
 } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
-import type { Signed } from '@xyo-network/boundwitness-model'
+import type { AccountInstance, Signed } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { TransactionBoundWitness, UnsignedTransactionBoundWitness } from '@xyo-network/xl1-protocol'
 

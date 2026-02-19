@@ -1,6 +1,5 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
-import type { Signed } from '@xyo-network/boundwitness-model'
-import type { Payload } from '@xyo-network/sdk-js'
+import type { Payload, Signed } from '@xyo-network/sdk-js'
 
 import type { AllowedBlockPayload } from '../../block/index.ts'
 import type { ChainId } from '../../chain/index.ts'

@@ -7,7 +7,7 @@ import {
   assertEx,
   delay, IdLogger,
 } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
+import type { AccountInstance } from '@xyo-network/sdk-js'
 import { Semaphore } from 'async-mutex'
 import z from 'zod'
 

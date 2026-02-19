@@ -1,7 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
-import type { ReadArchivist, ReadWriteArchivist } from '@xyo-network/archivist-model'
-import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
+import type {
+  Payload, ReadArchivist, ReadWriteArchivist, WithStorageMeta,
+} from '@xyo-network/sdk-js'
 import type { PayloadMap, PayloadMapRead } from '@xyo-network/xl1-protocol'
 
 import { isReadArchivist, isReadWriteArchivist } from '../block/index.ts'

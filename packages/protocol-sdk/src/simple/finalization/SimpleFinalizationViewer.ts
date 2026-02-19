@@ -2,7 +2,7 @@ import {
   assertEx,
   Hash,
 } from '@xylabs/sdk-js'
-import type { ReadArchivist } from '@xyo-network/archivist-model'
+import type { ReadArchivist } from '@xyo-network/sdk-js'
 import {
   asSignedHydratedBlockWithStorageMeta, BlockContextRead, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer,
   FinalizationViewerMoniker, type SignedBlockBoundWitnessWithHashMeta, type SignedHydratedBlockWithHashMeta,

@@ -7,11 +7,11 @@ import {
   assertEx, exists,
   toAddress,
 } from '@xylabs/sdk-js'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type {
+  ArchivistInstance,
   Payload, WithHashMeta, WithStorageMeta,
 } from '@xyo-network/sdk-js'
+import { BoundWitnessSchema } from '@xyo-network/sdk-js'
 import type {
   AccountBalanceViewer,
   AttoXL1,

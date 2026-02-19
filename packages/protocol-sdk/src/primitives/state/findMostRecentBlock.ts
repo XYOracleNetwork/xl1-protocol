@@ -1,6 +1,6 @@
-import type { NextOptions, ReadArchivist } from '@xyo-network/archivist-model'
 import type {
-  Payload, Sequence, WithStorageMeta,
+  NextOptions, Payload, ReadArchivist,
+  Sequence, WithStorageMeta,
 } from '@xyo-network/sdk-js'
 import type { SignedBlockBoundWitnessWithHashMeta } from '@xyo-network/xl1-protocol'
 import { isSignedBlockBoundWitnessWithStorageMeta } from '@xyo-network/xl1-protocol'

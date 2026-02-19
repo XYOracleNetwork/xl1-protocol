@@ -1,5 +1,5 @@
 import type { Address } from '@xylabs/sdk-js'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
+import type { ArchivistInstance } from '@xyo-network/sdk-js'
 import { Account } from '@xyo-network/sdk-js'
 import { type ChainId, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 

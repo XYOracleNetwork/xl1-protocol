@@ -3,9 +3,9 @@ import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
 import {
-  BoundWitnessZod, SignedBoundWitnessZod, UnsignedBoundWitnessZod,
-} from '@xyo-network/boundwitness-model'
-import { HashMetaZod, StorageMetaZod } from '@xyo-network/sdk-js'
+  BoundWitnessZod, HashMetaZod, SignedBoundWitnessZod, StorageMetaZod,
+  UnsignedBoundWitnessZod,
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import { XL1BlockNumberZod } from '../BlockNumber/index.ts'

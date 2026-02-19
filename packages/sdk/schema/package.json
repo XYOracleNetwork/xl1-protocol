@@ -38,13 +38,13 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xylabs/sdk-js": "~5.0.80",
-    "@xyo-network/boundwitness-model": "~5.3.7",
     "@xyo-network/boundwitness-wrapper": "~5.3.7",
     "@xyo-network/schema-payload-plugin": "~5.3.7",
     "@xyo-network/xl1-protocol": "~1.24.21"
   },
   "devDependencies": {
+    "@xylabs/sdk-js": "^5.0.80",
+    "@xyo-network/sdk-js": "^5.3.7",
     "@types/node": "~25.0.9",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",

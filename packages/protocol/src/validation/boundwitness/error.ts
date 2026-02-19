@@ -1,5 +1,4 @@
-import type { HydratedBoundWitness } from '@xyo-network/archivist-model'
-import { type BoundWitness } from '@xyo-network/boundwitness-model'
+import type { type BoundWitness, HydratedBoundWitness } from '@xyo-network/sdk-js'
 
 import { isValidationError, ValidationError } from '../error.ts'
 

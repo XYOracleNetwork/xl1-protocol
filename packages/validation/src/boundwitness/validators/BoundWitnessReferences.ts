@@ -1,7 +1,7 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 import { ZERO_HASH } from '@xylabs/sdk-js'
-import type { BoundWitness } from '@xyo-network/boundwitness-model'
 import type {
+  BoundWitness,
   Payload,
   Schema,
   WithHashMeta,

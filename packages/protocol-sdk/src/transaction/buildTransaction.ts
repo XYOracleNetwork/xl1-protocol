@@ -1,7 +1,6 @@
 import type { Address } from '@xylabs/sdk-js'
 import { assertEx, toHex } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
-import type { Payload } from '@xyo-network/sdk-js'
+import type { AccountInstance, Payload } from '@xyo-network/sdk-js'
 import { BoundWitnessBuilder, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload,

@@ -1,5 +1,4 @@
-import type { AttachableNodeInstance } from '@xyo-network/node-model'
-import type { WalletInstance } from '@xyo-network/wallet-model'
+import type { AttachableNodeInstance, WalletInstance } from '@xyo-network/sdk-js'
 
 import type { NetworkBootstrap } from '../../models/index.ts'
 import { getNetworkNode } from './getNetworkNode.ts'

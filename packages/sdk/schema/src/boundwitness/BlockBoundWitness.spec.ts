@@ -1,4 +1,4 @@
-import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
+import { BoundWitnessSchema } from '@xyo-network/sdk-js'
 import { Ajv } from 'ajv'
 import {
   describe, expect, test,

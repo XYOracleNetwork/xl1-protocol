@@ -1,8 +1,8 @@
 import {
   exists, isDefined, isHash,
 } from '@xylabs/sdk-js'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import {
+import type {
+  ArchivistInstance,
   HashMeta, isHashMeta, isPayloadBundle, PayloadBundle, type Sequence,
 } from '@xyo-network/sdk-js'
 import {

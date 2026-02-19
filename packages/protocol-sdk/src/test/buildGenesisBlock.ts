@@ -1,4 +1,4 @@
-import type { AccountInstance } from '@xyo-network/account-model'
+import type { AccountInstance } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, ChainId,
   SignedHydratedBlockWithHashMeta,

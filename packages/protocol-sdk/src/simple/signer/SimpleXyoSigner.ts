@@ -1,6 +1,5 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
-import { type Payload } from '@xyo-network/sdk-js'
+import type { AccountInstance, type Payload } from '@xyo-network/sdk-js'
 import { Account, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, ChainId, SignedHydratedTransactionWithHashMeta,

@@ -1,4 +1,4 @@
-import type { HydratedBoundWitness } from '@xyo-network/archivist-model'
+import type { HydratedBoundWitness } from '@xyo-network/sdk-js'
 
 import type { DataInstance } from './Data.ts'
 import type { ValidatableInstance } from './modifiers/index.ts'

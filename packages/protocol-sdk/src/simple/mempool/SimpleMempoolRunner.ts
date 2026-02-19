@@ -1,7 +1,7 @@
 import {
   assertEx, exists, type Hash,
 } from '@xylabs/sdk-js'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
+import type { ArchivistInstance } from '@xyo-network/sdk-js'
 import {
   isPayloadBundle, Payload, PayloadBuilder,
   Sequence,

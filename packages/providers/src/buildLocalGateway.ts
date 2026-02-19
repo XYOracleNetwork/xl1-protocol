@@ -1,6 +1,6 @@
-import type { AccountInstance } from '@xyo-network/account-model'
-import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import type { WithHashMeta } from '@xyo-network/sdk-js'
+import type {
+  AccountInstance, ArchivistInstance, WithHashMeta,
+} from '@xyo-network/sdk-js'
 import type { MapType } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, Config, TransfersStepSummary,

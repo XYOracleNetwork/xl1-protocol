@@ -40,19 +40,17 @@
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
     "@xylabs/sdk-js": "~5.0.80",
-    "@xyo-network/archivist-model": "~5.3.7",
-    "@xyo-network/boundwitness-model": "~5.3.7",
-    "@xyo-network/schema-payload-plugin": "~5.3.7",
-    "@xyo-network/sdk-js": "~5.3.7"
+    "@xyo-network/sdk-js": "~5.3.7",
+    "@xyo-network/schema-payload-plugin": "~5.3.7"
   },
   "devDependencies": {
     "@types/node": "~25.3.0",
     "@typescript-eslint/types": "~8.56.0",
     "@xylabs/creatable": "~5.0.80",
     "@xylabs/eslint-config-flat": "~7.3.2",
+    "@xyo-network/sdk-js": "^5.3.7",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/account-model": "~5.3.7",
     "dependency-cruiser": "~17.3.8",
     "dotenv": "~17.3.1",
     "eslint": "^9.39.2",
@@ -65,6 +63,7 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xyo-network/sdk-js": "^5",
     "zod": "^4"
   },
   "packageManager": "yarn@4.10.3",

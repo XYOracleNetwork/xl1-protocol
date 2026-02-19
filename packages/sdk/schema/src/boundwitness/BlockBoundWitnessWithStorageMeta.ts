@@ -1,9 +1,9 @@
-import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
 import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import {
-  boundWitnessJsonSchema, boundWitnessProperties, PayloadBuilder,
+  boundWitnessJsonSchema, boundWitnessProperties, BoundWitnessSchema,
+  PayloadBuilder,
 } from '@xyo-network/sdk-js'
 import type { BlockBoundWitness } from '@xyo-network/xl1-protocol'
 import type { JSONSchemaType } from 'ajv'

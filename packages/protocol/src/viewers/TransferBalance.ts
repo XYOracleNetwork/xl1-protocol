@@ -1,5 +1,5 @@
 import type { Address, Promisable } from '@xylabs/sdk-js'
-import type { Signed } from '@xyo-network/boundwitness-model'
+import type { Signed } from '@xyo-network/sdk-js'
 
 import type { BlockBoundWitness } from '../block/index.ts'
 import type { XL1BlockRange } from '../model/index.ts'

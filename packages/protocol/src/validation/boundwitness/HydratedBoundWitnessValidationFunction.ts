@@ -1,6 +1,7 @@
 import type { Promisable } from '@xylabs/sdk-js'
-import type { BoundWitness } from '@xyo-network/boundwitness-model'
-import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
+import type {
+  BoundWitness, Payload, WithHashMeta,
+} from '@xyo-network/sdk-js'
 
 import type { HydratedBoundWitnessValidationError } from './error.ts'
 

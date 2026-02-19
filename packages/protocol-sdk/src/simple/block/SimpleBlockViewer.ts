@@ -2,9 +2,9 @@ import type { Hash } from '@xylabs/sdk-js'
 import {
   assertEx, exists, isUndefined,
 } from '@xylabs/sdk-js'
-import type { ReadArchivist } from '@xyo-network/archivist-model'
-import {
-  isAnyPayload, type Payload, WithHashMeta,
+import type {
+  isAnyPayload, type Payload, ReadArchivist,
+  WithHashMeta,
 } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {

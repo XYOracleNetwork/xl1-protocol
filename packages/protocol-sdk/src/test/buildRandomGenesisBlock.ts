@@ -1,7 +1,7 @@
 import { asAddress, assertEx } from '@xylabs/sdk-js'
-import type { AccountInstance } from '@xyo-network/account-model'
 import type { Id } from '@xyo-network/id-payload-plugin'
 import { IdSchema } from '@xyo-network/id-payload-plugin'
+import type { AccountInstance } from '@xyo-network/sdk-js'
 import {
   Account, asSchema, PayloadBuilder,
 } from '@xyo-network/sdk-js'

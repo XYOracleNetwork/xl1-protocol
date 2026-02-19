@@ -1,6 +1,6 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import type { ReadArchivist } from '@xyo-network/archivist-model'
+import type { ReadArchivist } from '@xyo-network/sdk-js'
 import type { HydratedBlock } from '@xyo-network/xl1-protocol'
 import { isBlockBoundWitnessWithStorageMeta, isTransactionBoundWitnessWithStorageMeta } from '@xyo-network/xl1-protocol'
 

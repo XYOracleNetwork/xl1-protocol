@@ -1,7 +1,7 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
-import { UnsignedBoundWitnessZod } from '@xyo-network/boundwitness-model'
+import { UnsignedBoundWitnessZod } from '@xyo-network/sdk-js'
 import type { z } from 'zod'
 
 import { BlockBoundWitnessFieldsZod, BlockBoundWitnessMetaZod } from '../BlockBoundWitness.ts'

@@ -48,20 +48,14 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xylabs/axios": "^5.0.80",
-    "@xylabs/sdk-js": "~5.0.80",
-    "@xyo-network/account-model": "~5.3.7",
     "@xyo-network/archivist-memory": "~5.3.7",
-    "@xyo-network/archivist-model": "~5.3.7",
-    "@xyo-network/boundwitness-model": "~5.3.7",
-    "@xyo-network/id-payload-plugin": "~5.3.7",
     "@xyo-network/sdk-js": "~5.3.7",
+    "@xyo-network/id-payload-plugin": "~5.3.7",
     "@xyo-network/wallet": "~5.3.7",
     "@xyo-network/xl1-protocol": "~1.24.22",
     "@xyo-network/xl1-schema": "~1.24.22",
     "async-mutex": "~0.5.0",
     "cosmiconfig": "^9.0.0",
-    "ethers": "^6.16.0",
     "lru-cache": "^11.2.6"
   },
   "devDependencies": {
@@ -70,6 +64,7 @@
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
     "@xylabs/vitest-extended": "~5.0.80",
+    "@xyo-network/sdk-js": "^5.3.7",
     "@xyo-network/archivist-memory": "~5.3.7",
     "@xyo-network/archivist-mongodb": "~5.3.7",
     "@xyo-network/boundwitness-validator": "~5.3.7",
@@ -82,6 +77,7 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xyo-network/sdk-js": "^5",
     "axios": "^1",
     "mongodb": "^6 || ^7",
     "zod": "^4"

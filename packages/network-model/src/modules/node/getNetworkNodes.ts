@@ -1,4 +1,4 @@
-import type { AttachableNodeInstance } from '@xyo-network/node-model'
+import type { AttachableNodeInstance } from '@xyo-network/sdk-js'
 
 const networkNodeMap = new Map<string, AttachableNodeInstance>()
 

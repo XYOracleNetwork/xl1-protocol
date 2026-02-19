@@ -1,7 +1,7 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import { hydrateTypedBoundWitness, tryHydrateTypedBoundWitness } from '@xyo-network/archivist-model'
 import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
+import { hydrateTypedBoundWitness, tryHydrateTypedBoundWitness } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, HydratedTransaction, SignedHydratedTransaction,
   SignedHydratedTransactionWithHashMeta,
