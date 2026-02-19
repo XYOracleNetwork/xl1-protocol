@@ -1,6 +1,6 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
 import type { NextOptions } from '@xyo-network/archivist-model'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 
 export interface ReadRepository<TId, TData> {
   get(id: TId): Promisable<TData>

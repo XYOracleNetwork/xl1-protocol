@@ -1,5 +1,5 @@
 import { assertEx } from '@xylabs/sdk-js'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import type { HydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import { isTransactionBoundWitness } from '@xyo-network/xl1-protocol'
 

@@ -1,4 +1,4 @@
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import type { PayloadMapRead, PayloadMapWrite } from '@xyo-network/xl1-protocol'
 
 export interface ChainStoreWrite {

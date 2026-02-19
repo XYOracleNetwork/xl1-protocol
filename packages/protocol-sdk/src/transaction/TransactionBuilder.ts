@@ -1,8 +1,8 @@
 import type { Hex } from '@xylabs/sdk-js'
 import { assertEx, Base } from '@xylabs/sdk-js'
 import type { AccountInstance } from '@xyo-network/account-model'
-import type { Payload } from '@xyo-network/payload-model'
-import { PayloadBuilder, type PayloadBuilderOptions } from '@xyo-network/sdk-js'
+import type { Payload, PayloadBuilderOptions } from '@xyo-network/sdk-js'
+import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload,
   ChainId,

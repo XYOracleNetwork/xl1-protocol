@@ -1,7 +1,7 @@
 import {
   assertEx, exists, type Hash, isNull, type Promisable,
 } from '@xylabs/sdk-js'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   BlockViewer,
   ChainId, HydratedBlockWithHashMeta, SignedHydratedBlockWithHashMeta, SyncMap, WindowedBlockViewer, XL1BlockNumber,

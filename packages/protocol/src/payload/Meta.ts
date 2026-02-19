@@ -1,4 +1,4 @@
-import { HashMetaZod, StorageMetaZod } from '@xyo-network/payload-model'
+import { HashMetaZod, StorageMetaZod } from '@xyo-network/sdk-js'
 import z from 'zod'
 
 export function WithStorageMetaZod<T extends z.ZodType>(valueZod: T) {

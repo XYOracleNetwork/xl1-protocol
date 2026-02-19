@@ -1,6 +1,6 @@
 import type { Hash } from '@xylabs/sdk-js'
 import type { ReadArchivistFunctions } from '@xyo-network/archivist-model'
-import type { Sequence } from '@xyo-network/payload-model'
+import type { Sequence } from '@xyo-network/sdk-js'
 
 import type { DataLakeData, DataLakeProvider } from './Provider.ts'
 

@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type { Payload, Schema } from '@xyo-network/payload-model'
+import type { Payload, Schema } from '@xyo-network/sdk-js'
 import type { AllowedBlockPayload } from '@xyo-network/xl1-protocol'
 
 import type { TransactionFeesInstance } from '../Fees.ts'

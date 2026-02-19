@@ -5,7 +5,7 @@ import {
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'
 import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import type { SignedHydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import { asXL1BlockNumber } from '@xyo-network/xl1-protocol'
 import type {

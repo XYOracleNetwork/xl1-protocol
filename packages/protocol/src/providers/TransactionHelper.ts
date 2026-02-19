@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
 
 import type { UnsignedHydratedTransaction } from '../model/index.ts'
 

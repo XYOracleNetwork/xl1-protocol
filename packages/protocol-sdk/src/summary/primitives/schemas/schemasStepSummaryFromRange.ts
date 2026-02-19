@@ -1,8 +1,9 @@
 import { assertEx } from '@xylabs/sdk-js'
 import { isBoundWitness } from '@xyo-network/boundwitness-model'
-import type { Schema, WithHashMeta } from '@xyo-network/payload-model'
-import { isAnyPayload, isHashMeta } from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import type { Schema, WithHashMeta } from '@xyo-network/sdk-js'
+import {
+  isAnyPayload, isHashMeta, PayloadBuilder,
+} from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, MapType, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'

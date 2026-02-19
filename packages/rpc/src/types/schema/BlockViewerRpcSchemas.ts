@@ -1,5 +1,5 @@
 import { HashZod } from '@xylabs/sdk-js'
-import { PayloadZodLoose } from '@xyo-network/payload-model'
+import { PayloadZodLoose } from '@xyo-network/sdk-js'
 import { SignedHydratedBlockWithHashMetaZod, XL1BlockNumberZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 

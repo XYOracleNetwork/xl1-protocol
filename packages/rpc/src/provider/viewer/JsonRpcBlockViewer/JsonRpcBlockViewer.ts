@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 import {
   BlockRate,
   type BlockViewer,

@@ -2,7 +2,7 @@ import '@xylabs/vitest-extended'
 
 import type { Id } from '@xyo-network/id-payload-plugin'
 import { IdSchema } from '@xyo-network/id-payload-plugin'
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
 import {
   describe, expect, it,
 } from 'vitest'

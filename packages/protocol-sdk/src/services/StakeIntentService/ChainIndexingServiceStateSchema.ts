@@ -1,9 +1,9 @@
 import type { Hash, JsonValue } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, isStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 
 export interface ChainIndexingServiceStateFields<T extends JsonValue = JsonValue> {
   /**

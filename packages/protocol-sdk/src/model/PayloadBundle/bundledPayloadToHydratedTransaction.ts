@@ -1,4 +1,4 @@
-import type { PayloadBundle } from '@xyo-network/payload-model'
+import type { PayloadBundle } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { SignedHydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
 import { asSignedTransactionBoundWitnessWithHashMeta } from '@xyo-network/xl1-protocol'

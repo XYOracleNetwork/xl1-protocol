@@ -1,7 +1,7 @@
 import type {
   Address, Hash, Logger, Promisable,
 } from '@xylabs/sdk-js'
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
 
 import type { AllowedBlockPayload } from '../block/index.ts'
 import type { XL1BlockNumber } from '../BlockNumber/index.ts'

@@ -4,7 +4,7 @@ import type {
   Payload, Schema,
   WithHashMeta,
   WithStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, BaseContext, HydratedTransactionWithHashMeta, Transfer,

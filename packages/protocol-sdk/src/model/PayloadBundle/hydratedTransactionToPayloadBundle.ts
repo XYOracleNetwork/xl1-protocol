@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import { type PayloadBundle, PayloadBundleSchema } from '@xyo-network/payload-model'
+import { type PayloadBundle, PayloadBundleSchema } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { SignedHydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
 

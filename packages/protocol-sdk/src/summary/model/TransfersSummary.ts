@@ -1,9 +1,9 @@
 import type { Address } from '@xylabs/sdk-js'
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, isStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 
 import type { SignedBigInt } from '../../SignedBigInt.ts'
 import type { StepSummary } from './StepSummary.ts'

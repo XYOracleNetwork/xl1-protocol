@@ -1,5 +1,5 @@
 import { HashZod } from '@xylabs/sdk-js'
-import { PayloadZod } from '@xyo-network/payload-model'
+import { PayloadZod } from '@xyo-network/sdk-js'
 import { ArrayBufferToJsonZod, JsonToArrayBufferZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 

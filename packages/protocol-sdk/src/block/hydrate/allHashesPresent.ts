@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 
 export function allHashesPresent(hashes: Hash[], payloads: WithHashMeta<Payload>[]): boolean {
   const payloadHashes = new Set(payloads.map(p => p._hash))

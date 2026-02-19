@@ -1,7 +1,7 @@
 import { AsObjectFactory, HashZod } from '@xylabs/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, PayloadZodOfSchema,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 // xl1 = xl1 block number, epoch = epoch number, ethereum = ethereum block number

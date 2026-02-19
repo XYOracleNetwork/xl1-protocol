@@ -1,6 +1,6 @@
 import type { Hash, PromisableArray } from '@xylabs/sdk-js'
 import type { NextOptions } from '@xyo-network/archivist-model'
-import type { Sequence } from '@xyo-network/payload-model'
+import type { Sequence } from '@xyo-network/sdk-js'
 import type { DataLakeData, DataLakeViewerMethods } from '@xyo-network/xl1-protocol'
 import { DataLakeViewerMoniker } from '@xyo-network/xl1-protocol'
 

@@ -1,5 +1,5 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
-import type { Schema } from '@xyo-network/payload-model'
+import type { Schema } from '@xyo-network/sdk-js'
 
 export interface SchemasProvider {
   schema(head: Hash, schema: Schema): Promisable<number>

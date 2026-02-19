@@ -1,6 +1,6 @@
 import { type Hash } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
-import { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import { type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { FinalizationRunner, FinalizationRunnerMoniker } from '@xyo-network/xl1-protocol'
 

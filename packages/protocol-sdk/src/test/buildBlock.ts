@@ -4,7 +4,7 @@ import type { Hex } from '@xylabs/sdk-js'
 import {
   assertEx, isDefined, isHash, toSafeJsonString,
 } from '@xylabs/sdk-js'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import { BoundWitnessBuilder, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   BlockBoundWitness, SignedHydratedBlockWithHashMeta, Transfer,

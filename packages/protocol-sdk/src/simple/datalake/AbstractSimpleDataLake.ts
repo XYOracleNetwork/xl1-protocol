@@ -1,7 +1,7 @@
 import type { Hash, PromisableArray } from '@xylabs/sdk-js'
 import type { NextOptions } from '@xyo-network/archivist-model'
-import type { Schema, Sequence } from '@xyo-network/payload-model'
-import { isAnyPayload } from '@xyo-network/payload-model'
+import type { Schema, Sequence } from '@xyo-network/sdk-js'
+import { isAnyPayload } from '@xyo-network/sdk-js'
 import type {
   DataLakeData, DataLakeViewer, MapTypeRead,
 } from '@xyo-network/xl1-protocol'

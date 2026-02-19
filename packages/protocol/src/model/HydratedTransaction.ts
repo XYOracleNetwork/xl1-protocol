@@ -4,7 +4,7 @@ import {
 import {
   PayloadZodLoose, WithHashMetaZod,
   WithStorageMetaZod,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import {

@@ -1,8 +1,8 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, isStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 
 import type { BlockDuration } from '../../fields/index.ts'
 import type { FromFields } from './Executable.ts'

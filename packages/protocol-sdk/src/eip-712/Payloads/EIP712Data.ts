@@ -1,7 +1,7 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
 import {
   asSchema, isPayloadOfZodType, type Payload,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import {

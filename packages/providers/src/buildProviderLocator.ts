@@ -1,6 +1,6 @@
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import type { NodeInstance } from '@xyo-network/node-model'
-import type { WithHashMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type { MapType, Position } from '@xyo-network/xl1-protocol'
 import type {
   BalancesStepSummary, CreatableProviderContext, TransfersStepSummary,

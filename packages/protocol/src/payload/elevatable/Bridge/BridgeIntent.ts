@@ -1,6 +1,6 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Payload } from '@xyo-network/payload-model'
-import { asSchema, isPayloadOfZodType } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
+import { asSchema, isPayloadOfZodType } from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import { BridgeDetailsFieldsZod } from './BridgeDetails.ts'

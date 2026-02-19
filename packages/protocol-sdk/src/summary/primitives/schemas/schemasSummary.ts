@@ -1,5 +1,5 @@
 import { assertEx, spanRootAsync } from '@xylabs/sdk-js'
-import type { Schema, WithHashMeta } from '@xyo-network/payload-model'
+import type { Schema, WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, ChainQualified, ChainQualifiedConfig,
   MapType,

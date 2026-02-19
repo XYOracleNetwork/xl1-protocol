@@ -1,5 +1,5 @@
 import type { Address } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type { BlockBoundWitness } from '@xyo-network/xl1-protocol'
 
 export interface ElectionService {

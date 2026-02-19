@@ -4,7 +4,7 @@ import type {
 import {
   assertEx, BigIntToJsonZod, isDefined,
 } from '@xylabs/sdk-js'
-import { type Payload, type WithHashMeta } from '@xyo-network/payload-model'
+import { type Payload, type WithHashMeta } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, AttoXL1, ConfirmSubmittedTransactionOptions,

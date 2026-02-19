@@ -1,8 +1,7 @@
 import { type Address, spanRootAsync } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/payload-model'
-import { isAnyPayload } from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
+import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, MapType, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'

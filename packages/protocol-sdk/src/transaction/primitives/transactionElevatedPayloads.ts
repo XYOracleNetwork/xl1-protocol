@@ -1,5 +1,5 @@
 import { asHash, type Hash } from '@xylabs/sdk-js'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 import type { HydratedTransactionWithHashMeta, TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 
 import { crackOperations } from './transactionOperations.ts'

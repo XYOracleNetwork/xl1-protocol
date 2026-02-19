@@ -1,8 +1,8 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Schema, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Schema, WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, isStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 
 import type { StepSummary } from './StepSummary.ts'
 

@@ -4,7 +4,7 @@ import {
   assertEx, exists, isDefined,
   ZERO_ADDRESS,
 } from '@xylabs/sdk-js'
-import type { WithHashMeta, WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta, WithStorageMeta } from '@xyo-network/sdk-js'
 import type {
   AccountBalanceConfig,
   AccountBalanceHistoryItem,

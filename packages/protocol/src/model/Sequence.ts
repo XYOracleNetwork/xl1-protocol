@@ -1,6 +1,6 @@
 import { HexRegExMinMax, toHex } from '@xylabs/sdk-js'
-import type { LocalSequence, QualifiedSequence } from '@xyo-network/payload-model'
-import { SequenceConstants } from '@xyo-network/payload-model'
+import type { LocalSequence, QualifiedSequence } from '@xyo-network/sdk-js'
+import { SequenceConstants } from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 const LocalSequenceRegex = new RegExp(HexRegExMinMax(SequenceConstants.localSequenceBytes, SequenceConstants.localSequenceBytes))

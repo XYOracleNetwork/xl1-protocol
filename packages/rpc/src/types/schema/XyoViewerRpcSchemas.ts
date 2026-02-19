@@ -2,7 +2,7 @@ import {
   AddressZod,
   BigIntToJsonZod, HashZod, HexZod, JsonToBigIntZod,
 } from '@xylabs/sdk-js'
-import { PayloadZodLoose } from '@xyo-network/payload-model'
+import { PayloadZodLoose } from '@xyo-network/sdk-js'
 import {
   AccountBalanceHistoryItemZod,
   asAttoXL1,

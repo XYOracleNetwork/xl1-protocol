@@ -2,7 +2,7 @@ import { type Hash, isDefined } from '@xylabs/sdk-js'
 import {
   asAnyPayload,
   asHashMeta, isAnyPayload, type Payload, type WithHashMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   BlockViewerMethods, DataLakeViewer, SignedHydratedBlockWithHashMeta, XL1BlockNumber,

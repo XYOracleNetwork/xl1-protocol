@@ -1,4 +1,4 @@
-import type { Payload, WithStorageMeta } from '@xyo-network/payload-model'
+import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import z from 'zod'
 
 import type { PayloadMapRead, PayloadMapWrite } from '../PayloadMap.ts'

@@ -1,5 +1,5 @@
 import type { Hash, Promisable } from '@xylabs/sdk-js'
-import type { Payload, WithHashMeta } from '@xyo-network/payload-model'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 
 import type { SignedHydratedBlockWithHashMeta } from '../block/index.ts'
 import type { XL1BlockNumber } from '../BlockNumber/index.ts'

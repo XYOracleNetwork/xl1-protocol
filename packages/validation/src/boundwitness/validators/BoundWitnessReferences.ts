@@ -5,8 +5,8 @@ import type {
   Payload,
   Schema,
   WithHashMeta,
-} from '@xyo-network/payload-model'
-import { isAnyPayload } from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
+import { isAnyPayload } from '@xyo-network/sdk-js'
 import type { HydratedBoundWitnessValidationFunction, HydratedBoundWitnessWithHashMeta } from '@xyo-network/xl1-protocol'
 import { HydratedBoundWitnessValidationError } from '@xyo-network/xl1-protocol'
 

@@ -3,7 +3,7 @@ import {
   Promisable,
   PromisableArray,
 } from '@xylabs/sdk-js'
-import { isAnyPayload, PayloadZodLoose } from '@xyo-network/payload-model'
+import { isAnyPayload, PayloadZodLoose } from '@xyo-network/sdk-js'
 import {
   DataLakeData,
   DataLakeRunner,

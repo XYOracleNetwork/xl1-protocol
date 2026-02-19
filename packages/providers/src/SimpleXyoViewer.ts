@@ -11,7 +11,7 @@ import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
 import type {
   Payload, WithHashMeta, WithStorageMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import type {
   AccountBalanceViewer,
   AttoXL1,

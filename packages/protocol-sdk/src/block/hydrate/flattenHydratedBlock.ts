@@ -1,4 +1,4 @@
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
 import { type BlockBoundWitness, toHydratedBlock } from '@xyo-network/xl1-protocol'
 
 export const flattenHydratedBlock = <B extends BlockBoundWitness, P extends Payload>(hydratedBlock: [B, P[]]): (P | B)[] => {

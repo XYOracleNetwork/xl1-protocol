@@ -4,7 +4,7 @@ import {
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import {
   HashMeta, isHashMeta, isPayloadBundle, PayloadBundle, type Sequence,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import {
   type HydratedTransactionWithHashMeta, type MempoolViewer, MempoolViewerMoniker,
   PendingTransactionsOptions,

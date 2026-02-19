@@ -4,7 +4,7 @@ import {
 } from '@xylabs/sdk-js'
 import {
   asSchema, isPayloadOfSchemaType, PayloadZodOfSchema,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 export const TransferSchema = asSchema('network.xyo.transfer', true)

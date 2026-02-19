@@ -1,5 +1,5 @@
 import type { Hash } from '@xylabs/sdk-js'
-import { type Payload } from '@xyo-network/payload-model'
+import { type Payload } from '@xyo-network/sdk-js'
 
 import type { HydratedBlock } from '../../block/index.ts'
 import { isValidationError, ValidationError } from '../error.ts'

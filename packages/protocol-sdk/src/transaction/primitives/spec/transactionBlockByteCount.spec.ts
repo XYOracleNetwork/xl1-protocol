@@ -1,7 +1,7 @@
 import type {
   Address, Hash, Hex,
 } from '@xylabs/sdk-js'
-import { asSchema, type Sequence } from '@xyo-network/payload-model'
+import { asSchema, type Sequence } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type { HydratedTransactionWithStorageMeta } from '@xyo-network/xl1-protocol'
 import {

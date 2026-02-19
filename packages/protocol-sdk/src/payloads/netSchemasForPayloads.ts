@@ -2,7 +2,7 @@ import {
   type Address, type Hex, hexToBigInt, toAddress,
 } from '@xylabs/sdk-js'
 import { span } from '@xylabs/sdk-js'
-import type { Payload } from '@xyo-network/payload-model'
+import type { Payload } from '@xyo-network/sdk-js'
 import { isTransfer } from '@xyo-network/xl1-protocol'
 
 export const netSchemasForPayloads = (payloads: Payload[]) => {

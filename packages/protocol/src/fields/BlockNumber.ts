@@ -1,10 +1,10 @@
 import { AsObjectFactory } from '@xylabs/sdk-js'
-import type { Payload, WithSources } from '@xyo-network/payload-model'
+import type { Payload, WithSources } from '@xyo-network/sdk-js'
 import {
   asSchema,
   isPayloadOfSchemaType,
   isPayloadOfSchemaTypeWithSources,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 
 import type { XL1BlockNumber } from '../BlockNumber/index.ts'
 

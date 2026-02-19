@@ -1,6 +1,6 @@
 import { asHash, type Hash } from '@xylabs/sdk-js'
 import { assertEx, filterAs } from '@xylabs/sdk-js'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
+import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import type { AllowedBlockPayload, HydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
 import { isAllowedBlockPayloadWithHashMeta } from '@xyo-network/xl1-protocol'
 

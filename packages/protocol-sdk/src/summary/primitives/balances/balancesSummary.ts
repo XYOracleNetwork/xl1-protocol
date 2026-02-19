@@ -2,7 +2,7 @@ import type { Address } from '@xylabs/sdk-js'
 import {
   asAddress, assertEx, spanRootAsync,
 } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   BlockViewer,
   CachingContext, ChainQualified, ChainQualifiedConfig,

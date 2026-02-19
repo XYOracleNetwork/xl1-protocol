@@ -1,6 +1,7 @@
 import { asHash } from '@xylabs/sdk-js'
-import { PayloadZodLoose, WithStorageMetaZod } from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import {
+  PayloadBuilder, PayloadZodLoose, WithStorageMetaZod,
+} from '@xyo-network/sdk-js'
 import {
   describe, expect, it,
 } from 'vitest'

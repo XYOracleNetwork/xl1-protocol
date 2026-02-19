@@ -1,7 +1,7 @@
 import { AsObjectFactory, HashZod } from '@xylabs/sdk-js'
 import {
   asSchema, isPayloadOfZodType, type Payload,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 export const EIP712SignaturePayloadFieldsZod = z.object({

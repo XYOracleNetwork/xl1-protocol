@@ -1,4 +1,4 @@
-import type { Payload, Schema } from '@xyo-network/payload-model'
+import type { Payload, Schema } from '@xyo-network/sdk-js'
 
 import type { Provider, ProviderMoniker } from '../../provider/index.ts'
 

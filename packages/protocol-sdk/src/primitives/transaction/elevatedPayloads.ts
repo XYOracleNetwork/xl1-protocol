@@ -1,4 +1,4 @@
-import type { WithHashMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type { AllowedBlockPayload, HydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
 import { isAllowedBlockPayload } from '@xyo-network/xl1-protocol'
 

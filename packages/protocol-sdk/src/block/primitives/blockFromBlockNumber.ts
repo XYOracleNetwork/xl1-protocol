@@ -3,7 +3,7 @@ import {
 } from '@xylabs/sdk-js'
 import { toSafeJsonString } from '@xylabs/sdk-js'
 import type { Signed } from '@xyo-network/boundwitness-model'
-import type { WithHashMeta } from '@xyo-network/payload-model'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   BlockBoundWitness, ChainContextRead, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'

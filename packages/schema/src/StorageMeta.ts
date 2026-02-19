@@ -1,5 +1,5 @@
 import { HashRegEx, HexRegEx } from '@xylabs/sdk-js'
-import type { StorageMeta } from '@xyo-network/payload-model'
+import type { StorageMeta } from '@xyo-network/sdk-js'
 import type { JSONSchemaType } from 'ajv'
 
 export const StorageMetaJsonSchema: JSONSchemaType<StorageMeta> = {

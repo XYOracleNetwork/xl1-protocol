@@ -1,8 +1,7 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
-import { HashMetaZod } from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import { HashMetaZod, PayloadBuilder } from '@xyo-network/sdk-js'
 import type { z } from 'zod'
 
 import { isSignedBlockBoundWitness, SignedBlockBoundWitnessZod } from './SignedBlockBoundWitness.ts'

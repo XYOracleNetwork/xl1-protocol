@@ -5,7 +5,7 @@ import {
 import type { ReadArchivist } from '@xyo-network/archivist-model'
 import {
   isAnyPayload, type Payload, WithHashMeta,
-} from '@xyo-network/payload-model'
+} from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,

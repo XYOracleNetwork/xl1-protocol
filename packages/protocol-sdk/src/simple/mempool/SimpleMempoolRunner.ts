@@ -3,10 +3,10 @@ import {
 } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/archivist-model'
 import {
-  isPayloadBundle, Payload, Sequence,
+  isPayloadBundle, Payload, PayloadBuilder,
+  Sequence,
   WithHashMeta,
-} from '@xyo-network/payload-model'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+} from '@xyo-network/sdk-js'
 import {
   BlockValidationViewer,
   BlockValidationViewerMoniker,

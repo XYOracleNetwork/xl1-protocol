@@ -1,7 +1,7 @@
 import { BoundWitnessSchema } from '@xyo-network/boundwitness-model'
-import type { WithStorageMeta } from '@xyo-network/payload-model'
 import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
 import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
+import type { WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   boundWitnessJsonSchema, boundWitnessProperties, PayloadBuilder,
 } from '@xyo-network/sdk-js'

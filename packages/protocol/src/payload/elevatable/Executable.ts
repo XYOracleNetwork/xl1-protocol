@@ -1,5 +1,5 @@
 import type { Address, EmptyObject } from '@xylabs/sdk-js'
-import { isAnyPayload } from '@xyo-network/payload-model'
+import { isAnyPayload } from '@xyo-network/sdk-js'
 
 export interface FromFields {
   // the address that is treated as the source of this action
