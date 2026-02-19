@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-wrappers",
-  "version": "1.24.21",
+  "version": "1.24.22",
   "description": "XYO Layer One SDK Wrappers",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -43,9 +43,9 @@
     "@xyo-network/boundwitness-model": "~5.3.7",
     "@xyo-network/boundwitness-validator": "~5.3.7",
     "@xyo-network/sdk-js": "~5.3.7",
-    "@xyo-network/xl1-protocol": "~1.24.21",
-    "@xyo-network/xl1-protocol-sdk": "~1.24.21",
-    "@xyo-network/xl1-validation": "~1.24.21"
+    "@xyo-network/xl1-protocol": "~1.24.22",
+    "@xyo-network/xl1-protocol-sdk": "~1.24.22",
+    "@xyo-network/xl1-validation": "~1.24.22"
   },
   "devDependencies": {
     "@types/node": "~25.3.0",
