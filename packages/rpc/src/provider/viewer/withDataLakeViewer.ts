@@ -1,9 +1,8 @@
 import { type Hash, isNull } from '@xylabs/sdk-js'
-import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
-  DataLakeViewer,
-  SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, XL1BlockNumber, XyoViewer,
+  DataLakeViewer, SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, XL1BlockNumber, XyoViewer,
 } from '@xyo-network/xl1-protocol'
+import { addDataLakePayloadsToBlock, addDataLakePayloadsToTransaction } from '@xyo-network/xl1-protocol'
 
 import type { JsonRpcXyoViewer } from './JsonRpcXyoViewer.ts'
 
@@ -34,25 +33,4 @@ export function withDataLakeViewer(viewer: JsonRpcXyoViewer, dataLakeViewer: Dat
       return Reflect.get(target, prop, receiver)
     },
   })
-}
-
-async function addDataLakePayloadsToBlock(
-  block: SignedHydratedBlockWithHashMeta,
-  dataLakeViewer: DataLakeViewer,
-): Promise<SignedHydratedBlockWithHashMeta> {
-  const missingPayloadHashes = block[0].payload_hashes.filter(hash => !block[1].some(p => p._hash === hash))
-  if (missingPayloadHashes.length === 0) return block
-  const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
-  return [block[0], [...block[1], ...payloadsFromDataLake]]
-}
-
-async function addDataLakePayloadsToTransaction(
-  transaction: SignedHydratedTransaction,
-  dataLakeViewer: DataLakeViewer,
-): Promise<SignedHydratedTransaction> {
-  const payloadsWithHashMeta = await PayloadBuilder.addHashMeta(transaction[1])
-  const missingPayloadHashes = transaction[0].payload_hashes.filter(hash => !payloadsWithHashMeta.some(p => p._hash === hash))
-  if (missingPayloadHashes.length === 0) return transaction
-  const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
-  return [transaction[0], [...transaction[1], ...payloadsFromDataLake]]
 }
