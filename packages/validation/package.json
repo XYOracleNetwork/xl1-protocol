@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-validation",
-  "version": "1.24.22",
+  "version": "1.24.23",
   "description": "XYO Layer One SDK Validation",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -40,9 +40,9 @@
   ],
   "dependencies": {
     "@xyo-network/boundwitness-validator": "~5.3.7",
-    "@xyo-network/xl1-protocol": "~1.24.22",
-    "@xyo-network/xl1-protocol-sdk": "~1.24.22",
-    "@xyo-network/xl1-schema": "~1.24.22",
+    "@xyo-network/xl1-protocol": "~1.24.23",
+    "@xyo-network/xl1-protocol-sdk": "~1.24.23",
+    "@xyo-network/xl1-schema": "~1.24.23",
     "ajv": "~8.18.0"
   },
   "devDependencies": {
@@ -50,7 +50,6 @@
     "@xylabs/sdk-js": "^5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/sdk-js": "^5.3.7",
     "@xyo-network/account": "~5.3.7",
     "@xyo-network/archivist-memory": "~5.3.7",
     "@xyo-network/sdk-js": "~5.3.7",
