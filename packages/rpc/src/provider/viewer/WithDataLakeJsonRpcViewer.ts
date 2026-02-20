@@ -2,53 +2,57 @@ import { type Hash, isNull } from '@xylabs/sdk-js'
 import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   DataLakeViewer,
-  SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, XL1BlockNumber,
+  SignedHydratedBlockWithHashMeta, SignedHydratedTransaction, XL1BlockNumber, XyoViewer,
 } from '@xyo-network/xl1-protocol'
-import { DataLakeViewerMoniker } from '@xyo-network/xl1-protocol'
 
-import { JsonRpcXyoViewer } from './JsonRpcXyoViewer.ts'
+import type { JsonRpcXyoViewer } from './JsonRpcXyoViewer.ts'
 
-export class JsonRpcViewerWithDataLake extends JsonRpcXyoViewer {
-  protected dataLakeViewer: DataLakeViewer | undefined
+// Proxy is probably a better way to augment the viewer, but it won't work as a creatable provider.
+// The viewer type needs to be a Creatable Provider that has the static factory methods, but the proxy
+// needs to be an instance of the viewer type.
+export function withDataLakeViewer(viewer: JsonRpcXyoViewer, dataLakeViewer: DataLakeViewer): XyoViewer {
+  return new Proxy(viewer, {
+    get: (target, prop, receiver) => {
+      if (prop === 'blocksByHash') {
+        return async (hash: Hash, limit?: number): Promise<SignedHydratedBlockWithHashMeta[]> => {
+          const blocks = await target.blocksByHash(hash, limit)
+          return await Promise.all(blocks.map(block => addDataLakePayloadsToBlock(block, dataLakeViewer)))
+        }
+      }
+      if (prop === 'blocksByNumber') {
+        return async (blockNumber: XL1BlockNumber, limit?: number): Promise<SignedHydratedBlockWithHashMeta[]> => {
+          const blocks = await target.blocksByNumber(blockNumber, limit)
+          return await Promise.all(blocks.map(block => addDataLakePayloadsToBlock(block, dataLakeViewer)))
+        }
+      }
+      if (prop === 'transactionByHash') {
+        return async (hash: Hash): Promise<SignedHydratedTransaction | null> => {
+          const transaction = await target.transactionByHash(hash)
+          return isNull(transaction) ? transaction : await addDataLakePayloadsToTransaction(transaction, dataLakeViewer)
+        }
+      }
+      return Reflect.get(target, prop, receiver)
+    },
+  })
+}
 
-  override async blocksByHash(hash: Hash, limit?: number): Promise<SignedHydratedBlockWithHashMeta[]> {
-    const blocks = await super.blocksByHash(hash, limit)
-    return await Promise.all(blocks.map(async block => await this.addDataLakePayloadsToBlock(block)))
-  }
+async function addDataLakePayloadsToBlock(
+  block: SignedHydratedBlockWithHashMeta,
+  dataLakeViewer: DataLakeViewer,
+): Promise<SignedHydratedBlockWithHashMeta> {
+  const missingPayloadHashes = block[0].payload_hashes.filter(hash => !block[1].some(p => p._hash === hash))
+  if (missingPayloadHashes.length === 0) return block
+  const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
+  return [block[0], [...block[1], ...payloadsFromDataLake]]
+}
 
-  override async blocksByNumber(blockNumber: XL1BlockNumber, limit?: number): Promise<SignedHydratedBlockWithHashMeta[]> {
-    const blocks = await super.blocksByNumber(blockNumber, limit)
-    return await Promise.all(blocks.map(async block => await this.addDataLakePayloadsToBlock(block)))
-  }
-
-  override async createHandler() {
-    await super.createHandler()
-    this.dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
-  }
-
-  override async transactionByHash(hash: Hash): Promise<SignedHydratedTransaction | null> {
-    const transaction = await super.transactionByHash(hash)
-    if (!this.dataLakeViewer) return transaction
-
-    return isNull(transaction) ? transaction : await this.addDataLakePayloadsToTransaction(transaction)
-  }
-
-  protected async addDataLakePayloadsToBlock(block: SignedHydratedBlockWithHashMeta): Promise<SignedHydratedBlockWithHashMeta> {
-    const dataLakeViewer = this.dataLakeViewer
-    if (!dataLakeViewer) return block
-    const missingPayloadHashes = block[0].payload_hashes.filter(hash => !block[1].some(p => p._hash === hash))
-    if (missingPayloadHashes.length === 0) return block
-    const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
-    return [block[0], [...block[1], ...payloadsFromDataLake]]
-  }
-
-  protected async addDataLakePayloadsToTransaction(transaction: SignedHydratedTransaction): Promise<SignedHydratedTransaction> {
-    const dataLakeViewer = this.dataLakeViewer
-    if (!dataLakeViewer) return transaction
-    const payloadsWithHashMeta = await PayloadBuilder.addHashMeta(transaction[1])
-    const missingPayloadHashes = transaction[0].payload_hashes.filter(hash => !payloadsWithHashMeta.some(p => p._hash === hash))
-    if (missingPayloadHashes.length === 0) return transaction
-    const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
-    return [transaction[0], [...transaction[1], ...payloadsFromDataLake]]
-  }
+async function addDataLakePayloadsToTransaction(
+  transaction: SignedHydratedTransaction,
+  dataLakeViewer: DataLakeViewer,
+): Promise<SignedHydratedTransaction> {
+  const payloadsWithHashMeta = await PayloadBuilder.addHashMeta(transaction[1])
+  const missingPayloadHashes = transaction[0].payload_hashes.filter(hash => !payloadsWithHashMeta.some(p => p._hash === hash))
+  if (missingPayloadHashes.length === 0) return transaction
+  const payloadsFromDataLake = await PayloadBuilder.addHashMeta((await dataLakeViewer.get(missingPayloadHashes)).filter(isAnyPayload))
+  return [transaction[0], [...transaction[1], ...payloadsFromDataLake]]
 }
