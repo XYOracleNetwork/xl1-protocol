@@ -3,8 +3,10 @@ import {
 } from '@xylabs/sdk-js'
 import type {
   ArchivistInstance,
-  HashMeta, isHashMeta, isPayloadBundle, PayloadBundle, type Sequence,
+  HashMeta,
+  PayloadBundle, Sequence,
 } from '@xyo-network/sdk-js'
+import { isHashMeta, isPayloadBundle } from '@xyo-network/sdk-js'
 import {
   type HydratedTransactionWithHashMeta, type MempoolViewer, MempoolViewerMoniker,
   PendingTransactionsOptions,

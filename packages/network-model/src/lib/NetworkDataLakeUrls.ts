@@ -1,7 +1,8 @@
-import type { GatewayName } from '@xyo-network/xl1-sdk'
+import type { GatewayName } from '@xyo-network/xl1-protocol'
+
 import {
   LocalNetwork, MainNetwork, SequenceNetwork,
-} from '@xyo-network/xl1-sdk'
+} from './Networks.ts'
 
 // Map of network Ids to their corresponding Data Lake URLs
 // This lives here for now but could be moved to a protocol package if we want to share more broadly.

@@ -1,4 +1,4 @@
-import type { type BoundWitness, HydratedBoundWitness } from '@xyo-network/sdk-js'
+import type { BoundWitness, HydratedBoundWitness } from '@xyo-network/sdk-js'
 
 import { isValidationError, ValidationError } from '../error.ts'
 

@@ -3,10 +3,10 @@ import {
   assertEx, exists, isUndefined,
 } from '@xylabs/sdk-js'
 import type {
-  isAnyPayload, type Payload, ReadArchivist,
+  Payload, ReadArchivist,
   WithHashMeta,
 } from '@xyo-network/sdk-js'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
   BlockContextRead,
