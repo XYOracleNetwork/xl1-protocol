@@ -64,6 +64,7 @@
     "@xylabs/tsconfig": "~7.3.2",
     "@xyo-network/sdk-js": "^5.3.7",
     "axios": "^1.13.5",
+    "ethers": "^6.16.0",
     "typescript": "~5.9.3",
     "zod": "~4.3.6"
   },
@@ -71,6 +72,7 @@
     "@xylabs/sdk-js": "^5",
     "@xyo-network/sdk-js": "^5",
     "axios": "^1",
+    "ethers": "^6",
     "zod": "^4"
   },
   "packageManager": "yarn@4.12.0",

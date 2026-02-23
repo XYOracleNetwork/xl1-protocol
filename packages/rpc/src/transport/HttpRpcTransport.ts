@@ -1,8 +1,8 @@
 import type {
   JsonRpcFailure, JsonRpcRequest, JsonRpcSuccess,
 } from '@metamask/utils'
-import { axiosJsonConfig } from '@xylabs/axios'
 import {
+  axiosJsonConfig,
   isDefined, isError, isUndefinedOrNull,
 } from '@xylabs/sdk-js'
 import { Axios, isAxiosError } from 'axios'

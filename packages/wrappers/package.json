@@ -52,12 +52,16 @@
     "@xyo-network/sdk-js": "^5.3.7",
     "axios": "^1.13.5",
     "eslint": "^9.39.2",
+    "ethers": "^6.16.0",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xylabs/sdk-js": "^5",
+    "@xyo-network/sdk-js": "^5",
     "axios": "^1",
+    "ethers": "^6",
     "zod": "^4"
   },
   "engines": {

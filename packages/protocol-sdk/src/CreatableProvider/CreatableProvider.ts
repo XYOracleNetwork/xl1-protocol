@@ -1,6 +1,6 @@
-import type { EventData } from '@xylabs/events'
 import type {
   Creatable, CreatableInstance, CreatableParams,
+  EventData,
   Labels, WithOptionalLabels,
 } from '@xylabs/sdk-js'
 import type { Provider, ProviderMoniker } from '@xyo-network/xl1-protocol'

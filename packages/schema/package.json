@@ -57,6 +57,8 @@
     "zod": "~4.3.6"
   },
   "peerDependencies": {
+    "@xylabs/sdk-js": "^5",
+    "@xyo-network/sdk-js": "^5",
     "zod": "^4"
   },
   "engines": {

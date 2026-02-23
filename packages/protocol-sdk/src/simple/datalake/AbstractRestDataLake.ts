@@ -1,4 +1,4 @@
-import { axiosJsonConfig } from '@xylabs/axios'
+import { axiosJsonConfig } from '@xylabs/sdk-js'
 import {
   exists, type Hash, type PromisableArray,
 } from '@xylabs/sdk-js'
