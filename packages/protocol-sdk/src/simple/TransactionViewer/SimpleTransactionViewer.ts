@@ -1,5 +1,5 @@
 import {
-  type Address, assertEx, exists, Hash,
+  assertEx, exists, Hash,
 } from '@xylabs/sdk-js'
 import {
   BoundWitnessSchema, Payload, WithStorageMeta,
@@ -9,7 +9,7 @@ import {
   BlockViewerMoniker,
   isTransactionBoundWitnessWithStorageMeta,
   PayloadMapRead,
-  Position, SignedHydratedTransactionWithHashMeta, TransactionViewer, TransactionViewerMoniker,
+  SignedHydratedTransactionWithHashMeta, TransactionViewer, TransactionViewerMoniker,
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
@@ -20,9 +20,7 @@ import { tryHydrateTransaction } from '../../transaction/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleTransactionViewerParams extends CreatableProviderParams {
-  chainId?: Address
-  minWithdrawalBlocks?: number
-  positions: Position[]
+
 }
 
 @creatableProvider()
