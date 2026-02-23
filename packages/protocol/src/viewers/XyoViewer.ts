@@ -15,6 +15,7 @@ import type { StepViewer } from './StepViewer.ts'
 import type { TimeSyncViewer } from './TimeSync.ts'
 import type { TransactionViewerMethods } from './Transaction.ts'
 
+/** @deprecated Use XyoViewerMethodsV2 instead */
 export interface XyoViewerMethods extends
   NetworkStakeStepRewardViewerMethods, BlockViewerMethods,
   TransactionViewerMethods, Omit<
@@ -27,14 +28,32 @@ export interface XyoViewerMethods extends
   accountBalanceHistory(address: Address, config?: ChainQualifiedConfig): Promisable<AccountBalanceHistoryItem[]>
 }
 
+export interface XyoViewerMethodsV2 {
+
+}
+
 export const XyoViewerMoniker = 'XyoViewer' as const
 export type XyoViewerMoniker = typeof XyoViewerMoniker
 
+/** @deprecated Use XyoViewerV2 instead */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface XyoViewer extends Omit<BlockViewer, 'moniker'>, XyoViewerMethods,
   Omit<
     StakeViewerMethods, 'moniker' | 'minWithdrawalBlocks' | 'rewardsContract' | 'stakingTokenAddress' | 'active'
     | 'activeByAddressStaked' | 'activeByStaker' | 'pending' | 'pendingByStaker' | 'withdrawn' | 'withdrawnByStaker'
   >, Provider<XyoViewerMoniker> {
+  account: {
+    balance: AccountBalanceViewer
+  }
+  block: BlockViewer
+  mempool: MempoolViewer
+  networkStake: NetworkStakeViewer
+  stake: StakeViewer
+  step: StepViewer
+  time: TimeSyncViewer
+}
+
+export interface XyoViewerV2 extends XyoViewerMethodsV2, Provider<XyoViewerMoniker> {
   account: {
     balance: AccountBalanceViewer
   }

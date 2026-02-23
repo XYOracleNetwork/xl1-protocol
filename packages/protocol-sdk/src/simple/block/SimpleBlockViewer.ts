@@ -6,8 +6,6 @@ import type {
   Payload, ReadArchivist, WithHashMeta,
 } from '@xyo-network/sdk-js'
 import {
-  addDataLakePayloadsToBlock,
-  addDataLakePayloadsToPayloads,
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
   BlockContextRead,
   BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker,
@@ -21,12 +19,13 @@ import { AbstractCreatableProvider, creatableProvider } from '../../CreatablePro
 import { LruCacheMap } from '../../driver/index.ts'
 import { ChainStoreRead } from '../../model/index.ts'
 import {
+  addDataLakePayloads,
+  addDataLakePayloadsToPayloads,
   calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber, readPayloadMapFromStore,
 } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleBlockViewerParams extends CreatableProviderParams {
-  chainContractViewer?: ChainContractViewer
   finalizedArchivist: ReadArchivist
 }
 
@@ -85,7 +84,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
       const cache = this.hydratedBlockCache
       const block = await cache.get(hash)
-      const result = block ? await addDataLakePayloadsToBlock(block, this.dataLakeViewer) : null
+      const [result] = block ? await addDataLakePayloads(block, this.dataLakeViewer) : [null, []]
       if (result) {
         this.signedHydratedBlockWithDataLakePayloadsCache.set(hash, result)
       }
@@ -100,7 +99,8 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
         return null
       }
       const block = asSignedHydratedBlockWithHashMeta(await hydratedBlockByNumber(await this.getChainContextRead(), blockNumber)) ?? null
-      return block ? await addDataLakePayloadsToBlock(block, this.dataLakeViewer) : null
+      const [result] = block ? await addDataLakePayloads(block, this.dataLakeViewer) : [null, []]
+      return result
     }, this.context)
   }
 
@@ -147,7 +147,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
 
   override async createHandler() {
     await super.createHandler()
-    this.chainContractViewer = this.params.chainContractViewer ?? assertEx(
+    this.chainContractViewer = assertEx(
       await this.locateAndCreate<ChainContractViewer>(ChainContractViewerMoniker),
       () => 'chainContractViewer is required',
     )
@@ -157,7 +157,8 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   }
 
   async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {
-    return await addDataLakePayloadsToBlock(await this.finalizationViewer.head(), this.dataLakeViewer)
+    const [result] = await addDataLakePayloads(await this.finalizationViewer.head(), this.dataLakeViewer)
+    return result
   }
 
   async currentBlockHash(): Promise<Hash> {
@@ -181,7 +182,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     const finalizedPayloads = remainingHashes.length > 0
       ? await this.finalizedArchivist.get(remainingHashes)
       : []
-    const resultPayloads = await addDataLakePayloadsToPayloads(hashes, [...cachedPayloads, ...finalizedPayloads.filter(exists)], this.dataLakeViewer)
+    const [resultPayloads] = await addDataLakePayloadsToPayloads(hashes, [...cachedPayloads, ...finalizedPayloads.filter(exists)], this.dataLakeViewer)
     resultPayloads.map((payload) => {
       this.payloadCache.set(payload._hash, payload)
     })

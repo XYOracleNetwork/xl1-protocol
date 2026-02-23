@@ -1,5 +1,6 @@
 export * from './block/index.ts'
 export * from './chain/index.ts'
+export * from './datalake/index.ts'
 export * from './mapToMapType.ts'
 export * from './payload/index.ts'
 export * from './readPayloadMapFromStore.ts'

@@ -1,5 +1,5 @@
 import { HashZod } from '@xylabs/sdk-js'
-import { PayloadZodLoose } from '@xyo-network/sdk-js'
+import { PayloadZodLoose, WithHashMetaZod } from '@xyo-network/sdk-js'
 import { SignedHydratedBlockWithHashMetaZod, XL1BlockNumberZod } from '@xyo-network/xl1-protocol'
 import { z } from 'zod'
 
@@ -43,8 +43,8 @@ export const BlockViewerRpcSchemas = {
       from: z.tuple([z.array(HashZod)]),
     },
     result: {
-      to: z.array(PayloadZodLoose),
-      from: z.array(PayloadZodLoose),
+      to: z.array(WithHashMetaZod(PayloadZodLoose)),
+      from: z.array(WithHashMetaZod(PayloadZodLoose)),
     },
   },
 } satisfies RpcSchemaMap<BlockViewerRpcMethodName>
