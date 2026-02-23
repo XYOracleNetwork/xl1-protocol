@@ -6,7 +6,7 @@ import { HttpRpcTransport, type RpcTransport } from '../../transport/index.ts'
 import type { RpcSchemaMap } from '../../types/index.ts'
 
 export interface JsonRpcRunnerParams<TSchemas extends RpcSchemaMap = RpcSchemaMap> extends CreatableProviderParams {
-  transport: RpcTransport<TSchemas>
+  transport?: RpcTransport<TSchemas>
 }
 
 export abstract class AbstractJsonRpcRunner<TSchemas extends RpcSchemaMap,

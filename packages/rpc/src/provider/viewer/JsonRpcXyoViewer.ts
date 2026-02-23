@@ -12,6 +12,8 @@ import type {
   HydratedBlock,
   MempoolViewer,
   NetworkStakeViewer, Position,
+  Provider,
+  ProviderMoniker,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransaction,
   SingleTimeConfig,
@@ -29,7 +31,7 @@ import type {
 import {
   AccountBalanceViewerMoniker, BlockViewerMoniker, isSignedHydratedBlock, isSignedHydratedBlockWithHashMeta,
   MempoolViewerMoniker,
-  NetworkStakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker,
+  NetworkStakeViewerMoniker, StakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker,
   TransactionViewerMoniker,
   XyoViewerMoniker,
 } from '@xyo-network/xl1-protocol'
@@ -54,6 +56,17 @@ export interface JsonRpcXyoViewerParams extends JsonRpcViewerParams<typeof XyoVi
   networkStakeViewer?: NetworkStakeViewer
 }
 
+export interface JsonRpcXyoViewerProviders extends Record<typeof JsonRpcXyoViewer.dependencies[number], Provider<ProviderMoniker>> {
+  accountBalanceViewer: AccountBalanceViewer
+  blockViewer: BlockViewer
+  mempoolViewer: MempoolViewer
+  networkStakeViewer: NetworkStakeViewer
+  stakeViewer: StakeViewer
+  stepViewer: StepViewer
+  timeSyncViewer: TimeSyncViewer
+  transactionViewer: TransactionViewer
+}
+
 @creatableProvider()
 export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas, JsonRpcXyoViewerParams> implements XyoViewer, XyoViewerV2 {
   static readonly defaultMoniker = XyoViewerMoniker
@@ -62,8 +75,11 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     AccountBalanceViewerMoniker,
     BlockViewerMoniker,
     MempoolViewerMoniker,
+    NetworkStakeViewerMoniker,
+    StakeViewerMoniker,
     StepViewerMoniker,
     TimeSyncViewerMoniker,
+    TransactionViewerMoniker,
   ]
 
   static readonly monikers = [XyoViewerMoniker]
@@ -72,45 +88,42 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   protected _chainId?: ChainId
 
-  private _accountBalanceViewer?: AccountBalanceViewer
-  private _blockViewer?: BlockViewer
-  private _mempoolViewer?: MempoolViewer
-  private _networkStakeViewer?: NetworkStakeViewer
-  private _stakeViewer?: StakeViewer
-  private _stepViewer?: StepViewer
-  private _timeSyncViewer?: TimeSyncViewer
-  private _transactionViewer?: TransactionViewer
+  private _providers!: JsonRpcXyoViewerProviders
 
   get account() {
-    return { balance: this._accountBalanceViewer! }
+    return { balance: this.providers.accountBalanceViewer }
   }
 
   get block() {
-    return this._blockViewer!
+    return this.providers.blockViewer
   }
 
   get mempool() {
-    return this._mempoolViewer!
+    return this.providers.mempoolViewer
   }
 
   get networkStake() {
-    return this._networkStakeViewer!
+    return this.providers.networkStakeViewer
   }
 
   get stake() {
-    return this._stakeViewer!
+    return this.providers.stakeViewer
   }
 
   get step() {
-    return this._stepViewer!
+    return this.providers.stepViewer
   }
 
   get time() {
-    return this._timeSyncViewer!
+    return this.providers.timeSyncViewer
   }
 
   get transaction() {
-    return this._transactionViewer!
+    return this.providers.transactionViewer
+  }
+
+  protected get providers() {
+    return this._providers
   }
 
   async accountBalance(address: Address, config: ChainQualifiedConfig = {}): Promise<AttoXL1> {
@@ -153,13 +166,19 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   override async createHandler() {
     await super.createHandler()
-    this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
-    this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
-    this._mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
-    this._stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
-    this._networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
-    this._timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
-    this._transactionViewer = await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker)
+    this.providers.accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
+    this.providers.blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
+    this.providers.mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
+    this.providers.stakeViewer = await this.locator.getInstance<StakeViewer>(StakeViewerMoniker)
+    this.providers.stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
+    this.providers.networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
+    this.providers.timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
+    this.providers.transactionViewer = await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker)
+    for (const [moniker, provider] of Object.entries(this.providers)) {
+      if (!provider) {
+        throw new Error(`Failed to initialize JsonRpcXyoViewer: missing provider dependency for ${moniker}`)
+      }
+    }
   }
 
   async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {
