@@ -1,7 +1,8 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { delay, isDefined } from '@xylabs/sdk-js'
 import type {
-  ConfirmSubmittedTransactionOptions, SignedHydratedTransaction, XyoViewer,
+  ConfirmSubmittedTransactionOptions, SignedHydratedTransaction,
+  XyoViewer,
 } from '@xyo-network/xl1-protocol'
 
 const DEFAULT_CONFIRMATION_ATTEMPTS = 20

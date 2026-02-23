@@ -14,6 +14,7 @@ import { StakeViewerRpcSchemas } from './StakeViewerRpcSchemas.ts'
 import { NetworkStakingStepRewardsViewerRpcSchemas } from './StepRewardsViewerRpcSchemas.ts'
 import { StepViewerRpcSchemas } from './StepViewerRpcSchemas.ts'
 import { TimeSyncViewerRpcSchemas } from './TimeSyncViewerRpcSchema.ts'
+import { TransactionViewerRpcSchemas } from './TransactionViewerRpcSchema.ts'
 import { XyoPermissionsRpcSchemas } from './XyoPermissionsRpcSchemas.ts'
 import { XyoRunnerRpcSchemas } from './XyoRunnerRpcSchemas.ts'
 import { XyoSignerRpcSchemas } from './XyoSignerRpcSchemas.ts'
@@ -39,6 +40,7 @@ export const AllRpcSchemas = {
   ...NetworkStakingStepRewardsByStepViewerRpcSchemas,
   ...NetworkStakingStepRewardsByStakerViewerRpcSchemas,
   ...NetworkStakingStepRewardsByPositionViewerRpcSchemas,
+  ...TransactionViewerRpcSchemas,
 } satisfies RpcSchemaMap
 
 export type AllRpcSchemas = typeof AllRpcSchemas

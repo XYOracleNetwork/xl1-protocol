@@ -20,14 +20,17 @@ import type {
   StepViewer,
   TimeDurations,
   TimeSyncViewer,
+  TransactionViewer,
   XL1BlockNumber,
   XL1BlockRange,
   XyoViewer,
+  XyoViewerV2,
 } from '@xyo-network/xl1-protocol'
 import {
   AccountBalanceViewerMoniker, BlockViewerMoniker, isSignedHydratedBlock, isSignedHydratedBlockWithHashMeta,
   MempoolViewerMoniker,
   NetworkStakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker,
+  TransactionViewerMoniker,
   XyoViewerMoniker,
 } from '@xyo-network/xl1-protocol'
 import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
@@ -52,7 +55,7 @@ export interface JsonRpcXyoViewerParams extends JsonRpcViewerParams<typeof XyoVi
 }
 
 @creatableProvider()
-export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas, JsonRpcXyoViewerParams> implements XyoViewer {
+export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas, JsonRpcXyoViewerParams> implements XyoViewer, XyoViewerV2 {
   static readonly defaultMoniker = XyoViewerMoniker
 
   static readonly dependencies = [
@@ -76,6 +79,7 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
   private _stakeViewer?: StakeViewer
   private _stepViewer?: StepViewer
   private _timeSyncViewer?: TimeSyncViewer
+  private _transactionViewer?: TransactionViewer
 
   get account() {
     return { balance: this._accountBalanceViewer! }
@@ -103,6 +107,10 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   get time() {
     return this._timeSyncViewer!
+  }
+
+  get transaction() {
+    return this._transactionViewer!
   }
 
   async accountBalance(address: Address, config: ChainQualifiedConfig = {}): Promise<AttoXL1> {
@@ -151,6 +159,7 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
     this._stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
     this._networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
     this._timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
+    this._transactionViewer = await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker)
   }
 
   async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {

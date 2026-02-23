@@ -13,12 +13,11 @@ import type { NetworkStakeStepRewardViewerMethods } from './NetworkStakeStepRewa
 import type { StakeViewer, StakeViewerMethods } from './Stake.ts'
 import type { StepViewer } from './StepViewer.ts'
 import type { TimeSyncViewer } from './TimeSync.ts'
-import type { TransactionViewerMethods } from './Transaction.ts'
+import type { TransactionViewer, TransactionViewerMethods } from './Transaction.ts'
 
-/** @deprecated Use XyoViewerMethodsV2 instead */
 export interface XyoViewerMethods extends
   NetworkStakeStepRewardViewerMethods, BlockViewerMethods,
-  TransactionViewerMethods, Omit<
+  Omit<TransactionViewerMethods, 'byHash'>, Omit<
     StakeViewerMethods, 'minWithdrawalBlocks' | 'rewardsContract' | 'stakingTokenAddress' | 'active'
     | 'activeByAddressStaked' | 'activeByStaker' | 'pending' | 'pendingByStaker' | 'withdrawn' | 'withdrawnByStaker'
   >, ForkViewerMethods {
@@ -35,8 +34,6 @@ export interface XyoViewerMethodsV2 {
 export const XyoViewerMoniker = 'XyoViewer' as const
 export type XyoViewerMoniker = typeof XyoViewerMoniker
 
-/** @deprecated Use XyoViewerV2 instead */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface XyoViewer extends Omit<BlockViewer, 'moniker'>, XyoViewerMethods,
   Omit<
     StakeViewerMethods, 'moniker' | 'minWithdrawalBlocks' | 'rewardsContract' | 'stakingTokenAddress' | 'active'
@@ -51,6 +48,7 @@ export interface XyoViewer extends Omit<BlockViewer, 'moniker'>, XyoViewerMethod
   stake: StakeViewer
   step: StepViewer
   time: TimeSyncViewer
+  transaction: TransactionViewer
 }
 
 export interface XyoViewerV2 extends XyoViewerMethodsV2, Provider<XyoViewerMoniker> {
@@ -63,4 +61,5 @@ export interface XyoViewerV2 extends XyoViewerMethodsV2, Provider<XyoViewerMonik
   stake: StakeViewer
   step: StepViewer
   time: TimeSyncViewer
+  transaction: TransactionViewer
 }

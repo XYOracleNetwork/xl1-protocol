@@ -30,6 +30,7 @@ import type {
   StepViewer,
   TimeDurations,
   TimeSyncViewer,
+  TransactionViewer,
   XL1BlockNumber, XL1BlockRange, XL1RangeMultipliers,
   XyoViewer,
 } from '@xyo-network/xl1-protocol'
@@ -41,7 +42,7 @@ import {
   ChainContractViewerMoniker,
   FinalizationViewerMoniker,
   isTransactionBoundWitnessWithStorageMeta, MempoolViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
-  NetworkStakeViewerMoniker, StakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker, XYO_NETWORK_STAKING_ADDRESS,
+  NetworkStakeViewerMoniker, StakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker, TransactionViewerMoniker, XYO_NETWORK_STAKING_ADDRESS,
   XYO_ZERO_ADDRESS,
   XyoViewerMoniker,
 } from '@xyo-network/xl1-protocol'
@@ -103,6 +104,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   private _stakeViewer?: StakeViewer
   private _stepViewer?: StepViewer
   private _timeSyncViewer?: TimeSyncViewer
+  private _transaction?: TransactionViewer
 
   get account() {
     return { balance: this._accountBalanceViewer! }
@@ -134,6 +136,10 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   get time() {
     return this._timeSyncViewer!
+  }
+
+  get transaction() {
+    return this._transaction!
   }
 
   protected get finalizationViewer() {
@@ -215,6 +221,7 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     this._stakeViewer = await this.locator.getInstance<StakeViewer>(StakeViewerMoniker)
     this._stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
     this._timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
+    this._transaction = await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker)
     this._chainId = await this._chainContractViewer.chainId()
   }
 
