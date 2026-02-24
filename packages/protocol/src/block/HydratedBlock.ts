@@ -1,10 +1,11 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
-import { PayloadZodLoose } from '@xyo-network/sdk-js'
+import {
+  PayloadZodLoose, WithHashMetaZod, WithStorageMetaZod,
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
-import { WithHashMetaZod, WithStorageMetaZod } from '../payload/index.ts'
 import { BlockBoundWitnessZod } from './BlockBoundWitness.ts'
 import { SignedBlockBoundWitnessZod } from './signed/index.ts'
 

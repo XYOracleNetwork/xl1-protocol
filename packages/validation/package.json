@@ -61,6 +61,7 @@
   "peerDependencies": {
     "@xylabs/sdk-js": "^5",
     "@xyo-network/sdk-js": "^5",
+    "ajv": "^8",
     "axios": "^1",
     "zod": "^4"
   },

@@ -42,7 +42,7 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
     return this._blockViewer!
   }
 
-  async byBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promise<SignedHydratedTransactionWithHashMeta | null> {
+  async byBlockHashAndIndex(blockHash: Hash, transactionIndex: number) {
     return await this.spanAsync('transactionByBlockHashAndIndex', async () => {
       assertEx(transactionIndex >= 0, () => 'transactionIndex must be greater than or equal to 0')
       try {
@@ -83,15 +83,15 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex])) as SignedHydratedTransactionWithHashMeta | null
+    return (await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex]))
   }
 
   async transactionByBlockNumberAndIndex(blockNumber: number, transactionIndex: number) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex])) as SignedHydratedTransactionWithHashMeta | null
+    return (await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex]))
   }
 
   async transactionByHash(transactionHash: Hash) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash])) as SignedHydratedTransactionWithHashMeta | null
+    return (await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash]))
   }
 
   protected schemas() {

@@ -1,9 +1,9 @@
 import { type Address, type Promisable } from '@xylabs/sdk-js'
 import { zodIsFactory } from '@xylabs/sdk-js'
+import { WithHashMetaZod } from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import { BlockBoundWitnessZod } from '../block/index.ts'
-import { WithHashMetaZod } from '../payload/index.ts'
 import type { Provider } from '../provider/index.ts'
 import { TransactionBoundWitnessZod } from '../transaction/index.ts'
 import { TransferZod } from '../TransferPayload.ts'
