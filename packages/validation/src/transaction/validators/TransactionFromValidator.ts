@@ -1,5 +1,5 @@
 import { asAddress, ZERO_HASH } from '@xylabs/sdk-js'
-import { addressesContains } from '@xyo-network/boundwitness-validator'
+import { addressesContains } from '@xyo-network/sdk-js'
 import type { HydratedTransactionValidationFunction } from '@xyo-network/xl1-protocol'
 import { HydratedTransactionValidationError } from '@xyo-network/xl1-protocol'
 

@@ -1,4 +1,4 @@
-import { HDWallet } from '@xyo-network/wallet'
+import { HDWallet } from '@xyo-network/sdk-js'
 
 import { DEFAULT_WALLET_PATH } from './paths.ts'
 

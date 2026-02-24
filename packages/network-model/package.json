@@ -49,7 +49,6 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xyo-network/module-factory-locator": "~5.3.7",
     "@xyo-network/xl1-protocol": "~1.24.27"
   },
   "devDependencies": {
@@ -58,10 +57,10 @@
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
     "@xylabs/vitest-extended": "~5.0.80",
-    "@xyo-network/sdk-js": "^5.3.7",
+    "@xyo-network/sdk-js": "^5.3.10",
     "copyfiles": "~2.4.1",
     "dotenv": "~17.3.1",
-    "eslint": "^9.39.2",
+    "eslint": "^9.39.3",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",
     "zod": "~4.3.6"

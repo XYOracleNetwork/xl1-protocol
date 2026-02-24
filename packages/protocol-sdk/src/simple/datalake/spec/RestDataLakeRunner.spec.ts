@@ -1,8 +1,7 @@
 import '@xylabs/vitest-extended'
 
-import type { Id } from '@xyo-network/id-payload-plugin'
-import { IdSchema } from '@xyo-network/id-payload-plugin'
-import type { Payload } from '@xyo-network/sdk-js'
+import type { Id, Payload } from '@xyo-network/sdk-js'
+import { IdSchema } from '@xyo-network/sdk-js'
 import {
   describe, expect, it,
 } from 'vitest'

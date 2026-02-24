@@ -2,7 +2,7 @@ import type {
   Address, Hash, Hex,
 } from '@xylabs/sdk-js'
 import { toArrayBuffer } from '@xylabs/sdk-js'
-import { BoundWitnessValidator } from '@xyo-network/boundwitness-validator'
+import { BoundWitnessValidator } from '@xyo-network/sdk-js'
 import type { SignatureInstance } from '@xyo-network/xl1-protocol-sdk'
 
 export class SignatureWrapper implements SignatureInstance {

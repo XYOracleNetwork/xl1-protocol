@@ -1,6 +1,5 @@
-import { ModuleFactoryLocator } from '@xyo-network/module-factory-locator'
 import type { WalletInstance } from '@xyo-network/sdk-js'
-import { ManifestWrapper } from '@xyo-network/sdk-js'
+import { ManifestWrapper, ModuleFactoryLocator } from '@xyo-network/sdk-js'
 
 import { NetworkNodeManifest } from '../../manifest/index.ts'
 

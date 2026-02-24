@@ -1,8 +1,10 @@
 import { zodIsFactory } from '@xylabs/sdk-js'
-import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
-import { isSchemaPayload, SchemaSchema } from '@xyo-network/schema-payload-plugin'
-import type { Schema, WithStorageMeta } from '@xyo-network/sdk-js'
-import { BoundWitnessSchema, isHashMeta } from '@xyo-network/sdk-js'
+import type {
+  Schema, SchemaPayload, WithStorageMeta,
+} from '@xyo-network/sdk-js'
+import {
+  BoundWitnessSchema, isHashMeta, isSchemaPayload, SchemaSchema,
+} from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
 import type {

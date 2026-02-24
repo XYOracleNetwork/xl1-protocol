@@ -1,5 +1,5 @@
-import { MemoryArchivist } from '@xyo-network/archivist-memory'
 import type { ArchivistInstance } from '@xyo-network/sdk-js'
+import { MemoryArchivist } from '@xyo-network/sdk-js'
 import type { BlockViewer } from '@xyo-network/xl1-protocol'
 import {
   beforeEach, describe, expect, it,

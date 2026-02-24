@@ -1,7 +1,8 @@
 import { HashRegEx } from '@xylabs/sdk-js'
-import type { SchemaPayload } from '@xyo-network/schema-payload-plugin'
-import { SchemaSchema } from '@xyo-network/schema-payload-plugin'
-import { PayloadBuilder, payloadJsonSchema } from '@xyo-network/sdk-js'
+import type { SchemaPayload } from '@xyo-network/sdk-js'
+import {
+  PayloadBuilder, payloadJsonSchema, SchemaSchema,
+} from '@xyo-network/sdk-js'
 import type { HashPayload } from '@xyo-network/xl1-protocol'
 import { HashSchema } from '@xyo-network/xl1-protocol'
 import type { JSONSchemaType } from 'ajv'

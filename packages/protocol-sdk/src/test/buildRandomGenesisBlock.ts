@@ -1,9 +1,8 @@
 import { asAddress, assertEx } from '@xylabs/sdk-js'
-import type { Id } from '@xyo-network/id-payload-plugin'
-import { IdSchema } from '@xyo-network/id-payload-plugin'
-import type { AccountInstance } from '@xyo-network/sdk-js'
+import type { AccountInstance, Id } from '@xyo-network/sdk-js'
 import {
-  Account, asSchema, PayloadBuilder,
+  Account, asSchema, IdSchema,
+  PayloadBuilder,
 } from '@xyo-network/sdk-js'
 import {
   asXL1BlockNumber, type ChainId, type HydratedBlockWithHashMeta,

@@ -1,8 +1,7 @@
 import { type Address, ZERO_HASH } from '@xylabs/sdk-js'
 import { toArrayBuffer } from '@xylabs/sdk-js'
-import { BoundWitnessValidator } from '@xyo-network/boundwitness-validator'
 import type { BoundWitness, WithStorageMeta } from '@xyo-network/sdk-js'
-import { BoundWitnessBuilder } from '@xyo-network/sdk-js'
+import { BoundWitnessBuilder, BoundWitnessValidator } from '@xyo-network/sdk-js'
 import type { BoundWitnessValidationFunction } from '@xyo-network/xl1-protocol'
 import { BoundWitnessValidationError } from '@xyo-network/xl1-protocol'
 

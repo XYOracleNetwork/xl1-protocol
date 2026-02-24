@@ -1,7 +1,8 @@
 import { asHash, asHex } from '@xylabs/sdk-js'
-import { BoundWitnessValidator } from '@xyo-network/boundwitness-validator'
 import type { Unsigned } from '@xyo-network/sdk-js'
-import { Account, asSchema } from '@xyo-network/sdk-js'
+import {
+  Account, asSchema, BoundWitnessValidator,
+} from '@xyo-network/sdk-js'
 import { asXL1BlockNumber, type TransactionBoundWitness } from '@xyo-network/xl1-protocol'
 import {
   describe, expect, it,

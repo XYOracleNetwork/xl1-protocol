@@ -38,8 +38,6 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xyo-network/boundwitness-wrapper": "~5.3.7",
-    "@xyo-network/schema-payload-plugin": "~5.3.7",
     "@xyo-network/xl1-protocol": "~1.24.21"
   },
   "devDependencies": {
@@ -48,7 +46,6 @@
     "@types/node": "~25.0.9",
     "@xylabs/ts-scripts-yarn3": "~7.2.32",
     "@xylabs/tsconfig": "~7.2.32",
-    "@xyo-network/account": "~5.2.25",
     "ajv": "~8.17.1",
     "eslint": "^9.39.2",
     "typescript": "~5.9.3",

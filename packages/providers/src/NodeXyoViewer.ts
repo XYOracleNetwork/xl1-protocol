@@ -1,6 +1,7 @@
 import { assertEx } from '@xylabs/sdk-js'
-import type { ModuleIdentifier } from '@xyo-network/module-model'
-import type { ArchivistInstance, NodeInstance } from '@xyo-network/sdk-js'
+import type {
+  ArchivistInstance, ModuleIdentifier, NodeInstance,
+} from '@xyo-network/sdk-js'
 import { asAttachableArchivistInstance } from '@xyo-network/sdk-js'
 import type { XyoViewer } from '@xyo-network/xl1-protocol'
 import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'

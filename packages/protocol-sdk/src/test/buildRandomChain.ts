@@ -1,11 +1,10 @@
 import type { Address } from '@xylabs/sdk-js'
 import { asAddress, assertEx } from '@xylabs/sdk-js'
-import { MemoryArchivist } from '@xyo-network/archivist-memory'
-import type { Id } from '@xyo-network/id-payload-plugin'
-import { IdSchema } from '@xyo-network/id-payload-plugin'
-import type { AccountInstance } from '@xyo-network/sdk-js'
+import type { AccountInstance, Id } from '@xyo-network/sdk-js'
 import {
-  Account, asSchema, PayloadBuilder,
+  Account, asSchema, IdSchema,
+  MemoryArchivist,
+  PayloadBuilder,
 } from '@xyo-network/sdk-js'
 import {
   asXL1BlockNumber,
