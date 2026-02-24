@@ -1,4 +1,6 @@
-import type { Address, Hash } from '@xylabs/sdk-js'
+import {
+  type Address, assertEx, type Hash, isUndefined,
+} from '@xylabs/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AccountBalanceHistoryItem,
@@ -57,14 +59,14 @@ export interface JsonRpcXyoViewerParams extends JsonRpcViewerParams<typeof XyoVi
 }
 
 export interface JsonRpcXyoViewerProviders extends Record<typeof JsonRpcXyoViewer.dependencies[number], Provider<ProviderMoniker>> {
-  accountBalanceViewer: AccountBalanceViewer
-  blockViewer: BlockViewer
-  mempoolViewer: MempoolViewer
-  networkStakeViewer: NetworkStakeViewer
-  stakeViewer: StakeViewer
-  stepViewer: StepViewer
-  timeSyncViewer: TimeSyncViewer
-  transactionViewer: TransactionViewer
+  [AccountBalanceViewerMoniker]: AccountBalanceViewer
+  [BlockViewerMoniker]: BlockViewer
+  [MempoolViewerMoniker]: MempoolViewer
+  [NetworkStakeViewerMoniker]: NetworkStakeViewer
+  [StakeViewerMoniker]: StakeViewer
+  [StepViewerMoniker]: StepViewer
+  [TimeSyncViewerMoniker]: TimeSyncViewer
+  [TransactionViewerMoniker]: TransactionViewer
 }
 
 @creatableProvider()
@@ -88,38 +90,38 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   protected _chainId?: ChainId
 
-  private _providers!: JsonRpcXyoViewerProviders
+  private _providers: JsonRpcXyoViewerProviders | undefined = undefined
 
   get account() {
-    return { balance: this.providers.accountBalanceViewer }
+    return { balance: assertEx(this.providers?.[AccountBalanceViewerMoniker], () => `AccountBalanceViewer provider not found for ${this.moniker}`) }
   }
 
   get block() {
-    return this.providers.blockViewer
+    return assertEx(this.providers?.[BlockViewerMoniker], () => `BlockViewer provider not found for ${this.moniker}`)
   }
 
   get mempool() {
-    return this.providers.mempoolViewer
+    return assertEx(this.providers?.[MempoolViewerMoniker], () => `MempoolViewer provider not found for ${this.moniker}`)
   }
 
   get networkStake() {
-    return this.providers.networkStakeViewer
+    return assertEx(this.providers?.[NetworkStakeViewerMoniker], () => `NetworkStakeViewer provider not found for ${this.moniker}`)
   }
 
   get stake() {
-    return this.providers.stakeViewer
+    return assertEx(this.providers?.[StakeViewerMoniker], () => `StakeViewer provider not found for ${this.moniker}`)
   }
 
   get step() {
-    return this.providers.stepViewer
+    return assertEx(this.providers?.[StepViewerMoniker], () => `StepViewer provider not found for ${this.moniker}`)
   }
 
   get time() {
-    return this.providers.timeSyncViewer
+    return assertEx(this.providers?.[TimeSyncViewerMoniker], () => `TimeSyncViewer provider not found for ${this.moniker}`)
   }
 
   get transaction() {
-    return this.providers.transactionViewer
+    return assertEx(this.providers?.[TransactionViewerMoniker], () => `TransactionViewer provider not found for ${this.moniker}`)
   }
 
   protected get providers() {
@@ -166,16 +168,19 @@ export class JsonRpcXyoViewer extends AbstractJsonRpcViewer<XyoViewerRpcSchemas,
 
   override async createHandler() {
     await super.createHandler()
-    this.providers.accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
-    this.providers.blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
-    this.providers.mempoolViewer = await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker)
-    this.providers.stakeViewer = await this.locator.getInstance<StakeViewer>(StakeViewerMoniker)
-    this.providers.stepViewer = await this.locator.getInstance<StepViewer>(StepViewerMoniker)
-    this.providers.networkStakeViewer = await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker)
-    this.providers.timeSyncViewer = await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker)
-    this.providers.transactionViewer = await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker)
-    for (const [moniker, provider] of Object.entries(this.providers)) {
-      if (!provider) {
+    this._providers = {
+      [AccountBalanceViewerMoniker]: await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker),
+      [BlockViewerMoniker]: await this.locator.getInstance<BlockViewer>(BlockViewerMoniker),
+      [MempoolViewerMoniker]: await this.locator.getInstance<MempoolViewer>(MempoolViewerMoniker),
+      [StakeViewerMoniker]: await this.locator.getInstance<StakeViewer>(StakeViewerMoniker),
+      [StepViewerMoniker]: await this.locator.getInstance<StepViewer>(StepViewerMoniker),
+      [NetworkStakeViewerMoniker]: await this.locator.getInstance<NetworkStakeViewer>(NetworkStakeViewerMoniker),
+      [TimeSyncViewerMoniker]: await this.locator.getInstance<TimeSyncViewer>(TimeSyncViewerMoniker),
+      [TransactionViewerMoniker]: await this.locator.getInstance<TransactionViewer>(TransactionViewerMoniker),
+    }
+
+    for (const [moniker, provider] of Object.entries(assertEx(this._providers, () => 'Failed to initialize JsonRpcXyoViewer: providers not found'))) {
+      if (isUndefined(provider)) {
         throw new Error(`Failed to initialize JsonRpcXyoViewer: missing provider dependency for ${moniker}`)
       }
     }
