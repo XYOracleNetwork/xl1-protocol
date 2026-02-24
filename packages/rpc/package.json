@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-rpc",
-  "version": "1.24.28",
+  "version": "1.24.29",
   "description": "XYO Layer One API",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -57,8 +57,8 @@
   },
   "dependencies": {
     "@metamask/json-rpc-engine": "~10.2.2",
-    "@xyo-network/xl1-protocol": "~1.24.28",
-    "@xyo-network/xl1-protocol-sdk": "~1.24.28",
+    "@xyo-network/xl1-protocol": "~1.24.29",
+    "@xyo-network/xl1-protocol-sdk": "~1.24.29",
     "uuid": "~13.0.0"
   },
   "devDependencies": {
