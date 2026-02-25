@@ -8,6 +8,7 @@ import {
 } from 'vitest'
 
 import { ConfigZod } from '../../../config/index.ts'
+import { isInternetAvailable } from '../../../isInternetAvailable.ts'
 import { getTestProviderContext } from '../../../test/index.ts'
 import type { RestDataLakeViewerParams } from '../RestDataLakeViewer.ts'
 import { RestDataLakeViewer } from '../RestDataLakeViewer.ts'
@@ -17,26 +18,30 @@ const knownHash2 = asHash('1f948c1e9b96dd3c454d6c73ac50d7d64892971c4ca38cf4164dd
 const endpoint = 'https://beta.api.archivist.xyo.network/dataLake'
 const context = getTestProviderContext(ConfigZod.parse({}))
 
-describe('RestDataLakeViewer', () => {
-  it('get - success', async () => {
+describe('RestDataLakeViewer', async () => {
+  const noInternet = !(await isInternetAvailable())
+  if (noInternet) {
+    console.warn('No internet connection detected. Skipping RestDataLakeViewer tests.')
+  }
+  it.skipIf(noInternet)('get - success', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const result = await sot.get([knownHash1])
     expect(result).toBeArray()
     expect(result).toHaveLength(1)
   })
-  it('get - fail', async () => {
+  it.skipIf(noInternet)('get - fail', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt-5' } satisfies Id)
     const result = await sot.get([hash])
     expect(result).toBeArray()
     expect(result).toHaveLength(0)
   })
-  it('getMany - success', async () => {
+  it.skipIf(noInternet)('getMany - success', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const result = await sot.get([knownHash1, knownHash2])
     expect(result).toHaveLength(2)
   })
-  it('getMany - fail', async () => {
+  it.skipIf(noInternet)('getMany - fail', async () => {
     const sot = await RestDataLakeViewer.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const hash = await PayloadBuilder.hash({ schema: IdSchema, salt: 'some-salt-7' } satisfies Id)
     const result = await sot.get([hash])

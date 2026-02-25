@@ -1,6 +1,9 @@
 import { asHex, ZERO_ADDRESS } from '@xylabs/sdk-js'
 import { MongoDBArchivistV2 } from '@xyo-network/archivist-mongodb'
-import { asXL1BlockRange, StepSizes } from '@xyo-network/xl1-protocol'
+import type { BlockViewer } from '@xyo-network/xl1-protocol'
+import {
+  asXL1BlockRange, BlockViewerMoniker, StepSizes,
+} from '@xyo-network/xl1-protocol'
 import {
   describe, expect, it,
 } from 'vitest'
@@ -36,12 +39,11 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
         stakingTokenAddress: ZERO_ADDRESS,
       }),
       SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist: chainArchivist }),
+      SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist: chainArchivist }),
     ])
-    const context = {
-      caches: {}, singletons: {}, config, locator,
-    }
 
-    const blockViewer = await SimpleBlockViewer.create({ finalizedArchivist: chainArchivist, context })
+    const blockViewer = await locator.getInstance<BlockViewer>(BlockViewerMoniker)
+    const context = locator.context
 
     const stepNumber = 3
     const xl1BlockRange = asXL1BlockRange([StepSizes[3] * stepNumber, StepSizes[3] * (stepNumber + 1) - 1], { name: 'testRange' })

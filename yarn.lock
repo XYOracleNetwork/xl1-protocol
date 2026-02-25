@@ -4204,6 +4204,7 @@ __metadata:
     cosmiconfig: "npm:^9.0.0"
     eslint: "npm:^9.39.3"
     ethers: "npm:^6.16.0"
+    ky: "npm:^1.14.3"
     lru-cache: "npm:^11.2.6"
     mongodb: "npm:~7.1.0"
     tslib: "npm:^2.8.1"
@@ -6754,6 +6755,13 @@ __metadata:
     knip: bin/knip.js
     knip-bun: bin/knip-bun.js
   checksum: 10/1b80127b24bad3822c2a128e08c30e33db2c716ccb3c1ee19a082d5f04c7d24f049213e15a6369d9449bf60564a86be16e8f986902ba7251bee17a4530c6c954
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.14.3":
+  version: 1.14.3
+  resolution: "ky@npm:1.14.3"
+  checksum: 10/afd6a6ff10e33138d5338c014a051ca920c6ced7f8452748dfe960c26fb5456f36e103cd8b5868ebf2a38bf13c2b3f53b74cbea44a1b53923e1921bb9a6447b1
   languageName: node
   linkType: hard
 

@@ -7,6 +7,7 @@ import {
 } from 'vitest'
 
 import { ConfigZod } from '../../../config/index.ts'
+import { isInternetAvailable } from '../../../isInternetAvailable.ts'
 import { getTestProviderContext } from '../../../test/index.ts'
 import { RestDataLakeRunner } from '../RestDataLakeRunner.ts'
 import type { RestDataLakeViewerParams } from '../RestDataLakeViewer.ts'
@@ -19,20 +20,24 @@ const testPayload2: Id = { schema: IdSchema, salt: `some-salt-${Date.now() + 1}`
 const testPayload3: Id = { schema: IdSchema, salt: `some-salt-${Date.now() + 2}` }
 const testBadPayload = { schema3: IdSchema, salt: `some-salt-${Date.now() + 3}` }
 
-describe('RestDataLakeRunner', () => {
-  it('insert - single - success', async () => {
+describe('RestDataLakeRunner', async () => {
+  const noInternet = !(await isInternetAvailable())
+  if (noInternet) {
+    console.warn('No internet connection detected. Skipping RestDataLakeViewer tests.')
+  }
+  it.skipIf(noInternet)('insert - single - success', async () => {
     const sot = await RestDataLakeRunner.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const result = await sot.insert([testPayload])
     expect(result).toBeArray()
     expect(result).toHaveLength(1)
   })
-  it('insert - multi - success', async () => {
+  it.skipIf(noInternet)('insert - multi - success', async () => {
     const sot = await RestDataLakeRunner.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const result = await sot.insert([testPayload2, testPayload3])
     expect(result).toBeArray()
     expect(result).toHaveLength(2)
   })
-  it('insert - fail', async () => {
+  it.skipIf(noInternet)('insert - fail', async () => {
     const sot = await RestDataLakeRunner.create({ context, endpoint } satisfies RestDataLakeViewerParams)
     const result = await sot.insert([testBadPayload as unknown as Payload])
     expect(result).toBeArray()
