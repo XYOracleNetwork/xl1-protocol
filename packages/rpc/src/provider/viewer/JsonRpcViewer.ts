@@ -26,14 +26,14 @@ export abstract class AbstractJsonRpcViewer<TSchemas extends RpcSchemaMap,
   }
 
   private createTransport(): RpcTransport<TSchemas> {
-    const httpRemoteConfig = HttpRpcRemoteConfigZod.safeParse(this.config.remote)
+    const httpRemoteConfig = HttpRpcRemoteConfigZod.safeParse(this.config.remote.rpc)
     if (httpRemoteConfig.success) {
-      const { url } = httpRemoteConfig.data.rpc
+      const { url } = httpRemoteConfig.data
       return new HttpRpcTransport(url, this.schemas())
     }
-    const postMessageRemoteConfig = PostMessageRpcRemoteConfigZod.safeParse(this.config.remote)
+    const postMessageRemoteConfig = PostMessageRpcRemoteConfigZod.safeParse(this.config.remote.rpc)
     if (postMessageRemoteConfig.success) {
-      const { networkId, sessionId } = postMessageRemoteConfig.data.rpc
+      const { networkId, sessionId } = postMessageRemoteConfig.data
       return new PostMessageRpcTransport(networkId, this.schemas(), sessionId, this.logger)
     }
     throw new Error('Unable to create transport')
