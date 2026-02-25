@@ -39,7 +39,7 @@ export const PostMessageRpcRemoteConfigZod = RpcRemoteConfigBaseZod.extend({
 
 export type PostMessageRpcRemoteConfig = z.infer<typeof PostMessageRpcRemoteConfigZod>
 
-export const RpcRemoteConfigZod = RpcRemoteConfigBaseZod.loose()
+export const RpcRemoteConfigZod = z.union([HttpRpcRemoteConfigZod, PostMessageRpcRemoteConfigZod])
   .describe('Configuration for a remote RPC connection, either Http or postMessage')
 
 export type RpcRemoteConfig = z.infer<typeof RpcRemoteConfigZod>
