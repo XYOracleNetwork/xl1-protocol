@@ -25,13 +25,16 @@ import {
 import { SimpleStepViewer } from './SimpleStepViewer.ts'
 import { SimpleXyoViewer } from './SimpleXyoViewer.ts'
 
+/** @deprecated Use locatorsFromConfig instead */
 export function buildEmptyProviderLocator(config: Config) {
   return new ProviderFactoryLocator({
     config, singletons: {}, caches: {},
   })
 }
 
+/** @deprecated Use locatorsFromConfig instead */
 export function buildSimpleProviderLocatorV2(config: Config, account?: AccountInstance) {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
     SimpleNetworkStakeViewer.factory<SimpleNetworkStakeViewer>(SimpleNetworkStakeViewer.dependencies, {}),
@@ -46,7 +49,9 @@ export function buildSimpleProviderLocatorV2(config: Config, account?: AccountIn
   return registerGatewayWithLocator(locator, account)
 }
 
+/** @deprecated Use locatorsFromConfig instead */
 export async function buildJsonRpcProviderLocatorV2(config: Config, transportFactory: TransportFactory, account?: AccountInstance) {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const locator = buildEmptyProviderLocator(config)
   locator.registerMany([
     JsonRpcStakeTotalsViewer.factory<JsonRpcStakeTotalsViewer>(
@@ -75,6 +80,7 @@ export async function buildJsonRpcProviderLocatorV2(config: Config, transportFac
   return registerGatewayWithLocator(locator, account)
 }
 
+/** @deprecated Use locatorsFromConfig instead */
 export interface BuildLocalProviderLocatorParamsV2 {
   account?: AccountInstance
   balancesSummaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>
@@ -84,10 +90,13 @@ export interface BuildLocalProviderLocatorParamsV2 {
   transfersSummaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>
 }
 
+/** @deprecated Use locatorsFromConfig instead */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function buildLocalProviderLocatorV2(config: Config, params: BuildLocalProviderLocatorParamsV2) {
   const {
     account, pendingTransactionsArchivist, pendingBlocksArchivist, balancesSummaryMap, transfersSummaryMap, finalizedArchivist,
   } = params
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const locator = buildSimpleProviderLocatorV2(config, account)
   locator.registerMany([
     SimpleMempoolViewer.factory<SimpleMempoolViewer>(SimpleMempoolViewer.dependencies, { pendingTransactionsArchivist, pendingBlocksArchivist }),

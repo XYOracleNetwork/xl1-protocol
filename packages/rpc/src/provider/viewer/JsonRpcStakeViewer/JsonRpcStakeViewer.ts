@@ -1,7 +1,7 @@
 import { Promisable } from '@xylabs/sdk-js'
 import {
   Position,
-  StakeEventsViewer, StakeEventsViewerMoniker, StakeTotalsViewerMoniker,
+  StakeEventsViewer, StakeEventsViewerMoniker,
   StakeViewer,
   StakeViewerMoniker,
 } from '@xyo-network/xl1-protocol'
