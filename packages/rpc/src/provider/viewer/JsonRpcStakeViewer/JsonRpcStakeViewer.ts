@@ -13,7 +13,7 @@ import { JsonRpcStakeViewerMethods } from './JsonRpcStakeViewerMethods.ts'
 export class JsonRpcStakeViewer extends JsonRpcStakeViewerMethods implements StakeViewer {
   static readonly defaultMoniker = StakeViewerMoniker
   static readonly dependencies = []
-  static readonly monikers = [StakeTotalsViewerMoniker]
+  static readonly monikers = [StakeViewerMoniker]
 
   protected _stakeEvents!: StakeEventsViewer
 
