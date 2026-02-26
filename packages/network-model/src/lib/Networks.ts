@@ -1,3 +1,4 @@
+import { asHex } from '@xylabs/sdk-js'
 import type { NetworkId } from '@xyo-network/xl1-protocol'
 
 import {
@@ -7,6 +8,7 @@ import type { NetworkBootstrap } from '../models/index.ts'
 import { NetworkBootstrapSchema } from '../models/index.ts'
 
 export const MainNetwork: NetworkBootstrap = {
+  chain: asHex('319e667ced10452a117472811130444ded357f26', true),
   description: 'Main Network for XYO Layer 1',
   icon: MainNetworkIconString,
   id: 'mainnet' as NetworkId,
@@ -18,6 +20,7 @@ export const MainNetwork: NetworkBootstrap = {
 }
 
 export const SequenceNetwork: NetworkBootstrap = {
+  chain: asHex('4b43a753c8024c0e5000e8ac948ac0063ac624bc', true),
   description: 'Test Network for XYO Layer 1',
   icon: SequenceNetworkIconString,
   id: 'sequence' as NetworkId,
