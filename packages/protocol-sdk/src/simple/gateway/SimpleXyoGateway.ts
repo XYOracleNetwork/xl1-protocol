@@ -2,10 +2,7 @@ import type {
   XyoConnection,
   XyoGateway,
 } from '@xyo-network/xl1-protocol'
-import {
-  XyoConnectionMoniker, XyoGatewayMoniker,
-  XyoSignerMoniker,
-} from '@xyo-network/xl1-protocol'
+import { XyoConnectionMoniker, XyoGatewayMoniker } from '@xyo-network/xl1-protocol'
 
 import type { CreatableProviderParams } from '../../CreatableProvider/index.ts'
 import { AbstractCreatableProvider } from '../../CreatableProvider/index.ts'
@@ -14,7 +11,7 @@ export interface SimpleXyoGatewayParams extends CreatableProviderParams {}
 
 export class SimpleXyoGateway extends AbstractCreatableProvider<SimpleXyoGatewayParams> implements XyoGateway {
   static readonly defaultMoniker = XyoGatewayMoniker
-  static readonly dependencies = [XyoConnectionMoniker, XyoSignerMoniker]
+  static readonly dependencies = [XyoConnectionMoniker]
   static readonly monikers = [XyoGatewayMoniker]
   moniker = SimpleXyoGateway.defaultMoniker
 
