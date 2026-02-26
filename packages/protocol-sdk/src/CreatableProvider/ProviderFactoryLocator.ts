@@ -19,11 +19,13 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
 
   private _frozen = false
   private _parent?: ProviderFactoryLocatorInstance<TContext>
+  private _validateDepsOnRegister: boolean
 
-  constructor(context: TContext | (Omit<TContext, 'locator'> & { locator?: TContext['locator'] }), registry: CreatableProviderRegistry = {}) {
+  constructor(context: (Omit<TContext, 'locator'> & { locator?: TContext['locator'] }), registry: CreatableProviderRegistry = {}, validateDepsOnRegister = false) {
     this._registry = registry
     this._context = { ...context, locator: this } as unknown as TContext
     this._parent = context.locator as ProviderFactoryLocatorInstance<TContext>
+    this._validateDepsOnRegister = validateDepsOnRegister
   }
 
   get context() {
@@ -39,6 +41,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
    */
   get registry(): Readonly<CreatableProviderRegistry> {
     return this._registry
+  }
+
+  protected get validateDepsOnRegister() {
+    return this._validateDepsOnRegister
   }
 
   freeze() {
@@ -93,6 +99,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
    */
   register(factory: CreatableProviderFactory, labels?: Labels, primary: boolean | ProviderMoniker | ProviderMoniker[] = false): this {
     assertEx(!this._frozen, () => 'Cannot register a module factory after the locator has been frozen')
+    if (this.validateDepsOnRegister) {
+      const missingDeps = factory.dependencies.filter(dep => !this.registered(dep))
+      assertEx(missingDeps.length === 0, () => `Cannot register module factory [${factory.uniqueId.description}] due to missing dependencies: ${missingDeps.join(', ')}`)
+    }
     registerCreatableProviderFactory(this._registry, factory, labels, primary)
     return this
   }
@@ -106,6 +116,10 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
       this.register(factory)
     }
     return this
+  }
+
+  registered(moniker: ProviderMoniker) {
+    return !!this.registry[moniker] || (this._parent?.registered(moniker) ?? false)
   }
 
   async tryGetInstance<TProvider extends Provider<ProviderMoniker>>(

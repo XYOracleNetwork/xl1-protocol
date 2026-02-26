@@ -1531,12 +1531,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^25.3.0, @types/node@npm:~25.3.0":
-  version: 25.3.0
-  resolution: "@types/node@npm:25.3.0"
+"@types/node@npm:^25.3.2, @types/node@npm:~25.3.2":
+  version: 25.3.2
+  resolution: "@types/node@npm:25.3.2"
   dependencies:
     undici-types: "npm:~7.18.0"
-  checksum: 10/061b00c8de070a606a052afaa4c45dca5f8d6a8e7e39c0c3e196bb650ee37e986bbb161991ea39076a05aada102f36b13c974528448a09efd8d36bdfee75de4b
+  checksum: 10/3a7783f0a9508dd8bd3f386e44c062d0d9fe0414fa8983ab203350d1b95db24aad694a54f21b9a0f0a30691ca26c7959c9329e37fea909d35124ec99b6e7b418
   languageName: node
   linkType: hard
 
@@ -4116,7 +4116,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-mono-repo@workspace:."
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@typescript-eslint/types": "npm:~8.56.1"
     "@xylabs/eslint-config-flat": "npm:~7.3.2"
     "@xylabs/geo": "npm:^5.0.80"
@@ -4141,7 +4141,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-network-model@workspace:packages/network-model"
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4165,7 +4165,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-protocol-sdk-tests@workspace:packages/protocol-sdk-tests"
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:~5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4189,7 +4189,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-protocol-sdk@workspace:packages/protocol-sdk"
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/events": "npm:~5.0.80"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
@@ -4226,7 +4226,7 @@ __metadata:
   resolution: "@xyo-network/xl1-protocol@workspace:packages/protocol"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@typescript-eslint/types": "npm:~8.56.1"
     "@xylabs/creatable": "npm:~5.0.80"
     "@xylabs/eslint-config-flat": "npm:~7.3.2"
@@ -4256,7 +4256,7 @@ __metadata:
   resolution: "@xyo-network/xl1-providers@workspace:packages/providers"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:~5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4287,7 +4287,7 @@ __metadata:
   dependencies:
     "@metamask/json-rpc-engine": "npm:~10.2.2"
     "@metamask/utils": "npm:~11.10.0"
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4318,7 +4318,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-schema@workspace:packages/schema"
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4371,7 +4371,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-validation@workspace:packages/validation"
   dependencies:
-    "@types/node": "npm:~25.3.0"
+    "@types/node": "npm:~25.3.2"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
@@ -4400,7 +4400,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-wrappers@workspace:packages/wrappers"
   dependencies:
-    "@types/node": "npm:^25.3.0"
+    "@types/node": "npm:^25.3.2"
     "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"

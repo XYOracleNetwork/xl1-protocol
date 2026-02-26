@@ -47,6 +47,8 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
    */
   registerMany(factories: CreatableProviderFactory[]): ProviderFactoryLocatorInstance
 
+  registered(moniker: ProviderMoniker): boolean
+
   tryGetInstance<TProvider extends Provider<ProviderMoniker>>(
     moniker: TProvider['moniker'],
     options?: ProviderFactoryGetInstanceOptions,
