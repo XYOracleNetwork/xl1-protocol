@@ -22,7 +22,7 @@ export class JsonRpcStakeViewer extends JsonRpcStakeViewerMethods implements Sta
   }
 
   activeStakes(): Promisable<Position[]> {
-    throw new Error('Method not implemented.')
+    return []
   }
 
   override async createHandler() {
@@ -31,10 +31,10 @@ export class JsonRpcStakeViewer extends JsonRpcStakeViewerMethods implements Sta
   }
 
   removedStakes(): Promisable<Position[]> {
-    throw new Error('Method not implemented.')
+    return []
   }
 
   withdrawnStakes(): Promisable<Position[]> {
-    throw new Error('Method not implemented.')
+    return []
   }
 }
