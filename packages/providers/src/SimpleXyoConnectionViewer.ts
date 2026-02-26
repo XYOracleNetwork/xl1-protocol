@@ -16,7 +16,7 @@ export interface SimpleXyoConnectionViewerParams extends CreatableProviderParams
 export class SimpleXyoConnectionViewer<TParams extends SimpleXyoConnectionViewerParams = SimpleXyoConnectionViewerParams> extends
   AbstractCreatableProvider<TParams> implements XyoConnection {
   static readonly defaultMoniker = XyoConnectionMoniker
-  static readonly dependencies = [XyoViewerMoniker, DataLakeViewerMoniker]
+  static readonly dependencies = [XyoViewerMoniker]
   static readonly monikers = [XyoConnectionMoniker]
   moniker = SimpleXyoConnectionViewer.defaultMoniker
 
