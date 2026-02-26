@@ -1,7 +1,7 @@
 import { XyoViewer, XyoViewerMoniker } from '@xyo-network/xl1-protocol'
 import {
-  DataLakeRunnerMoniker, type DataLakeViewer, DataLakeViewerMoniker,
-  type XyoConnection, XyoConnectionMoniker, type XyoNetwork, XyoRunnerMoniker,
+  type DataLakeViewer, DataLakeViewerMoniker,
+  type XyoConnection, XyoConnectionMoniker, type XyoNetwork,
 } from '@xyo-network/xl1-protocol'
 import {
   AbstractCreatableProvider, creatableProvider,
@@ -16,7 +16,7 @@ export interface SimpleXyoConnectionViewerParams extends CreatableProviderParams
 export class SimpleXyoConnectionViewer<TParams extends SimpleXyoConnectionViewerParams = SimpleXyoConnectionViewerParams> extends
   AbstractCreatableProvider<TParams> implements XyoConnection {
   static readonly defaultMoniker = XyoConnectionMoniker
-  static readonly dependencies = [XyoRunnerMoniker, XyoViewerMoniker, DataLakeRunnerMoniker, DataLakeViewerMoniker]
+  static readonly dependencies = [XyoViewerMoniker, DataLakeViewerMoniker]
   static readonly monikers = [XyoConnectionMoniker]
   moniker = SimpleXyoConnectionViewer.defaultMoniker
 
