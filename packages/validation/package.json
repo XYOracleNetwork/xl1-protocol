@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-validation",
-  "version": "1.24.41",
+  "version": "1.24.42",
   "description": "XYO Layer One SDK Validation",
   "homepage": "https://xylabs.com",
   "bugs": {
@@ -39,9 +39,9 @@
     "!**/*.test.*"
   ],
   "dependencies": {
-    "@xyo-network/xl1-protocol": "~1.24.41",
-    "@xyo-network/xl1-protocol-sdk": "~1.24.41",
-    "@xyo-network/xl1-schema": "~1.24.41"
+    "@xyo-network/xl1-protocol": "~1.24.42",
+    "@xyo-network/xl1-protocol-sdk": "~1.24.42",
+    "@xyo-network/xl1-schema": "~1.24.42"
   },
   "devDependencies": {
     "@types/node": "~25.3.2",
