@@ -15,7 +15,7 @@ export interface JsonRpcNetworkStakeStepRewardsViewerParams extends JsonRpcNetwo
   total?: NetworkStakeStepRewardsTotalViewer
 }
 @creatableProvider()
-export class JsonRpcNetworkStakingStepRewardsViewer extends
+export class JsonRpcNetworkStakeStepRewardsViewer extends
   JsonRpcNetworkStakeStepRewardsViewerMethods<JsonRpcNetworkStakeStepRewardsViewerParams> implements NetworkStakeStepRewardsViewer {
   static readonly defaultMoniker = NetworkStakeStepRewardsViewerMoniker
   static readonly dependencies = []
@@ -37,3 +37,6 @@ export class JsonRpcNetworkStakingStepRewardsViewer extends
     return this.params.total
   }
 }
+
+/** @deprecated use JsonRpcNetworkStakeStepRewardsViewer instead */
+export class JsonRpcNetworkStakingStepRewardsViewer extends JsonRpcNetworkStakeStepRewardsViewer {}
