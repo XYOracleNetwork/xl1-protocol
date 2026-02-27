@@ -46,7 +46,7 @@
     "@xylabs/sdk-js": "^5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/sdk-js": "^5.3.10",
+    "@xyo-network/sdk-js": "^5.3.13",
     "dependency-cruiser": "~17.3.8",
     "dotenv": "~17.3.1",
     "eslint": "^9.39.3",

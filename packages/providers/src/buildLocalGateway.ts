@@ -13,7 +13,7 @@ import type { TransportFactory } from '@xyo-network/xl1-rpc'
 import {
   AccountBalanceViewerRpcSchemas, BlockViewerRpcSchemas,
   JsonRpcAccountBalanceViewer, JsonRpcBlockViewer,
-  JsonRpcMempoolRunner, JsonRpcMempoolViewer, JsonRpcNetworkStakeViewer, JsonRpcNetworkStakingStepRewardsViewer, JsonRpcStakeTotalsViewer,
+  JsonRpcMempoolRunner, JsonRpcMempoolViewer, JsonRpcNetworkStakeStepRewardsViewer, JsonRpcNetworkStakeViewer, JsonRpcStakeTotalsViewer,
   JsonRpcTimeSyncViewer, JsonRpcXyoRunner, JsonRpcXyoViewer, MempoolRunnerRpcSchemas, MempoolViewerRpcSchemas, NetworkStakeViewerRpcSchemas,
   StakeTotalsViewerRpcSchemas, TimeSyncViewerRpcSchemas, XyoRunnerRpcSchemas, XyoViewerRpcSchemas,
 } from '@xyo-network/xl1-rpc'
@@ -72,8 +72,8 @@ export async function buildJsonRpcProviderLocatorV2(config: Config, transportFac
       { transport: await transportFactory(NetworkStakeViewerRpcSchemas) },
     ),
     JsonRpcTimeSyncViewer.factory<JsonRpcTimeSyncViewer>(JsonRpcTimeSyncViewer.dependencies, { transport: await transportFactory(TimeSyncViewerRpcSchemas) }),
-    JsonRpcNetworkStakingStepRewardsViewer.factory<JsonRpcNetworkStakingStepRewardsViewer>(
-      JsonRpcNetworkStakingStepRewardsViewer.dependencies,
+    JsonRpcNetworkStakeStepRewardsViewer.factory<JsonRpcNetworkStakeStepRewardsViewer>(
+      JsonRpcNetworkStakeStepRewardsViewer.dependencies,
       { transport: await transportFactory(NetworkStakeViewerRpcSchemas) },
     ),
     JsonRpcXyoRunner.factory<JsonRpcXyoRunner>(JsonRpcXyoRunner.dependencies, { transport: await transportFactory(XyoRunnerRpcSchemas) }),

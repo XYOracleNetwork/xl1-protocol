@@ -3,7 +3,7 @@ import {
 } from '@xyo-network/xl1-protocol'
 import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
-import type { JsonRpcNetworkStakingStepRewardsViewer } from '../JsonRpcNetworkStakeStepRewardsViewer/index.ts'
+import type { JsonRpcNetworkStakeStepRewardsViewer } from '../JsonRpcNetworkStakeStepRewardsViewer/index.ts'
 import { JsonRpcNetworkStakeViewerMethods } from './JsonRpcNetworkStakeViewerMethods.ts'
 
 @creatableProvider()
@@ -20,6 +20,6 @@ export class JsonRpcNetworkStakeViewer extends JsonRpcNetworkStakeViewerMethods 
 
   override async createHandler() {
     await super.createHandler()
-    this._stepRewards = await this.locator.getInstance<JsonRpcNetworkStakingStepRewardsViewer>(NetworkStakeStepRewardsViewerMoniker)
+    this._stepRewards = await this.locator.getInstance<JsonRpcNetworkStakeStepRewardsViewer>(NetworkStakeStepRewardsViewerMoniker)
   }
 }

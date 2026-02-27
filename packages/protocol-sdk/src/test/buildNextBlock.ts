@@ -1,6 +1,6 @@
-import type { AccountInstance } from '@xyo-network/sdk-js'
+import type { AccountInstance, WithHashMeta } from '@xyo-network/sdk-js'
 import type {
-  AllowedBlockPayload, BlockBoundWitnessWithHashMeta, ChainId,
+  AllowedBlockPayload, BlockBoundWitness, ChainId,
   SignedHydratedBlockWithHashMeta,
   SignedHydratedTransaction,
 } from '@xyo-network/xl1-protocol'
@@ -12,7 +12,7 @@ import {
 import { buildBlock } from './buildBlock.ts'
 
 export async function buildNextBlock(
-  previousBlock: BlockBoundWitnessWithHashMeta,
+  previousBlock: WithHashMeta<BlockBoundWitness>,
   txs: SignedHydratedTransaction[],
   blockPayloads: AllowedBlockPayload[],
   signers: AccountInstance[],
