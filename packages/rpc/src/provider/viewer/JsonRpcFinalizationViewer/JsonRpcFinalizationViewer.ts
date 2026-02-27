@@ -15,6 +15,10 @@ export class JsonRpcFinalizationViewer extends JsonRpcFinalizationViewerMethods 
   static readonly dependencies = []
   static readonly monikers = [FinalizationViewerMoniker]
 
+  async chainId() {
+    return (await this.headBlock()).chain
+  }
+
   async headBlock(): Promise<SignedBlockBoundWitnessWithHashMeta> {
     return (await this.head())[0]
   }
