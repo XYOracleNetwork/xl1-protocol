@@ -1,10 +1,11 @@
+import { WithHashMetaZod } from '@xyo-network/sdk-js'
 import z from 'zod'
 
-import { BlockBoundWitnessWithHashMetaZod } from '../../block/index.ts'
+import { BlockBoundWitnessZod } from '../../block/index.ts'
 import { CachingContextZod } from './CachingContext.zod.ts'
 
 export const HeadContextBaseZod = z.object(
-  { head: BlockBoundWitnessWithHashMetaZod },
+  { head: WithHashMetaZod(BlockBoundWitnessZod) },
 )
 
 export const HeadContextZod = z.intersection(CachingContextZod, HeadContextBaseZod)
