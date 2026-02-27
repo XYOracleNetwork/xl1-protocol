@@ -21,7 +21,10 @@ export type CreatableProviderContextType = CachingContext & {
   statusReporter?: RuntimeStatusMonitor
 }
 
-export const BaseConfigContextZod = CachingContextZod.extend({ config: BaseConfigZod.loose() })
+export const BaseConfigContextZod = CachingContextZod.extend({
+  config: BaseConfigZod.loose(),
+  locator: ProviderFactoryLocatorZod.optional(),
+})
 export type BaseConfigContext = z.infer<typeof BaseConfigContextZod>
 
 export const CreatableProviderContextZod: z.ZodType<CreatableProviderContextType> = z.lazy(() =>
