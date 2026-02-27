@@ -22,7 +22,7 @@ describe('Payload', () => {
     expect(result.data).toEqual(hashPayload)
   })
   it('should parse a HashPayload with storage Meta', () => {
-    const result = WithStorageMetaZod(PayloadZodLoose).safeParse(hashPayloadWithMeta)
+    const result = WithStorageMetaZod(PayloadZodLoose).loose().safeParse(hashPayloadWithMeta)
     expect(result.success).toBe(true)
     expect(result.data).toEqual(hashPayloadWithMeta)
   })

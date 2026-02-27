@@ -8,7 +8,7 @@ import type {
 import {
   asSignedHydratedBlockWithHashMeta, asSignedHydratedBlockWithStorageMeta, asXL1BlockNumber,
   BlockContextRead,
-  BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead, ChainContractViewer, ChainContractViewerMoniker,
+  BlockRate, BlockViewer, BlockViewerMoniker, ChainContextRead,
   ChainId, DataLakeViewer, DataLakeViewerMoniker, FinalizationViewer, FinalizationViewerMoniker, type SignedHydratedBlockWithHashMeta,
   SignedHydratedBlockWithStorageMeta, SingleTimeConfig, TimeDurations, type XL1BlockNumber, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
@@ -32,12 +32,11 @@ export interface SimpleBlockViewerParams extends CreatableProviderParams {
 @creatableProvider()
 export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockViewerParams> implements BlockViewer {
   static readonly defaultMoniker = BlockViewerMoniker
-  static readonly dependencies = [FinalizationViewerMoniker, ChainContractViewerMoniker]
+  static readonly dependencies = [FinalizationViewerMoniker]
   static readonly monikers = [BlockViewerMoniker]
   moniker = SimpleBlockViewer.defaultMoniker
 
   protected _store?: ChainStoreRead
-  protected chainContractViewer!: ChainContractViewer
   protected dataLakeViewer?: DataLakeViewer
   protected finalizationViewer!: FinalizationViewer
   protected payloadCache = new LruCacheMap<Hash, WithHashMeta<Payload>>({ max: 10_000 })
@@ -141,16 +140,12 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
   chainId(blockNumber: 'latest'): Promise<ChainId>
   async chainId(blockNumber: XL1BlockNumber | 'latest' = 'latest'): Promise<ChainId> {
     return await this.spanAsync('chainId', async () => {
-      return blockNumber === 'latest' ? await this.chainContractViewer.chainId() : await this.chainContractViewer.chainIdAtBlockNumber(blockNumber)
+      return blockNumber === 'latest' ? (await this.finalizationViewer.headBlock()).chain : assertEx((await this.blockByNumber(blockNumber)), () => `Block not found [${blockNumber}]`)[0].chain
     }, this.context)
   }
 
   override async createHandler() {
     await super.createHandler()
-    this.chainContractViewer = assertEx(
-      await this.locateAndCreate<ChainContractViewer>(ChainContractViewerMoniker),
-      () => 'chainContractViewer is required',
-    )
     this.dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
     this.finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
     this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
