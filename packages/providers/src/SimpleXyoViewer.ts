@@ -4,14 +4,10 @@ import type {
   Hash, Promisable,
 } from '@xylabs/sdk-js'
 import {
-  assertEx, exists,
+  assertEx,
   toAddress,
 } from '@xylabs/sdk-js'
-import type {
-  ArchivistInstance,
-  Payload, WithHashMeta, WithStorageMeta,
-} from '@xyo-network/sdk-js'
-import { BoundWitnessSchema } from '@xyo-network/sdk-js'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   AccountBalanceViewer,
   AttoXL1,
@@ -20,9 +16,7 @@ import type {
   ChainQualifiedConfig, Count,
   FinalizationViewer,
   ForkHistory,
-  MempoolViewer, NetworkStakeStepRewardsByPositionViewer, NetworkStakeViewer, PayloadMapRead, Position,
-  SignedHydratedBlockWithHashMeta,
-  SignedHydratedTransactionWithHashMeta,
+  MempoolViewer, NetworkStakeStepRewardsByPositionViewer, NetworkStakeViewer, Position,
   SingleTimeConfig,
   StakeViewer,
   StepIdentity, StepIdentityString,
@@ -37,11 +31,11 @@ import type {
 import {
   AccountBalanceViewerMoniker,
   asAttoXL1,
-  asSignedHydratedBlockWithHashMeta, asXL1BlockRange,
+  asXL1BlockRange,
   BlockViewerMoniker,
   ChainContractViewerMoniker,
   FinalizationViewerMoniker,
-  isTransactionBoundWitnessWithStorageMeta, MempoolViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
+  MempoolViewerMoniker, NetworkStakeStepRewardsByPositionViewerMoniker,
   NetworkStakeViewerMoniker, StakeViewerMoniker, StepViewerMoniker, TimeSyncViewerMoniker, TransactionViewerMoniker, XYO_NETWORK_STAKING_ADDRESS,
   XYO_ZERO_ADDRESS,
   XyoViewerMoniker,
@@ -50,21 +44,18 @@ import {
   AbstractCreatableProvider,
   allStakersForStep,
   blockRangeSteps,
-  ChainStoreRead,
   creatableProvider,
   CreatableProviderParams,
   externalBlockRangeFromStep,
   externalBlockRangeFromXL1BlockRange,
-  findMostRecentBlock, hydrateBlock, HydratedCache,
   networkStakeStepRewardPositionWeight,
-  readPayloadMapFromStore, stepRewardTotal,
-  toStepIdentityString, tryHydrateTransaction,
+  stepRewardTotal,
+  toStepIdentityString,
   weightedStakeForRangeByPosition,
   withContextCacheResponse,
 } from '@xyo-network/xl1-protocol-sdk'
 
 export interface SimpleXyoViewerParams extends CreatableProviderParams {
-  finalizedArchivist?: ArchivistInstance
   initRewardsCache?: boolean
   rewardMultipliers?: XL1RangeMultipliers
 }
@@ -94,13 +85,10 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   private _chainContractViewer?: ChainContractViewer
   private _chainId!: ChainId
   private _finalizationViewer!: FinalizationViewer
-  private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
   private _mempoolViewer?: MempoolViewer
   private _networkStakeViewer?: NetworkStakeViewer
   private _networkStepRewardsByPositionViewer?: NetworkStakeStepRewardsByPositionViewer
   private _rewardMultipliers?: XL1RangeMultipliers
-  private _signedHydratedBlockCache?: HydratedCache<SignedHydratedBlockWithHashMeta>
-  private _signedHydratedTransactionCache?: HydratedCache<SignedHydratedTransactionWithHashMeta>
   private _stakeViewer?: StakeViewer
   private _stepViewer?: StepViewer
   private _timeSyncViewer?: TimeSyncViewer
@@ -146,10 +134,6 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return this._finalizationViewer
   }
 
-  protected get finalizedArchivist() {
-    return this.params.finalizedArchivist
-  }
-
   protected get initRewardsCache() {
     return this.params.initRewardsCache ?? true
   }
@@ -161,13 +145,6 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
   protected get rewardMultipliers() {
     this._rewardMultipliers = this._rewardMultipliers ?? this.params.rewardMultipliers ?? {}
     return this._rewardMultipliers
-  }
-
-  static override async paramsHandler(params: Partial<SimpleXyoViewerParams>): Promise<SimpleXyoViewerParams> {
-    return {
-      ...await super.paramsHandler(params),
-      finalizedArchivist: assertEx(params.finalizedArchivist, () => 'SimpleXyoViewer requires a finalizedArchivist'),
-    } satisfies SimpleXyoViewerParams
   }
 
   async accountBalance(address: Address, config: ChainQualifiedConfig = {}) {
@@ -209,7 +186,6 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
 
   override async createHandler() {
     await super.createHandler()
-    this._finalizedPayloadMap = readPayloadMapFromStore<WithStorageMeta<Payload>>(this.params.finalizedArchivist!)
     this._accountBalanceViewer = await this.locator.getInstance<AccountBalanceViewer>(AccountBalanceViewerMoniker)
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
     this._chainContractViewer = await this.locator.getInstance<ChainContractViewer>(ChainContractViewerMoniker)
@@ -434,76 +410,16 @@ export class SimpleXyoViewer<TParams extends SimpleXyoViewerParams = SimpleXyoVi
     return await this.block.timeDurationRate(timeConfig, startBlock, timeUnit, toleranceMs, maxAttempts)
   }
 
-  async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByBlockHashAndIndex', async () => {
-      assertEx(transactionIndex >= 0, () => 'transactionIndex must be greater than or equal to 0')
-      try {
-        const block = await this.blockByHash(blockHash)
-        if (!block) return null
-        const blockBoundWitnessIndexes = block[0].payload_schemas.map((schema, index) => schema === BoundWitnessSchema ? index : undefined).filter(exists)
-        const blockBoundWitnessHashes = new Set(blockBoundWitnessIndexes.map(index => block[0].payload_hashes[index]))
-        const blockBoundWitnesses = block[1].filter(payload => blockBoundWitnessHashes.has(payload._hash) || blockBoundWitnessHashes.has(payload._dataHash))
-        const blockTransactionBoundWitnesses = blockBoundWitnesses.filter(isTransactionBoundWitnessWithStorageMeta)
-        const transaction = blockTransactionBoundWitnesses.at(transactionIndex)
-        if (!transaction) return null
-        return await this.transactionByHash(transaction._hash)
-      } catch {
-        return null
-      }
-    }, this.context)
+  async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0) {
+    return await this.transaction.byBlockHashAndIndex(blockHash, transactionIndex)
   }
 
-  async transactionByBlockNumberAndIndex(blockNumber: XL1BlockNumber, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByBlockNumberAndIndex', async () => {
-      try {
-        const block = await this.blockByNumber(blockNumber)
-        if (!block) return null
-        return await this.transactionByBlockHashAndIndex(block[0]._hash, transactionIndex)
-      } catch {
-        return null
-      }
-    }, this.context)
+  async transactionByBlockNumberAndIndex(blockNumber: XL1BlockNumber, transactionIndex: number = 0) {
+    return await this.transaction.byBlockNumberAndIndex(blockNumber, transactionIndex)
   }
 
-  async transactionByHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByHash', async () => {
-      try {
-        const cache = this.getHydratedTransactionCache()
-        const hydratedTransaction = await cache.get(transactionHash)
-        return hydratedTransaction ?? null
-      } catch {
-        return null
-      }
-    }, this.context)
-  }
-
-  protected async getCurrentHead() {
-    const chainArchivist = this.finalizedArchivist!
-    const result = assertEx(await findMostRecentBlock(chainArchivist), () => 'No blocks found in finalizedArchivist')
-    assertEx(result.chain === this._chainId, () => `Chain ID mismatch in finalizedArchivist [${result.chain} should be ${this._chainId}]`)
-    return result
-  }
-
-  protected getHydratedBlockCache(): HydratedCache<SignedHydratedBlockWithHashMeta> {
-    if (this._signedHydratedBlockCache) return this._signedHydratedBlockCache
-    const chainMap = this._finalizedPayloadMap
-    this._signedHydratedBlockCache = new HydratedCache<SignedHydratedBlockWithHashMeta>({ ...this.context, chainMap }, async (
-      { chainMap }: ChainStoreRead,
-      hash: Hash,
-      maxDepth?: number,
-      minDepth?: number,
-    ) => {
-      const result = await hydrateBlock({ ...this.context, chainMap }, hash, maxDepth, minDepth)
-      return asSignedHydratedBlockWithHashMeta(result, true)
-    }, 200)
-    return this._signedHydratedBlockCache
-  }
-
-  protected getHydratedTransactionCache(): HydratedCache<SignedHydratedTransactionWithHashMeta> {
-    if (this._signedHydratedTransactionCache) return this._signedHydratedTransactionCache
-    const chainMap = this._finalizedPayloadMap
-    this._signedHydratedTransactionCache = new HydratedCache<SignedHydratedTransactionWithHashMeta>({ ...this.context, chainMap }, tryHydrateTransaction, 200)
-    return this._signedHydratedTransactionCache
+  async transactionByHash(transactionHash: Hash) {
+    return await this.transaction.byHash(transactionHash)
   }
 
   protected override async startHandler() {

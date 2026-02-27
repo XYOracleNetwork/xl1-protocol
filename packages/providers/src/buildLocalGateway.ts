@@ -107,7 +107,7 @@ export function buildLocalGateway(config: Config, params: BuildLocalGatewayParam
     SimpleFinalizationViewer.factory<SimpleFinalizationViewer>(SimpleFinalizationViewer.dependencies, { finalizedArchivist }),
     SimpleBlockViewer.factory<SimpleBlockViewer>(SimpleBlockViewer.dependencies, { finalizedArchivist }),
     SimpleWindowedBlockViewer.factory<SimpleWindowedBlockViewer>(SimpleWindowedBlockViewer.dependencies, { maxWindowSize: 10_000, syncInterval: 10_000 }),
-    SimpleXyoViewer.factory<SimpleXyoViewer>(SimpleXyoViewer.dependencies, { finalizedArchivist }),
+    SimpleXyoViewer.factory<SimpleXyoViewer>(SimpleXyoViewer.dependencies, {}),
   ])
   return locator
 }

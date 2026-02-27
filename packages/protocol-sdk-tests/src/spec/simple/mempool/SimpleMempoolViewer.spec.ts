@@ -25,8 +25,6 @@ import {
   beforeAll, beforeEach, describe, expect, it,
 } from 'vitest'
 
-const config = ConfigZod.parse({})
-
 describe('SimpleMempoolViewer', () => {
   const chainId = asHex('c5fe2e6f6841cbab12d8c0618be2df8c6156cc44', true)
   const genesisBlock = [
@@ -330,6 +328,7 @@ describe('SimpleMempoolViewer', () => {
     pendingTransactionsArchivist: MemoryArchivist,
     contractViewerParams: Omit<SimpleChainContractViewerParams, 'context'>,
   ) {
+    const config = ConfigZod.parse({ chain: { id: chainId } })
     const locator = buildSimpleProviderLocatorV2(config)
     await finalizedArchivist.clear()
     await pendingBlocksArchivist.clear()

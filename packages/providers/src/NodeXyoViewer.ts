@@ -8,25 +8,19 @@ import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { SimpleXyoViewer, SimpleXyoViewerParams } from './SimpleXyoViewer.ts'
 
+/** @deprecated use SimpleXyoViewer instead */
 export interface NodeXyoViewerParams extends SimpleXyoViewerParams {
   node: NodeInstance
 }
 
 @creatableProvider()
+/** @deprecated use SimpleXyoViewer instead */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class NodeXyoViewer extends SimpleXyoViewer<NodeXyoViewerParams> implements XyoViewer {
   protected static readonly finalizedArchivistPath: ModuleIdentifier = 'XYOChain:Chain:Finalized'
 
   protected get node() {
     return this.params.node
-  }
-
-  static override async paramsHandler(params: Partial<NodeXyoViewerParams>): Promise<NodeXyoViewerParams> {
-    const node = assertEx(params.node, () => 'NodeXyoViewer requires a node')
-    const finalizedArchivist = await this.getFinalizedArchivistFromNode(node)
-    return {
-      ...await super.paramsHandler({ ...params, finalizedArchivist }),
-      node,
-    } satisfies NodeXyoViewerParams
   }
 
   protected static getArchivist = async (node: NodeInstance, identifier: ModuleIdentifier) => {

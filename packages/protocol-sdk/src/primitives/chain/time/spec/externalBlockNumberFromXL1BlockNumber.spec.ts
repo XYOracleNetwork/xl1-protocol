@@ -15,8 +15,6 @@ import {
 } from '../../../../simple/index.ts'
 import { externalBlockNumberFromXL1BlockNumber } from '../externalBlockNumberFromXL1BlockNumber.ts'
 
-const config = ConfigZod.parse({})
-
 describe('externalBlockNumberFromXL1BlockNumber', () => {
   it('should be tested', async () => {
     const chainArchivist = await MongoDBArchivistV2.create({
@@ -27,10 +25,11 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
       },
     })
 
+    const chainId = asHex('0101', true)
+    const config = ConfigZod.parse({ chain: { id: chainId } })
     const locator = new ProviderFactoryLocator({
       singletons: {}, caches: {}, config,
     })
-    const chainId = asHex('0101', true)
     locator.registerMany([
       SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, {
         chainId,
