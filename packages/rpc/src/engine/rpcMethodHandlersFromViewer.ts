@@ -32,9 +32,9 @@ export const rpcMethodHandlersFromViewer = (viewer: XyoViewer): XyoViewerRpcMeth
     xyoViewer_stakeByStaker: params => viewer.stakeByStaker(...(params ?? [])),
     xyoViewer_stakesByStaked: params => viewer.stakesByStaked(...(params ?? [])),
     xyoViewer_stakesByStaker: params => viewer.stakesByStaker(...(params ?? [])),
-    xyoViewer_transactionByBlockHashAndIndex: params => viewer.transactionByBlockHashAndIndex(...(params ?? [])),
-    xyoViewer_transactionByBlockNumberAndIndex: params => viewer.transactionByBlockNumberAndIndex(...(params ?? [])),
-    xyoViewer_transactionByHash: params => viewer.transactionByHash(...(params ?? [])),
+    xyoViewer_transactionByBlockHashAndIndex: params => viewer.transaction.byBlockHashAndIndex(...(params ?? [])),
+    xyoViewer_transactionByBlockNumberAndIndex: params => viewer.transaction.byBlockNumberAndIndex(...(params ?? [])),
+    xyoViewer_transactionByHash: params => viewer.transaction.byHash(...(params ?? [])),
     xyoViewer_payloadsByHash: params => viewer.payloadsByHash(...(params ?? [])),
   }
 }

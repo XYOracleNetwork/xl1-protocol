@@ -50,7 +50,7 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
         const blockTransactionBoundWitnesses = blockBoundWitnesses.filter(isTransactionBoundWitnessWithStorageMeta)
         const transaction = blockTransactionBoundWitnesses.at(transactionIndex)
         if (!transaction) return null
-        return await this.transactionByHash(transaction._hash)
+        return await this.byHash(transaction._hash)
       } catch {
         return null
       }
@@ -62,7 +62,7 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
       try {
         const block = await this.blockViewer.blockByNumber(blockNumber)
         if (!block) return null
-        return await this.transactionByBlockHashAndIndex(block[0]._hash, transactionIndex)
+        return await this.byBlockHashAndIndex(block[0]._hash, transactionIndex)
       } catch {
         return null
       }

@@ -70,7 +70,7 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
 
   override async createHandler() {
     await super.createHandler()
-    this._chainId = assertEx(this.config.chain.id, () => 'chain.id is required')
+    this._chainId = assertEx(this.config.chain.id ?? (await findMostRecentBlock(this.params.finalizedArchivist))?.chain, () => 'chain.id is required if empty archivist')
     this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
   }
 

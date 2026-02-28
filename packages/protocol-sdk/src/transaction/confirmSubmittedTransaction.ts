@@ -24,7 +24,7 @@ export const confirmSubmittedTransaction = async (
   options?.logger?.log('🚀 confirming transaction:', txHash, '\n')
   let attempts = 0
   while (true) {
-    const tx = await viewer.transactionByHash(txHash) ?? undefined
+    const tx = await viewer.transaction.byHash(txHash) ?? undefined
     if (isDefined(tx)) {
       options?.logger?.log('✅ Transaction confirmed:', txHash, '\n')
       return tx
