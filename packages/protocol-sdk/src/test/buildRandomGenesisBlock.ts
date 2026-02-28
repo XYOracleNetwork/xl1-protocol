@@ -1,14 +1,13 @@
 import { asAddress, assertEx } from '@xylabs/sdk-js'
 import type { AccountInstance, Id } from '@xyo-network/sdk-js'
 import {
-  Account, asSchema, IdSchema,
+  Account, asAnyPayload, asSchema, IdSchema,
   PayloadBuilder,
 } from '@xyo-network/sdk-js'
 import {
   asXL1BlockNumber, type ChainId, type HydratedBlockWithHashMeta,
 } from '@xyo-network/xl1-protocol'
 
-import { asAnyPayload } from '../block/index.ts'
 import { buildRandomTransaction } from '../transaction/index.ts'
 import { buildGenesisBlock } from './buildGenesisBlock.ts'
 

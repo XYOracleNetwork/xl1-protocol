@@ -1,7 +1,9 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
-import { hydrateTypedBoundWitness, tryHydrateTypedBoundWitness } from '@xyo-network/sdk-js'
+import {
+  asAnyPayload, hydrateTypedBoundWitness, tryHydrateTypedBoundWitness,
+} from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, HydratedTransaction, SignedHydratedTransaction,
   SignedHydratedTransactionWithHashMeta,
@@ -11,7 +13,6 @@ import {
   asSignedHydratedTransaction, isAllowedBlockPayload, isSignedTransactionBoundWitnessWithStorageMeta,
 } from '@xyo-network/xl1-protocol'
 
-import { asAnyPayload } from '../block/index.ts'
 import type { ChainStoreRead } from '../model/index.ts'
 
 export const tryHydrateTransaction = async (

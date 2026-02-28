@@ -1,12 +1,10 @@
 import type { Hash } from '@xylabs/sdk-js'
-import { assertEx, zodAsFactory } from '@xylabs/sdk-js'
-import { AnyPayloadZod } from '@xyo-network/sdk-js'
+import { assertEx } from '@xylabs/sdk-js'
+import { asAnyPayload } from '@xyo-network/sdk-js'
 import type { BlockContextRead, HydratedBlockWithStorageMeta } from '@xyo-network/xl1-protocol'
 import { asBlockBoundWitnessWithStorageMeta, isTransactionBoundWitnessWithStorageMeta } from '@xyo-network/xl1-protocol'
 
 import { allHashesPresent } from './allHashesPresent.ts'
-
-export const asAnyPayload = zodAsFactory(AnyPayloadZod, 'asAnyPayload')
 
 export const hydrateBlock = async (
   context: BlockContextRead,

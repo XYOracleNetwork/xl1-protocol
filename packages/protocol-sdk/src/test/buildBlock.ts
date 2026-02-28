@@ -5,7 +5,9 @@ import {
   assertEx, isDefined, isHash, toSafeJsonString,
 } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
-import { BoundWitnessBuilder, PayloadBuilder } from '@xyo-network/sdk-js'
+import {
+  asAnyPayload, BoundWitnessBuilder, PayloadBuilder,
+} from '@xyo-network/sdk-js'
 import type {
   BlockBoundWitness, SignedHydratedBlockWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'
@@ -17,7 +19,6 @@ import {
   XYO_ZERO_ADDRESS,
 } from '@xyo-network/xl1-protocol'
 
-import { asAnyPayload } from '../block/index.ts'
 import { createTransferPayload } from '../createTransferPayload.ts'
 import { completedStepRewardAddress } from '../primitives/index.ts'
 import {

@@ -1,7 +1,9 @@
 import type { Address } from '@xylabs/sdk-js'
 import { assertEx, toHex } from '@xylabs/sdk-js'
 import type { AccountInstance, Payload } from '@xyo-network/sdk-js'
-import { BoundWitnessBuilder, PayloadBuilder } from '@xyo-network/sdk-js'
+import {
+  asAnyPayload, BoundWitnessBuilder, PayloadBuilder,
+} from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload,
   ChainId,
@@ -12,8 +14,6 @@ import type {
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import { defaultTransactionFees } from '@xyo-network/xl1-protocol'
-
-import { asAnyPayload } from '../block/index.ts'
 
 export async function buildTransaction(
   chain: ChainId,
