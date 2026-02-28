@@ -13,6 +13,8 @@ import type {
 } from '@xyo-network/xl1-protocol'
 import { defaultTransactionFees } from '@xyo-network/xl1-protocol'
 
+import { asAnyPayload } from '../block/index.ts'
+
 export async function buildTransaction(
   chain: ChainId,
   onChainPayloads: AllowedBlockPayload[],
@@ -61,5 +63,5 @@ export async function buildTransaction(
     .signers(Array.isArray(signer) ? signer : [signer])
     .build()
 
-  return [await PayloadBuilder.addHashMeta(tx), await PayloadBuilder.addHashMeta(txPayloads)]
+  return [await PayloadBuilder.addHashMeta(tx), await PayloadBuilder.addHashMeta(txPayloads.map(p => asAnyPayload(p, true)))]
 }

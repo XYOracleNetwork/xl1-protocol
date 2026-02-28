@@ -2,6 +2,7 @@ import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
 import {
+  PayloadZod,
   PayloadZodLoose, WithHashMetaZod,
   WithStorageMetaZod,
 } from '@xyo-network/sdk-js'
@@ -96,7 +97,7 @@ export const toSignedHydratedTransaction = zodToFactory(SignedHydratedTransactio
 
 export const SignedHydratedTransactionWithHashMetaZod = z.tuple([
   WithHashMetaZod(SignedTransactionBoundWitnessZod),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export type SignedHydratedTransactionWithHashMeta = z.infer<typeof SignedHydratedTransactionWithHashMetaZod>
@@ -107,7 +108,7 @@ export const toSignedHydratedTransactionWithHashMeta = zodToFactory(SignedHydrat
 
 export const SignedHydratedTransactionWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(SignedTransactionBoundWitnessZod),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])
 
 export type SignedHydratedTransactionWithStorageMeta = z.infer<typeof SignedHydratedTransactionWithStorageMetaZod>

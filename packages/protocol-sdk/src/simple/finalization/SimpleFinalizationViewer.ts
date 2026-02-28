@@ -15,7 +15,7 @@ import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import { ChainStoreRead } from '../../model/index.ts'
-import { findMostRecentBlock, readPayloadMapFromStore } from '../../primitives/index.ts'
+import { findMostRecentBlock } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleFinalizationViewerParams extends CreatableProviderParams {
@@ -71,7 +71,7 @@ export class SimpleFinalizationViewer extends AbstractCreatableProvider<SimpleFi
   override async createHandler() {
     await super.createHandler()
     this._chainId = assertEx(this.config.chain.id ?? (await findMostRecentBlock(this.params.finalizedArchivist))?.chain, () => 'chain.id is required if empty archivist')
-    this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
+    this._store = { chainMap: this.params.finalizedArchivist }
   }
 
   async head(): Promise<SignedHydratedBlockWithHashMeta> {

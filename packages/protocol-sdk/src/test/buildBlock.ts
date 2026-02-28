@@ -17,6 +17,7 @@ import {
   XYO_ZERO_ADDRESS,
 } from '@xyo-network/xl1-protocol'
 
+import { asAnyPayload } from '../block/index.ts'
 import { createTransferPayload } from '../createTransferPayload.ts'
 import { completedStepRewardAddress } from '../primitives/index.ts'
 import {
@@ -133,5 +134,5 @@ export async function buildBlock(options: BuildBlockOptions): Promise<SignedHydr
     .payloads(await PayloadBuilder.addStorageMeta(payloads))
     .build()
   assertEx(isBlockBoundWitness(bw), () => 'Build of BlockBoundWitness failed')
-  return [await PayloadBuilder.addStorageMeta(bw), txPayloads]
+  return [await PayloadBuilder.addStorageMeta(bw), txPayloads.map(p => asAnyPayload(p, true))]
 }

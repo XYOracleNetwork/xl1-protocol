@@ -8,4 +8,4 @@ export const HeadContextBaseZod = z.object(
   { head: WithHashMetaZod(BlockBoundWitnessZod) },
 )
 
-export const HeadContextZod = z.intersection(CachingContextZod, HeadContextBaseZod)
+export const HeadContextZod = CachingContextZod.safeExtend(HeadContextBaseZod.shape)

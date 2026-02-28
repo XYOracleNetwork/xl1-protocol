@@ -1,13 +1,14 @@
 import type { Hash } from '@xylabs/sdk-js'
 import { isDefined } from '@xylabs/sdk-js'
 import type {
-  Payload, ReadArchivist, ReadWriteArchivist, WithStorageMeta,
+  ReadArchivist, ReadWriteArchivist,
+  WithStorageMeta,
 } from '@xyo-network/sdk-js'
 import type { PayloadMap, PayloadMapRead } from '@xyo-network/xl1-protocol'
 
 import { isReadArchivist, isReadWriteArchivist } from '../block/index.ts'
 
-export function readPayloadMapFromStore<T extends Payload>(store: ReadArchivist<T> | PayloadMapRead<WithStorageMeta<T>>): PayloadMapRead<WithStorageMeta<T>> {
+export function readPayloadMapFromStore(store: ReadArchivist | PayloadMapRead): PayloadMapRead {
   if (isReadArchivist(store)) {
     return {
       get: async (hash: Hash) => {
@@ -24,7 +25,7 @@ export function readPayloadMapFromStore<T extends Payload>(store: ReadArchivist<
   return store
 }
 
-export function payloadMapFromStore<T extends Payload>(store: ReadWriteArchivist<T> | PayloadMap<WithStorageMeta<T>>): PayloadMap<WithStorageMeta<T>> {
+export function payloadMapFromStore(store: ReadWriteArchivist | PayloadMap): PayloadMap {
   if (isReadWriteArchivist(store)) {
     return {
       get: async (hash: Hash) => {
@@ -43,13 +44,13 @@ export function payloadMapFromStore<T extends Payload>(store: ReadWriteArchivist
         await store.delete([id])
         return true
       },
-      set: async (_id: Hash, data: T) => {
+      set: async (_id: Hash, data: WithStorageMeta) => {
         await store.insert([data])
       },
-      setMany: async (entries: [Hash, T][]) => {
+      setMany: async (entries: [Hash, WithStorageMeta][]) => {
         await store.insert(entries.map(e => e[1]))
       },
-    } satisfies PayloadMap<WithStorageMeta<T>>
+    } satisfies PayloadMap<WithStorageMeta>
   }
   return store
 }

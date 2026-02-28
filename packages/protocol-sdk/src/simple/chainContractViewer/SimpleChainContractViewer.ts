@@ -1,7 +1,6 @@
 import {
   type Address, assertEx,
   type Hash,
-  Promisable,
 } from '@xylabs/sdk-js'
 import {
   ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer, FinalizationViewerMoniker, XL1BlockNumber,

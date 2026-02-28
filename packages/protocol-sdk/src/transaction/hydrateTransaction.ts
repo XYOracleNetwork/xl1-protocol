@@ -11,6 +11,7 @@ import {
   asSignedHydratedTransaction, isAllowedBlockPayload, isSignedTransactionBoundWitnessWithStorageMeta,
 } from '@xyo-network/xl1-protocol'
 
+import { asAnyPayload } from '../block/index.ts'
 import type { ChainStoreRead } from '../model/index.ts'
 
 export const tryHydrateTransaction = async (
@@ -20,7 +21,7 @@ export const tryHydrateTransaction = async (
   return (await tryHydrateTypedBoundWitness<TransactionBoundWitness>(
     {
       get(hashes: Hash[]) {
-        return chainMap.getMany(hashes)
+        return chainMap.get(hashes)
       },
       next() {
         throw new Error('Not implemented')
@@ -38,7 +39,7 @@ export const hydrateTransaction = async (
   return await hydrateTypedBoundWitness<TransactionBoundWitness>(
     {
       get(hashes: Hash[]) {
-        return chainMap.getMany(hashes)
+        return chainMap.get(hashes)
       },
       next() {
         throw new Error('Not implemented')
@@ -94,7 +95,7 @@ export const tryHydrateElevatedTransaction = async (
     }
   }
   if (opCodes.length === elevatedPayloads.length) {
-    return [transaction, elevatedPayloads]
+    return [transaction, elevatedPayloads.map(p => asAnyPayload(p, true))]
   }
   return undefined
 }

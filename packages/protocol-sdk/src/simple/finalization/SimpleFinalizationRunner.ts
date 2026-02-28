@@ -1,6 +1,5 @@
 import { type Hash } from '@xylabs/sdk-js'
 import type { ArchivistInstance } from '@xyo-network/sdk-js'
-import { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import { type SignedHydratedBlockWithHashMeta } from '@xyo-network/xl1-protocol'
 import { FinalizationRunner, FinalizationRunnerMoniker } from '@xyo-network/xl1-protocol'
 
@@ -8,7 +7,6 @@ import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import { ChainStoreWrite } from '../../model/index.ts'
-import { payloadMapFromStore } from '../../primitives/index.ts'
 
 export interface SimpleFinalizationRunnerParams extends CreatableProviderParams {
   finalizedArchivist: ArchivistInstance
@@ -29,7 +27,7 @@ export class SimpleFinalizationRunner extends AbstractCreatableProvider<SimpleFi
 
   override async createHandler() {
     await super.createHandler()
-    this._store = { chainMap: payloadMapFromStore(this.params.finalizedArchivist) }
+    this._store = { chainMap: this.params.finalizedArchivist }
   }
 
   async finalizeBlock(block: SignedHydratedBlockWithHashMeta): Promise<Hash> {
@@ -38,8 +36,8 @@ export class SimpleFinalizationRunner extends AbstractCreatableProvider<SimpleFi
 
   async finalizeBlocks(blocks: SignedHydratedBlockWithHashMeta[]): Promise<Hash[]> {
     const sortedBlocks = blocks.toSorted((a, b) => a[0].block - b[0].block)
-    const payloads = sortedBlocks.flatMap(block => [...block[1], block[0]].map(p => ([p._hash, p] as [Hash, WithStorageMeta<Payload>])))
-    await this.store.chainMap.setMany(payloads)
+    const payloads = sortedBlocks.flatMap(block => [...block[1], block[0]])
+    await this.store.chainMap.insert(payloads)
     return sortedBlocks.map(b => b[0]._hash)
   }
 }

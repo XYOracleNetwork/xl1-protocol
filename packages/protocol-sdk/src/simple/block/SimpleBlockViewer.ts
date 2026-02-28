@@ -21,7 +21,7 @@ import { ChainStoreRead } from '../../model/index.ts'
 import {
   addDataLakePayloads,
   addDataLakePayloadsToPayloads,
-  calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber, readPayloadMapFromStore,
+  calculateBlockRate, calculateStepSizeRate, calculateTimeRate, hydratedBlockByNumber,
 } from '../../primitives/index.ts'
 import { HydratedCache } from '../../utils/index.ts'
 
@@ -148,7 +148,7 @@ export class SimpleBlockViewer extends AbstractCreatableProvider<SimpleBlockView
     await super.createHandler()
     this.dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
     this.finalizationViewer = await this.locator.getInstance<FinalizationViewer>(FinalizationViewerMoniker)
-    this._store = { chainMap: readPayloadMapFromStore(this.params.finalizedArchivist) }
+    this._store = { chainMap: this.params.finalizedArchivist }
   }
 
   async currentBlock(): Promise<SignedHydratedBlockWithHashMeta> {

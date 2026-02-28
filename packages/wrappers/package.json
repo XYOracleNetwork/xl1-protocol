@@ -44,11 +44,11 @@
     "@xyo-network/xl1-validation": "~1.25.2"
   },
   "devDependencies": {
-    "@types/node": "^25.3.2",
+    "@types/node": "^25.3.3",
     "@xylabs/sdk-js": "^5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/sdk-js": "^5.3.13",
+    "@xyo-network/sdk-js": "^5.3.15",
     "axios": "^1.13.6",
     "eslint": "^9.39.3",
     "ethers": "^6.16.0",

@@ -8,6 +8,7 @@ import {
   asXL1BlockNumber, type ChainId, type HydratedBlockWithHashMeta,
 } from '@xyo-network/xl1-protocol'
 
+import { asAnyPayload } from '../block/index.ts'
 import { buildRandomTransaction } from '../transaction/index.ts'
 import { buildGenesisBlock } from './buildGenesisBlock.ts'
 
@@ -42,5 +43,5 @@ export const buildRandomGenesisBlock = async (
     ...block[1],
     await PayloadBuilder.addHashMeta(additionalPayload),
   ]
-  return [block[0], payloads]
+  return [block[0], payloads.map(p => asAnyPayload(p, true))]
 }

@@ -2,6 +2,7 @@ import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
 import {
+  PayloadZod,
   PayloadZodLoose, WithHashMetaZod, WithStorageMetaZod,
 } from '@xyo-network/sdk-js'
 import { z } from 'zod'
@@ -22,7 +23,7 @@ export const toHydratedBlock = zodToFactory(HydratedBlockZod, 'toHydratedBlock')
 
 export const HydratedBlockWithHashMetaZod = z.tuple([
   WithHashMetaZod(BlockBoundWitnessZod),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export type HydratedBlockWithHashMeta = z.infer<typeof HydratedBlockWithHashMetaZod>
@@ -33,7 +34,7 @@ export const toHydratedBlockWithHashMeta = zodToFactory(HydratedBlockWithHashMet
 
 export const HydratedBlockWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(BlockBoundWitnessZod),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])
 
 export type HydratedBlockWithStorageMeta = z.infer<typeof HydratedBlockWithStorageMetaZod>
@@ -44,7 +45,7 @@ export const toHydratedBlockWithStorageMeta = zodToFactory(HydratedBlockWithStor
 
 export const SignedHydratedBlockZod = z.tuple([
   SignedBlockBoundWitnessZod,
-  z.array(PayloadZodLoose),
+  z.array(PayloadZod.loose()),
 ])
 
 export type SignedHydratedBlock = z.infer<typeof SignedHydratedBlockZod>
@@ -55,7 +56,7 @@ export const toSignedHydratedBlock = zodToFactory(SignedHydratedBlockZod, 'toSig
 
 export const SignedHydratedBlockToJsonZod = z.tuple([
   SignedBlockBoundWitnessZod,
-  z.array(PayloadZodLoose),
+  z.array(PayloadZod.loose()),
 ])
 
 export type SignedHydratedBlockToJson = z.infer<typeof SignedHydratedBlockToJsonZod>
@@ -66,14 +67,14 @@ export const toSignedHydratedBlockToJson = zodToFactory(SignedHydratedBlockToJso
 
 export const SignedHydratedBlockWithHashMetaZod = z.tuple([
   WithHashMetaZod(SignedBlockBoundWitnessZod),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export type SignedHydratedBlockWithHashMeta = z.infer<typeof SignedHydratedBlockWithHashMetaZod>
 
 export const SignedHydratedBlockWithHashMetaishZod = z.tuple([
   z.union([WithHashMetaZod(SignedBlockBoundWitnessZod)]),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export const isSignedHydratedBlockWithHashMeta = zodIsFactory(SignedHydratedBlockWithHashMetaZod)
@@ -83,7 +84,7 @@ export const toSignedHydratedBlockWithHashMeta = zodToFactory(SignedHydratedBloc
 
 export const SignedHydratedBlockWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(SignedBlockBoundWitnessZod),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])
 export type SignedHydratedBlockWithStorageMeta = z.infer<typeof SignedHydratedBlockWithStorageMetaZod>
 
@@ -93,5 +94,5 @@ export const toSignedHydratedBlockWithStorageMeta = zodToFactory(SignedHydratedB
 
 export const SignedHydratedBlockWithStorageMetaishZod = z.tuple([
   z.union([WithStorageMetaZod(SignedBlockBoundWitnessZod)]),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])

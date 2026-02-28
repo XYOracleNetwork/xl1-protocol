@@ -1,12 +1,12 @@
 import {
   zodAsFactory, zodIsFactory, zodToFactory,
 } from '@xylabs/sdk-js'
-import { PayloadBuilder, StorageMetaZod } from '@xyo-network/sdk-js'
+import { PayloadBuilder, WithStorageMetaZod } from '@xyo-network/sdk-js'
 import type { z } from 'zod'
 
 import { isSignedBlockBoundWitness, SignedBlockBoundWitnessZod } from './SignedBlockBoundWitness.ts'
 
-export const SignedBlockBoundWitnessWithStorageMetaZod = SignedBlockBoundWitnessZod.safeExtend(StorageMetaZod.shape)
+export const SignedBlockBoundWitnessWithStorageMetaZod = WithStorageMetaZod(SignedBlockBoundWitnessZod)
 
 export type SignedBlockBoundWitnessWithStorageMeta = z.infer<typeof SignedBlockBoundWitnessWithStorageMetaZod>
 

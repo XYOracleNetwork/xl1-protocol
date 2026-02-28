@@ -64,11 +64,11 @@
   },
   "devDependencies": {
     "@opentelemetry/api": "^1.9.0",
-    "@types/node": "~25.3.2",
+    "@types/node": "^25.3.3",
     "@xylabs/sdk-js": "~5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/sdk-js": "^5.3.13",
+    "@xyo-network/sdk-js": "^5.3.15",
     "@xyo-network/typechain": "~4.1.1",
     "axios": "^1.13.6",
     "dotenv": "~17.3.1",

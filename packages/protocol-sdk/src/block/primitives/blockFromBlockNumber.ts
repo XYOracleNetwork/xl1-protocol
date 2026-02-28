@@ -19,7 +19,7 @@ export async function blockFromBlockNumber(
   const cacheKey = `${blockNumber}`
   const { chainMap, head } = context
   return await withContextCacheResponse(context, 'blockFromBlockNumber', cacheKey, async () => {
-    const result = await chainMap.get(head._hash)
+    const [result] = await chainMap.get([head._hash])
     if (!isDefined(result)) {
       throw new Error(`Head block not found for hash: ${head._hash}`)
     }
@@ -40,9 +40,9 @@ export async function blockFromBlockNumber(
           jumpHash = asHash(currentBlock.step_hashes?.at(step), () => `Step hash not found for step ${step} in block ${currentBlock.block}`)
         }
       }
-      const newBlock = await chainMap.get(
+      const [newBlock] = await chainMap.get([
         asHash(jumpHash, () => `Jump hash not found for block number [${blockNumber}]: ${jumpBlockNumber} ${toSafeJsonString(currentBlock, 10)}`),
-      )
+      ])
       if (!isDefined(newBlock)) {
         throw new Error(`Block not found for jump hash: ${jumpHash}`)
       }

@@ -1,12 +1,13 @@
-import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
-import type { PayloadMapRead, PayloadMapWrite } from '@xyo-network/xl1-protocol'
+import type {
+  Payload, ReadArchivist, WriteArchivist,
+} from '@xyo-network/sdk-js'
 
 export interface ChainStoreWrite {
-  chainMap: PayloadMapWrite<WithStorageMeta<Payload>>
+  chainMap: WriteArchivist<Payload>
 }
 
 export interface ChainStoreRead {
-  chainMap: PayloadMapRead<WithStorageMeta<Payload>>
+  chainMap: ReadArchivist<Payload>
 }
 
 export type ChainStore = ChainStoreRead & ChainStoreWrite

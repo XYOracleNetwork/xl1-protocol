@@ -1,14 +1,11 @@
 import {
   assertEx, exists, Hash,
 } from '@xylabs/sdk-js'
-import {
-  BoundWitnessSchema, Payload, WithStorageMeta,
-} from '@xyo-network/sdk-js'
+import { BoundWitnessSchema, ReadArchivist } from '@xyo-network/sdk-js'
 import {
   BlockViewer,
   BlockViewerMoniker,
   isTransactionBoundWitnessWithStorageMeta,
-  PayloadMapRead,
   SignedHydratedTransactionWithHashMeta, TransactionViewer, TransactionViewerMoniker,
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
@@ -31,7 +28,7 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
   moniker = SimpleTransactionViewer.defaultMoniker
 
   private _blockViewer!: BlockViewer
-  private _finalizedPayloadMap!: PayloadMapRead<WithStorageMeta<Payload>>
+  private _finalizedPayloadMap!: ReadArchivist
   private _signedHydratedTransactionCache?: HydratedCache<SignedHydratedTransactionWithHashMeta>
 
   protected get blockViewer() {
