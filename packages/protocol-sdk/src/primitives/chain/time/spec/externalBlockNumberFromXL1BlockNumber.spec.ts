@@ -32,7 +32,6 @@ describe('externalBlockNumberFromXL1BlockNumber', () => {
     })
     locator.registerMany([
       SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, {
-        chainId,
         minWithdrawalBlocks: 10,
         rewardsContract: ZERO_ADDRESS,
         stakingTokenAddress: ZERO_ADDRESS,

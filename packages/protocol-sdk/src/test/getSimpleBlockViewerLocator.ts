@@ -20,17 +20,15 @@ export interface TestSimpleBlockViewerLocatorParams {
 }
 
 export async function getTestSimpleBlockViewerLocator({
-  chainId: chainIdIn, minWithdrawalBlocks = 10,
+  minWithdrawalBlocks = 10,
   config = ConfigZod.parse({}),
   finalizedArchivist: finalizedArchivistIn,
   rewardsContract = XYO_ZERO_ADDRESS, stakingTokenAddress = XYO_ZERO_ADDRESS,
 }: TestSimpleBlockViewerLocatorParams) {
-  const chainId = chainIdIn ?? (await Account.random()).address as ChainId
   const finalizedArchivist = finalizedArchivistIn ?? await buildRandomChainArchivist()
   const context = getTestProviderContext(config)
   context.locator.registerMany([
     SimpleChainContractViewer.factory<SimpleChainContractViewer>(SimpleChainContractViewer.dependencies, {
-      chainId,
       minWithdrawalBlocks,
       rewardsContract,
       stakingTokenAddress,

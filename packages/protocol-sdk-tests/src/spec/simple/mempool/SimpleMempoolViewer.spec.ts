@@ -364,7 +364,6 @@ describe('SimpleMempoolViewer', () => {
     pendingBlocksArchivist = await MemoryArchivist.create({ account: 'random' })
     pendingTransactionsArchivist = await MemoryArchivist.create({ account: 'random' })
     locator = await buildTestLocator(finalizedArchivist, pendingBlocksArchivist, pendingTransactionsArchivist, {
-      chainId,
       minWithdrawalBlocks: 10,
       rewardsContract: ZERO_ADDRESS,
       stakingTokenAddress: ZERO_ADDRESS,

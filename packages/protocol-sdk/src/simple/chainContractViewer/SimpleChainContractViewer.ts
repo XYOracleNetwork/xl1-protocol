@@ -1,9 +1,10 @@
 import {
   type Address, assertEx,
   type Hash,
+  Promisable,
 } from '@xylabs/sdk-js'
 import {
-  ChainContractViewer, ChainContractViewerMoniker, ChainId, XL1BlockNumber,
+  ChainContractViewer, ChainContractViewerMoniker, ChainId, FinalizationViewer, FinalizationViewerMoniker, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 
 import { withContextCacheResponse } from '../../ChainContextHelpers.ts'
@@ -12,7 +13,6 @@ import {
 } from '../../CreatableProvider/index.ts'
 
 export interface SimpleChainContractViewerParams extends CreatableProviderParams {
-  chainId: ChainId
   forkedAtBlockNumber?: XL1BlockNumber
   forkedAtHash?: Hash
   forkedChainContractViewer?: ChainContractViewer
@@ -28,12 +28,18 @@ export interface SimpleChainContractViewerParams extends CreatableProviderParams
 @creatableProvider()
 export class SimpleChainContractViewer extends AbstractCreatableProvider<SimpleChainContractViewerParams> implements ChainContractViewer {
   static readonly defaultMoniker = ChainContractViewerMoniker
-  static readonly dependencies = []
+  static readonly dependencies = [FinalizationViewerMoniker]
   static readonly monikers = [ChainContractViewerMoniker]
   override moniker = SimpleChainContractViewer.defaultMoniker
 
+  protected _finalizationViewer!: FinalizationViewer
+
+  protected get finalizationViewer() {
+    return this._finalizationViewer
+  }
+
   chainId() {
-    return this.params.chainId
+    return this.finalizationViewer.chainId()
   }
 
   async chainIdAtBlockNumber(blockNumber: XL1BlockNumber) {
@@ -49,6 +55,11 @@ export class SimpleChainContractViewer extends AbstractCreatableProvider<SimpleC
       }
       return chainId
     })
+  }
+
+  override async createHandler() {
+    this._finalizationViewer = await this.locator.getInstance(FinalizationViewerMoniker)
+    return await super.createHandler()
   }
 
   forkedAtBlockNumber() {
