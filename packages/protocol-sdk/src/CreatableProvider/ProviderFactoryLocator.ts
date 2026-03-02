@@ -157,6 +157,7 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
   }
 
   validateDependencies() {
+    this._parent?.validateDependencies()
     for (const moniker in this.registry) {
       for (const factory of this.registry[moniker] ?? []) {
         const missingDeps = factory.dependencies.filter(dep => !this.registered(dep))
