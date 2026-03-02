@@ -64,4 +64,6 @@ export interface ProviderFactoryLocatorInstance<T extends CreatableProviderConte
     moniker: ProviderMoniker,
     labels?: Labels
   ): CreatableProviderFactory<CreatableProviderInstance<TProvider>> | LabeledCreatableProviderFactory<CreatableProviderInstance<TProvider>> | undefined
+
+  validateDependencies(): void
 }

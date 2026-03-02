@@ -155,4 +155,13 @@ export class ProviderFactoryLocator<TContext extends CreatableProviderContext = 
     return result as CreatableProviderFactory<CreatableProviderInstance<TProvider>>
       | LabeledCreatableProviderFactory<CreatableProviderInstance<TProvider>> | undefined
   }
+
+  validateDependencies() {
+    for (const moniker in this.registry) {
+      for (const factory of this.registry[moniker] ?? []) {
+        const missingDeps = factory.dependencies.filter(dep => !this.registered(dep))
+        assertEx(missingDeps.length === 0, () => `Module factory [${factory.uniqueId.description}] is missing dependencies: ${missingDeps.join(', ')}`)
+      }
+    }
+  }
 }
