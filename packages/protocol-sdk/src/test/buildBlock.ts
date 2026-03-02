@@ -1,9 +1,5 @@
-/* eslint-disable complexity */
-/* eslint-disable max-statements */
 import type { Hex } from '@xylabs/sdk-js'
-import {
-  assertEx, isDefined, isHash, toSafeJsonString,
-} from '@xylabs/sdk-js'
+import { assertEx, isDefined } from '@xylabs/sdk-js'
 import type { Payload, WithStorageMeta } from '@xyo-network/sdk-js'
 import {
   asAnyPayload, BoundWitnessBuilder, PayloadBuilder,
@@ -12,13 +8,14 @@ import type {
   BlockBoundWitness, SignedHydratedBlockWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'
 import {
-  asXL1BlockNumber, AttoXL1, isBlockBoundWitness, isExecutable, StepRewardFractions,
+  asXL1BlockNumber, AttoXL1, isBlockBoundWitness, StepRewardFractions,
   StepSizes,
   XL1_PROTOCOL_VERSION,
   XYO_STEP_REWARD_ADDRESS,
   XYO_ZERO_ADDRESS,
 } from '@xyo-network/xl1-protocol'
 
+import { validateTransactionsOpcodes } from '../block/index.ts'
 import { createTransferPayload } from '../createTransferPayload.ts'
 import { completedStepRewardAddress } from '../primitives/index.ts'
 import {
@@ -85,39 +82,7 @@ export async function buildBlock(options: BuildBlockOptions): Promise<SignedHydr
 
   const previous = previousBlockHash ?? null
   const block = blockNumber
-  const txElevatedPayloads: WithStorageMeta<Payload>[] = []
-
-  for (const [txBw, txPayloads] of txs) {
-    if (isExecutable(txBw)) {
-      const operations = txBw.script.map(op => op.split('|'))
-      for (let [opCode, ...args] of operations) {
-        switch (opCode) {
-          case 'elevate': {
-            const [hash, ...rest] = args
-            const txPayloadsWithStorageMeta = await PayloadBuilder.addStorageMeta(txPayloads)
-            assertEx(rest.length === 0, () => `Invalid elevate operation ${opCode} ${args} - Too many Arguments`)
-            if (isHash(hash)) {
-              assertEx(
-                txBw.payload_hashes.includes(hash),
-                () => `Invalid elevate operation ${opCode} ${args} - Hash not in payload hashes => ${toSafeJsonString(txBw, 20)}`,
-              )
-              const txPayload = assertEx(
-                txPayloadsWithStorageMeta.find(p => p._hash === hash),
-                () => `Invalid elevate operation ${opCode} ${args} - Payload not found`,
-              )
-              txElevatedPayloads.push(txPayload)
-            } else {
-              throw new Error(`Invalid elevate operation ${opCode} ${args} - Invalid hash`)
-            }
-            break
-          }
-          default: {
-            throw new Error(`Invalid opCode ${opCode}`)
-          }
-        }
-      }
-    }
-  }
+  const txElevatedPayloads = await validateTransactionsOpcodes(txs)
 
   const payloads: Payload[] = [
     ...txs.map(([tx]) => tx),
