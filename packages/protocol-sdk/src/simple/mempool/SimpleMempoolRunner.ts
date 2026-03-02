@@ -14,15 +14,18 @@ import {
   ChainContractViewerMoniker,
   FinalizationViewer,
   FinalizationViewerMoniker,
-  isHydratedBlockWithHashMeta, isSignedHydratedBlockWithHashMeta, MempoolPruneOptions, MempoolRunner,
+  isHydratedBlockWithHashMeta, isHydratedTransactionWithHashMeta, isSignedHydratedBlockWithHashMeta, isSignedHydratedTransactionWithHashMeta, MempoolPruneOptions, MempoolRunner,
   MempoolRunnerMoniker, type SignedHydratedBlock, SignedHydratedBlockWithHashMeta, type SignedHydratedTransaction,
+  SignedHydratedTransactionWithHashMeta,
 } from '@xyo-network/xl1-protocol'
 
+import { validateTransactionsOpcodes } from '../../block/index.ts'
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
 import {
   bundledPayloadToHydratedBlock,
+  bundledPayloadToHydratedTransaction,
   hydratedBlockToPayloadBundle, hydratedTransactionToPayloadBundle,
 } from '../../model/index.ts'
 
@@ -88,7 +91,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     })
     this.logger?.info(`Starting prunePendingBlocks with batchSize=${batchSize}, maxPrune=${maxPrune}, maxCheck=${maxCheck}`)
     while (batch.length > 0 && pruned < maxPrune && total < maxCheck) {
-      const blocksAndBundles = await this.simpleValidationCheck(batch)
+      const blocksAndBundles = await this.simpleBlockValidationCheck(batch)
       const blocks = blocksAndBundles.map(([b]) => b)
       const bundles = blocksAndBundles.map(([_, p]) => p)
       let valid = blocks.map(b => !!b)
@@ -136,8 +139,63 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     return [pruned, total]
   }
 
-  prunePendingTransactions(_options?: MempoolPruneOptions): Promise<[number, number]> {
-    throw new Error('Method not implemented.')
+  async prunePendingTransactions({
+    batchSize = 10, maxPrune = 1000, maxCheck = 1000,
+  }: MempoolPruneOptions = {}): Promise<[number, number]> {
+    let total = 0
+    let pruned = 0
+    let cursor: Sequence | undefined
+    let batch = await this.pendingTransactionsArchivist.next({
+      limit: batchSize, cursor, order: 'desc',
+    })
+    this.logger?.info(`Starting prunePendingTransactions with batchSize=${batchSize}, maxPrune=${maxPrune}, maxCheck=${maxCheck}`)
+    while (batch.length > 0 && pruned < maxPrune && total < maxCheck) {
+      const transactionsAndBundles = await this.simpleTransactionValidationCheck(batch)
+      const transactions = transactionsAndBundles.map(([t]) => t)
+      const bundles = transactionsAndBundles.map(([_, p]) => p)
+      let valid = transactions.map(t => !!t)
+      let remainingTransactionMap: number[] = []
+      let remainingTransactions = transactions.map((t, i) => {
+        if (t) {
+          remainingTransactionMap.push(i)
+          return t
+        }
+      }).filter(exists)
+
+      assertEx(
+        remainingTransactionMap.length === remainingTransactions.length,
+        () => `remainingTransactionMap length should match remainingTransactions length [${remainingTransactionMap.length}/${remainingTransactions.length}]`,
+      )
+
+      const validationResults = remainingTransactions.map(t => t) // Skip full validation for now, just use simple checks
+      for (const [i, r] of validationResults.entries()) {
+        const validated = isHydratedTransactionWithHashMeta(r)
+        if (!validated) {
+          this.logger?.info(`Pruning transaction ${bundles[remainingTransactionMap[i]]._hash} during transaction validation`)
+          this.logger?.info(`  - validation result: ${JSON.stringify(r, null, 2)}`)
+        }
+        valid[remainingTransactionMap[i]] = validated
+      }
+      const pruneHashes = bundles.map((p, i) => {
+        if (!valid[i]) {
+          return p._hash
+        }
+      }).filter(exists)
+
+      pruned += pruneHashes.length
+      total += batch.length
+      await this.pendingTransactionsArchivist.delete(pruneHashes)
+
+      cursor = batch.at(-1)?._sequence
+
+      batch = cursor
+        ? await this.pendingTransactionsArchivist.next({
+            limit: batchSize, cursor, order: 'desc',
+          })
+        : []
+    }
+    this.logger?.info(`prunePendingTransactions completed: pruned=${pruned}, totalChecked=${total}`)
+    return [pruned, total]
   }
 
   async submitBlocks(blocks: SignedHydratedBlock[]): Promise<Hash[]> {
@@ -162,7 +220,7 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
     return inserted.map(p => p._hash)
   }
 
-  private async simpleValidationCheck(payloads: WithHashMeta<Payload>[]): Promise<[(SignedHydratedBlockWithHashMeta | undefined), WithHashMeta<Payload>][]> {
+  private async simpleBlockValidationCheck(payloads: WithHashMeta<Payload>[]): Promise<[(SignedHydratedBlockWithHashMeta | undefined), WithHashMeta<Payload>][]> {
     const headNumber = await this.finalizationViewer.headNumber()
     const chainId = await this.chainContractViewer.chainId()
 
@@ -186,5 +244,41 @@ export class SimpleMempoolRunner extends AbstractCreatableProvider<SimpleMempool
       }
       return [validatedBlock, bundle]
     })
+  }
+
+  private async simpleTransactionValidationCheck(payloads: WithHashMeta<Payload>[]): Promise<[(SignedHydratedTransactionWithHashMeta | undefined), WithHashMeta<Payload>][]> {
+    const headNumber = await this.finalizationViewer.headNumber()
+    const chainId = await this.chainContractViewer.chainId()
+
+    const transactionBundles: [SignedHydratedTransactionWithHashMeta | undefined, WithHashMeta<Payload>][] = await Promise.all(payloads.map(async (p) => {
+      return [isPayloadBundle(p) ? await bundledPayloadToHydratedTransaction(p) : undefined, p]
+    }))
+
+    // eslint-disable-next-line complexity
+    return await Promise.all(transactionBundles.map(async ([transaction, bundle]) => {
+      const transactionCheckPassed = !!transaction
+      const chainIdPassed = transactionCheckPassed ? transaction[0].chain === chainId : false
+      const expPassed = transactionCheckPassed ? transaction[0].exp > headNumber : false
+      const typeCheckPassed = transactionCheckPassed ? isSignedHydratedTransactionWithHashMeta(transaction) : false
+      let opcodeCheckPassed = false
+      try {
+        await validateTransactionsOpcodes(transaction ? [transaction] : [])
+        opcodeCheckPassed = true
+      } catch (e) {
+        this.logger?.info(`Opcode validation failed for transaction ${bundle._hash} during simpleValidationCheck`)
+        this.logger?.info(`  - error: ${(e as Error).message}`)
+      }
+      const validationPassed = transactionCheckPassed && chainIdPassed && expPassed && typeCheckPassed && opcodeCheckPassed
+      const validatedTransaction = validationPassed ? transaction : undefined
+      if (!validationPassed) {
+        this.logger?.info(`Pruning block bundle ${bundle._hash} during simpleValidationCheck`)
+        this.logger?.info(`  - chainId match: ${chainIdPassed}`)
+        this.logger?.info(`  - exp check: ${expPassed}`)
+        this.logger?.info(`  - opcode check: ${opcodeCheckPassed}`)
+        this.logger?.info(`  - typeCheck: ${typeCheckPassed}`)
+        this.logger?.info(`  - bundle hash: ${bundle._hash}`)
+      }
+      return [validatedTransaction, bundle]
+    }))
   }
 }
