@@ -82,12 +82,20 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
       }
     }
     this.logger?.info(`Fetching pending transactions from cursor: ${cursor}`)
-    const bundles = await this.pendingTransactionsArchivist.next({
-      order: 'asc', limit, cursor,
-    })
-    this.logger?.info(`Fetched pending transactions: ${bundles.length} bundles`)
+    const rawBundles = (await this.pendingTransactionsArchivist.next({
+      order: 'asc', limit: limit * 5, cursor,
+    }))
+    const bundles = rawBundles.map((bundle) => {
+      // pick random 50% of the bundles to return
+      return (Math.random() < 0.5) ? bundle : undefined
+    }).filter(exists).slice(0, limit) // in case the 50% was more than the limit, we slice it down to the limit
 
-    const filteredBundles: PayloadBundleWithHashMeta[] = bundles.filter(isPayloadBundle).filter(isHashMeta)
+    // if the random filter resulted in 0 bundles, we fallback to just taking the first bundle to ensure we return something
+    const processedBundles = bundles.length > 0 ? bundles : rawBundles.slice(0, 1)
+
+    this.logger?.info(`Fetched pending transactions: ${processedBundles.length} bundles`)
+
+    const filteredBundles: PayloadBundleWithHashMeta[] = processedBundles.filter(isPayloadBundle).filter(isHashMeta)
     // this.logger?.info(`Filtered pending transactions: ${JSON.stringify(filteredBundles, null, 2)} filteredBundles`)
 
     const hydratedWithBundle: HydratedTxWithBundle[] = (await Promise.all(
