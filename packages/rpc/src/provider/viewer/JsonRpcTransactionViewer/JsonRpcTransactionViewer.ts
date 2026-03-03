@@ -43,7 +43,7 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
   }
 
   async byBlockHashAndIndex(blockHash: Hash, transactionIndex: number) {
-    return await this.spanAsync('transactionByBlockHashAndIndex', async () => {
+    return await this.spanAsync('byBlockHashAndIndex', async () => {
       assertEx(transactionIndex >= 0, () => 'transactionIndex must be greater than or equal to 0')
       try {
         const block = await this.blockViewer.blockByHash(blockHash)

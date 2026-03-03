@@ -7,7 +7,7 @@ import {
   asSignedTransactionBoundWitness,
   BlockViewer,
   BlockViewerMoniker,
-  isTransactionBoundWitnessWithStorageMeta,
+  isTransactionBoundWitnessWithHashMeta,
   SignedHydratedTransactionWithHashMeta, TransactionViewer, TransactionViewerMoniker,
   XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
@@ -42,7 +42,7 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
         const blockBoundWitnessIndexes = block[0].payload_schemas.map((schema, index) => schema === BoundWitnessSchema ? index : undefined).filter(exists)
         const blockBoundWitnessHashes = new Set(blockBoundWitnessIndexes.map(index => block[0].payload_hashes[index]))
         const blockBoundWitnesses = block[1].filter(payload => blockBoundWitnessHashes.has(payload._hash) || blockBoundWitnessHashes.has(payload._dataHash))
-        const blockTransactionBoundWitnesses = blockBoundWitnesses.filter(isTransactionBoundWitnessWithStorageMeta)
+        const blockTransactionBoundWitnesses = blockBoundWitnesses.filter(isTransactionBoundWitnessWithHashMeta)
         const transaction = blockTransactionBoundWitnesses.at(transactionIndex)
         if (!transaction) return null
         return await this.byHash(transaction._hash)
