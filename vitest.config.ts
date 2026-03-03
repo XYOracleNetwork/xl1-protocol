@@ -14,7 +14,7 @@ export default defineConfig({
       {
         test: {
           name: 'offline',
-          include: ['src/**/spec/**/*.spec.ts', 'packages/**/src/**/spec/*.spec.ts'],
+          include: ['**/src/**/spec/**/*.spec.ts'],
           exclude: [
             'src/**/spec/online/**/*.spec.ts',
             'packages/**/src/**/spec/online/**/*.spec.ts',
@@ -25,7 +25,7 @@ export default defineConfig({
       {
         test: {
           name: 'online',
-          include: ['src/**/spec/online/**/*.spec.ts', 'packages/**/src/**/spec/online/**/*.spec.ts'],
+          include: ['**/src/**/spec/online/**/*.spec.ts'],
           setupFiles: ['test/setup/online.ts'],
         },
       },

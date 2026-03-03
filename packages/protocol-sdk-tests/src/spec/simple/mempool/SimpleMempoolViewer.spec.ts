@@ -423,5 +423,33 @@ describe('SimpleMempoolViewer', () => {
         expect(pendingTransactions).toBeArrayOfSize(1)
       })
     })
+    describe('randomized subset sampling', () => {
+      it('returns a different random subset on each call', async () => {
+        const txCount = 20
+        const mempoolRunner = await locator.getInstance<SimpleMempoolRunner>(SimpleMempoolRunner.defaultMoniker)
+        const transactions = await Promise.all(Array.from({ length: txCount }, () => buildRandomTransaction(chainId)))
+        await mempoolRunner.submitTransactions(transactions)
+
+        // Call pendingTransactions 10 times and collect a fingerprint of each result
+        const callCount = 10
+        const fingerprints = await Promise.all(
+          Array.from({ length: callCount }, async () => {
+            const results = await sut.pendingTransactions()
+            // Each call should return roughly 50% — allow a generous range to avoid flakiness
+            expect(results.length).toBeGreaterThanOrEqual(1)
+            expect(results.length).toBeLessThanOrEqual(txCount)
+            // Stable fingerprint: sort hashes so order doesn't affect comparison
+            return results
+              .map(tx => tx[0]._hash)
+              .toSorted()
+              .join(',')
+          }),
+        )
+
+        // With 20 txs sampled at ~50%, the chance all 10 calls return the same set is astronomically small
+        const uniqueResults = new Set(fingerprints)
+        expect(uniqueResults.size).toBeGreaterThan(1)
+      })
+    })
   })
 })

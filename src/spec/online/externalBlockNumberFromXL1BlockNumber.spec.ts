@@ -1,13 +1,10 @@
 import { asHex, ZERO_ADDRESS } from '@xylabs/sdk-js'
-import type { BlockViewer } from '@xyo-network/xl1-protocol'
+import type { BlockViewer } from '@xyo-network/xl1-sdk'
 import {
-  asXL1BlockRange, BlockViewerMoniker, StepSizes,
-} from '@xyo-network/xl1-protocol'
-import {
-  ConfigZod, externalBlockNumberFromXL1BlockNumber, ProviderFactoryLocator,
-  SimpleChainContractViewer,
-} from '@xyo-network/xl1-protocol-sdk'
-import { JsonRpcBlockViewer, JsonRpcFinalizationViewer } from '@xyo-network/xl1-rpc'
+  asXL1BlockRange, BlockViewerMoniker, ConfigZod, externalBlockNumberFromXL1BlockNumber, JsonRpcBlockViewer, JsonRpcFinalizationViewer,
+  ProviderFactoryLocator,
+  SimpleChainContractViewer, StepSizes,
+} from '@xyo-network/xl1-sdk'
 import {
   describe, expect, it,
 } from 'vitest'

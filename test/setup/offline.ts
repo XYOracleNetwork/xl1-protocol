@@ -1,3 +1,4 @@
+// eslint-disable-next-line import-x/no-internal-modules
 import { setupServer } from 'msw/node'
 import { afterAll, beforeAll } from 'vitest'
 

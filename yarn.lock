@@ -4237,8 +4237,10 @@ __metadata:
     "@xylabs/eslint-config-flat": "npm:~7.3.2"
     "@xylabs/geo": "npm:^5.0.80"
     "@xylabs/mongo": "npm:^5.0.80"
+    "@xylabs/sdk-js": "npm:^5.0.80"
     "@xylabs/ts-scripts-yarn3": "npm:~7.3.2"
     "@xylabs/tsconfig": "npm:~7.3.2"
+    "@xyo-network/xl1-sdk": "npm:^1.25.9"
     dependency-cruiser: "npm:~17.3.8"
     dotenv: "npm:~17.3.1"
     eslint: "npm:^9.39.3"
@@ -4251,6 +4253,7 @@ __metadata:
     vite: "npm:~7.3.1"
     vite-tsconfig-paths: "npm:~6.1.1"
     vitest: "npm:~4.0.18"
+    zod: "npm:^4.3.6"
   languageName: unknown
   linkType: soft
 
@@ -4451,7 +4454,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xyo-network/xl1-sdk@workspace:packages/sdk":
+"@xyo-network/xl1-sdk@npm:^1.25.9, @xyo-network/xl1-sdk@workspace:packages/sdk":
   version: 0.0.0-use.local
   resolution: "@xyo-network/xl1-sdk@workspace:packages/sdk"
   dependencies:
@@ -9900,7 +9903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^4.1.11, zod@npm:~4.3.6":
+"zod@npm:^4.1.11, zod@npm:^4.3.6, zod@npm:~4.3.6":
   version: 4.3.6
   resolution: "zod@npm:4.3.6"
   checksum: 10/25fc0f62e01b557b4644bf0b393bbaf47542ab30877c37837ea8caf314a8713d220c7d7fe51f68ffa72f0e1018ddfa34d96f1973d23033f5a2a5a9b6b9d9da01
