@@ -8,8 +8,8 @@ import {
 
 import {
   errorStatus, StatusNetworks, unknownStatus,
-} from '../lib/index.ts'
-import { SimpleXyoNetwork } from '../SimpleXyoNetwork.ts'
+} from '../../lib/index.ts'
+import { SimpleXyoNetwork } from '../../SimpleXyoNetwork.ts'
 
 vitest.mock('axios')
 const mockedAxios = axios as Mocked<typeof axios>

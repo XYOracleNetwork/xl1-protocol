@@ -7,11 +7,11 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import { ConfigZod } from '../../../config/index.ts'
-import { isInternetAvailable } from '../../../isInternetAvailable.ts'
-import { getTestProviderContext } from '../../../test/index.ts'
-import type { RestDataLakeViewerParams } from '../RestDataLakeViewer.ts'
-import { RestDataLakeViewer } from '../RestDataLakeViewer.ts'
+import { ConfigZod } from '../../../../config/index.ts'
+import { isInternetAvailable } from '../../../../isInternetAvailable.ts'
+import { getTestProviderContext } from '../../../../test/index.ts'
+import type { RestDataLakeViewerParams } from '../../RestDataLakeViewer.ts'
+import { RestDataLakeViewer } from '../../RestDataLakeViewer.ts'
 
 const knownHash1 = asHash('ffa38ea3ec4a62b6de60f34e7d6736d9a35398d8189c970ad39e60894fa75f65', true)
 const knownHash2 = asHash('1f948c1e9b96dd3c454d6c73ac50d7d64892971c4ca38cf4164dd6da4c514945', true)

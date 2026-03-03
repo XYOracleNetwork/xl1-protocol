@@ -73,7 +73,10 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     return (await Promise.all(filteredBundles.map(async bundle => await bundledPayloadToHydratedBlock(bundle)))).filter(exists)
   }
 
-  async pendingTransactions({ cursor: providedCursor, limit = 100 }: PendingTransactionsOptions = {}): Promise<SignedHydratedTransactionWithHashMeta[]> {
+  async pendingTransactions({
+    cursor: providedCursor,
+    limit = 100,
+  }: PendingTransactionsOptions = {}): Promise<SignedHydratedTransactionWithHashMeta[]> {
     let cursor: Sequence | undefined = undefined
     if (isHash(providedCursor)) {
       const [p] = await this.pendingTransactionsArchivist.get([providedCursor])
@@ -121,7 +124,7 @@ export class SimpleMempoolViewer extends AbstractCreatableProvider<SimpleMempool
     await Promise.all(
       deletionCandidates.map(async ({ bundle, tx }) => {
         await this.deleteBundledTransaction(bundle)
-        this.logger?.info(`Purged completed/invalid bundled transaction: ${bundle._hash}/${tx[0]._hash}`)
+        this.logger?.info(`Purged completed/expired bundled transaction: ${bundle._hash}/${tx[0]._hash}`)
       }),
     )
 

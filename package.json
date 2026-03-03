@@ -63,6 +63,7 @@
     "idb": "^8.0.3",
     "knip": "~5.85.0",
     "mongodb": "^7.1.0",
+    "msw": "^2.12.10",
     "typescript": "~5.9.3",
     "vite": "~7.3.1",
     "vite-tsconfig-paths": "~6.1.1",
