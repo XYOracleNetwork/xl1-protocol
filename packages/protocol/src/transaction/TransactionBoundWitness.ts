@@ -5,6 +5,8 @@ import {
 import {
   BoundWitnessZod, HashMetaZod, SignedBoundWitnessZod, StorageMetaZod,
   UnsignedBoundWitnessZod,
+  WithHashMetaZod,
+  WithStorageMetaZod,
 } from '@xyo-network/sdk-js'
 import { z } from 'zod'
 
@@ -103,8 +105,7 @@ export const isSignedTransactionBoundWitness = zodIsFactory(SignedTransactionBou
 export const asSignedTransactionBoundWitness = zodAsFactory(SignedTransactionBoundWitnessZod, 'asSignedTransactionBoundWitness')
 export const toSignedTransactionBoundWitness = zodToFactory(SignedTransactionBoundWitnessZod, 'toSignedTransactionBoundWitness')
 
-export const SignedTransactionBoundWitnessWithHashMetaZod = SignedTransactionBoundWitnessZod
-  .safeExtend(HashMetaZod.shape)
+export const SignedTransactionBoundWitnessWithHashMetaZod = WithHashMetaZod(SignedTransactionBoundWitnessZod)
 
 export type SignedTransactionBoundWitnessWithHashMeta = z.infer<typeof SignedTransactionBoundWitnessWithHashMetaZod>
 
@@ -118,8 +119,7 @@ export const toSignedTransactionBoundWitnessWithHashMeta = zodToFactory(
   'toSignedTransactionBoundWitnessWithHashMeta',
 )
 
-export const SignedTransactionBoundWitnessWithStorageMetaZod = SignedTransactionBoundWitnessZod
-  .safeExtend(StorageMetaZod.shape)
+export const SignedTransactionBoundWitnessWithStorageMetaZod = WithStorageMetaZod(SignedTransactionBoundWitnessZod)
 
 export type SignedTransactionBoundWitnessWithStorageMeta = z.infer<typeof SignedTransactionBoundWitnessWithStorageMetaZod>
 

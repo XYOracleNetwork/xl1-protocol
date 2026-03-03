@@ -1,8 +1,10 @@
 import {
   assertEx, exists, Hash,
 } from '@xylabs/sdk-js'
-import { BoundWitnessSchema, ReadArchivist } from '@xyo-network/sdk-js'
+import { BoundWitnessSchema } from '@xyo-network/sdk-js'
 import {
+  asSignedHydratedTransactionWithHashMeta,
+  asSignedTransactionBoundWitness,
   BlockViewer,
   BlockViewerMoniker,
   isTransactionBoundWitnessWithStorageMeta,
@@ -13,8 +15,6 @@ import {
 import {
   AbstractCreatableProvider, creatableProvider, CreatableProviderParams,
 } from '../../CreatableProvider/index.ts'
-import { tryHydrateTransaction } from '../../transaction/index.ts'
-import { HydratedCache } from '../../utils/index.ts'
 
 export interface SimpleTransactionViewerParams extends CreatableProviderParams {
 
@@ -28,15 +28,13 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
   moniker = SimpleTransactionViewer.defaultMoniker
 
   private _blockViewer!: BlockViewer
-  private _finalizedPayloadMap!: ReadArchivist
-  private _signedHydratedTransactionCache?: HydratedCache<SignedHydratedTransactionWithHashMeta>
 
   protected get blockViewer() {
     return this._blockViewer
   }
 
   async byBlockHashAndIndex(blockHash: Hash, transactionIndex: number): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByBlockHashAndIndex', async () => {
+    return await this.spanAsync('byBlockHashAndIndex', async () => {
       assertEx(transactionIndex >= 0, () => 'transactionIndex must be greater than or equal to 0')
       try {
         const block = await this.blockViewer.blockByHash(blockHash)
@@ -55,7 +53,7 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
   }
 
   async byBlockNumberAndIndex(blockNumber: XL1BlockNumber, transactionIndex: number): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByBlockNumberAndIndex', async () => {
+    return await this.spanAsync('byBlockNumberAndIndex', async () => {
       try {
         const block = await this.blockViewer.blockByNumber(blockNumber)
         if (!block) return null
@@ -67,15 +65,23 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
   }
 
   async byHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
-    return await this.spanAsync('transactionByHash', async () => {
+    return await this.spanAsync('byHash', async () => {
       try {
-        const cache = this.getHydratedTransactionCache()
-        const hydratedTransaction = await cache.get(transactionHash)
-        return hydratedTransaction ?? null
+        const transaction = asSignedTransactionBoundWitness(await this.blockViewer.payloadByHash(transactionHash))
+        if (transaction) {
+          const payloads = await this.blockViewer.payloadsByHash(transaction.payload_hashes)
+          return asSignedHydratedTransactionWithHashMeta([transaction, payloads]) ?? null
+        }
+        return null
       } catch {
         return null
       }
     }, this.context)
+  }
+
+  override async createHandler(): Promise<void> {
+    await super.createHandler()
+    this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number = 0): Promise<SignedHydratedTransactionWithHashMeta | null> {
@@ -88,12 +94,5 @@ export class SimpleTransactionViewer extends AbstractCreatableProvider<SimpleTra
 
   async transactionByHash(transactionHash: Hash): Promise<SignedHydratedTransactionWithHashMeta | null> {
     return await this.byHash(transactionHash)
-  }
-
-  protected getHydratedTransactionCache(): HydratedCache<SignedHydratedTransactionWithHashMeta> {
-    if (this._signedHydratedTransactionCache) return this._signedHydratedTransactionCache
-    const chainMap = this._finalizedPayloadMap
-    this._signedHydratedTransactionCache = new HydratedCache<SignedHydratedTransactionWithHashMeta>({ ...this.context, chainMap }, tryHydrateTransaction, 200)
-    return this._signedHydratedTransactionCache
   }
 }
