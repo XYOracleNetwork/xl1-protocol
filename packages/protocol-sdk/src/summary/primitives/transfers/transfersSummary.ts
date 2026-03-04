@@ -2,7 +2,6 @@ import type { Address } from '@xylabs/sdk-js'
 import {
   asAddress, assertEx, spanRootAsync,
 } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, ChainQualified, ChainQualifiedConfig,
   MapType,
@@ -23,7 +22,7 @@ export async function transfersSummary(
   context: CachingContext,
   semaphores: Semaphore[],
   blockViewer: BlockViewer,
-  summaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>,
+  summaryMap: MapType<string, TransfersStepSummary>,
   config?: ChainQualifiedConfig,
 ): Promise<ChainQualified<Record<Address, Record<Address, bigint>>>> {
   return await spanRootAsync('transferSummary', async () => {

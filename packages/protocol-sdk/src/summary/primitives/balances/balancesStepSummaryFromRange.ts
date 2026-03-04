@@ -1,7 +1,6 @@
 import { type Address, spanRootAsync } from '@xylabs/sdk-js'
 import { assertEx } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/sdk-js'
-import { isAnyPayload, PayloadBuilder } from '@xyo-network/sdk-js'
+import { isAnyPayload } from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, MapType, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
@@ -21,9 +20,9 @@ export async function balancesStepSummaryFromRange(
   context: CachingContext,
   semaphores: Semaphore[],
   blockViewer: BlockViewer,
-  summaryMap: MapType<string, WithHashMeta<BalancesStepSummary>>,
+  summaryMap: MapType<string, BalancesStepSummary>,
   range: XL1BlockRange,
-): Promise<WithHashMeta<BalancesStepSummary>> {
+): Promise<BalancesStepSummary> {
   const cacheKey = `${range[0]}|${range[1]}`
   return await withContextCacheResponse(context, 'balancesStepSummaryFromRange', cacheKey, async () => {
     return await spanRootAsync('balancesStepSummaryFromRange', async () => {
@@ -40,9 +39,9 @@ export async function balancesStepSummaryFromRange(
             for (const [address, balance] of Object.entries(netBalancesForPayloads(payloads))) {
               balances[address as Address] = toSignedBigInt(balance)
             }
-            return await PayloadBuilder.addHashMeta({
+            return {
               schema: BalancesStepSummarySchema, hash: frameHead._hash, stepSize: -1, balances,
-            })
+            }
           }, { ...context, timeBudgetLimit: 500 })
         : await spanRootAsync(`balancesStepSummaryFromRange.frameSize>1[${key}]`, async () => {
             const step = StepSizes.indexOf(asXL1BlockNumber(frameSize, true))
@@ -50,7 +49,7 @@ export async function balancesStepSummaryFromRange(
 
             const summaryResult = await summaryMap.get(`${frameHead._hash}|${frameSize}`)
             if (isAnyPayload(summaryResult)) {
-              return summaryResult as WithHashMeta<BalancesStepSummary>
+              return summaryResult as BalancesStepSummary
             } else {
             // We do not have it, so lets build it
               await semaphores[step].acquire()
@@ -78,9 +77,9 @@ export async function balancesStepSummaryFromRange(
                   balances[address as Address] = toSignedBigInt(balance)
                 }
 
-                const result = await PayloadBuilder.addHashMeta({
+                const result = {
                   schema: BalancesStepSummarySchema, hash: frameHead._hash, stepSize: frameSize, balances,
-                })
+                }
 
                 await summaryMap.set(key, result)
                 return result

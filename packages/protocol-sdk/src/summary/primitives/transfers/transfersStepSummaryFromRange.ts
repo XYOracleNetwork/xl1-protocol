@@ -1,10 +1,7 @@
 /* eslint-disable max-statements */
 import type { Address, Hash } from '@xylabs/sdk-js'
 import { assertEx, spanRootAsync } from '@xylabs/sdk-js'
-import type { WithHashMeta } from '@xyo-network/sdk-js'
-import {
-  asHashMeta, isAnyPayload, PayloadBuilder,
-} from '@xyo-network/sdk-js'
+import { isAnyPayload } from '@xyo-network/sdk-js'
 import type {
   BlockViewer, CachingContext, MapType, XL1BlockRange,
 } from '@xyo-network/xl1-protocol'
@@ -28,14 +25,14 @@ export async function transfersStepSummaryFromRange(
   context: CachingContext,
   semaphores: Semaphore[],
   blockViewer: BlockViewer,
-  summaryMap: MapType<string, WithHashMeta<TransfersStepSummary>>,
+  summaryMap: MapType<string, TransfersStepSummary>,
   range: XL1BlockRange,
-): Promise<WithHashMeta<TransfersStepSummary>> {
+): Promise<TransfersStepSummary> {
   return await spanRootAsync('transfersStepSummaryFromRange', async () => {
     const [frameHead] = assertEx(await blockViewer.blockByNumber(range[1]), () => `Block not found for number: ${range[1]}`)
     const frameSize = range[1] - range[0] + 1
 
-    let result: WithHashMeta<TransfersStepSummary> | undefined
+    let result: TransfersStepSummary | undefined
 
     if (frameSize === 1) {
       const [, payloads] = assertEx(await blockViewer.blockByNumber(range[0]), () => `Block not found for number: ${range[0]}`)
@@ -46,9 +43,9 @@ export async function transfersStepSummaryFromRange(
           transfers[from as Address][to as Address] = toSignedBigInt(amount)
         }
       }
-      result = await PayloadBuilder.addHashMeta({
+      result = {
         schema: TransfersStepSummarySchema, hash: frameHead._hash, stepSize: -1, transfers,
-      })
+      }
     } else {
       const step = (StepSizes).indexOf(asXL1BlockNumber(frameSize, true))
       assertEx(step !== -1, () => `Invalid step size: ${frameSize}. Must be one of ${StepSizes.join(', ')}`)
@@ -57,7 +54,7 @@ export async function transfersStepSummaryFromRange(
 
       const summaryResult = await summaryMap.get(key)
       if (isAnyPayload(summaryResult)) {
-        result = asHashMeta(asTransfersStepSummary(summaryResult, { required: true }), true)
+        result = asTransfersStepSummary(summaryResult, { required: true })
       } else {
         await semaphores[step].acquire()
         // We do not have it, so lets build it
@@ -91,9 +88,9 @@ export async function transfersStepSummaryFromRange(
             }
           }
 
-          result = await PayloadBuilder.addHashMeta({
+          result = {
             schema: TransfersStepSummarySchema, hash: frameHead._hash, stepSize: frameSize, transfers,
-          })
+          }
 
           await summaryMap.set(key, result)
         } finally {
