@@ -49,7 +49,7 @@ export const AllowedBlockPayloadSchemaZod = z.enum(AllowedBlockPayloadSchemas)
 export type AllowedBlockPayloadSchema = z.infer<typeof AllowedBlockPayloadSchemaZod>
 export const isAllowedBlockPayloadSchema = zodIsFactory(AllowedBlockPayloadSchemaZod)
 
-export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayload => {
+export const isAllowedBlockPayload = <T>(value: T): value is AllowedBlockPayload & T => {
   return isTransfer(value)
     || isBridgeDestinationObservation(value)
     || isBridgeIntent(value)
@@ -61,6 +61,6 @@ export const isAllowedBlockPayload = (value: unknown): value is AllowedBlockPayl
     || isTransactionBoundWitness(value)
 }
 
-export const isAllowedBlockPayloadWithHashMeta = (value: unknown): value is WithStorageMeta<AllowedBlockPayload> => {
+export const isAllowedBlockPayloadWithHashMeta = <T>(value: T): value is WithStorageMeta<AllowedBlockPayload & T> => {
   return isAllowedBlockPayload(value) && isHashMeta(value)
 }

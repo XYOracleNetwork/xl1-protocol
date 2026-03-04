@@ -1,8 +1,9 @@
 import { asHash, type Hash } from '@xylabs/sdk-js'
 import { assertEx, filterAs } from '@xylabs/sdk-js'
-import type { WithStorageMeta } from '@xyo-network/sdk-js'
+import type { WithHashMeta } from '@xyo-network/sdk-js'
+import { isHashMeta } from '@xyo-network/sdk-js'
 import type { AllowedBlockPayload, HydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
-import { isAllowedBlockPayloadWithHashMeta } from '@xyo-network/xl1-protocol'
+import { isAllowedBlockPayload } from '@xyo-network/xl1-protocol'
 
 export const tryExtractElevatedHashesFromScript = (strings: string[]): Hash[] => {
   const hashes = strings
@@ -20,22 +21,24 @@ export const extractElevatedHashesFromScript = (strings: string[]): Hash[] => {
   return filtered
 }
 
-export const tryExtractElevatedHashes = (tx: HydratedTransactionWithHashMeta): WithStorageMeta<AllowedBlockPayload>[] => {
+export const tryExtractElevatedHashes = (tx: HydratedTransactionWithHashMeta): WithHashMeta<AllowedBlockPayload>[] => {
   const [bw, payloads] = tx
   const { script } = bw
   const hashes = script ? tryExtractElevatedHashesFromScript(script) : []
   return payloads
     .filter(p => hashes.includes(p._hash))
-    .filter(isAllowedBlockPayloadWithHashMeta)
+    .filter(isAllowedBlockPayload)
+    .filter(isHashMeta)
 }
 
-export const extractElevatedHashes = (tx: HydratedTransactionWithHashMeta): WithStorageMeta<AllowedBlockPayload>[] => {
+export const extractElevatedHashes = (tx: HydratedTransactionWithHashMeta): WithHashMeta<AllowedBlockPayload>[] => {
   const [bw, payloads] = tx
   const { script } = bw
   const hashes = script ? tryExtractElevatedHashesFromScript(script) : []
   const filtered = payloads
     .filter(p => hashes.includes(p._hash))
-    .filter(isAllowedBlockPayloadWithHashMeta)
+    .filter(isAllowedBlockPayload)
+    .filter(isHashMeta)
   assertEx(filtered.length === hashes.length, () => 'Invalid elevated hashes')
   return filtered
 }

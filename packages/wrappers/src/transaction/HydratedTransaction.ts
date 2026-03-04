@@ -3,13 +3,14 @@ import { hexToBigInt, isDefined } from '@xylabs/sdk-js'
 import type {
   Payload, Schema,
   WithHashMeta,
-  WithStorageMeta,
 } from '@xyo-network/sdk-js'
 import { PayloadBuilder } from '@xyo-network/sdk-js'
 import type {
   AllowedBlockPayload, BaseContext, HydratedTransactionWithHashMeta, Transfer,
 } from '@xyo-network/xl1-protocol'
-import { isTransfer, XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
+import {
+  isAllowedBlockPayload, isTransfer, XYO_ZERO_ADDRESS,
+} from '@xyo-network/xl1-protocol'
 import type {
   HydratedTransactionInstance, SignatureInstance,
   TransactionFeesInstance,
@@ -39,7 +40,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
   fees: TransactionFeesInstance
 
   protected context: HydratedTransactionWrapperContext
-  protected payloadsCache: WithStorageMeta<Payload>[] = []
+  protected payloadsCache: WithHashMeta<AllowedBlockPayload & T[1][number]>[] = []
 
   private _signatureCache: SignatureInstance[] = []
 
@@ -61,7 +62,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
   }
 
   get elevatedPayloads() {
-    return tryExtractElevatedHashes(this.data)
+    return tryExtractElevatedHashes(this.data) as WithHashMeta<AllowedBlockPayload & T[1][number]>[]
   }
 
   get externalPayloads(): Record<Hash, Schema | Payload> {
@@ -83,7 +84,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
     return this.payloadsCache.length
   }
 
-  get payloads(): WithHashMeta<WithStorageMeta<T[1][number]>>[] {
+  get payloads(): WithHashMeta<WithHashMeta<T[1][number]>>[] {
     return [...this.payloadsCache]
   }
 
@@ -137,8 +138,8 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
     return transactionRequiredGas(this.data)
   }
 
-  payload(index: number): WithStorageMeta<Payload> | undefined {
-    return this.payloads.at(index)
+  payload(index: number) {
+    return this.payloads.at(index) as WithHashMeta<AllowedBlockPayload & T[1][number]>
   }
 
   reward(): bigint {
@@ -161,7 +162,7 @@ export class HydratedTransactionWrapper<T extends HydratedTransactionWithHashMet
   }
 
   protected async parse(validate = false): Promise<HydratedTransactionInstance<[WithHashMeta<T[0]>, WithHashMeta<T[1][number]>[]]>> {
-    const transactionPayloads = await PayloadBuilder.addStorageMeta(this.data[1])
+    const transactionPayloads = (await PayloadBuilder.addHashMeta(this.data[1])).filter(isAllowedBlockPayload)
     this._signatureCache = await createSignatureWrappers(this.data[0])
     for (const payload of transactionPayloads) {
       this.payloadsCache.push(payload)
