@@ -30,7 +30,7 @@ export async function transfersStepSummaryFromRange(
   range: XL1BlockRange,
 ): Promise<TransfersStepSummary> {
   const cacheKey = `${range[0]}|${range[1]}`
-  return await withContextCacheResponse(context, 'balancesStepSummaryFromRange', cacheKey, async () => {
+  return await withContextCacheResponse(context, 'transfersStepSummaryFromRange', cacheKey, async () => {
     return await spanRootAsync('transfersStepSummaryFromRange', async () => {
       const [frameHead] = assertEx(await blockViewer.blockByNumber(range[1]), () => `Block not found for number: ${range[1]}`)
       const frameSize = range[1] - range[0] + 1
