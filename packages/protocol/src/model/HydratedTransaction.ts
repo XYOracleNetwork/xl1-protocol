@@ -25,7 +25,7 @@ export const toHydratedTransaction = zodToFactory(HydratedTransactionZod, 'toHyd
 
 export const HydratedTransactionWithHashMetaZod = z.tuple([
   WithHashMetaZod(TransactionBoundWitnessZod),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export type HydratedTransactionWithHashMeta = z.infer<typeof HydratedTransactionWithHashMetaZod>
@@ -36,7 +36,7 @@ export const toHydratedTransactionWithHashMeta = zodToFactory(HydratedTransactio
 
 export const HydratedTransactionWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(TransactionBoundWitnessZod),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])
 
 export type HydratedTransactionWithStorageMeta = z.infer<typeof HydratedTransactionWithStorageMetaZod>
@@ -58,7 +58,7 @@ export const toUnsignedHydratedTransaction = zodToFactory(UnsignedHydratedTransa
 
 export const UnsignedHydratedTransactionWithHashMetaZod = z.tuple([
   WithHashMetaZod(UnsignedTransactionBoundWitnessZod),
-  z.array(WithHashMetaZod(PayloadZodLoose)),
+  z.array(WithHashMetaZod(PayloadZod).loose()),
 ])
 
 export type UnsignedHydratedTransactionWithHashMeta = z.infer<typeof UnsignedHydratedTransactionWithHashMetaZod>
@@ -69,7 +69,7 @@ export const toUnsignedHydratedTransactionWithHashMeta = zodToFactory(UnsignedHy
 
 export const UnsignedHydratedTransactionWithStorageMetaZod = z.tuple([
   WithStorageMetaZod(UnsignedTransactionBoundWitnessZod),
-  z.array(WithStorageMetaZod(PayloadZodLoose)),
+  z.array(WithStorageMetaZod(PayloadZod).loose()),
 ])
 
 export type UnsignedHydratedTransactionWithStorageMeta = z.infer<typeof UnsignedHydratedTransactionWithStorageMetaZod>

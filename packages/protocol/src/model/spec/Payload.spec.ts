@@ -1,6 +1,6 @@
 import { asHash } from '@xylabs/sdk-js'
 import {
-  PayloadBuilder, PayloadZodLoose, WithStorageMetaZod,
+  PayloadBuilder, PayloadZod, PayloadZodLoose, WithStorageMetaZod,
 } from '@xyo-network/sdk-js'
 import {
   describe, expect, it,
@@ -22,7 +22,7 @@ describe('Payload', () => {
     expect(result.data).toEqual(hashPayload)
   })
   it('should parse a HashPayload with storage Meta', () => {
-    const result = WithStorageMetaZod(PayloadZodLoose).loose().safeParse(hashPayloadWithMeta)
+    const result = WithStorageMetaZod(PayloadZod).loose().safeParse(hashPayloadWithMeta)
     expect(result.success).toBe(true)
     expect(result.data).toEqual(hashPayloadWithMeta)
   })
