@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-mono-repo",
-  "version": "1.25.14",
+  "version": "1.25.15",
   "private": true,
   "description": "XYO Layer One Protocol",
   "homepage": "https://xylabs.com",
@@ -57,7 +57,7 @@
     "@xylabs/sdk-js": "^5.0.80",
     "@xylabs/ts-scripts-yarn3": "~7.3.2",
     "@xylabs/tsconfig": "~7.3.2",
-    "@xyo-network/xl1-sdk": "^1.25.14",
+    "@xyo-network/xl1-sdk": "^1.25.15",
     "dependency-cruiser": "~17.3.8",
     "dotenv": "~17.3.1",
     "eslint": "^9.39.3",

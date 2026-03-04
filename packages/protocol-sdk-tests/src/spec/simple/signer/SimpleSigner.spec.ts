@@ -22,7 +22,9 @@ describe('SimpleXyoSigner', () => {
 
   beforeEach(async () => {
     account = await Account.random()
-    sut = await buildSimpleXyoSignerV2(config, account)
+    sut = await buildSimpleXyoSignerV2({
+      config, caches: {}, singletons: {},
+    }, account)
   })
 
   it('should create an instance of SimpleXyoSigner', () => {
