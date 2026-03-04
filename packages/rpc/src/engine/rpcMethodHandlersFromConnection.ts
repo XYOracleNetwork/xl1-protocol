@@ -8,11 +8,13 @@ import { rpcMethodHandlersFromMempoolViewer } from './rpcMethodHandlersFromMempo
 import { rpcMethodHandlersFromNetworkStakingStepRewardsByPositionViewer } from './rpcMethodHandlersFromNetworkStakingStepRewardsByPositionViewer.ts'
 import { rpcMethodHandlersFromRunner } from './rpcMethodHandlersFromRunner.ts'
 import { rpcMethodHandlersFromTimeSyncViewer } from './rpcMethodHandlersFromTimeSyncViewer.ts'
+import { rpcMethodHandlersFromTransactionViewer } from './rpcMethodHandlersFromTransactionViewer.ts'
 import { rpcMethodHandlersFromViewer } from './rpcMethodHandlersFromViewer.ts'
 
 /* networkStakeViewer is temporary as a param until it goes into root viewer */
 export const rpcMethodHandlersFromConnection = (
   connection: XyoConnection,
+// eslint-disable-next-line complexity
 ): XyoProviderRpcMethodHandlers => {
   const { runner, viewer } = connection
   let result: XyoProviderRpcMethodHandlers = {}
@@ -25,6 +27,7 @@ export const rpcMethodHandlersFromConnection = (
       ...rpcMethodHandlersFromAccountBalanceViewer(accountBalanceViewer),
     }
   }
+
   const blockViewer = viewer?.block
   if (blockViewer) {
     result = {
@@ -46,6 +49,14 @@ export const rpcMethodHandlersFromConnection = (
     result = {
       ...result,
       ...rpcMethodHandlersFromTimeSyncViewer(timeSyncViewer),
+    }
+  }
+
+  const transactionViewer = viewer?.transaction
+  if (transactionViewer) {
+    result = {
+      ...result,
+      ...rpcMethodHandlersFromTransactionViewer(transactionViewer),
     }
   }
 
