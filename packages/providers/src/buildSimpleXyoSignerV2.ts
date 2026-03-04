@@ -1,12 +1,10 @@
 import type { AccountInstance } from '@xyo-network/sdk-js'
 import { XyoSignerMoniker } from '@xyo-network/xl1-protocol'
-import type { Config } from '@xyo-network/xl1-protocol-sdk'
-import { SimpleXyoSigner } from '@xyo-network/xl1-protocol-sdk'
+import type { BaseConfigContext } from '@xyo-network/xl1-protocol-sdk'
+import { ProviderFactoryLocator, SimpleXyoSigner } from '@xyo-network/xl1-protocol-sdk'
 
-import { buildEmptyProviderLocator } from './buildProviderLocatorV2.ts'
-
-export async function buildSimpleXyoSignerV2(config: Config, account: AccountInstance) {
-  const locator = buildEmptyProviderLocator(config)
+export async function buildSimpleXyoSignerV2(context: BaseConfigContext, account: AccountInstance) {
+  const locator = new ProviderFactoryLocator(context)
   locator.register(
     SimpleXyoSigner.factory<SimpleXyoSigner>(SimpleXyoSigner.dependencies, { account }),
   )

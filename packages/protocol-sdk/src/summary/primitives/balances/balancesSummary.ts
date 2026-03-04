@@ -44,5 +44,5 @@ export async function balancesSummary(
       }
     }
     return [balances, { range, head: headHash }]
-  }, context)
+  }, { ...context, timeBudgetLimit: 500 })
 }

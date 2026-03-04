@@ -48,5 +48,5 @@ export async function transfersSummary(
       }
     }
     return [transfers, { range, head: headHash }]
-  }, context)
+  }, { ...context, timeBudgetLimit: 500 })
 }
