@@ -11,7 +11,7 @@
         "--inspect-brk",
         "--no-file-parallelism",
         "--test-timeout=0",
-        "src/spec/online/externalBlockNumberFromXL1BlockNumber.spec.ts"
+        "packages/protocol/src/model/spec/SignedHydratedTransactionWithHashMetaZod.spec.ts"
       ],
       "sourceMaps": true,
       "resolveSourceMapLocations": [
