@@ -70,7 +70,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
 
   async addTransactionToChain(
     tx: UnsignedHydratedTransaction | SignedHydratedTransaction,
-    _offChain?: WithHashMeta<Payload>[],
+    offChain: WithHashMeta<Payload>[] = [],
   ): Promise<[Hash, SignedHydratedTransactionWithHashMeta]> {
     const connection = this.connection
 
@@ -92,7 +92,7 @@ export class SimpleXyoGatewayRunner extends AbstractCreatableProvider<SimpleXyoG
       signedTx = await signer.signTransaction(tx)
     }
 
-    await this._dataLakeRunner?.insert(flattenHydratedTransaction(signedTx))
+    await this._dataLakeRunner?.insert([...flattenHydratedTransaction(signedTx), ...offChain])
 
     // Broadcast the transaction
     return [await runner.broadcastTransaction([signedTx[0], signedTx[1]]), signedTx]
