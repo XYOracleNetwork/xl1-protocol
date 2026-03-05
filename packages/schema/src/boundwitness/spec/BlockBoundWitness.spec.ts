@@ -4,7 +4,7 @@ import {
   describe, expect, test,
 } from 'vitest'
 
-import { BlockBoundWitnessJsonSchema } from './BlockBoundWitness.ts'
+import { BlockBoundWitnessJsonSchema } from '../BlockBoundWitness.ts'
 
 const ajv = new Ajv()
 

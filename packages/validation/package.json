@@ -1,5 +1,4 @@
 {
-  "$schema": "http://json.schemastore.org/package.json",
   "name": "@xyo-network/xl1-validation",
   "version": "1.25.19",
   "description": "XYO Layer One SDK Validation",

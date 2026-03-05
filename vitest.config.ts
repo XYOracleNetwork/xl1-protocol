@@ -10,6 +10,19 @@ export default defineConfig({
   test: {
     globals: false,
     watch: false,
+    coverage: {
+      provider: 'v8',
+      include: ['packages/*/src/**/*.ts', 'src/**/*.ts'],
+      exclude: [
+        'packages/*/src/**/*.spec.ts',
+        'packages/*/src/**/*.test.ts',
+        'src/**/*.spec.ts',
+        'src/**/*.test.ts',
+        '**/index.ts',
+      ],
+      reporter: ['text', 'html', 'lcov'],
+      reportsDirectory: './coverage',
+    },
     projects: [
       {
         test: {
