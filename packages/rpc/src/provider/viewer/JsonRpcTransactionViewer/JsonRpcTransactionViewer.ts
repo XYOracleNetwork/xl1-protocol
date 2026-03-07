@@ -1,21 +1,14 @@
 import {
-  assertEx,
-  exists,
-  type Hash,
+  assertEx, exists, type Hash,
 } from '@xylabs/sdk-js'
 import { BoundWitnessSchema } from '@xyo-network/sdk-js'
 import type {
-  BlockViewer,
-  SignedHydratedTransactionWithHashMeta,
-  TransactionViewer,
-  XL1BlockNumber,
+  BlockViewer, DataLakeViewer, TransactionViewer, XL1BlockNumber,
 } from '@xyo-network/xl1-protocol'
 import {
-  BlockViewerMoniker,
-  isTransactionBoundWitnessWithHashMeta,
-  TransactionViewerMoniker,
+  BlockViewerMoniker, DataLakeViewerMoniker, isTransactionBoundWitnessWithHashMeta, TransactionViewerMoniker,
 } from '@xyo-network/xl1-protocol'
-import { creatableProvider } from '@xyo-network/xl1-protocol-sdk'
+import { addDataLakePayloads, creatableProvider } from '@xyo-network/xl1-protocol-sdk'
 
 import { TransactionViewerRpcSchemas } from '../../../index-node.ts'
 import { AbstractJsonRpcViewer, JsonRpcViewerParams } from '../JsonRpcViewer.ts'
@@ -35,6 +28,8 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
   static readonly monikers = [TransactionViewerMoniker]
 
   moniker = JsonRpcTransactionViewer.defaultMoniker
+
+  protected dataLakeViewer?: DataLakeViewer
 
   private _blockViewer?: BlockViewer
 
@@ -74,24 +69,29 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
   }
 
   async byHash(transactionHash: Hash) {
-    return (await this.transport.sendRequest('transactionViewer_byHash', [transactionHash])) as SignedHydratedTransactionWithHashMeta | null
+    const result = (await this.transport.sendRequest('transactionViewer_byHash', [transactionHash]))
+    return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   override async createHandler() {
     await super.createHandler()
     this._blockViewer = await this.locator.getInstance<BlockViewer>(BlockViewerMoniker)
+    this.dataLakeViewer = await this.locator.tryGetInstance<DataLakeViewer>(DataLakeViewerMoniker)
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex]))
+    const result = (await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex]))
+    return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   async transactionByBlockNumberAndIndex(blockNumber: number, transactionIndex: number) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex]))
+    const result = (await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex]))
+    return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   async transactionByHash(transactionHash: Hash) {
-    return (await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash]))
+    const result = (await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash]))
+    return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   protected schemas() {
