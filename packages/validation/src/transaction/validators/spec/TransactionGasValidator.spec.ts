@@ -93,5 +93,31 @@ describe('TransactionGasValidator', () => {
       const result = await TransactionGasValidator(context, transaction)
       expect(result[0].message).toEqual('fees.priority must be defined and a valid number')
     })
+    it('should accept fees.priority of 0 since minimum is 0', async () => {
+      transaction[0].fees.priority = hexFromBigInt(0n)
+      const result = await TransactionGasValidator(context, transaction)
+      expect(result.length).toEqual(0)
+    })
+  })
+
+  describe('with malformed transaction', () => {
+    it('should return a validation excepted error when tx[0] access throws', async () => {
+      // tx is a non-null Proxy so ?. does not short-circuit, but tx[0] throws on first access
+      // (inside the try block). Subsequent accesses in the catch handler return undefined.
+      let accessCount = 0
+      const throwingTx = new Proxy([] as unknown[], {
+        get(_target, key) {
+          if (key === '0') {
+            accessCount++
+            if (accessCount === 1) throw new Error('tx[0] unavailable')
+            return
+          }
+          return (_target as unknown as Record<string | symbol, unknown>)[key as string]
+        },
+      }) as unknown as SignedHydratedTransactionWithHashMeta
+      const result = await TransactionGasValidator(context, throwingTx)
+      expect(result.length).toBe(1)
+      expect(result[0].message).toContain('Failed TransactionGasValidator')
+    })
   })
 })

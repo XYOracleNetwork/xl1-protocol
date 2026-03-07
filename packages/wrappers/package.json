@@ -44,13 +44,13 @@
     "@xyo-network/xl1-validation": "~1.25.19"
   },
   "devDependencies": {
-    "@types/node": "^25.3.3",
+    "@types/node": "^25.3.5",
     "@xylabs/sdk-js": "^5.0.80",
-    "@xylabs/ts-scripts-yarn3": "~7.3.2",
-    "@xylabs/tsconfig": "~7.3.2",
+    "@xylabs/ts-scripts-yarn3": "~7.4.8",
+    "@xylabs/tsconfig": "~7.4.8",
     "@xyo-network/sdk-js": "^5.3.15",
+    "ajv": "^8.18.0",
     "axios": "^1.13.6",
-    "eslint": "^9.39.3",
     "ethers": "^6.16.0",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",
@@ -59,6 +59,7 @@
   "peerDependencies": {
     "@xylabs/sdk-js": "^5",
     "@xyo-network/sdk-js": "^5",
+    "ajv": "^8",
     "axios": "^1",
     "ethers": "^6",
     "zod": "^4"

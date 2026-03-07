@@ -24,3 +24,5 @@ bin
 .env.remote
 
 .store
+.claude
+CLAUDE.MD

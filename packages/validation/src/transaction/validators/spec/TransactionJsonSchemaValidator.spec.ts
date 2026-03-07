@@ -36,4 +36,23 @@ describe('TransactionJsonSchemaValidator', () => {
       expect(errors.length).toBeGreaterThan(0)
     })
   })
+
+  describe('with invalid tx and no _hash', () => {
+    it('should use ZERO_HASH in error when _hash is undefined and schema validation fails', async () => {
+      const tx = await buildRandomTransaction(chainId)
+      tx[0].chain = 'invalid' as Address
+      ;(tx[0] as Record<string, unknown>)._hash = undefined
+      const errors = await TransactionJsonSchemaValidator(context, tx)
+      expect(errors.length).toBeGreaterThan(0)
+    })
+  })
+
+  describe('with malformed transaction', () => {
+    it('should return a validation excepted error', async () => {
+      const malformed = null as unknown as SignedHydratedTransactionWithHashMeta
+      const errors = await TransactionJsonSchemaValidator(context, malformed)
+      expect(errors.length).toBe(1)
+      expect(errors[0].message).toBe('validation excepted')
+    })
+  })
 })

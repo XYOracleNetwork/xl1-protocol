@@ -57,6 +57,14 @@ describe('TransactionProtocolValidator', () => {
     })
   })
 
+  describe('with mismatched chainId and no _hash', () => {
+    it('should use ZERO_HASH when tx[0]._hash is undefined', async () => {
+      const fakeTx = [{ chain: (await Account.random()).address, $signatures: [] }, []] as unknown as SignedHydratedTransactionWithHashMeta
+      const result = await TransactionProtocolValidator(context, fakeTx)
+      expect(result.length).toBe(1)
+    })
+  })
+
   describe('with malformed transaction', () => {
     it('should return a validation excepted error', async () => {
       const malformed = null as unknown as SignedHydratedTransactionWithHashMeta

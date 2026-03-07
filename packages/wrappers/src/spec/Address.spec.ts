@@ -24,6 +24,7 @@ describe('AddressWrapper', () => {
     })
 
     it('returns an error for undefined', async () => {
+      // eslint-disable-next-line unicorn/no-useless-undefined
       const errors = await AddressWrapper.validateValue(undefined)
       expect(errors.length).toBeGreaterThan(0)
     })

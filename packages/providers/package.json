@@ -58,21 +58,19 @@
     "types": "tsc --noEmit -p tsconfig.test.json"
   },
   "dependencies": {
+    "@opentelemetry/api": "^1.9.0",
     "@xyo-network/xl1-protocol": "~1.25.19",
     "@xyo-network/xl1-protocol-sdk": "~1.25.19",
     "@xyo-network/xl1-rpc": "~1.25.19"
   },
   "devDependencies": {
-    "@opentelemetry/api": "^1.9.0",
-    "@types/node": "^25.3.3",
+    "@types/node": "^25.3.5",
     "@xylabs/sdk-js": "~5.0.80",
-    "@xylabs/ts-scripts-yarn3": "~7.3.2",
-    "@xylabs/tsconfig": "~7.3.2",
+    "@xylabs/ts-scripts-yarn3": "~7.4.8",
+    "@xylabs/tsconfig": "~7.4.8",
     "@xyo-network/sdk-js": "^5.3.15",
-    "@xyo-network/typechain": "~4.1.1",
     "axios": "^1.13.6",
     "dotenv": "~17.3.1",
-    "eslint": "^9.39.3",
     "ethers": "^6.16.0",
     "typescript": "~5.9.3",
     "vitest": "~4.0.18",

@@ -40,5 +40,39 @@ describe('TransactionDurationValidator', () => {
       const result = await TransactionElevationValidator(context, tx)
       expect(result.length).toBe(1)
     })
+
+    it('should use ZERO_HASH when tx[0]._hash is undefined and elevation fails', async () => {
+      const [bw] = await buildRandomTransaction(chainId, [], signer)
+      ;(bw as Record<string, unknown>)._hash = undefined
+      const tx = [bw, []] as SignedHydratedTransactionWithHashMeta
+      const result = await TransactionElevationValidator(context, tx)
+      expect(result.length).toBe(1)
+    })
+
+    it('should return a Failed TransactionElevationValidator error when inner catch handler throws', async () => {
+      // Make the iterator throw so extractElevatedHashes fails (triggers inner catch).
+      // Then make tx[0] (property access) throw on the first access inside the inner catch
+      // handler, causing the outer catch to fire.
+      let propertyAccessCount = 0
+      const throwingTx = new Proxy([] as unknown[], {
+        get(_target, key) {
+          if (key === Symbol.iterator) {
+            return function* () {
+              throw new Error('iterator unavailable')
+            }
+          }
+          if (key === '0') {
+            propertyAccessCount++
+            if (propertyAccessCount === 1) throw new Error('tx[0] unavailable')
+            return
+          }
+          return (_target as unknown as Record<string | symbol, unknown>)[key as string]
+        },
+      }) as unknown as SignedHydratedTransactionWithHashMeta
+
+      const result = await TransactionElevationValidator(context, throwingTx)
+      expect(result.length).toBe(1)
+      expect(result[0].message).toContain('Failed TransactionElevationValidator')
+    })
   })
 })

@@ -1,6 +1,5 @@
 import type { Address } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/sdk-js'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import { Account, PayloadBuilder } from '@xyo-network/sdk-js'
 import { buildRandomTransaction } from '@xyo-network/xl1-protocol-sdk'
 import {
   beforeAll, describe, expect, it,
@@ -33,8 +32,8 @@ describe('createSignatureWrappers', () => {
   it('sets the correct address on each wrapper', async () => {
     const [bw] = await buildRandomTransaction(chainId)
     const wrappers = await createSignatureWrappers(bw)
-    for (let i = 0; i < wrappers.length; i++) {
-      expect(wrappers[i].address).toBe(bw.addresses[i])
+    for (const [i, wrapper] of wrappers.entries()) {
+      expect(wrapper.address).toBe(bw.addresses[i])
     }
   })
 

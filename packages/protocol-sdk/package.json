@@ -48,23 +48,20 @@
     "!**/*.test.*"
   ],
   "dependencies": {
+    "@xylabs/vitest-extended": "~5.0.80",
     "@xyo-network/xl1-protocol": "~1.25.19",
     "@xyo-network/xl1-schema": "~1.25.19",
     "async-mutex": "~0.5.0",
-    "cosmiconfig": "^9.0.0",
+    "cosmiconfig": "^9.0.1",
     "lru-cache": "^11.2.6"
   },
   "devDependencies": {
-    "@types/node": "^25.3.3",
-    "@xylabs/events": "~5.0.80",
+    "@types/node": "^25.3.5",
     "@xylabs/sdk-js": "^5.0.80",
-    "@xylabs/ts-scripts-yarn3": "~7.3.2",
-    "@xylabs/tsconfig": "~7.3.2",
-    "@xylabs/vitest-extended": "~5.0.80",
-    "@xyo-network/archivist-mongodb": "~5.3.15",
+    "@xylabs/ts-scripts-yarn3": "~7.4.8",
+    "@xylabs/tsconfig": "~7.4.8",
     "@xyo-network/sdk-js": "^5.3.15",
     "axios": "^1.13.6",
-    "eslint": "^9.39.3",
     "ethers": "^6.16.0",
     "ky": "^1.14.3",
     "mongodb": "~7.1.0",

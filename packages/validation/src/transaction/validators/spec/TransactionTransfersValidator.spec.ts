@@ -52,7 +52,7 @@ describe('TransactionTransfersValidator', () => {
   // ─── CompletedStepRewardAddressValidatorFactory ───────────────────────────────
 
   describe('CompletedStepRewardAddressValidatorFactory', () => {
-    const step: StepIdentity = { block: asXL1BlockNumber(100), step: 0 }
+    const step: StepIdentity = { block: asXL1BlockNumber(100, true), step: 0 }
 
     it('should return false when step context is undefined', async () => {
       const signerAddress = (await Account.random()).address
@@ -129,6 +129,14 @@ describe('TransactionTransfersValidator', () => {
       const derived = derivedReceiveAddress(address, allowedScope)
       expect(validator(signerAddress, derived, { address, scope: allowedScope })).toBe(true)
     })
+
+    it('should return false when context is undefined', async () => {
+      const signerAddress = (await Account.random()).address
+      const address = (await Account.random()).address
+      const validator = DerivedReceiveAddressValidatorFactory([signerAddress], allowedScope)
+      const derived = derivedReceiveAddress(address, allowedScope)
+      expect(validator(signerAddress, derived)).toBe(false)
+    })
   })
 
   // ─── TransactionTransfersValidatorFactory ────────────────────────────────────
@@ -162,8 +170,8 @@ describe('TransactionTransfersValidator', () => {
           [transfer],
           [],
           signer,
-          asXL1BlockNumber(0),
-          asXL1BlockNumber(1000),
+          asXL1BlockNumber(0, true),
+          asXL1BlockNumber(1000, true),
         )
       })
 
@@ -191,8 +199,8 @@ describe('TransactionTransfersValidator', () => {
           [transfer],
           [],
           signer,
-          asXL1BlockNumber(0),
-          asXL1BlockNumber(1000),
+          asXL1BlockNumber(0, true),
+          asXL1BlockNumber(1000, true),
         )
         const errors = await allowAllValidator(context, transaction)
         expect(errors).toEqual([])

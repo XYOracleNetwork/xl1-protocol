@@ -76,7 +76,7 @@ const disallowedImportsXyLabs = [
 ]
 
 export default [
-  { ignores: ['.yarn', '**/dist', '**/build', '**/public', '**/storybook-static', '**/.storybook', 'scripts', '**/node_modules', '.dependency-cruiser.mjs'] },
+  { ignores: ['.yarn', '**/dist', '**/build', '**/public', '**/storybook-static', '**/.storybook', 'scripts', '**/node_modules', '.dependency-cruiser.mjs', 'coverage'] },
   unicornConfig,
   workspacesConfig,
   rulesConfig,

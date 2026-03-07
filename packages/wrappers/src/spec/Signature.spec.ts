@@ -1,6 +1,7 @@
-import type { Address, Hash, Hex } from '@xylabs/sdk-js'
-import { Account } from '@xyo-network/sdk-js'
-import { PayloadBuilder } from '@xyo-network/sdk-js'
+import type {
+  Address, Hash, Hex,
+} from '@xylabs/sdk-js'
+import { Account, PayloadBuilder } from '@xyo-network/sdk-js'
 import { buildRandomTransaction } from '@xyo-network/xl1-protocol-sdk'
 import {
   beforeAll, describe, expect, it,

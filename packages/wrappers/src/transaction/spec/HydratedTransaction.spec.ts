@@ -1,9 +1,8 @@
 import type { Address } from '@xylabs/sdk-js'
+import type { Payload, WithHashMeta } from '@xyo-network/sdk-js'
 import { Account } from '@xyo-network/sdk-js'
 import type { SignedHydratedTransactionWithHashMeta } from '@xyo-network/xl1-protocol'
-import {
-  XYO_ZERO_ADDRESS,
-} from '@xyo-network/xl1-protocol'
+import { XYO_ZERO_ADDRESS } from '@xyo-network/xl1-protocol'
 import {
   buildRandomTransaction,
   createTransferPayload,
@@ -47,7 +46,7 @@ describe('HydratedTransactionWrapper', () => {
     })
 
     it('from returns the transaction sender address', async () => {
-      const wrapper = await HydratedTransactionWrapper.parse(transaction)
+      const wrapper = await HydratedTransactionWrapper.parse(transaction) as HydratedTransactionWrapper<typeof transaction>
       expect(wrapper.from).toBe(transaction[0].from)
     })
 
@@ -87,12 +86,12 @@ describe('HydratedTransactionWrapper', () => {
     })
 
     it('signatures returns the cached signature array', async () => {
-      const wrapper = await HydratedTransactionWrapper.parse(transaction)
+      const wrapper = await HydratedTransactionWrapper.parse(transaction) as HydratedTransactionWrapper<typeof transaction>
       expect(wrapper.signatures.length).toBe(wrapper.signatureCount)
     })
 
     it('signature(0) returns the first signature wrapper', async () => {
-      const wrapper = await HydratedTransactionWrapper.parse(transaction)
+      const wrapper = await HydratedTransactionWrapper.parse(transaction) as HydratedTransactionWrapper<typeof transaction>
       expect(wrapper.signature(0)).toBeDefined()
     })
 
@@ -102,7 +101,7 @@ describe('HydratedTransactionWrapper', () => {
     })
 
     it('gasRequired() returns a positive value', async () => {
-      const wrapper = await HydratedTransactionWrapper.parse(transaction)
+      const wrapper = await HydratedTransactionWrapper.parse(transaction) as HydratedTransactionWrapper<typeof transaction>
       expect(wrapper.gasRequired()).toBeGreaterThan(0n)
     })
 
@@ -113,9 +112,9 @@ describe('HydratedTransactionWrapper', () => {
     })
 
     it('publicExternalPayloads does not include elevated payloads', async () => {
-      const wrapper = await HydratedTransactionWrapper.parse(transaction)
+      const wrapper = await HydratedTransactionWrapper.parse(transaction) as HydratedTransactionWrapper<typeof transaction>
       const elevatedHashes = new Set(wrapper.elevatedPayloads.map(p => p._hash))
-      for (const p of wrapper.publicExternalPayloads) {
+      for (const p of wrapper.publicExternalPayloads as WithHashMeta<Payload>[]) {
         expect(elevatedHashes.has(p._hash)).toBe(false)
       }
     })

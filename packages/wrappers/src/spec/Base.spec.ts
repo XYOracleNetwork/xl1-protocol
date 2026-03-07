@@ -4,8 +4,8 @@ import {
   describe, expect, it,
 } from 'vitest'
 
-import { BaseWrapper } from '../Base.ts'
 import { AddressWrapper } from '../Address.ts'
+import { BaseWrapper } from '../Base.ts'
 
 // Minimal concrete subclass for testing BaseWrapper directly
 class StringWrapper extends BaseWrapper<string> {
@@ -35,8 +35,7 @@ describe('BaseWrapper', () => {
     })
 
     it('throws when validateValue returns errors', async () => {
-      let address: Address
-      address = (await Account.random()).address
+      const _address = (await Account.random()).address
       // AddressWrapper.create() rejects non-address strings
       await expect(AddressWrapper.create('not-an-address' as Address)).rejects.toThrow()
     })

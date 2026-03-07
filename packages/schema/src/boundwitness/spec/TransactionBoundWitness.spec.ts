@@ -64,7 +64,7 @@ describe('TransactionBoundWitnessJsonSchema', () => {
     expect(validate(invalidPayload)).toBe(false)
   })
 
-  test('should invalidate a payload with invalid chain pattern', async () => {
+  test('should invalidate a payload with invalid chain pattern', () => {
     const validate = ajv.compile(TransactionBoundWitnessJsonSchema)
     const invalidPayload = {
       addresses: [],
