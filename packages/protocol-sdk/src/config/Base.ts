@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ChainConfigZod } from './Chain.ts'
+import { DataLakeConfigZod } from './DataLake.ts'
 import { EvmConfigZod } from './Evm.ts'
 import { LogConfigZod } from './Log.ts'
 import { RemoteConfigZod } from './Remote.ts'
@@ -10,6 +11,7 @@ import { ValidationConfigZod } from './Validation.ts'
 
 export const BaseConfigZod = z.object({
   chain: ChainConfigZod.default(ChainConfigZod.parse({})).describe('Configuration for the chain'),
+  dataLake: DataLakeConfigZod.default(DataLakeConfigZod.parse({})).describe('Configuration for data lakes'),
   evm: EvmConfigZod.default(EvmConfigZod.parse({})).describe('Configuration for EVM-backed services'),
   log: LogConfigZod.default(LogConfigZod.parse({})).describe('Configuration for logging'),
   remote: RemoteConfigZod.default(RemoteConfigZod.parse({})).describe('Configuration for remote services'),
