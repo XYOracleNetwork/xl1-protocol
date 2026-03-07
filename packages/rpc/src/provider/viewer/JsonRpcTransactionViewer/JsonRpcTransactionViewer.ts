@@ -13,9 +13,7 @@ import { addDataLakePayloads, creatableProvider } from '@xyo-network/xl1-protoco
 import { TransactionViewerRpcSchemas } from '../../../index-node.ts'
 import { AbstractJsonRpcViewer, JsonRpcViewerParams } from '../JsonRpcViewer.ts'
 
-export interface JsonRpcTransactionViewerParams extends JsonRpcViewerParams<typeof TransactionViewerRpcSchemas> {
-
-}
+export interface JsonRpcTransactionViewerParams extends JsonRpcViewerParams<typeof TransactionViewerRpcSchemas> {}
 
 @creatableProvider()
 export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionViewerRpcSchemas, JsonRpcTransactionViewerParams> implements TransactionViewer {
@@ -80,17 +78,17 @@ export class JsonRpcTransactionViewer extends AbstractJsonRpcViewer<TransactionV
   }
 
   async transactionByBlockHashAndIndex(blockHash: Hash, transactionIndex: number) {
-    const result = (await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex]))
+    const result = await this.transport.sendRequest('transactionViewer_transactionByBlockHashAndIndex', [blockHash, transactionIndex])
     return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   async transactionByBlockNumberAndIndex(blockNumber: number, transactionIndex: number) {
-    const result = (await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex]))
+    const result = await this.transport.sendRequest('transactionViewer_transactionByBlockNumberAndIndex', [blockNumber, transactionIndex])
     return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
   async transactionByHash(transactionHash: Hash) {
-    const result = (await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash]))
+    const result = await this.transport.sendRequest('transactionViewer_transactionByHash', [transactionHash])
     return result ? (await addDataLakePayloads(result, this.dataLakeViewer))[0] : null
   }
 
